@@ -1,6 +1,6 @@
 ---
-projeto-default:
-agente-dominio:
+projeto-default: lab-sq-jarvis
+agente-dominio: engenharia-acustica-sq
 ---
 
 # Arkan Config
