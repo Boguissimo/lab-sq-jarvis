@@ -70,6 +70,14 @@ def _texto(texto: str) -> QLabel:
     return rotulo
 
 
+def _caixa(texto: str, fundo: str, borda: str) -> QLabel:
+    """Texto em uma caixa contínua, com cores que combinam com o tema escuro."""
+    rotulo = _texto(texto)
+    rotulo.setStyleSheet(f"background:{fundo}; border-left:4px solid {borda}; "
+                         "border-radius:4px; padding:10px 14px;")
+    return rotulo
+
+
 def _grafico(titulo: str, rotulo_y: str, log_x: bool = True) -> pg.PlotWidget:
     g = pg.PlotWidget(title=titulo)
     g.setLogMode(x=log_x, y=False)
@@ -350,7 +358,7 @@ class JanelaPrincipal(QMainWindow):
             gf.setMinimumHeight(200)
             L.addWidget(gf)
 
-        partes = ["<p style='background:#eef3fb;color:#1a1a1a;padding:6px'><b>Como esta explicação foi feita:</b> por "
+        partes = ["<p><b>Como esta explicação foi feita:</b> por "
                   "regras implementadas no programa, a partir dos cálculos indicados entre colchetes — "
                   "não por IA. Os limiares das regras são <b>provisórios</b> e só foram testados em casos "
                   "simulados.</p>"]
@@ -546,11 +554,12 @@ class JanelaPrincipal(QMainWindow):
             L.addWidget(caixa)
         if e["conclusao"]:
             d = e["conclusao"]["dados"]
-            cor = {"confirmada": "#e3f3e5", "refutada": "#fbe3e1"}.get(d["veredito"], "#f1f1f1")
-            L.addWidget(_texto(
-                f"<div style='background:{cor};color:#1a1a1a;padding:8px'><h3>Veredito: hipótese {d['veredito']}</h3>"
+            fundo, borda = {"confirmada": ("#1e3326", "#4caf50"),
+                            "refutada": ("#3a2121", "#e57373")}.get(d["veredito"], ("#2c2c2c", "#9e9e9e"))
+            L.addWidget(_caixa(
+                f"<h3 style='margin:0 0 6px 0'>Veredito: hipótese {d['veredito']}</h3>"
                 f"<p>{html.escape(d['motivo'])}</p><p><b>Incerteza:</b> {html.escape(d['incerteza'])}</p>"
-                f"<p><b>Limite:</b> {html.escape(d['limite'])}</p></div>"))
+                f"<p style='margin-bottom:0'><b>Limite:</b> {html.escape(d['limite'])}</p>", fundo, borda))
             decisoes = [x for x in e["decisoes"] if not x["dados"].get("sem_intervencao")]
             if not decisoes and not encerrada:
                 linha = QHBoxLayout()
@@ -572,8 +581,8 @@ class JanelaPrincipal(QMainWindow):
                         texto += f"<p><b>{html.escape(rev['base'])}</b></p>"
                 L.addWidget(_texto(texto))
         if encerrada:
-            L.addWidget(_texto(f"<p style='background:#f4f4f4;color:#1a1a1a;padding:8px'><b>Resumo da sessão:</b> "
-                               f"{html.escape(e['sessao']['resumo'] or '')}</p>"))
+            L.addWidget(_caixa(f"<b>Resumo da sessão:</b> {html.escape(e['sessao']['resumo'] or '')}",
+                               "#2c2c2c", "#9e9e9e"))
         L.addStretch()
 
     def _concluir(self) -> None:
