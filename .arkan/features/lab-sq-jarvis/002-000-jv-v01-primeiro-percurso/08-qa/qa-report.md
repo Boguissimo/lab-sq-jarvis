@@ -5,16 +5,16 @@
 ## Resultado do QA
 
 **APROVADO COM RESSALVAS** — requisitos e invariantes verificados por teste automatizado (45 testes
-passando). Ressalvas: o G3 (SC-004, teste no Windows) e a execução do `.bat` ainda não ocorreram.
+passando) e G3 (SC-004) cumprido pelo desenvolvedor no Windows em 2026-10-15. Ressalva restante: confirmar visualmente a correção de contraste do veredito (R04).
 
-**Bloqueadores abertos**: 0 | **Divergências spec↔código**: 0 conhecidas | **Itens de UAT pendentes**: 1 (SC-004)
+**Bloqueadores abertos**: 0 | **Divergências spec↔código**: 0 conhecidas | **Itens de UAT pendentes**: 0
 
 ## 1. Requisitos
 
 | Item | Resultado | Evidência |
 | --- | --- | --- |
 | FR-001 a FR-013 | PASS | `tests/test_ref001.py`, `test_rew_texto.py`, `test_persistencia.py`, `test_calculos.py`, `test_regras.py`, `test_sessao.py`, `test_interface.py` — 45 passed |
-| FR-014 lançador | PENDENTE | `INICIAR-JARVIS.bat` revisado (G2): detecta Python 3.11–3.14, cria `.venv`, instala `requirements.txt`, mensagens simples. **Não executado no Windows** (G3) |
+| FR-014 lançador | PASS | `INICIAR-JARVIS.bat` revisado (G2) e executado pelo desenvolvedor no Windows (G3): criou o ambiente, instalou e abriu o programa |
 
 ## 2. Invariantes
 
@@ -30,7 +30,7 @@ passando). Ressalvas: o G3 (SC-004, teste no Windows) e a execução do `.bat` a
 | SC-001 | PASS | `test_sessao.py::test_percurso_completo` |
 | SC-002 | PASS | `test_interface.py` (fechar e reabrir) |
 | SC-003 | PASS | `test_calculos.py` |
-| SC-004 | PENDENTE (G3) | roteiro em `COMO-EXPERIMENTAR.md` |
+| SC-004 | PASS (G3) | desenvolvedor percorreu o roteiro no Windows: percurso até o passo 5 e sessão reencontrada no Histórico após fechar e reabrir |
 
 ## 4. Verificação mecânica
 
@@ -42,9 +42,10 @@ JV-D015: `grep` sem escapar colchetes).
 
 | # | Descrição | Prioridade | Quando |
 | --- | --- | --- | --- |
-| R01 | Executar no Windows e percorrer `COMO-EXPERIMENTAR.md` (G3) | Alta | Antes de integrar em `main` |
-| R02 | Task JV-T109 marcada com G3 pendente | Alta | Junto com R01 |
+| R01 | G3 no Windows executado (ver SC-004) | — | Resolvida |
+| R02 | Defeito achado no G3: texto do veredito ilegível no tema escuro; corrigido no commit `4544876` (texto escuro fixo nas caixas claras) | Alta | Resolvida no código; R04 |
 | R03 | Limiares e formato de texto do REW continuam provisórios | Média | JV-V02 / JV-V04 |
+| R04 | Confirmar visualmente o veredito legível após a correção | Média | Antes de integrar em `main` |
 
 ## 6. Decisão Final
 

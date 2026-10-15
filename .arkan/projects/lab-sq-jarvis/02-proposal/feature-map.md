@@ -100,7 +100,7 @@ incremento). Nada entra aqui só por estar escrito: precisa estar entregue e tes
 
 | Incremento | Feature do Arkan | Estado | O que foi entregue | Testado em |
 | --- | --- | --- | --- | --- |
-| JV-V01 | `002-000-jv-v01-primeiro-percurso` | entregue, aguardando teste G3 no Windows | Caso REF-001-A, importação de texto REW, cálculos, indícios/hipótese de polaridade, teste de diagnóstico com veredito, decisões (inclusive sem intervenção), persistência e retomada, interface de cinco passos + histórico, `INICIAR-JARVIS.bat`, `COMO-EXPERIMENTAR.md` | [qa-report.md](../../../features/lab-sq-jarvis/002-000-jv-v01-primeiro-percurso/08-qa/qa-report.md) (45 testes; SC-004 pendente) |
+| JV-V01 | `002-000-jv-v01-primeiro-percurso` | entregue; G3 no Windows cumprido | Caso REF-001-A, importação de texto REW, cálculos, indícios/hipótese de polaridade, teste de diagnóstico com veredito, decisões (inclusive sem intervenção), persistência e retomada, interface de cinco passos + histórico, `INICIAR-JARVIS.bat`, `COMO-EXPERIMENTAR.md` | [qa-report.md](../../../features/lab-sq-jarvis/002-000-jv-v01-primeiro-percurso/08-qa/qa-report.md) (45 testes; SC-004 cumprido) |
 | JV-V02 a JV-V06 | — | pendente | — | — |
 
 **Estimativa do primeiro incremento (JV-V01)**: 10–18 dias de trabalho assistido (incerteza média:

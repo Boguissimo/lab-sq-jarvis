@@ -18,6 +18,6 @@
 ## Fase 3 — Interface e entrega
 
 - [x] JV-T108 — Interface: aviso fixo, cinco passos, gráficos, histórico (FR-013). Gate: G1. Evidência: `tests/test_interface.py`.
-- [x] JV-T109 (G3 pendente: seu teste no Windows) — `INICIAR-JARVIS.bat` e `COMO-EXPERIMENTAR.md` (FR-014). Gate: G2 (revisão) e G3 (seu teste no Windows). Evidência: arquivos e roteiro.
+- [x] JV-T109 (G3 cumprido em 2026-10-15) — `INICIAR-JARVIS.bat` e `COMO-EXPERIMENTAR.md` (FR-014). Gate: G2 (revisão) e G3 (seu teste no Windows). Evidência: arquivos e roteiro.
 - [x] JV-T110 — Capturas de tela do percurso para a entrega. Gate: G2. Evidência: `docs/capturas/`.
 - [ ] JV-T111 — QA do incremento e registro de entregas no feature map (JV-D041). Gate: G1/G2. Evidência: `08-qa/qa-report.md`.
