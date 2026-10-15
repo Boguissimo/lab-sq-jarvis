@@ -350,7 +350,7 @@ class JanelaPrincipal(QMainWindow):
             gf.setMinimumHeight(200)
             L.addWidget(gf)
 
-        partes = ["<p style='background:#eef3fb;padding:6px'><b>Como esta explicação foi feita:</b> por "
+        partes = ["<p style='background:#eef3fb;color:#1a1a1a;padding:6px'><b>Como esta explicação foi feita:</b> por "
                   "regras implementadas no programa, a partir dos cálculos indicados entre colchetes — "
                   "não por IA. Os limiares das regras são <b>provisórios</b> e só foram testados em casos "
                   "simulados.</p>"]
@@ -375,7 +375,7 @@ class JanelaPrincipal(QMainWindow):
         partes.append(f"<p><b>Próximo passo sugerido pelas regras:</b> {html.escape(a['motivo'])}</p>")
         lim = regras.LIMIARES
         partes.append(
-            "<p style='color:#555'><small>Limiares provisórios: vias a até "
+            "<p style='color:#9a9a9a'><small>Limiares provisórios: vias a até "
             f"{_fmt(lim['sobreposicao_max_diferenca_db'], 0)} dB uma da outra; cancelamento quando a soma fica "
             f"{_fmt(lim['cancelamento_min_db'], 0)} dB ou mais abaixo da soma de energias; oposição quando a média "
             f"da diferença de fase passa de {_fmt(lim['oposicao_media_min_graus'], 0)}° com variação de até "
@@ -548,7 +548,7 @@ class JanelaPrincipal(QMainWindow):
             d = e["conclusao"]["dados"]
             cor = {"confirmada": "#e3f3e5", "refutada": "#fbe3e1"}.get(d["veredito"], "#f1f1f1")
             L.addWidget(_texto(
-                f"<div style='background:{cor};padding:8px'><h3>Veredito: hipótese {d['veredito']}</h3>"
+                f"<div style='background:{cor};color:#1a1a1a;padding:8px'><h3>Veredito: hipótese {d['veredito']}</h3>"
                 f"<p>{html.escape(d['motivo'])}</p><p><b>Incerteza:</b> {html.escape(d['incerteza'])}</p>"
                 f"<p><b>Limite:</b> {html.escape(d['limite'])}</p></div>"))
             decisoes = [x for x in e["decisoes"] if not x["dados"].get("sem_intervencao")]
@@ -572,7 +572,7 @@ class JanelaPrincipal(QMainWindow):
                         texto += f"<p><b>{html.escape(rev['base'])}</b></p>"
                 L.addWidget(_texto(texto))
         if encerrada:
-            L.addWidget(_texto(f"<p style='background:#f4f4f4;padding:8px'><b>Resumo da sessão:</b> "
+            L.addWidget(_texto(f"<p style='background:#f4f4f4;color:#1a1a1a;padding:8px'><b>Resumo da sessão:</b> "
                                f"{html.escape(e['sessao']['resumo'] or '')}</p>"))
         L.addStretch()
 
