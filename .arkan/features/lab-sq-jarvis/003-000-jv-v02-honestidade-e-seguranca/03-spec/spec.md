@@ -76,7 +76,7 @@
 | --- | --- | --- |
 | FR-210 | Classificar toda recomendação em `sensível — risco crescente`, `sensível — risco decrescente` ou `não sensível` (regras de segurança v0.4.0, seção 1) | `test_seguranca.py` |
 | FR-211 | Avaliar SEG-01, 03, 04, 05, 06, 08, 10, 11, 12 e 13 e registrar o resultado de cada regra aplicável (`aprovada`, `bloqueada`, `não verificável`) com a limitação da seção 0; regra sem dado confirmado segue a coluna "sem dado confirmado" das regras | `test_seguranca.py` |
-| FR-212 | SEG-02, SEG-07 e SEG-09: sem dados confirmados, `não verificável` e reforço **bloqueado**; com dados confirmados, aplicar modelos simplificados (excursão a partir de T/S e Fs; margem digital pela atenuação a montante; nível de medição declarado) marcados como **estimativa exploratória provisória** | `test_seguranca.py` |
+| FR-212 | SEG-02, SEG-07 e SEG-09 não têm fonte para valor ou método: o contrato das regras existe, mas o resultado é sempre `não verificável` e qualquer reforço que dependa delas é **bloqueado**; nenhum modelo de excursão, margem digital ou exposição é calculado neste incremento; a tela diz o que falta (T/S confirmados e Fs; atenuação a montante documentada; critério de exposição com fonte) | `test_seguranca.py` |
 | FR-213 | Dados de equipamento `planejado` ou `informado` nunca alimentam regra como confirmados (SEG-12) | `test_seguranca.py` |
 | FR-214 | Mostrar os valores provisórios como provisórios na própria recomendação (ex.: "limite provisório de +1,5 dB") | `test_seguranca.py`, `test_interface.py` |
 | FR-215 | Mostrar a "Verificação de segurança" em toda recomendação exibida na interface, inclusive a de polaridade (SEG-08, 10, 11 e 12 aplicáveis; as demais, "não se aplica") | `test_interface.py` |
@@ -120,7 +120,7 @@
 
 - Casos simulados ideais ou levemente realistas: não representam o carro (JV-D025).
 - Limiares marcados como provisórios nas definições normativas e nos valores SEG: validados só em casos simulados.
-- Modelos de excursão e margem digital: estimativas exploratórias provisórias, sem fonte normativa; não substituem dados do fabricante.
+- SEG-02, SEG-07 e SEG-09: sem modelo de cálculo (falta fonte); ficam `não verificável` e bloqueiam reforço até haver cadastro do equipamento e fonte.
 - Arquivo de ajuste do PC-Tool tratado como opaco; leitura é F019.
 - IA continua fora (JV-V03).
 
@@ -128,5 +128,5 @@
 
 ### Sessão 2026-10-15
 
-- **SEG-02, SEG-07 e SEG-09 sem fundamentação.** Decisão do desenvolvedor ("os dois"): sem dados confirmados, `não verificável` e reforço bloqueado; com dados confirmados, modelos simplificados marcados como estimativa exploratória provisória (FR-212).
+- **SEG-02, SEG-07 e SEG-09 sem fundamentação.** Decisão do desenvolvedor (opção A, depois de esclarecer): sem modelos simplificados no V02; as três regras resultam sempre `não verificável` e bloqueiam reforço (FR-212). O cálculo entra com o cadastro do equipamento e uma fonte.
 - **Detecção de `comprometida`.** Decisão do desenvolvedor: duas vias, qualquer uma basta — configuração declarada "depois" diferente da proposta ou mudança de nível de via acima de 1,0 dB (definição normativa).
