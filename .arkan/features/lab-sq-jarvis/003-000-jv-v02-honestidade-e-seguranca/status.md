@@ -3,6 +3,8 @@ status: em-desenvolvimento
 fase-atual: 01-discovery
 projeto: lab-sq-jarvis
 atualizado-em: 2026-10-15
+peso: Code
+superficie-critica: sim
 ---
 
 # 003-000-jv-v02-honestidade-e-seguranca

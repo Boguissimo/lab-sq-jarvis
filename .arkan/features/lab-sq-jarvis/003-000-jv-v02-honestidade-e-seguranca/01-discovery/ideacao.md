@@ -1,7 +1,7 @@
 # Ideação — 003-000-jv-v02-honestidade-e-seguranca (incremento JV-V02)
 
-> **Projeto**: lab-sq-jarvis | **Peso**: Code (proposto) | **Superfície crítica**: sim (proposto) | **Data**: 2026-10-15
-> **Status**: rascunho — aguardando aprovação do desenvolvedor
+> **Projeto**: lab-sq-jarvis | **Peso**: Code | **Superfície crítica**: sim | **Data**: 2026-10-15
+> **Status**: aprovada pelo desenvolvedor em 2026-10-15 (peso Code; superfície crítica: sim)
 > **Marco**: 1 (Protótipo técnico). **Features atravessadas**: F002, F005, F006, F007 completas; F003 (configurações e critérios) — feature map v4.
 
 ## Contexto
