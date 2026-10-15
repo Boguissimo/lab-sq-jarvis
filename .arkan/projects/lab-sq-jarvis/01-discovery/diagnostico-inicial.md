@@ -11,6 +11,11 @@
 > ressalva (JV-D005); meta de 90% retirada (JV-D008); MVP reduzido (JV-D010); “sinal” passou a
 > chamar-se “indício” (JV-D006); competição SQ não é requisito (JV-D013); equipamentos não
 > confirmados não são presumidos (JV-D012).
+>
+> **Revisão 2 (2026-10-15)**: as seções 2 e 3 (panorama e “o que ninguém integra”) foram substituídas
+> por [`comparacao-ferramentas.md`](comparacao-ferramentas.md) (JV-D018); a afirmação de que nenhuma
+> ferramenta conecta medições, ajustes, orientação e histórico foi retirada. O MVP da seção 5 foi
+> substituído pelos dois marcos (JV-D019).
 
 ---
 

@@ -9,6 +9,20 @@ atualizado-em: 2026-10-15
 
 Assistente inteligente de calibração de áudio automotivo SQ/SQPL: diagnóstico, hipóteses, experimentos controlados e registro rastreável, integrado ao REW e ao HELIX DSP PC-Tool.
 
+## Estado corrente — 2026-10-15, revisão 2
+
+- O desenvolvedor revisou a proposta inicial (seis pontos). Decisões JV-D017 a JV-D029 registradas;
+  substituições marcadas em `decisoes.md` (JV-D010 → JV-D019; conteúdo de JV-D014 → JV-D022).
+- Documentos revisados e **aguardando aprovação do conjunto**: briefing, visão, constituição v0.2.0,
+  regras de segurança v0.2.0, feature map v2 (dois marcos, 22 features), proposta consolidada
+  (antes `preparacao-mvp.md`) e nova comparação de ferramentas.
+- Fase do projeto permanece `01-discovery`. Nenhuma implementação autorizada.
+
+**Próxima ação válida:** aprovação do conjunto revisado e das propostas pendentes (JV-D011, JV-D015,
+JV-D016, JV-D018, JV-D029, quantidades dos critérios VP). Depois: `/arkan.ideacao` para F001.
+
+## Histórico preservado — estado anterior à revisão 2
+
 ## Estado corrente — 2026-10-15
 
 - Pacote Arkan instalado sem alteração no Core (JV-D015); projeto criado por `create-project.sh`.

@@ -1,36 +1,41 @@
 # Briefing: Lab SQ Jarvis
 
 > **Projeto**: lab-sq-jarvis
-> **Status**: **Proposta — aguardando aprovação do desenvolvedor** (documento vivo)
+> **Status**: **Proposta (revisão 2) — aguardando aprovação do desenvolvedor** (documento vivo)
 > **Data**: 2026-10-15
-> **Participantes**: Fabrício (desenvolvedor, engenheiro mecânico) + Claude (agente, Arkan)
-> **Insumos**: [`diagnostico-inicial.md`](diagnostico-inicial.md) · decisões [`../decisoes.md`](../decisoes.md)
+> **Participantes**: Fabrício (desenvolvedor e usuário, engenheiro mecânico) + Claude (agente, Arkan)
+> **Insumos**: [`diagnostico-inicial.md`](diagnostico-inicial.md) (histórico) ·
+> [`comparacao-ferramentas.md`](comparacao-ferramentas.md) · decisões [`../decisoes.md`](../decisoes.md)
+
+Siglas: **SQ/SQPL** — qualidade sonora / qualidade sonora com pressão sonora alta; **REW** — Room EQ
+Wizard; **DSP** — processador digital de sinais; **PC-Tool** — programa que configura o HELIX;
+**EQ** — equalização; **IA** — inteligência artificial; **SaaS** — software como serviço.
 
 ---
 
 ## 1. Problema
 
-Calibrar um sistema de som automotivo de qualidade sonora (SQ/SQPL) exige relacionar medições
-acústicas, configuração do DSP, geometria do veículo, limites dos equipamentos e percepção
-auditiva. As ferramentas existentes fazem bem partes isoladas — o REW mede e analisa; o HELIX DSP
-PC-Tool configura e oferece EQ automático —, mas nenhuma faz o raciocínio de engenharia que liga
-essas partes: diagnosticar a causa, formular hipóteses, planejar uma alteração controlada,
-prever seu efeito e verificar se ele ocorreu.
+Calibrar um sistema de som automotivo de qualidade sonora exige relacionar medições, configuração do
+DSP, geometria do carro, limites dos equipamentos e o que se ouve. As ferramentas existentes já
+ajudam bastante: o REW mede e calcula EQ; o PC-Tool automatiza EQ e atrasos (TuneEQ, ATM); o Flat
+Liner guia um fluxo sobre o REW; o Tuning Labs anuncia orientação com IA (ver
+[`comparacao-ferramentas.md`](comparacao-ferramentas.md)).
+
+O que falta **ao desenvolvedor**, que ainda está aprendendo, é um assistente que, no carro dele,
+explique por que algo soa como soa, proponha um teste de cada vez com o resultado esperado, registre
+o que ele ouviu antes e depois, e lembre de tudo na sessão seguinte.
 
 **Contexto atual**:
 
-O ajuste é feito por tentativa: mede-se no REW, altera-se o PC-Tool, mede-se de novo e
-compara-se de memória. Nenhuma ferramenta registra com qual ajuste do DSP cada medição foi feita;
-o EQ automático corrige a curva de magnitude sem distinguir problemas equalizáveis de
-cancelamentos e interferências, que exigem outra intervenção (polaridade, atraso, crossover) e que,
-quando “corrigidos” com reforço de EQ, gastam margem e arriscam o equipamento. Percepções
-subjetivas (“palco puxado para a esquerda”, “voz metálica”) não viram testes objetivos.
+O ajuste é feito por tentativa: mede no REW, altera no PC-Tool, mede de novo e compara de memória.
+Não fica registrado com qual configuração cada medição foi feita, nem o que foi ouvido. Correções
+automáticas de curva não distinguem problemas equalizáveis de cancelamentos e interferências, que
+pedem outra intervenção (polaridade, atraso, crossover).
 
 **Impacto**:
 
-Tempo perdido, decisões sem rastreabilidade, regressões que ninguém sabe explicar, risco de dano
-(tweeter com corte baixo demais, reforços excessivos) e aprendizado que não se acumula entre
-sessões. Afeta quem calibra o próprio sistema e precisa de método, não só de gráficos.
+Tempo perdido, decisões que não se explicam depois, regressões sem causa conhecida, risco evitável ao
+equipamento e aprendizado que não se acumula entre sessões.
 
 ---
 
@@ -38,35 +43,30 @@ sessões. Afeta quem calibra o próprio sistema e precisa de método, não só d
 
 | Perfil | Descrição | Necessidade principal |
 | --- | --- | --- |
-| Calibrador técnico (usuário primário) | Engenheiro ou entusiasta avançado que domina sistemas de som automotivo, usa REW e PC-Tool, não programa | Diagnóstico fundamentado, experimentos controlados e registro confiável do que foi feito e por quê |
-| Revisor técnico (futuro) | Outra pessoa que analisa o histórico de calibração | Reconstruir decisões a partir do registro, sem a conversa original |
+| Desenvolvedor (único usuário até a versão pessoal) | Engenheiro mecânico, conhece sistemas de som automotivo, usa REW e PC-Tool, não programa, ainda aprendendo calibração | Ajustar o próprio Focus, entender o que faz e acumular aprendizado entre sessões |
 
-**Usuário primário**: calibrador técnico — o próprio desenvolvedor, com o Ford Focus como primeiro
-veículo de referência.
+**Usuário primário**: o desenvolvedor, com o Ford Focus como veículo de referência (JV-D012).
+Outros perfis só serão considerados na avaliação comercial, depois da versão pessoal (JV-D017).
 
 ---
 
-## 3. Objetivos de Negócio
+## 3. Objetivos
 
-1. Demonstrar, com dados de referência de verdade conhecida, um ciclo completo
-   medição → cálculo → indício → hipótese → recomendação → experimento → conclusão → decisão, com
-   100% dos registros rastreáveis.
-2. Garantir que nenhuma recomendação exibida viole as regras de segurança do equipamento (zero
-   violações na suíte de testes de segurança).
+1. **Marco 1 — Protótipo técnico**: o ciclo completo funciona com casos conhecidos, com cálculos
+   verificáveis, cadeia íntegra e regras de segurança testadas (critérios PT-01 a PT-10).
+2. **Marco 2 — Versão pessoal utilizável**: o desenvolvedor faz sessões reais no Focus, entende a
+   orientação e retoma o trabalho em outro dia (critérios VP-01 a VP-10).
 3. Construir o conjunto de casos de teste e as métricas de diagnóstico antes de qualquer meta de
    acerto (JV-D008).
-4. Incorporar progressivamente medições reais do Focus, depois de confirmado o cadastro dos
-   equipamentos.
 
 **Fora do escopo desta versão**:
 
-- Medir, gerar sinais de teste ou equalizar automaticamente — pertence ao REW e ao PC-Tool (P10).
-- Escrever parâmetros no DSP (JV-D004, SEG-11).
-- Ler o arquivo de ajuste do HELIX antes de inspecionar um arquivo real.
-- Disparo automático de varreduras pela API do REW (exige Pro).
-- Projeto de filtros FIR.
+- Assinatura, SaaS, multiusuário, requisitos de oficina (JV-D017).
+- Medir, gerar sinais de teste ou equalizar automaticamente — continuam no REW e no PC-Tool (P10).
+- Escrever parâmetros no DSP (JV-D004, JV-D028).
+- API do REW, arquivo do HELIX, comparação cega, medição automatizada — depois da versão pessoal.
+- Projeto de filtros FIR (resposta ao impulso finita).
 - Competição SQ como requisito (JV-D013).
-- Metas numéricas de acerto diagnóstico (JV-D008).
 
 ---
 
@@ -74,15 +74,15 @@ veículo de referência.
 
 | Tipo | Restrição | Impacto |
 | --- | --- | --- |
-| Tecnológica | Python, SQLite, desktop Windows, uso local (JV-D002) | Sem servidor; empacotamento para dois cliques |
-| Tecnológica | HELIX sem API pública nem formato de arquivo documentado | Integração assistida pelo humano (JV-D004) |
-| Tecnológica | API do REW: leitura livre; varredura exige Pro | Leitura e importação no escopo; automação de medição fora |
-| Metodológica | Cálculo de validação e recomendação só determinístico (P3) | IA restrita a interpretação, planejamento, conversa e estimativas marcadas |
-| Segurança | Regras SEG-01 a SEG-12 (proposta) | Recomendações sensíveis bloqueadas sem dado confirmado; aprovação de nível B |
-| Dados | Equipamentos do Focus ainda não confirmados; itens planejados não presumidos (JV-D012) | MVP usa dados de referência construídos |
-| IA | Independência de fornecedor; envio conforme necessidade técnica, com transparência e controle (JV-D005) | Camada de adaptação e registro de envios |
-| Operacional | Desenvolvedor não programa (P13) | Operação por interface; erros em linguagem simples |
-| Método | Arkan Core sem modificação | Defeitos encontrados no Core são registrados, não corrigidos aqui |
+| Tecnológica | Python, SQLite, desktop Windows, uso local (JV-D002, JV-D028) | sem servidor; abrir com dois cliques |
+| Tecnológica | HELIX sem API pública nem formato de arquivo documentado | ajustes aplicados à mão pelo desenvolvedor (JV-D004) |
+| Metodológica | cálculos de validação e recomendação determinísticos (P3) | IA explica, planeja e conversa; estimativas marcadas |
+| Medição | fase e soma prevista exigem referência temporal compatível (JV-D023) | protocolo de medição precisa garantir isso |
+| Segurança | regras SEG reduzem risco, não garantem segurança (JV-D022) | recomendações sensíveis com aprovação nominal |
+| Dados | equipamentos do Focus ainda não confirmados; itens planejados não presumidos (JV-D012) | Marco 1 usa casos simulados |
+| IA | independência de fornecedor; envio conforme necessidade, com transparência e controle (JV-D005) | adaptador e registro de envios |
+| Operacional | desenvolvedor não programa; quer fluxo guiado, não telas avulsas (P13) | sessão em cinco passos |
+| Método | Arkan Core sem modificação | defeitos do Core registrados (JV-D015), não corrigidos aqui |
 
 ---
 
@@ -90,8 +90,8 @@ veículo de referência.
 
 | Nome / Papel | Interesse | Nível de envolvimento |
 | --- | --- | --- |
-| Fabrício — desenvolvedor e usuário primário | Calibração com método e rastreabilidade; decisões de engenharia | Alto |
-| Mantenedor do Arkan | Integridade do Core; recebe as observações de defeito registradas em JV-D015 | Baixo |
+| Fabrício — desenvolvedor e usuário | ajustar o Focus com método; decisões de engenharia | Alto |
+| Mantenedor do Arkan | integridade do Core; recebe as observações de JV-D015 | Baixo |
 
 **Decisor final**: Fabrício.
 
@@ -101,37 +101,46 @@ veículo de referência.
 
 ### Decisões tomadas
 
-| Decisão | Fundamentação | Alternativas descartadas |
-| --- | --- | --- |
-| JV-D001 a JV-D004, JV-D007 | aprovadas pelo desenvolvedor em 2026-10-15 a partir do diagnóstico inicial | ver `decisoes.md` |
-| JV-D005 | independência de IA; dados conforme necessidade técnica, com transparência e controle | regra fixa “só dados derivados” |
-| JV-D006 | IA pode estimar de forma identificada; validação e recomendação por rotina determinística | IA proibida de qualquer número |
-| JV-D008 | métricas antes de metas | meta de 90% no início |
-| JV-D010 | MVP com dados de referência | MVP com medições reais do carro |
+| Decisão | Fundamentação |
+| --- | --- |
+| JV-D001 a JV-D004, JV-D007 | aprovadas a partir do diagnóstico inicial |
+| JV-D005, JV-D006 | IA independente; dados por necessidade técnica; estimativas identificadas |
+| JV-D008 | métricas antes de metas |
+| JV-D017 | pessoal primeiro, comercial depois |
+| JV-D018 | comparação refeita; sem pretensão de ineditismo |
+| JV-D019 | dois marcos (substitui JV-D010) |
+| JV-D020, JV-D021 | sessão guiada; percepção antes/depois |
+| JV-D022 a JV-D026 | limites técnicos e de segurança corrigidos |
+| JV-D027, JV-D028 | medições reais por arquivo; preservações reafirmadas |
 
 ### Dúvidas resolvidas
 
 | Pergunta | Resolução |
 | --- | --- |
-| O Jarvis compete com REW ou PC-Tool? | Não; complementa (P10). |
-| Usa-se equipamento planejado nas análises? | Não, só confirmado (P5, SEG-12). |
-| Competição é requisito? | Não (JV-D013). |
-| A questão do Arkan Fiscal entra no projeto? | Não; pendência independente (JV-D009). |
+| O Jarvis precisa ser inédito? | Não; justifica-se pelo que acrescenta ao uso do desenvolvedor (JV-D018). |
+| Passar no REF-001 prova utilidade? | Não; prova funcionamento técnico. Utilidade só no Marco 2 (JV-D019). |
+| Medições reais esperam a API do REW? | Não; usam importação de arquivos (JV-D027). |
+| As regras garantem a segurança do equipamento? | Não; reduzem o risco nas condições conhecidas (JV-D022). |
 
 ### Pendências de informação (só o desenvolvedor pode fornecer)
 
 1. Versão e licença do REW instalado.
 2. Cadastro real do Focus: DSP, amplificadores, alto-falantes, posições — com fichas técnicas.
-3. Microfone e interface de medição efetivamente disponíveis.
-4. Um arquivo de ajuste do PC-Tool, para inspeção do formato (quando houver DSP).
+3. Microfone e interface de medição efetivamente disponíveis (e se permitem referência temporal).
+4. Um arquivo de ajuste do PC-Tool, quando houver DSP (para a F019).
 5. Provedores de IA aceitos.
 
 ### Síntese (aguardando validação)
 
 - **Nome canônico**: Lab SQ Jarvis (`lab-sq-jarvis`).
-- **Definição**: assistente desktop de calibração de áudio automotivo que transforma medições,
-  configuração e percepção em diagnóstico fundamentado, experimentos controlados e registro
-  rastreável, trabalhando com o REW e o HELIX DSP PC-Tool.
-- **Escopo do MVP**: ciclo de diagnóstico e experimento assistido sobre dados de referência
-  (ver `../02-proposal/preparacao-mvp.md`).
+- **Definição**: assistente pessoal de calibração de áudio automotivo que guia uma sessão — do que se
+  percebe ao que mudou —, explicando, testando e lembrando, junto com o REW e o PC-Tool.
+- **Escopo**: Marco 1 e Marco 2 (ver `../02-proposal/proposta-consolidada.md`).
 - **Fora do escopo**: lista da seção 3.
+
+### Histórico de revisões
+
+| Data | Mudança |
+| --- | --- |
+| 2026-10-15 | Versão inicial |
+| 2026-10-15 | Revisão 2: foco pessoal; problema reescrito reconhecendo o que as ferramentas já fazem; objetivos por marco; público reduzido ao desenvolvedor |

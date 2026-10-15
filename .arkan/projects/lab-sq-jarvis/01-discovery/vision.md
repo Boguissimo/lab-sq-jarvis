@@ -2,37 +2,41 @@
 
 > **Projeto**: lab-sq-jarvis
 > **Input**: [briefing.md](briefing.md)
-> **Status**: **Proposta — aguardando aprovação do desenvolvedor**
+> **Status**: **Proposta (revisão 2) — aguardando aprovação do desenvolvedor**
 > **Data**: 2026-10-15
+
+Siglas: **REW** — Room EQ Wizard; **PC-Tool** — programa que configura o HELIX; **DSP** — processador
+digital de sinais; **IA** — inteligência artificial; **SEG** — regra de segurança; **PT/VP** —
+critérios do Protótipo Técnico e da Versão Pessoal.
 
 ---
 
 ## 1. Vision Statement
 
-> Para quem calibra sistemas de som automotivo de qualidade sonora e precisa de método, o Lab SQ
-> Jarvis é um engenheiro de áudio virtual que transforma medições, configuração e percepção em
-> diagnóstico fundamentado, experimentos controlados e registro rastreável. Diferente do EQ
-> automático e dos analisadores, ele explica a causa, prevê o efeito de cada alteração antes de
-> aplicá-la, verifica o resultado e nunca arrisca o equipamento.
+> Um engenheiro de calibração ao lado do desenvolvedor: guia cada sessão no Focus — do que se percebe
+> ao que mudou —, explica o porquê com base nas medições e no equipamento real, propõe um teste de
+> cada vez com o resultado esperado e lembra de tudo na sessão seguinte. Trabalha com o REW e o
+> PC-Tool, reduzindo os riscos ao equipamento dentro do que é conhecido, sem prometer o que não pode
+> garantir.
 
-**Proposta de valor**: a inteligência de diagnóstico e o método experimental que faltam entre o
-REW (que mede) e o PC-Tool (que configura), com segurança e rastreabilidade verificáveis.
+**Proposta de valor**: entender e aprender enquanto ajusta, com um histórico que se acumula — em vez
+de só chegar a uma curva-alvo.
 
 ---
 
-## 2. KPIs de Sucesso
+## 2. Indicadores de Sucesso
 
-| KPI | Baseline | Meta | Prazo |
+| Indicador | Baseline | Meta | Marco |
 | --- | --- | --- | --- |
-| Rastreabilidade da cadeia (registros com tipo e referências válidas) | inexistente | 100% | MVP |
-| Recomendações exibidas que violam regras de segurança | não controlado | 0 | MVP |
-| Reprodutibilidade dos cálculos (mesmas entradas ⇒ mesmo resultado) | — | 100% dos casos de referência | MVP |
-| Ciclo completo demonstrado no primeiro caso de referência, com veredito correto | — | demonstrado e aprovado em G3 | MVP |
-| Conjunto de casos de referência com verdade definida e métricas escolhidas | inexistente | conjunto inicial publicado; métricas definidas, **sem meta numérica** (JV-D008) | MVP |
-| Experimentos com medições reais do Focus | 0 | a definir após confirmação do cadastro | pós-MVP |
+| Critérios PT-01 a PT-10 atendidos | — | todos | Marco 1 |
+| Recomendações exibidas que violam regras SEG | não controlado | 0 | Marcos 1 e 2 |
+| Sessões reais completas no Focus | 0 | ≥ 3, em ≥ 2 dias (proposta) | Marco 2 |
+| Orientações compreendidas nas duas últimas sessões | — | todas “entendi” (proposta) | Marco 2 |
+| Sessão retomada só pelo resumo | — | ≥ 1 | Marco 2 |
+| Declaração de utilidade do desenvolvedor (VP-10) | — | positiva, justificada | Marco 2 |
+| Métricas de diagnóstico | inexistentes | definidas e medidas, **sem meta** (JV-D008) | Marcos 1 e 2 |
 
-**KPI primário (MVP)**: ciclo completo demonstrado no primeiro caso de referência, com 100% de
-rastreabilidade e zero violações de segurança.
+**Indicador primário**: Marco 2 atendido — critérios VP-01 a VP-10.
 
 ---
 
@@ -40,56 +44,55 @@ rastreabilidade e zero violações de segurança.
 
 | Risco | Probabilidade | Impacto | Mitigação |
 | --- | --- | --- | --- |
-| IA apresentar número sem origem como fato | Média | Alto | verificador de números (P3); provedor simulado nos testes |
-| Recomendação danificar equipamento | Baixa | Crítico | regras SEG; aprovação de nível B; bloqueio sem dado confirmado |
-| Dados de referência sintéticos não representarem o habitáculo real | Alta | Médio | casos com ruído, reflexões e controles negativos; medições reais incorporadas progressivamente |
-| Formato do arquivo do PC-Tool inacessível | Média | Médio | integração assistida; receita de alteração manual |
-| Mudanças na API do REW | Baixa | Médio | importação de arquivo como caminho garantido |
-| Escopo derivar para “novo REW” | Média | Alto | P10; revisão do agente de domínio |
-| Defeitos do Core do Arkan travarem gates | Média | Baixo | registrar (JV-D015) e verificar manualmente o equivalente |
+| O Jarvis não ajudar mais que ferramentas já existentes | Média | Alto | sessão de referência com Flat Liner ou TuneEQ/ATM (JV-D018); critério VP-10 compara |
+| Fluxo guiado ficar complexo demais | Média | Alto | sessão em cinco passos; cadeia por trás; critério PT-10 e VP-03 |
+| IA apresentar número sem origem ou fora de contexto | Média | Alto | verificador por origem, grandeza, unidade e canal (JV-D026) |
+| Recomendação causar dano ao equipamento | Baixa | Crítico | regras SEG, aprovação nominal, bloqueio sem dado confirmado; limites declarados (JV-D022) |
+| Medições do carro sem referência temporal | Alta | Médio | protocolo de medição (F012); recusa explícita de análises de fase (JV-D023) |
+| Diagnóstico ajustado em casos simulados falhar no carro | Alta | Médio | limite de generalização (JV-D025); testes discriminantes; F014 |
+| Formato do arquivo do PC-Tool inacessível | Média | Baixo | ajustes à mão com receita; leitura só depois (F019) |
+| Defeitos do Core do Arkan travarem gates | Média | Baixo | registro (JV-D015) e verificação equivalente |
 
-**Risco crítico**: recomendação que danifique o equipamento.
+**Risco crítico**: dano ao equipamento por recomendação.
 
 ---
 
 ## 4. Prioridades Acordadas
 
-### P1 — Essencial (MVP)
+### P1 — Marco 1: Protótipo técnico
 
-- Fundação do projeto no Arkan (constituição, decisões, regras de segurança, agente de domínio).
-- Casos acústicos de referência com verdade conhecida e métricas definidas.
-- Registro da cadeia de conhecimento com originais imutáveis e diário.
-- Importação de arquivos do REW.
-- Cálculos determinísticos validados para o primeiro caso.
-- Indícios e hipóteses a partir dos cálculos.
-- Experimento assistido com previsão, verificação de segurança e veredito.
-- Assistente conversacional com IA substituível, verificador de números e registro de envios.
-- Interface desktop mínima que conduz o ciclo.
+- Fundação; casos de referência; registro e histórico; importação de arquivos; cálculos; indícios e
+  hipóteses; experimento e segurança; sessão guiada com percepção; assistente de IA; aceite.
 
-### P2 — Importante (v1.0)
+### P1 — Marco 2: Versão pessoal utilizável
 
-- Leitura direta pela API do REW.
-- Cadastro real do Focus e incorporação progressiva de medições reais.
-- Receita de alteração e exportação de filtros no formato aceito pelo PC-Tool.
-- Ampliação do conjunto de casos e das métricas de diagnóstico.
-- Leitura do arquivo de ajuste do HELIX (após inspeção).
+- Cadastro do Focus; protocolo de medição; medições reais; diagnóstico ampliado; receita para o
+  PC-Tool; retomada e aprendizado; validação pessoal.
 
-### P3 — Desejável (roadmap)
+### P3 — Depois da versão pessoal
 
-- Medição automatizada pela API do REW (Pro).
-- Sessões de audição estruturadas (nível igualado, comparação cega).
+- API do REW; arquivo do HELIX; comparação cega; medição automatizada; avaliação comercial.
 
 ### Fora do Escopo (decisão explícita)
 
-- Escrever no DSP — segurança e ausência de API (JV-D004).
-- EQ automático e geração de sinais de medição — já existem (P10).
+- Assinatura, SaaS e oficinas antes da versão pessoal (JV-D017).
+- Escrever no DSP (JV-D004).
+- EQ automático e geração de sinais de medição (P10).
 - Competição SQ como requisito (JV-D013).
 
 ---
 
 ## 5. Próximos Passos
 
-- [ ] Aprovar briefing, visão, constituição e regras de segurança
-- [ ] Aprovar decomposição em features (`feature-map.md`) e dependências
-- [ ] Aprovar JV-D011 (interface), JV-D015 (instalação) e JV-D016 (primeiro caso)
+- [ ] Aprovar o conjunto revisado (briefing, visão, constituição v0.2.0, regras de segurança v0.2.0,
+      feature map v2, proposta consolidada, comparação de ferramentas)
+- [ ] Decidir as propostas pendentes: JV-D011, JV-D015, JV-D016, JV-D018 (sessão de referência),
+      JV-D029 e as quantidades dos critérios VP
 - [ ] Iniciar F001 via `/arkan.ideacao`
+
+### Histórico de revisões
+
+| Data | Mudança |
+| --- | --- |
+| 2026-10-15 | Versão inicial |
+| 2026-10-15 | Revisão 2: retirada a promessa “nunca arrisca o equipamento”; indicadores por marco; riscos de não superar ferramentas existentes e de complexidade do fluxo; prioridades por marco |

@@ -14,4 +14,6 @@ Este arquivo só aponta caminhos; não guarda estado (constituição, P11).
 | fontes (`JV-S`) | [`.arkan/projects/lab-sq-jarvis/01-discovery/fontes.md`](.arkan/projects/lab-sq-jarvis/01-discovery/fontes.md) |
 | diagnóstico inicial (histórico) | [`.arkan/projects/lab-sq-jarvis/01-discovery/diagnostico-inicial.md`](.arkan/projects/lab-sq-jarvis/01-discovery/diagnostico-inicial.md) |
 | briefing e visão | [`01-discovery/`](.arkan/projects/lab-sq-jarvis/01-discovery/) |
-| features, dependências e MVP | [`02-proposal/feature-map.md`](.arkan/projects/lab-sq-jarvis/02-proposal/feature-map.md) · [`preparacao-mvp.md`](.arkan/projects/lab-sq-jarvis/02-proposal/preparacao-mvp.md) |
+| proposta consolidada (escopo, sessão guiada, marcos e critérios) | [`02-proposal/proposta-consolidada.md`](.arkan/projects/lab-sq-jarvis/02-proposal/proposta-consolidada.md) |
+| features, dependências e sequência | [`02-proposal/feature-map.md`](.arkan/projects/lab-sq-jarvis/02-proposal/feature-map.md) |
+| comparação com REW, PC-Tool, Flat Liner, Tuning Labs e ACCORDO | [`01-discovery/comparacao-ferramentas.md`](.arkan/projects/lab-sq-jarvis/01-discovery/comparacao-ferramentas.md) |
