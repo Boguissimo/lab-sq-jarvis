@@ -1,7 +1,7 @@
 # Proposta Consolidada — Lab SQ Jarvis
 
 > **Projeto**: lab-sq-jarvis
-> **Status**: **Proposta (revisão 3) — aguardando aprovação do desenvolvedor para implementar**
+> **Status**: **Aprovada (G3, 2026-10-15; JV-D042)**, com os ajustes JV-D038 a JV-D041 incorporados
 > **Data**: 2026-10-15
 > **Substitui**: `preparacao-mvp.md` (v1, mesmo arquivo renomeado; histórico no git) e a versão da
 > revisão 2 deste arquivo. Anexo do [`feature-map.md`](feature-map.md), fonte canônica de features,
@@ -84,8 +84,10 @@ ferramentas quando fizer sentido.
 3. **Explicar prioridades**: por que tratar primeiro isto e não aquilo (por exemplo, proteção e
    crossovers antes de EQ; problema de fase antes de corrigir magnitude).
 4. **Escolher o próximo passo**: uma medição, um teste de diagnóstico, uma etapa de calibração — ou
-   **nada a alterar**, quando os dados e a sua percepção não justificam mudança. Encerrar uma sessão
-   sem ajuste é um resultado válido e fica registrado com a justificativa.
+   uma **decisão sem intervenção**: “nada a alterar”, quando os dados e a sua percepção não
+   justificam mudança, ou “solicitar dados adicionais”, quando falta informação. Essa decisão fica
+   registrada com a fundamentação e os registros que a sustentam, sem criar experimento fictício e
+   sem se confundir com uma conclusão experimental (JV-D038).
 5. **Voltar quando o resultado exigir**: se uma etapa revela problema de uma etapa anterior (por
    exemplo, o EQ não resolve porque há cancelamento no cruzamento), o Jarvis propõe voltar a ela.
 
@@ -153,8 +155,18 @@ cada medição, sem fingir uma verificação que não consegue fazer:
 3. **Antes de alterar**: salve o ajuste atual no PC-Tool com o nome que o Jarvis sugere (por exemplo,
    `JV-2026-10-20-S03-antes`) e entregue o arquivo ao Jarvis (arquivada).
 4. **Depois de aplicar**: salve de novo (`…-depois`), entregue o arquivo e confirme que enviou ao DSP.
-5. **Reverter**: o Jarvis indica qual arquivo carregar no PC-Tool; sem arquivo, mostra a receita
-   inversa.
+5. **Reverter** (JV-D040):
+   - com o arquivo “antes” arquivado: o Jarvis indica qual arquivo carregar no PC-Tool;
+   - sem arquivo, mas com **todos** os valores anteriores necessários registrados (por exemplo, a
+     polaridade anterior de um canal): o Jarvis mostra a receita inversa;
+   - numa **etapa de calibração** (conjunto de alterações), a receita inversa só existe se todos os
+     parâmetros do conjunto foram registrados antes; o caminho normal é preservar o arquivo “antes”;
+   - faltando informação: o Jarvis diz que **a reversão não está garantida** e o que falta.
+
+**Conferência de parâmetros** (JV-D039): enquanto o Jarvis não souber ler o arquivo do PC-Tool, ele
+confere somente valores efetivamente acessíveis — os que você lê no PC-Tool e informa (origem:
+declarado) e o efeito observado nas medições (origem: medição) —, sempre com a origem identificada.
+O arquivo arquivado é registro e recurso de restauração, não conferência.
 
 Cada medição guarda a configuração declarada, o arquivo associado (se houver) e o resultado da
 medição de controle (se feita). O histórico mostra sempre o nível de confiança.
@@ -212,10 +224,10 @@ estado do DSP, exceto a variável em teste. Faltando qualquer condição: só ma
 | Grupo | Entidades e campos principais |
 | --- | --- |
 | Cadastro | Veículo; Equipamento (tipo, fabricante, modelo, estado `planejado`/`informado`/`confirmado`, fonte); Especificação (grandeza, valor, unidade, fonte, estado); Canal; Posição |
-| Configurações | Configuração (nome, origem, **nível de confiança** `declarada`/`arquivada`/`coerente`); arquivo do PC-Tool por hash, quando houver; medição de controle associada |
+| Configurações | Configuração (nome, **nível de confiança** `declarada`/`arquivada`/`coerente`); arquivo do PC-Tool por hash, quando houver; **parâmetros registrados** (canal, parâmetro, valor, origem `declarado`/`medição`/`caso simulado`), usados para receita inversa; medição de controle associada |
 | Originais | Arquivo original (hash SHA-256, nome, tipo, data) — só inserção |
-| Sessão | Sessão (modo `calibração`/`queixa`, data, estado, resumo, encerramento: com ou sem ajuste e justificativa); **Percepção** (antes/depois, descrição, faixa, música, posição, volume, nota opcional, origem `real`/`simulada`/`não aplicável`) |
-| Cadeia | Registro (tipo, autor `sistema`/`ia`/`usuário`, data) + Derivação; tipos: medição (configuração vigente, tipo de referência temporal), cálculo, estimativa exploratória, indício, hipótese, recomendação (classe de sensibilidade, resultado de cada SEG, aprovação), **teste de diagnóstico** (variável, previsão, critério, veredito, incerteza), **etapa de calibração** (objetivo, conjunto de alterações, ferramenta usada, resultado, incerteza), conclusão, decisão (inclusive “decisão do usuário — condição não verificada”) |
+| Sessão | Sessão (modo `calibração`/`queixa`, data, estado, resumo, encerramento: com intervenção, `nada a alterar` ou `solicitar dados adicionais`, com fundamentação); **Percepção** (antes/depois, descrição, faixa, música, posição, volume, nota opcional, origem `real`/`simulada`/`não aplicável`) |
+| Cadeia | Registro (tipo, autor `sistema`/`ia`/`usuário`, data) + Derivação; tipos: medição (configuração vigente, tipo de referência temporal), cálculo, estimativa exploratória, indício, hipótese, recomendação (classe de sensibilidade, resultado de cada SEG, aprovação), **teste de diagnóstico** (variável, previsão, critério, veredito, incerteza), **etapa de calibração** (objetivo, conjunto de alterações, ferramenta usada, resultado, incerteza), conclusão experimental (só a partir de experimento), decisão — inclusive **decisão sem intervenção** (`nada a alterar`, `solicitar dados adicionais`), que deriva de avaliação, cálculos, indícios ou hipóteses, e “decisão do usuário — condição não verificada” |
 | Critérios e preferências | Critério técnico versionado; Preferência pessoal versionada; Observação aprendida (com proveniência; ordena hipóteses, não altera critérios) |
 | Transparência | Envio à IA (provedor, finalidade, categorias de dado, volume, autorização) |
 | Diário | Evento (só inserção) |

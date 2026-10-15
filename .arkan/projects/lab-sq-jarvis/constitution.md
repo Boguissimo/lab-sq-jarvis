@@ -1,8 +1,9 @@
 # Constituição do Projeto — lab-sq-jarvis (Lab SQ Jarvis)
 
-> **Versão**: 0.3.0 | **Projeto**: lab-sq-jarvis | **Namespace**: `JV` | **Data**: 2026-10-15 (revisão 3)
-> **Estado**: **proposta — aguardando ratificação do desenvolvedor (G3)**. Enquanto não ratificada,
-> nenhuma feature passa de `/arkan.ideacao`.
+> **Versão**: 0.4.0 | **Projeto**: lab-sq-jarvis | **Namespace**: `JV` | **Data**: 2026-10-15
+> **Estado**: **ratificada pelo desenvolvedor (G3) em 2026-10-15** — “a revisão 3 está alinhada com o
+> que quero. Podemos sair do planejamento geral e começar a construir”, com os ajustes JV-D038 a
+> JV-D041 incorporados nesta versão (JV-D042).
 
 ## Arkan Core
 
@@ -46,18 +47,27 @@ Todo registro produzido ou guardado pelo sistema pertence a exatamente um tipo d
 e aponta para os registros de que deriva. Dois tipos laterais completam a cadeia: a **percepção**
 do desenvolvedor, registrada antes e depois de cada teste (JV-D021), que motiva a sessão e
 integra o experimento; e as **estimativas exploratórias** da IA (P3), fora da cadeia de validação. Nenhum tipo é promovido a outro sem passar pelos elos intermediários:
-indício não vira conclusão, hipótese não vira recomendação sem indício, conclusão não existe sem
-experimento.
+indício não vira conclusão, hipótese não vira recomendação sem indício, **conclusão experimental**
+não existe sem experimento.
+
+A cadeia **não precisa chegar ao experimento** (JV-D038). Uma **decisão sem intervenção** —
+“nada a alterar” ou “solicitar dados adicionais” — pode ser registrada a partir da avaliação do
+estado, de cálculos, indícios ou hipóteses, com fundamentação escrita. Ela é distinta de uma
+conclusão experimental: não afirma que algo foi testado e não cria experimento fictício.
 
 > **Critério de verificação**: uma rotina de integridade percorre o banco e confirma que 100% dos
-> registros têm tipo válido e referências para registros existentes do tipo anterior permitido.
+> registros têm tipo válido e referências para registros existentes do tipo anterior permitido;
+> toda conclusão experimental aponta para um experimento; toda decisão sem intervenção tem
+> fundamentação e aponta para os registros que a sustentam, e nenhuma aponta para experimento.
 
 ### P2. Medições e configurações originais são imutáveis (NÃO-NEGOCIÁVEL)
 
 Arquivos importados (medições do REW, arquivos de ajuste do PC-Tool, calibrações de microfone)
 são guardados como recebidos e identificados pelo hash SHA-256. O sistema nunca os altera nem os
 substitui; correções e reprocessamentos geram registros novos que apontam para o original.
-Configurações anteriores do DSP nunca se perdem: cada estado é um snapshot próprio.
+Cada configuração registrada é um registro próprio e nunca é sobrescrita. O Jarvis só preserva o
+que lhe é entregue (arquivos do PC-Tool e valores declarados): quando falta o necessário para
+restaurar um estado anterior, ele diz que **a reversão não está garantida** (JV-D040).
 
 > **Critério de verificação**: o hash de cada original confere a qualquer momento; um teste
 > automatizado tenta sobrescrever um original e verifica que a operação é recusada e registrada.
@@ -257,3 +267,4 @@ identificadores próprios, definidos no modelo de dados — não se confundem co
 | 0.1.0 | 2026-10-15 | — | Proposta inicial, derivada do diagnóstico e das decisões de 2026-10-15; aguardando ratificação |
 | 0.2.0 | 2026-10-15 | Minor | Revisão 2: propósito pessoal (JV-D017); percepção na cadeia (JV-D021); P3 com conferência de grandeza, unidade e canal (JV-D026); P4 como redução de risco, sem garantia (JV-D022); P6 com veredito `comprometida` (JV-D024); P7 com referência temporal e limite de generalização (JV-D023, JV-D025); P13 reescrito como sessão guiada (JV-D020); P14 novo. Aguardando ratificação |
 | 0.3.0 | 2026-10-15 | Minor | Revisão 3: P3 com origens legítimas de números além de cálculo (JV-D033); P4 — aprovação não verifica (JV-D032); P6 distingue teste de diagnóstico e etapa de calibração (JV-D031). Aguardando ratificação |
+| 0.4.0 | 2026-10-15 | Minor | Ratificação (JV-D042) com ajustes: P1 admite decisão sem intervenção, distinta de conclusão experimental (JV-D038); P2 deixa de prometer que configurações nunca se perdem e declara reversão não garantida quando faltam dados (JV-D040) |

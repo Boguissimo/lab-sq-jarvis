@@ -19,12 +19,12 @@
 | JV-D008 | Sem meta de acerto diagnóstico antes de existir conjunto de teste e verdade de referência | Método | aprovada (ajuste 2) | 2026-10-15 |
 | JV-D009 | Scripts CRLF do Arkan Fiscal: pendência independente | Método | registrada (ajuste 6) | 2026-10-15 |
 | JV-D010 | MVP reduzido: ciclo de diagnóstico e experimento assistido com dados de referência | Escopo | **substituída por JV-D019** (dois marcos) | 2026-10-15 |
-| JV-D011 | Interface desktop em PySide6 (Qt) com gráficos pyqtgraph | Técnica | **proposta**; lista de telas substituída pelo fluxo guiado (JV-D020) | 2026-10-15 |
+| JV-D011 | Interface desktop em PySide6 (Qt) com gráficos pyqtgraph | Técnica | **aprovada** (G3, 2026-10-15: “usando PySide6 com pyqtgraph conforme proposto”) | 2026-10-15 |
 | JV-D012 | Ford Focus como primeiro veículo de referência; equipamentos só após confirmação | Escopo | aprovada | 2026-10-15 |
 | JV-D013 | Competição SQ não é requisito inicial | Escopo | aprovada | 2026-10-15 |
 | JV-D014 | Regras de segurança explícitas (`regras-de-seguranca.md`) | Segurança | aprovada como exigência; conteúdo v0.1.0 **substituído por JV-D022** (v0.2.0, proposta) | 2026-10-15 |
-| JV-D015 | Instalação do Arkan: pacote reconstituído, sem o projeto de exemplo; branches `lab-sq-jarvis/…` | Método | **proposta** | 2026-10-15 |
-| JV-D016 | Primeiro caso acústico de referência: polaridade invertida no cruzamento médio/tweeter | Método | **proposta**; controle N3 revisto por JV-D024; limite de generalização em JV-D025 | 2026-10-15 |
+| JV-D015 | Instalação do Arkan: pacote reconstituído, sem o projeto de exemplo; branches `lab-sq-jarvis/…` | Método | aprovada (G3, 2026-10-15: “siga o Arkan, preserve as decisões e mantenha o Core sem alterações”) | 2026-10-15 |
+| JV-D016 | Primeiro caso acústico de referência: polaridade invertida no cruzamento médio/tweeter | Método | aprovada (G3, 2026-10-15, autorização do JV-V01 sobre o REF-001-A); N3 por JV-D024, limite em JV-D025, N5 em JV-D035 | 2026-10-15 |
 | JV-D017 | Ferramenta pessoal primeiro; potencial comercial avaliado depois de pronta | Escopo | aprovada (revisão 2) | 2026-10-15 |
 | JV-D018 | Comparação com ferramentas refeita com fontes oficiais; afirmação de ineditismo retirada | Método | aprovada (revisão 2); lacunas corrigidas e teste de outra ferramenta tornado **opcional** por JV-D036 | 2026-10-15 |
 | JV-D019 | Dois marcos: Protótipo técnico e Versão pessoal utilizável | Escopo | aprovada (revisão 2); substitui JV-D010 | 2026-10-15 |
@@ -40,12 +40,17 @@
 | JV-D029 | Sequência de ajuste de referência (o que um profissional faria) com fontes; referência sonora pessoal como critério do usuário | Método | **proposta**; comportamento concreto em JV-D030 | 2026-10-15 |
 | JV-D030 | Comportamento do calibrador: dois modos de sessão, avaliação do estado, prioridades, próximo passo, “nada a alterar” e retorno a etapas | Método | aprovada (revisão 3) quanto ao comportamento; sequência de referência continua dependendo de fontes (JV-D029) | 2026-10-15 |
 | JV-D031 | Teste de diagnóstico (uma variável) × etapa de calibração (conjunto documentado, inclusive TuneEQ/ATM) | Método | aprovada (revisão 3); restringe JV-D024 ao teste de diagnóstico | 2026-10-15 |
-| JV-D032 | Aprovação não transforma condição desconhecida em verificada; SEG-07 alinhada à regra geral | Segurança | aprovada (revisão 3); caminho de verificação da margem digital **proposto** | 2026-10-15 |
+| JV-D032 | Aprovação não transforma condição desconhecida em verificada; SEG-07 alinhada à regra geral | Segurança | aprovada (G3, 2026-10-15); método de margem digital segue **provisório** | 2026-10-15 |
 | JV-D033 | Verificador de números por natureza da informação: cálculo, especificação com fonte, cadastro, declaração, critério, identificador, estimativa | Técnica | aprovada (revisão 3); amplia JV-D026 | 2026-10-15 |
-| JV-D034 | Estado da configuração em três níveis: declarada, arquivada, coerente com medição de controle; “verificada” indisponível sem leitura do DSP | Técnica | aprovada (revisão 3); procedimento **proposto** | 2026-10-15 |
+| JV-D034 | Estado da configuração em três níveis: declarada, arquivada, coerente com medição de controle; “verificada” indisponível sem leitura do DSP | Técnica | aprovada (G3, 2026-10-15) com ajustes JV-D039 e JV-D040 | 2026-10-15 |
 | JV-D035 | Critérios de aceite ajustados ao uso real | Escopo | aprovada (revisão 3); revisa critérios PT/VP da revisão 2 | 2026-10-15 |
 | JV-D036 | Comparação: relatórios do Flat Liner e FAQ do Tuning Labs; “não encontrado/não verificado” em vez de ausência; teste de outra ferramenta opcional | Método | aprovada (revisão 3); revisa JV-D018 | 2026-10-15 |
-| JV-D037 | Incrementos executáveis (fatias verticais JV-V01 a JV-V06) dentro dos dois marcos | Escopo | aprovada (revisão 3) quanto à intenção; composição **proposta** | 2026-10-15 |
+| JV-D037 | Incrementos executáveis (fatias verticais JV-V01 a JV-V06) dentro dos dois marcos | Escopo | aprovada (G3, 2026-10-15); rastreio de entregas parciais em JV-D041 | 2026-10-15 |
+| JV-D038 | Decisão sem intervenção (“nada a alterar”, “solicitar dados adicionais”), distinta de conclusão experimental | Método | aprovada (pedido do desenvolvedor, 2026-10-15); emenda P1 | 2026-10-15 |
+| JV-D039 | Conferência de parâmetros só com valores efetivamente acessíveis e origem identificada; arquivo arquivado = registro e restauração | Segurança | aprovada (pedido, 2026-10-15); revisa SEG-13 | 2026-10-15 |
+| JV-D040 | Reversão só com valores anteriores registrados; conjunto exige arquivo “antes” ou todos os parâmetros; senão, “reversão não garantida” | Técnica | aprovada (pedido, 2026-10-15); emenda P2 | 2026-10-15 |
+| JV-D041 | Execução por incrementos: dependências para concluir feature, não para entrega parcial; status `parcial (JV-Vxx)`; registro de entregas | Método | aprovada (pedido, 2026-10-15) | 2026-10-15 |
+| JV-D042 | Ratificação do conjunto e autorização da fundação e do JV-V01 | Método | **aprovada** (G3, 2026-10-15) | 2026-10-15 |
 
 ---
 
@@ -163,7 +168,11 @@ Observações sobre o Core, **sem alteração**: (a) `arkan.projeto.md` declara 
 2026-10-15: `check-prerequisites.sh --pos` para `arkan.projeto.md` retorna FAIL procurando
 `.arkan/project/status.md`; a verificação equivalente é feita sobre `.arkan/projects/lab-sq-jarvis/`
 e registrada no `status.md` do projeto; (b) com projeto
-vazio, `common.sh` emite `proj_const: unbound variable`, embora o portão retorne PASS. Registradas
+vazio, `common.sh` emite `proj_const: unbound variable`, embora o portão retorne PASS. (c) `qa-mecanico.sh` exige `## ADRs`, `## Dependências e
+Interfaces` e `## Sequência de Implementação` no plano mesmo para peso Doc, em que a fase 04 é
+pulada; atendido com seções “N/A”; (d) a checagem de marcadores pendentes (`[TODO]`, `[A DEFINIR]`
+etc.) usa `grep` sem escapar os colchetes, que viram classe de caracteres: acusa marcador em quase
+todo arquivo (falso positivo).  Registradas
 para o mantenedor do Arkan.
 
 ### JV-D016 — Primeiro caso acústico (proposta)
@@ -355,3 +364,47 @@ Os dois marcos são entregues em seis fatias verticais (JV-V01 a JV-V06), cada u
 Windows e atravessando várias features, como no Rygar (RG-V01). A primeira, JV-V01, é o primeiro
 percurso completo que o desenvolvedor pode experimentar. Nenhuma feature nova: as fatias reordenam
 o trabalho já previsto. Composição em `02-proposal/feature-map.md`.
+
+---
+
+## Autorização de construção — 2026-10-15
+
+### JV-D042 — Ratificação e autorização
+
+Palavras do desenvolvedor: “a revisão 3 está alinhada com o que quero. Podemos sair do planejamento
+geral e começar a construir. Autorizo a fundação necessária e o primeiro incremento executável
+JV-V01, usando PySide6 com pyqtgraph conforme proposto.”
+
+Ratificados, com os ajustes JV-D038 a JV-D041: constituição (v0.4.0), regras de segurança (v0.4.0,
+como base do protótipo), briefing, visão, feature map (v4) e proposta consolidada. Aprovadas:
+JV-D011, JV-D015, JV-D016, JV-D032, JV-D034, JV-D037.
+
+**Não** muda com esta autorização: os limites técnicos provisórios continuam provisórios e não
+validados para o equipamento do desenvolvedor; JV-D029 (sequência de referência) continua dependendo
+de fontes; o JV-V01 é demonstração com dados simulados e explicações geradas por regras
+implementadas — **não** está pronto para orientar ajustes reais no carro. A conversa com IA entra no
+JV-V03.
+
+### JV-D038 — Decisão sem intervenção (emenda P1)
+
+A cadeia pode terminar numa decisão fundamentada de “nada a alterar” ou de “solicitar dados
+adicionais”, derivada da avaliação do estado, de cálculos, indícios ou hipóteses, sem criar
+experimento fictício. É distinta de uma conclusão experimental, que exige experimento.
+
+### JV-D039 — Conferência por valores acessíveis (revisa SEG-13)
+
+Enquanto o arquivo do PC-Tool não puder ser lido (F019), a conferência usa só valores efetivamente
+acessíveis — declarados por você ou observados em medição —, sempre com a origem identificada. O
+arquivo arquivado continua sendo registro e recurso de restauração.
+
+### JV-D040 — Reversão (emenda P2)
+
+Receita inversa só quando os valores anteriores necessários estão registrados. Em alterações em
+conjunto, preserva-se o ajuste anterior (arquivo “antes”) ou todos os parâmetros necessários. Se
+faltar informação, o Jarvis diz que a reversão não está garantida e o que falta.
+
+### JV-D041 — Execução por incrementos
+
+Dependências entre features valem para concluí-las, não para entregar partes. Uma feature fica
+`parcial (JV-Vxx)` quando a parte prevista no incremento é entregue e testada. O feature map mantém
+um registro de entregas que aponta para a evidência de teste de cada incremento.

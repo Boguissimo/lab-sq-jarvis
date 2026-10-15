@@ -1,6 +1,6 @@
 ---
-status: em-discovery
-fase-atual: 01-discovery
+status: features-definidas
+fase-atual: 02-proposal
 projeto: lab-sq-jarvis
 atualizado-em: 2026-10-15
 ---

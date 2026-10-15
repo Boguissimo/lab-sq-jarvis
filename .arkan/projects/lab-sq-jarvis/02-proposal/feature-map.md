@@ -2,7 +2,7 @@
 
 > **Projeto**: lab-sq-jarvis
 > **Input**: [vision.md](../01-discovery/vision.md) | [briefing.md](../01-discovery/briefing.md) | anexo [proposta-consolidada.md](proposta-consolidada.md)
-> **Status**: Proposta (v3, revisão 3) — aguardando aprovação do desenvolvedor
+> **Status**: **Aprovado (G3, 2026-10-15; JV-D042)** — v4, com execução por incrementos (JV-D041)
 > **Data**: 2026-10-15
 
 Siglas: **REW** — Room EQ Wizard; **API** — interface de programação; **IA** — inteligência artificial;
@@ -29,7 +29,7 @@ seguro até ela (JV-D019).
 
 | # | Nome | Descrição | Prioridade | Peso | Depende de | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| F001 | fundacao-projeto | Ratificar constituição, regras de segurança, decisões, fontes e agente de domínio | P1 | Doc | — | pendente |
+| F001 | fundacao-projeto | Ratificar constituição, regras de segurança, decisões, fontes e agente de domínio | P1 | Doc | — | concluida |
 | F002 | casos-de-referencia | Gerador determinístico de casos com verdade conhecida (família REF-001 e controles negativos), em formato de exportação do REW; definição das métricas, sem metas | P1 | Code | F001 | pendente |
 | F003 | registro-e-historico | Banco local com cadastro, originais imutáveis, cadeia de conhecimento (inclusive percepção), histórico de configurações do DSP com nível de confiança (declarada, arquivada, coerente), critérios versionados, diário e rotina de integridade | P1 | Code | F001 | pendente |
 | F004 | importacao-arquivos-rew | Importar respostas ao impulso e respostas em frequência exportadas pelo REW, com os metadados necessários | P1 | Code | F002, F003 | pendente |
@@ -62,7 +62,7 @@ seguro até ela (JV-D019).
 | F021 | medicao-automatizada-rew | Disparar varreduras pela API do REW (exige licença Pro) | P3 | Code | F018 | pendente |
 | F022 | avaliacao-comercial | Avaliar se a ferramenta tem potencial comercial (JV-D017) | P3 | Doc | F017 | pendente |
 
-**Status possíveis**: `pendente` | `em-andamento` | `concluida`
+**Status possíveis**: `pendente` | `parcial (JV-Vxx)` — partes entregues e testadas até o incremento indicado | `concluida` — todas as partes entregues e a feature aceita
 
 ---
 
@@ -82,6 +82,26 @@ fatia vertical do Rygar; este mapa acompanha quanto de cada feature já foi entr
 | **JV-V04 — Primeira sessão real** | cadastrar o Focus; seguir o protocolo de medição; importar medições reais; medição de controle (“coerente”); sessão em modo calibração com avaliação do estado e do que falta — podendo terminar em “nada a alterar” ou num teste de diagnóstico | F011, F012, F013; F016 (resumo e retomada básicos) | 2 |
 | **JV-V05 — Calibrar com as ferramentas** | etapas de calibração reais com TuneEQ/ATM e limites informados (SEG-13); receita para o seu PC-Tool; primeiros casos do diagnóstico ampliado | F015; F014 (parte) | 2 |
 | **JV-V06 — Aprendizado e validação** | preferências pessoais versionadas, observações aprendidas, retomada completa; diagnóstico ampliado; validação VP-01 a VP-10 | F014, F016, F017 | **2 — fim** |
+
+### Dependências com entregas parciais (JV-D041)
+
+- As dependências da tabela de features valem para **concluir** uma feature, não para entregar uma
+  parte dela.
+- Um incremento pode começar quando as **partes** de que precisa — previstas para incrementos
+  anteriores ou para ele mesmo — estiverem disponíveis. Exemplo: o JV-V01 entrega juntos pedaços de
+  F002 a F008; a F004 completa continua dependendo de F002 e F003 completas.
+- Uma feature passa a `parcial (JV-Vxx)` quando a parte prevista é entregue **e** testada; passa a
+  `concluida` quando a última parte é entregue e a feature é aceita.
+
+### Registro de entregas
+
+Atualizado ao fim de cada incremento. “Testado” aponta para a evidência (relatório de QA do
+incremento). Nada entra aqui só por estar escrito: precisa estar entregue e testado.
+
+| Incremento | Feature do Arkan | Estado | O que foi entregue | Testado em |
+| --- | --- | --- | --- | --- |
+| JV-V01 | `002-000-jv-v01-primeiro-percurso` | em andamento | — | — |
+| JV-V02 a JV-V06 | — | pendente | — | — |
 
 **Estimativa do primeiro incremento (JV-V01)**: 10–18 dias de trabalho assistido (incerteza média:
 primeira aplicação desktop do projeto e primeiro uso do formato de exportação do REW). As
@@ -197,3 +217,4 @@ IA disponível para F009.
 | 2026-10-15 | Versão inicial (v1, 18 features, MVP de 10) gerada por `/arkan.projeto` | Decomposição a partir do briefing, da visão e das decisões JV-D001 a JV-D016 |
 | 2026-10-15 | v2: dois marcos (JV-D019); F008 vira sessão guiada com percepção (JV-D020, JV-D021); medições reais sem dependência da API do REW (JV-D027); novas F012 protocolo de medição, F016 retomada e aprendizado, F017 validação pessoal, F022 avaliação comercial no fim (JV-D017); comparação cega e API do REW passam para depois da versão pessoal | Revisão 2 do desenvolvedor |
 | 2026-10-15 | v3: incrementos executáveis JV-V01 a JV-V06 (JV-D037); F003, F007, F008, F015 e F017 ajustadas às decisões JV-D030 a JV-D036; PT-11; sem features novas | Revisão 3 do desenvolvedor |
+| 2026-10-15 | v4: aprovado (JV-D042); dependências compatíveis com entregas parciais; status `parcial (JV-Vxx)`; registro de entregas por incremento (JV-D041) | Autorização de construção do desenvolvedor |

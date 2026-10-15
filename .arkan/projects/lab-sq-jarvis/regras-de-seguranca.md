@@ -1,7 +1,8 @@
 # Regras de Segurança do Equipamento — Lab SQ Jarvis
 
 > **Fonte canônica** dos identificadores `SEG-##` (constituição, P4 e P11).
-> **Versão**: 0.3.0 | **Data**: 2026-10-15 (revisão 3) | **Estado**: **proposta — aguardando ratificação (G3)**
+> **Versão**: 0.4.0 | **Data**: 2026-10-15 | **Estado**: **aprovada como base do protótipo (G3, 2026-10-15; JV-D042)**. Os valores marcados como
+> **provisórios** continuam provisórios: a aprovação permite iniciar o protótipo, **não** os valida para o equipamento do desenvolvedor.
 > Estas regras são **critérios técnicos**: só mudam por decisão `JV-D` registrada (constituição, P8).
 > Siglas: **SEG** — regra de segurança deste projeto; **EQ** — equalização; **DSP** — processador
 > digital de sinais; **Fs** — frequência de ressonância do alto-falante; **Xmax** — excursão linear
@@ -70,7 +71,7 @@ normativa**, a ser revisto com fontes — não é verdade técnica.
 | SEG-10 | Aprovação | Toda recomendação **sensível** (crescente ou decrescente) exige aprovação de nível B: o quê, em qual canal, quanto. A aprovação não supre dado ausente. | — | constituição, P4; JV-D032 |
 | SEG-11 | Escrita no DSP | O Jarvis nunca escreve parâmetros no DSP; quem aplica é o desenvolvedor, no PC-Tool. | — | JV-D004, JV-D028 |
 | SEG-12 | Dados planejados | Equipamento `planejado` ou `informado` não alimenta nenhuma regra como se fosse instalado e confirmado. | a regra resulta **não verificável** | constituição, P5 |
-| SEG-13 | Etapas de calibração automatizadas | Antes de uma etapa com TuneEQ, ATM ou outra automação, o Jarvis informa os limites aplicáveis (por exemplo, reforço máximo e passa-altas mínimo) para você configurar na ferramenta, quando ela permitir. Depois, o conjunto resultante é conferido contra as regras SEG quando seus valores são informados ou arquivados. | conjunto **não verificado**; o Jarvis informa o que não pôde conferir | JV-D031 |
+| SEG-13 | Etapas de calibração automatizadas | Antes de uma etapa com TuneEQ, ATM ou outra automação, o Jarvis informa os limites aplicáveis (por exemplo, reforço máximo e passa-altas mínimo) para você configurar na ferramenta, quando ela permitir. Depois, a conferência contra as regras SEG usa **somente valores efetivamente acessíveis**, cada um com a origem identificada — por exemplo, valores que você lê na tela do PC-Tool e informa (origem: declarado) e o efeito observado nas medições (origem: medição; indireto). O arquivo do PC-Tool arquivado serve como **registro e recurso de restauração**, **não** como conferência, enquanto o Jarvis não souber lê-lo (F019). | parâmetros não acessíveis ficam **não verificados**; o Jarvis informa quais | JV-D031, JV-D039 |
 
 ## 3. Como as regras são verificadas (G1 — testes automatizados)
 
@@ -87,3 +88,4 @@ normativa**, a ser revisto com fontes — não é verdade técnica.
 | 0.1.0 | 2026-10-15 | Proposta inicial (pedido do desenvolvedor: regras explícitas para potência, excursão, frequência de corte e ganho) |
 | 0.2.0 | 2026-10-15 | Revisão 2 (JV-D022): alcance e limites declarados, sem promessa de segurança absoluta; reduções passam a ser sensíveis (classe de risco decrescente), resolvendo a contradição da v0.1.0; coluna de fundamentação com valores provisórios identificados; SEG-05 e SEG-06 ligadas ao guia do fabricante (JV-S017) |
 | 0.3.0 | 2026-10-15 | Revisão 3 (JV-D032, JV-D031): aprovação não é verificação; “bloqueada” = não recomendada, sem exceção por aprovação; SEG-07 alinhada à regra geral, com caminho de verificação proposto; SEG-13 nova para etapas automatizadas |
+| 0.4.0 | 2026-10-15 | Aprovação como base do protótipo (JV-D042), sem validar valores provisórios; SEG-13 passa a conferir só valores efetivamente acessíveis com origem identificada; arquivo arquivado = registro e restauração (JV-D039) |

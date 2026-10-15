@@ -1,7 +1,7 @@
 # Briefing: Lab SQ Jarvis
 
 > **Projeto**: lab-sq-jarvis
-> **Status**: **Proposta (revisão 3) — aguardando aprovação do desenvolvedor** (documento vivo)
+> **Status**: **Aprovado (G3, 2026-10-15; JV-D042)** (documento vivo)
 > **Data**: 2026-10-15
 > **Participantes**: Fabrício (desenvolvedor e usuário, engenheiro mecânico) + Claude (agente, Arkan)
 > **Insumos**: [`diagnostico-inicial.md`](diagnostico-inicial.md) (histórico) ·

@@ -2,7 +2,7 @@
 
 > **Projeto**: lab-sq-jarvis
 > **Input**: [briefing.md](briefing.md)
-> **Status**: **Proposta (revisão 3) — aguardando aprovação do desenvolvedor**
+> **Status**: **Aprovada (G3, 2026-10-15; JV-D042)**
 > **Data**: 2026-10-15
 
 Siglas: **REW** — Room EQ Wizard; **PC-Tool** — programa que configura o HELIX; **DSP** — processador
