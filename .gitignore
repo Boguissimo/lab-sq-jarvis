@@ -1,0 +1,13 @@
+# Rascunhos e saídas locais
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+
+# Dependências, se o projeto adotante instalar alguma ferramenta opcional
+node_modules/
+
+# Build e índice gerados ao compilar e usar o indexador arkan-kb (seção 3 do
+# GUIA-DE-ADOCAO.md) — cada adotante gera os seus, não fazem parte do framework
+arkan-kb/dist/
+.arkan-kb/

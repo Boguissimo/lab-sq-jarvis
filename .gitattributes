@@ -1,0 +1,3 @@
+# Scripts de shell precisam de final de linha LF, mesmo no Windows
+# (sem isto, os portões do Arkan falham no Git Bash: ver JV-D009)
+*.sh text eol=lf
