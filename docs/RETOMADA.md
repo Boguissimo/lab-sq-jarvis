@@ -31,3 +31,7 @@ Branch: `lab-sq-jarvis/002-000-jv-v01-primeiro-percurso` · feature Arkan `002-0
 - Decisão sem intervenção ≠ conclusão experimental (JV-D038); reversão só com valor anterior registrado (JV-D040); entregas parciais por incremento (JV-D041).
 - Código e textos em PT-BR; interface não calcula (ADR-03); dados em `%LOCALAPPDATA%\LabSQJarvis` ou `JARVIS_DADOS`.
 - Uso pessoal primeiro; comercial depois (JV-D017). GitHub: usar o mínimo (git direto).
+
+## 6. Atualização (conclusão do JV-V01)
+- Feitos: `INICIAR-JARVIS.bat`, `COMO-EXPERIMENTAR.md`, tasks marcadas, `08-qa/qa-report.md` (aprovado com ressalvas), registro de entregas e F002–F008 `parcial (JV-V01)`, pacote `dist/jarvis-jv-v01.zip`.
+- Falta: G3 — o desenvolvedor executar no Windows (SC-004); só então integrar em `main`.

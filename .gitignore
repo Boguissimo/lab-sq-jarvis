@@ -17,3 +17,4 @@ arkan-kb/dist/
 __pycache__/
 *.pyc
 .pytest_cache/
+dist/

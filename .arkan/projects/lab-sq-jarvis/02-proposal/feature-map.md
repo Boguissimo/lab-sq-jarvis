@@ -30,13 +30,13 @@ seguro até ela (JV-D019).
 | # | Nome | Descrição | Prioridade | Peso | Depende de | Status |
 | --- | --- | --- | --- | --- | --- | --- |
 | F001 | fundacao-projeto | Ratificar constituição, regras de segurança, decisões, fontes e agente de domínio | P1 | Doc | — | concluida |
-| F002 | casos-de-referencia | Gerador determinístico de casos com verdade conhecida (família REF-001 e controles negativos), em formato de exportação do REW; definição das métricas, sem metas | P1 | Code | F001 | pendente |
-| F003 | registro-e-historico | Banco local com cadastro, originais imutáveis, cadeia de conhecimento (inclusive percepção), histórico de configurações do DSP com nível de confiança (declarada, arquivada, coerente), critérios versionados, diário e rotina de integridade | P1 | Code | F001 | pendente |
-| F004 | importacao-arquivos-rew | Importar respostas ao impulso e respostas em frequência exportadas pelo REW, com os metadados necessários | P1 | Code | F002, F003 | pendente |
-| F005 | calculos-deterministicos | Resposta em frequência, suavização, qualidade da medição, **verificação de referência temporal**, diferença de fase, atraso relativo, soma prevista, comparação previsto × medido | P1 | Code | F002, F003 | pendente |
-| F006 | indicios-e-hipoteses | Detectores que geram indícios e regras que formulam e ordenam hipóteses, com o que as confirmaria ou refutaria | P1 | Code | F005 | pendente |
-| F007 | experimento-e-seguranca | Teste de diagnóstico (uma variável, previsão, veredito `confirmada`/`refutada`/`inconclusiva`/`comprometida`) e etapa de calibração (conjunto documentado, resultado sem atribuição causal); regras SEG; aprovação de nível B; receita básica | P1 | Code | F006 | pendente |
-| F008 | sessao-guiada | Aplicativo desktop com os dois modos de sessão (calibração e queixa), o ciclo do calibrador, os cinco passos, percepção antes e depois (real, simulada ou não aplicável), histórico e abertura com dois cliques; recebe F004–F007 e F009 à medida que ficam prontas | P1 | Code | F003 | pendente |
+| F002 | casos-de-referencia | Gerador determinístico de casos com verdade conhecida (família REF-001 e controles negativos), em formato de exportação do REW; definição das métricas, sem metas | P1 | Code | F001 | parcial (JV-V01) |
+| F003 | registro-e-historico | Banco local com cadastro, originais imutáveis, cadeia de conhecimento (inclusive percepção), histórico de configurações do DSP com nível de confiança (declarada, arquivada, coerente), critérios versionados, diário e rotina de integridade | P1 | Code | F001 | parcial (JV-V01) |
+| F004 | importacao-arquivos-rew | Importar respostas ao impulso e respostas em frequência exportadas pelo REW, com os metadados necessários | P1 | Code | F002, F003 | parcial (JV-V01) |
+| F005 | calculos-deterministicos | Resposta em frequência, suavização, qualidade da medição, **verificação de referência temporal**, diferença de fase, atraso relativo, soma prevista, comparação previsto × medido | P1 | Code | F002, F003 | parcial (JV-V01) |
+| F006 | indicios-e-hipoteses | Detectores que geram indícios e regras que formulam e ordenam hipóteses, com o que as confirmaria ou refutaria | P1 | Code | F005 | parcial (JV-V01) |
+| F007 | experimento-e-seguranca | Teste de diagnóstico (uma variável, previsão, veredito `confirmada`/`refutada`/`inconclusiva`/`comprometida`) e etapa de calibração (conjunto documentado, resultado sem atribuição causal); regras SEG; aprovação de nível B; receita básica | P1 | Code | F006 | parcial (JV-V01) |
+| F008 | sessao-guiada | Aplicativo desktop com os dois modos de sessão (calibração e queixa), o ciclo do calibrador, os cinco passos, percepção antes e depois (real, simulada ou não aplicável), histórico e abertura com dois cliques; recebe F004–F007 e F009 à medida que ficam prontas | P1 | Code | F003 | parcial (JV-V01) |
 | F009 | assistente-ia | Conversa com IA substituível; ferramentas só de leitura; verificador de números por origem, grandeza, unidade e canal; selo de estimativa; registro e controle de envios | P1 | Code | F003, F006 | pendente |
 | F010 | aceite-prototipo-tecnico | Percorrer a família REF-001 pelo fluxo guiado e avaliar os critérios PT-01 a PT-11 | P1 | Doc | F004, F007, F008, F009 | pendente |
 
@@ -100,7 +100,7 @@ incremento). Nada entra aqui só por estar escrito: precisa estar entregue e tes
 
 | Incremento | Feature do Arkan | Estado | O que foi entregue | Testado em |
 | --- | --- | --- | --- | --- |
-| JV-V01 | `002-000-jv-v01-primeiro-percurso` | em andamento | — | — |
+| JV-V01 | `002-000-jv-v01-primeiro-percurso` | entregue, aguardando teste G3 no Windows | Caso REF-001-A, importação de texto REW, cálculos, indícios/hipótese de polaridade, teste de diagnóstico com veredito, decisões (inclusive sem intervenção), persistência e retomada, interface de cinco passos + histórico, `INICIAR-JARVIS.bat`, `COMO-EXPERIMENTAR.md` | [qa-report.md](../../../features/lab-sq-jarvis/002-000-jv-v01-primeiro-percurso/08-qa/qa-report.md) (45 testes; SC-004 pendente) |
 | JV-V02 a JV-V06 | — | pendente | — | — |
 
 **Estimativa do primeiro incremento (JV-V01)**: 10–18 dias de trabalho assistido (incerteza média:
@@ -218,3 +218,4 @@ IA disponível para F009.
 | 2026-10-15 | v2: dois marcos (JV-D019); F008 vira sessão guiada com percepção (JV-D020, JV-D021); medições reais sem dependência da API do REW (JV-D027); novas F012 protocolo de medição, F016 retomada e aprendizado, F017 validação pessoal, F022 avaliação comercial no fim (JV-D017); comparação cega e API do REW passam para depois da versão pessoal | Revisão 2 do desenvolvedor |
 | 2026-10-15 | v3: incrementos executáveis JV-V01 a JV-V06 (JV-D037); F003, F007, F008, F015 e F017 ajustadas às decisões JV-D030 a JV-D036; PT-11; sem features novas | Revisão 3 do desenvolvedor |
 | 2026-10-15 | v4: aprovado (JV-D042); dependências compatíveis com entregas parciais; status `parcial (JV-Vxx)`; registro de entregas por incremento (JV-D041) | Autorização de construção do desenvolvedor |
+| 2026-10-15 | JV-V01 entregue e testado (QA com ressalvas); F002–F008 passam a `parcial (JV-V01)` | JV-D041 |
