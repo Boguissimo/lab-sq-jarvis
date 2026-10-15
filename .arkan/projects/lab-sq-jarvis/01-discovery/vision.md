@@ -2,7 +2,7 @@
 
 > **Projeto**: lab-sq-jarvis
 > **Input**: [briefing.md](briefing.md)
-> **Status**: **Proposta (revisão 2) — aguardando aprovação do desenvolvedor**
+> **Status**: **Proposta (revisão 3) — aguardando aprovação do desenvolvedor**
 > **Data**: 2026-10-15
 
 Siglas: **REW** — Room EQ Wizard; **PC-Tool** — programa que configura o HELIX; **DSP** — processador
@@ -28,7 +28,7 @@ de só chegar a uma curva-alvo.
 
 | Indicador | Baseline | Meta | Marco |
 | --- | --- | --- | --- |
-| Critérios PT-01 a PT-10 atendidos | — | todos | Marco 1 |
+| Critérios PT-01 a PT-11 atendidos | — | todos | Marco 1 |
 | Recomendações exibidas que violam regras SEG | não controlado | 0 | Marcos 1 e 2 |
 | Sessões reais completas no Focus | 0 | ≥ 3, em ≥ 2 dias (proposta) | Marco 2 |
 | Orientações compreendidas nas duas últimas sessões | — | todas “entendi” (proposta) | Marco 2 |
@@ -44,7 +44,7 @@ de só chegar a uma curva-alvo.
 
 | Risco | Probabilidade | Impacto | Mitigação |
 | --- | --- | --- | --- |
-| O Jarvis não ajudar mais que ferramentas já existentes | Média | Alto | sessão de referência com Flat Liner ou TuneEQ/ATM (JV-D018); critério VP-10 compara |
+| O Jarvis não ajudar mais que ferramentas já existentes | Média | Alto | aproveitar TuneEQ/ATM como etapas de calibração (JV-D031); comparação com outra ferramenta opcional (JV-D036); critério VP-10 |
 | Fluxo guiado ficar complexo demais | Média | Alto | sessão em cinco passos; cadeia por trás; critério PT-10 e VP-03 |
 | IA apresentar número sem origem ou fora de contexto | Média | Alto | verificador por origem, grandeza, unidade e canal (JV-D026) |
 | Recomendação causar dano ao equipamento | Baixa | Crítico | regras SEG, aprovação nominal, bloqueio sem dado confirmado; limites declarados (JV-D022) |
@@ -86,8 +86,8 @@ de só chegar a uma curva-alvo.
 
 - [ ] Aprovar o conjunto revisado (briefing, visão, constituição v0.2.0, regras de segurança v0.2.0,
       feature map v2, proposta consolidada, comparação de ferramentas)
-- [ ] Decidir as propostas pendentes: JV-D011, JV-D015, JV-D016, JV-D018 (sessão de referência),
-      JV-D029 e as quantidades dos critérios VP
+- [ ] Decidir as propostas pendentes: JV-D011, JV-D015, JV-D016, JV-D029, os detalhes propostos de
+      JV-D032, JV-D034 e JV-D037 e as quantidades do roteiro mínimo dos critérios VP
 - [ ] Iniciar F001 via `/arkan.ideacao`
 
 ### Histórico de revisões
@@ -96,3 +96,4 @@ de só chegar a uma curva-alvo.
 | --- | --- |
 | 2026-10-15 | Versão inicial |
 | 2026-10-15 | Revisão 2: retirada a promessa “nunca arrisca o equipamento”; indicadores por marco; riscos de não superar ferramentas existentes e de complexidade do fluxo; prioridades por marco |
+| 2026-10-15 | Revisão 3: PT-11; mitigação do risco competitivo sem obrigação de testar outra ferramenta; pendências atualizadas |

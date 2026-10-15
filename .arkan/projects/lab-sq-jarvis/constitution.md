@@ -1,6 +1,6 @@
 # Constituição do Projeto — lab-sq-jarvis (Lab SQ Jarvis)
 
-> **Versão**: 0.2.0 | **Projeto**: lab-sq-jarvis | **Namespace**: `JV` | **Data**: 2026-10-15 (revisão 2)
+> **Versão**: 0.3.0 | **Projeto**: lab-sq-jarvis | **Namespace**: `JV` | **Data**: 2026-10-15 (revisão 3)
 > **Estado**: **proposta — aguardando ratificação do desenvolvedor (G3)**. Enquanto não ratificada,
 > nenhuma feature passa de `/arkan.ideacao`.
 
@@ -73,10 +73,15 @@ exploratória só sustenta recomendação depois de conferida por cálculo deter
 Um número correto pode sustentar uma explicação errada: a explicação da IA é sempre
 interpretação, e decisões de diagnóstico se apoiam nos indícios determinísticos (JV-D026).
 
-> **Critério de verificação**: um verificador automático classifica cada valor numérico de cada
-> resposta da IA como (a) referência a um cálculo registrado **e coerente com ele em grandeza,
-> unidade, canal, medição e faixa de frequência** ou (b) estimativa exploratória marcada; resposta
-> com valor fora de (a) ou (b) é recusada. Nenhuma recomendação tem previsão cuja origem seja
+Nem todo número vem de cálculo (JV-D033). Origens legítimas: cálculo registrado; especificação
+com fonte; valor do cadastro (só `confirmado` é tratado como fato); configuração declarada pelo
+usuário (tratada como declaração); critério ou preferência versionados; identificador ou rótulo
+(não é grandeza); constante física com fonte; estimativa exploratória marcada.
+
+> **Critério de verificação**: um verificador automático associa cada valor numérico de cada
+> resposta da IA a uma das origens acima e confere a coerência com ela conforme a natureza da
+> informação (grandeza, unidade, canal ou equipamento, faixa de frequência, estado do dado); valor
+> sem origem ou incoerente com ela é recusado. Nenhuma recomendação tem previsão cuja origem seja
 > estimativa não conferida.
 
 ### P4. Reduzir o risco ao equipamento antes de buscar o resultado (NÃO-NEGOCIÁVEL)
@@ -86,7 +91,9 @@ Toda recomendação passa pelas regras de `regras-de-seguranca.md` antes de ser 
 absoluta** (JV-D022). Toda recomendação que afete **potência, excursão, frequência de corte ou
 ganho** é sensível — inclusive reduções — e só é aplicada após aprovação de nível B do
 desenvolvedor (ato nomeado). As que aumentam o risco exigem, além disso, dados confirmados; sem
-eles, são bloqueadas. Nada é presumido seguro por falta de informação.
+eles, o Jarvis não as recomenda. **A aprovação autoriza um ato; não transforma condição desconhecida
+em verificada** (JV-D032): se o desenvolvedor decidir alterar mesmo assim, o registro diz “decisão do
+usuário — condição não verificada”. Nada é presumido seguro por falta de informação.
 
 > **Critério de verificação**: suíte de testes de segurança com recomendações proibidas e limítrofes
 > bloqueia 100% das proibidas; nenhuma recomendação sensível é exibida sem a marcação e o pedido
@@ -103,17 +110,24 @@ tratados como instalados.
 > automatizado confirma que análise ou regra que dependa de dado não confirmado é recusada ou
 > marcada.
 
-### P6. Um experimento, uma variável, previsão antes
+### P6. Diagnóstico com uma variável; calibração com conjunto documentado
 
-Toda recomendação de ajuste é um experimento: altera uma única variável, registra antes da medição
-“depois” a previsão quantitativa (por cálculo), o critério de aceite e a percepção “antes”, e termina
-em veredito `confirmada`, `refutada`, `inconclusiva` ou `comprometida`. **Comprometida** significa
-que o protocolo foi violado (por exemplo, mais de uma variável mudou): o resultado não confirma nem
-refuta a hipótese, e o teste é refeito (JV-D024).
+Há dois tipos de intervenção (JV-D031):
 
-> **Critério de verificação**: todo experimento tem previsão, critério e percepção “antes” com data
-> anterior à da primeira medição “depois”; experimento com mais de uma variável alterada recebe
-> veredito `comprometida`.
+- **Teste de diagnóstico** — investiga uma causa: altera uma única variável, registra antes da
+  medição “depois” a previsão quantitativa (por cálculo), o critério de aceite e a percepção “antes”,
+  e termina em `confirmada`, `refutada`, `inconclusiva` ou `comprometida`. **Comprometida** significa
+  que o protocolo foi violado (por exemplo, mais de uma variável mudou): o resultado não confirma nem
+  refuta a hipótese, e o teste é refeito (JV-D024).
+- **Etapa de calibração** — aplica um conjunto documentado de alterações, inclusive automações do
+  PC-Tool (TuneEQ, ATM): registra o conjunto, as medições e a percepção antes e depois, e avalia o
+  resultado contra o objetivo da etapa (`objetivo atingido`, `parcial`, `não atingido`,
+  `inconclusivo`), **sem atribuir a melhora a uma alteração isolada**.
+
+> **Critério de verificação**: todo teste de diagnóstico tem previsão, critério e percepção “antes”
+> com data anterior à da primeira medição “depois”, e recebe `comprometida` se mais de uma variável
+> mudou; toda etapa de calibração tem o conjunto de alterações e o objetivo registrados, e nenhuma
+> conclusão causal sobre alteração isolada é tirada de uma etapa.
 
 ### P7. Incerteza e limitação instrumental declaradas
 
@@ -242,3 +256,4 @@ identificadores próprios, definidos no modelo de dados — não se confundem co
 | --- | --- | --- | --- |
 | 0.1.0 | 2026-10-15 | — | Proposta inicial, derivada do diagnóstico e das decisões de 2026-10-15; aguardando ratificação |
 | 0.2.0 | 2026-10-15 | Minor | Revisão 2: propósito pessoal (JV-D017); percepção na cadeia (JV-D021); P3 com conferência de grandeza, unidade e canal (JV-D026); P4 como redução de risco, sem garantia (JV-D022); P6 com veredito `comprometida` (JV-D024); P7 com referência temporal e limite de generalização (JV-D023, JV-D025); P13 reescrito como sessão guiada (JV-D020); P14 novo. Aguardando ratificação |
+| 0.3.0 | 2026-10-15 | Minor | Revisão 3: P3 com origens legítimas de números além de cálculo (JV-D033); P4 — aprovação não verifica (JV-D032); P6 distingue teste de diagnóstico e etapa de calibração (JV-D031). Aguardando ratificação |

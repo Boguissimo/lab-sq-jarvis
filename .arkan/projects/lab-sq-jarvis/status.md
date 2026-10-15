@@ -9,7 +9,20 @@ atualizado-em: 2026-10-15
 
 Assistente inteligente de calibração de áudio automotivo SQ/SQPL: diagnóstico, hipóteses, experimentos controlados e registro rastreável, integrado ao REW e ao HELIX DSP PC-Tool.
 
-## Estado corrente — 2026-10-15, revisão 2
+## Estado corrente — 2026-10-15, revisão 3
+
+- Revisão 3 do desenvolvedor: sete pontos específicos, sem reabrir o planejamento. Decisões JV-D030
+  a JV-D037; revisões marcadas em `decisoes.md` (JV-D018 → JV-D036; JV-D024 restrita por JV-D031;
+  JV-D026 ampliada por JV-D033; SEG-07 corrigida por JV-D032).
+- Documentos atualizados: constituição v0.3.0, regras de segurança v0.3.0, proposta consolidada
+  (revisão 3), feature map v3 (incrementos JV-V01 a JV-V06, sem features novas), comparação de
+  ferramentas, fontes (JV-S028, JV-S029), briefing e visão.
+- Fase do projeto permanece `01-discovery`. Nenhuma implementação autorizada.
+
+**Próxima ação válida:** aprovação do conjunto para implementar. Depois: `/arkan.ideacao` para F001
+(fundação) e, em seguida, para o incremento JV-V01.
+
+## Histórico preservado — estado da revisão 2
 
 - O desenvolvedor revisou a proposta inicial (seis pontos). Decisões JV-D017 a JV-D029 registradas;
   substituições marcadas em `decisoes.md` (JV-D010 → JV-D019; conteúdo de JV-D014 → JV-D022).

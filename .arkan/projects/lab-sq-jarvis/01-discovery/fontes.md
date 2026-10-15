@@ -37,6 +37,8 @@
 | JV-S025 | Audison — bit Drive 3.1: https://audison.com/bit-drive-3-1/ | 2 | não | ACCORDO 2.0: ruído de fundo, nível de teste por alto-falante |
 | JV-S026 | Audiotec Fischer — AMI Tuning Kit: https://www.audiotec-fischer.de/en/accessories/ami-tuning-kit | 2 | não | AMI + microfone; compatibilidade com ATM |
 | JV-S027 | Manual do MTK1 (cópia de terceiros): https://manuals.plus/m/f0028943c8e2671529609a76770e6902080d5d4aa893b0e951835aefc26bd31d | 2 (cópia) | não | curva “ATF Reference”; curva plana não recomendada para carro |
+| JV-S028 | Flat Liner Tuning — página do aplicativo, seção do relatório final e link do exemplo em PDF: https://flatlinertuning.com/app.html (indicada pelo desenvolvedor a partir de https://flatlinertuning.com/) | 2 (comercial) | não | relatório: medições iniciais, curva-alvo, EQ aplicado, níveis, alinhamento temporal |
+| JV-S029 | Tuning Labs — FAQ: https://tuninglabs.net/portal/faq.html (indicada pelo desenvolvedor; conteúdo obtido por busca, inclusive trecho de FAQ na página principal) | 2 (comercial) | não | processadores suportados da família YDW e outros; conexões WebHID, ponte nativa e BLE |
 
 A comparação entre ferramentas que usa essas fontes está em [`comparacao-ferramentas.md`](comparacao-ferramentas.md).
 

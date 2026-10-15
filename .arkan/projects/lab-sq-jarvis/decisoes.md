@@ -2,6 +2,7 @@
 
 > **Fonte canônica** dos identificadores `JV-D###` (constituição, P11).
 > **Revisão 2 (2026-10-15)**: o desenvolvedor revisou a proposta inicial; decisões JV-D017 a JV-D029.
+> **Revisão 3 (2026-10-15)**: fechamento de pontos específicos, sem reabrir o planejamento; decisões JV-D030 a JV-D037.
 > **Estados**: `proposta` (agente propôs; aguarda o desenvolvedor) · `aprovada` (desenvolvedor) ·
 > `aprovada com ressalva` · `registrada` (pendência ou fato fora do escopo) · `substituída por JV-D###`.
 > **Classe**: Método · Técnica · Escopo · Segurança.
@@ -25,18 +26,26 @@
 | JV-D015 | Instalação do Arkan: pacote reconstituído, sem o projeto de exemplo; branches `lab-sq-jarvis/…` | Método | **proposta** | 2026-10-15 |
 | JV-D016 | Primeiro caso acústico de referência: polaridade invertida no cruzamento médio/tweeter | Método | **proposta**; controle N3 revisto por JV-D024; limite de generalização em JV-D025 | 2026-10-15 |
 | JV-D017 | Ferramenta pessoal primeiro; potencial comercial avaliado depois de pronta | Escopo | aprovada (revisão 2) | 2026-10-15 |
-| JV-D018 | Comparação com ferramentas refeita com fontes oficiais; afirmação de ineditismo retirada | Método | aprovada (revisão 2); teste de referência com Flat Liner ou TuneEQ/ATM **proposto** | 2026-10-15 |
+| JV-D018 | Comparação com ferramentas refeita com fontes oficiais; afirmação de ineditismo retirada | Método | aprovada (revisão 2); lacunas corrigidas e teste de outra ferramenta tornado **opcional** por JV-D036 | 2026-10-15 |
 | JV-D019 | Dois marcos: Protótipo técnico e Versão pessoal utilizável | Escopo | aprovada (revisão 2); substitui JV-D010 | 2026-10-15 |
 | JV-D020 | Fluxo guiado de sessão como experiência principal; rastreabilidade por trás | Escopo | aprovada (revisão 2); desenho detalhado **proposto** | 2026-10-15 |
 | JV-D021 | Percepção registrada antes e depois desde o Marco 1; comparação cega depois | Escopo | aprovada (revisão 2); complementa JV-D006 | 2026-10-15 |
-| JV-D022 | Segurança como redução de risco, sem garantia; limites provisórios identificados; sensibilidade por direção de risco | Segurança | aprovada (revisão 2) quanto aos princípios; classificação **proposta**; substitui o conteúdo v0.1.0 de JV-D014 | 2026-10-15 |
+| JV-D022 | Segurança como redução de risco, sem garantia; limites provisórios identificados; sensibilidade por direção de risco | Segurança | aprovada (revisão 2) quanto aos princípios; classificação **proposta**; substitui o conteúdo v0.1.0 de JV-D014; SEG-07 corrigida por JV-D032 | 2026-10-15 |
 | JV-D023 | Fase e soma prevista só com referência temporal compatível | Técnica | aprovada (revisão 2); condições **propostas** | 2026-10-15 |
-| JV-D024 | Veredito “comprometido” quando o protocolo do experimento é violado | Método | aprovada (revisão 2); revisa o controle N3 de JV-D016 | 2026-10-15 |
+| JV-D024 | Veredito “comprometido” quando o protocolo do experimento é violado | Método | aprovada (revisão 2); revisa o controle N3 de JV-D016; alcance restrito ao teste de diagnóstico por JV-D031 | 2026-10-15 |
 | JV-D025 | Casos ideais demonstram mecanismo, não generalizam o diagnóstico para o carro | Método | aprovada (revisão 2); complementa JV-D016 | 2026-10-15 |
-| JV-D026 | Números da IA conferidos por origem, grandeza, unidade e canal; explicação segue sendo interpretação | Técnica | aprovada (revisão 2); revisa o critério de P3 da constituição v0.1.0 | 2026-10-15 |
+| JV-D026 | Números da IA conferidos por origem, grandeza, unidade e canal; explicação segue sendo interpretação | Técnica | aprovada (revisão 2); categorias de origem ampliadas por JV-D033 | 2026-10-15 |
 | JV-D027 | Medições reais por importação de arquivos, sem esperar a API do REW | Escopo | aprovada (revisão 2); revisa dependência do feature map v1 | 2026-10-15 |
 | JV-D028 | Reafirmados: local no Windows, cálculos verificáveis, originais preservados, histórico de configurações, IA substituível, ajustes aplicados à mão no HELIX | Método | aprovada (revisão 2) | 2026-10-15 |
-| JV-D029 | Sequência de ajuste de referência (o que um profissional faria) com fontes; referência sonora pessoal como critério do usuário | Método | **proposta** | 2026-10-15 |
+| JV-D029 | Sequência de ajuste de referência (o que um profissional faria) com fontes; referência sonora pessoal como critério do usuário | Método | **proposta**; comportamento concreto em JV-D030 | 2026-10-15 |
+| JV-D030 | Comportamento do calibrador: dois modos de sessão, avaliação do estado, prioridades, próximo passo, “nada a alterar” e retorno a etapas | Método | aprovada (revisão 3) quanto ao comportamento; sequência de referência continua dependendo de fontes (JV-D029) | 2026-10-15 |
+| JV-D031 | Teste de diagnóstico (uma variável) × etapa de calibração (conjunto documentado, inclusive TuneEQ/ATM) | Método | aprovada (revisão 3); restringe JV-D024 ao teste de diagnóstico | 2026-10-15 |
+| JV-D032 | Aprovação não transforma condição desconhecida em verificada; SEG-07 alinhada à regra geral | Segurança | aprovada (revisão 3); caminho de verificação da margem digital **proposto** | 2026-10-15 |
+| JV-D033 | Verificador de números por natureza da informação: cálculo, especificação com fonte, cadastro, declaração, critério, identificador, estimativa | Técnica | aprovada (revisão 3); amplia JV-D026 | 2026-10-15 |
+| JV-D034 | Estado da configuração em três níveis: declarada, arquivada, coerente com medição de controle; “verificada” indisponível sem leitura do DSP | Técnica | aprovada (revisão 3); procedimento **proposto** | 2026-10-15 |
+| JV-D035 | Critérios de aceite ajustados ao uso real | Escopo | aprovada (revisão 3); revisa critérios PT/VP da revisão 2 | 2026-10-15 |
+| JV-D036 | Comparação: relatórios do Flat Liner e FAQ do Tuning Labs; “não encontrado/não verificado” em vez de ausência; teste de outra ferramenta opcional | Método | aprovada (revisão 3); revisa JV-D018 | 2026-10-15 |
+| JV-D037 | Incrementos executáveis (fatias verticais JV-V01 a JV-V06) dentro dos dois marcos | Escopo | aprovada (revisão 3) quanto à intenção; composição **proposta** | 2026-10-15 |
 
 ---
 
@@ -263,3 +272,86 @@ O fluxo guiado segue, até onde possível, a ordem de trabalho de um calibrador 
 fino por escuta). Essa sequência precisa de fontes registradas antes de virar critério (spec das
 features F012 e F014). A referência sonora é individual: a curva-alvo e as preferências do
 desenvolvedor são critérios dele, versionados (P8), não verdades técnicas.
+
+---
+
+## Revisão 3 — 2026-10-15
+
+Origem: revisão do desenvolvedor sobre a revisão 2 — sete pontos específicos, sem reabrir o
+planejamento e sem aumentar o escopo. “Aprovada (revisão 3)” = direção definida pelo desenvolvedor;
+o detalhamento nos documentos aguarda a aprovação do conjunto.
+
+### JV-D030 — Comportamento do calibrador (concretiza JV-D029)
+
+Dois modos de sessão: **calibração** (do estado atual do sistema, sem precisar de queixa) e
+**investigação de queixa** (parte do que o desenvolvedor percebe). Em ambos, o Jarvis segue o mesmo
+ciclo: avaliar o estado do sistema; listar o que falta saber; explicar prioridades; escolher e
+justificar o próximo passo; reconhecer quando **não há motivo para alterar** nada. A sequência de
+referência é um guia com retorno a etapas anteriores quando o resultado exige. Três camadas de
+critério, em ordem de precedência: segurança (SEG) > limites técnicos > preferências pessoais. O
+conteúdo da sequência depende de fontes (JV-D029). Detalhe: `02-proposal/proposta-consolidada.md`,
+seção 3.
+
+### JV-D031 — Teste de diagnóstico × etapa de calibração (restringe JV-D024)
+
+- **Teste de diagnóstico**: investiga uma causa; uma variável controlada; previsão antes; veredito
+  `confirmada`, `refutada`, `inconclusiva` ou `comprometida` (protocolo violado).
+- **Etapa de calibração**: aplica um conjunto documentado de alterações, inclusive automações do
+  PC-Tool (TuneEQ, ATM); registra o conjunto e as medições antes e depois; avalia o resultado contra
+  o objetivo da etapa (`objetivo atingido`, `parcial`, `não atingido`, `inconclusivo`), **sem atribuir
+  a melhora a uma alteração isolada**. O veredito `comprometida` não se aplica a etapas.
+
+As regras de segurança valem para os dois tipos; numa etapa automatizada, o conjunto resultante é
+conferido quando seus valores são informados ou arquivados, e o que não puder ser conferido fica
+`não verificado`.
+
+### JV-D032 — Aprovação não verifica (corrige SEG-07)
+
+A aprovação do desenvolvedor autoriza um ato; não transforma uma condição desconhecida em condição
+tecnicamente verificada. Regra única: se falta dado para verificar uma alteração de risco crescente,
+o Jarvis **não a recomenda**. O desenvolvedor continua livre para alterar o próprio DSP; nesse caso,
+o Jarvis registra “decisão do usuário — condição não verificada”, sem apresentá-la como segura nem
+como recomendação. A SEG-07 (margem digital) passa a seguir essa regra. Caminho proposto para
+verificar a margem: reforços compensados por atenuação documentada a montante (valor provisório, a
+fundamentar na spec da F007).
+
+### JV-D033 — Natureza dos números (amplia JV-D026)
+
+Origens legítimas de um número numa resposta da IA: cálculo registrado; especificação com fonte;
+valor do cadastro (com o estado: só `confirmado` é tratado como fato); configuração declarada pelo
+usuário (tratada como declaração); critério ou preferência versionados; identificador ou rótulo
+(canal 3, banda 5, JV-D031 — não são grandezas); constante física com fonte; estimativa exploratória
+marcada. Cada número é conferido conforme a natureza e o contexto (grandeza, unidade, canal ou
+equipamento, faixa, estado).
+
+### JV-D034 — Estado da configuração do DSP
+
+Três níveis, sem fingir verificação: **declarada** (o desenvolvedor informa qual configuração está
+ativa), **arquivada** (arquivo do PC-Tool guardado por hash — prova o conteúdo do arquivo, não que
+estava no DSP) e **coerente** (uma medição de controle rápida bate com a medição anterior dessa
+configuração — indício, não prova). “Verificada” fica indisponível enquanto o Jarvis não ler o
+DSP. Procedimento em `02-proposal/proposta-consolidada.md`, seção 5.
+
+### JV-D035 — Critérios de aceite ajustados
+
+- “Não dá para concluir” é demonstrado em caso controlado (Marco 1), não exigido no carro.
+- Sessão encerrada sem ajuste conta como sessão completa quando essa é a decisão justificada.
+- Nos casos simulados, a percepção é marcada `simulada` ou `não aplicável`.
+- Três sessões em dois dias são um **roteiro mínimo**, não prova de utilidade nem de confiabilidade.
+
+### JV-D036 — Comparação corrigida (revisa JV-D018)
+
+Flat Liner: relatório final anunciado (medições iniciais, curva-alvo, EQ aplicado, níveis, alinhamento
+temporal), com exemplo em PDF na página do produto. Tuning Labs: o FAQ cita processadores suportados
+(EDSP31-610, EDSP31-68, Dayton Audio DSP-408, BLAM LA808 e outros da família YDW) e conexões por
+WebHID, ponte nativa e BLE; a lista de marcas da página principal é do catálogo, não de
+compatibilidade; suporte ao HELIX **não verificado**. Onde a pesquisa foi limitada, usa-se “não
+encontrado” ou “não verificado”, nunca ausência. Testar outra ferramenta é **opcional**: nem compra
+nem condição para concluir o projeto.
+
+### JV-D037 — Incrementos executáveis
+
+Os dois marcos são entregues em seis fatias verticais (JV-V01 a JV-V06), cada uma executável no
+Windows e atravessando várias features, como no Rygar (RG-V01). A primeira, JV-V01, é o primeiro
+percurso completo que o desenvolvedor pode experimentar. Nenhuma feature nova: as fatias reordenam
+o trabalho já previsto. Composição em `02-proposal/feature-map.md`.

@@ -3,6 +3,9 @@
 > **Data**: 2026-10-15 | **Estado**: revisão pedida pelo desenvolvedor (JV-D018); substitui as seções
 > 2 e 3 do [`diagnostico-inicial.md`](diagnostico-inicial.md), que afirmavam que “nenhuma ferramenta
 > conecta medições, ajustes, orientação e histórico” — afirmação **retirada** por não se sustentar.
+> **Revisão 3 (JV-D036)**: relatórios do Flat Liner e FAQ do Tuning Labs incluídos; “não encontrado” ou
+> “não verificado” onde a pesquisa foi limitada — nunca afirmação de ausência; testar outra ferramenta
+> é opcional.
 > **Pergunta central**: quanto essas ferramentas ajudam quem ainda está aprendendo, e o que o Jarvis
 > acrescentaria ao uso do desenvolvedor? O projeto **não** depende de ser inédito.
 
@@ -14,11 +17,13 @@
 | **Anunciado** | descrito em página comercial, blog ou vídeo do próprio fabricante, sem detalhe técnico verificável |
 | **Relato** | descrito por usuários em fórum; não é fonte oficial |
 | **Testado** | executado por nós. **Nenhuma** função foi testada: os programas não estão disponíveis neste ambiente |
+| **Não encontrado** | a documentação acessível não descreve a função — **não** significa que ela não exista |
+| **Não verificado** | há indício, mas não foi possível confirmar |
 
 **Limitação da pesquisa**: os sites dos fabricantes estavam bloqueados pela rede do ambiente de
 desenvolvimento; o conteúdo veio de mecanismo de busca, que resume as páginas. Antes de qualquer
 decisão que dependa de um detalhe, o desenvolvedor deve conferir a página citada. As fontes estão em
-[`fontes.md`](fontes.md) (`JV-S014` a `JV-S027`).
+[`fontes.md`](fontes.md) (`JV-S014` a `JV-S029`).
 
 Siglas: **REW** — Room EQ Wizard; **DSP** — processador digital de sinais; **EQ** — equalização;
 **RTA** — analisador em tempo real; **API** — interface de programação; **ATM** — medição automática
@@ -36,9 +41,10 @@ de tempo (Audiotec Fischer); **TA** — alinhamento temporal.
 | API local (porta 4735) para ler medições e, com licença Pro, disparar medições | Documentado (JV-S001, JV-S003) | — |
 | Testado por nós | — | não |
 
-**Para quem aprende**: muito poderoso e muito exigente. Calcula, mas não diz o que medir, em que
-ordem ajustar, nem por que uma curva está como está. Não conhece o carro, os alto-falantes nem o
-estado do DSP. O histórico são arquivos e anotações.
+**Para quem aprende**: muito poderoso e muito exigente. Calcula; na documentação consultada não
+encontrei orientação sobre o que medir, em que ordem ajustar ou por que uma curva está como está, nem
+cadastro do carro, dos alto-falantes ou do estado do DSP. O histórico são arquivos de medição e
+anotações.
 
 ## 2. HELIX DSP PC-Tool (Audiotec Fischer)
 
@@ -52,9 +58,9 @@ estado do DSP. O histórico são arquivos e anotações.
 | Importar arquivos de ajuste antigos (v5) no PC-Tool 6 | Relato (JV-S010) | relatos contraditórios [dúvida] |
 | Testado por nós | — | não |
 
-**Para quem aprende**: automatiza bem EQ e atrasos **dentro** do HELIX e dá conselhos gerais. Não
-explica a causa de um problema específico, não registra experimentos nem liga a percepção às
-medições. O histórico são os arquivos de ajuste salvos.
+**Para quem aprende**: automatiza EQ e atrasos **dentro** do HELIX e dá conselhos gerais. Na
+documentação consultada não encontrei explicação de causas de problemas específicos, registro de
+experimentos nem ligação entre percepção e medições. O histórico são os arquivos de ajuste salvos.
 
 ## 3. Flat Liner Tuning
 
@@ -65,17 +71,18 @@ medições. O histórico são os arquivos de ajuste salvos.
 | Crossovers (passa-altas, passa-baixas, passa-faixa) para 2 vias, 3 vias, traseiro e subwoofer | Anunciado | — |
 | EQ à curva-alvo a partir de medição RTA | Anunciado | — |
 | Alinhamento temporal calculado pela **distância física** de cada alto-falante | Anunciado | não por medição acústica |
-| Varredura de verificação final comparada à curva-alvo, com sugestão de ajustes | Anunciado | o pedido do desenvolvedor menciona “relatórios”; não encontrei descrição oficial do relatório [dúvida] |
+| Varredura de verificação final comparada à curva-alvo, com sugestão de ajustes | Anunciado | — |
+| **Relatório final** de cada ajuste: medições iniciais, curva-alvo, EQ aplicado, níveis e alinhamento temporal, com **exemplo em PDF** na página do produto | Anunciado (JV-S028) | corrigido na revisão 3; o exemplo não pôde ser aberto neste ambiente |
 | Carregar o EQ gerado no HELIX (EQ, não a configuração completa); copiar e colar filtros | Anunciado (JV-S019) | escrita no DSP **[dúvida: mecanismo não documentado]** |
 | Dados locais, sem nuvem | Anunciado | — |
 | Plataforma | **Divergência**: a página do produto cita Windows e macOS; a página de download só oferece instalador Windows | [dúvida registrada] |
 | Licença | US$ 39,99 (perpétua, um assento); versão Pro anual US$ 299,99; sessão remota com pessoa | Anunciado | preços via busca, a confirmar |
 | Testado por nós | — | não |
 
-**Para quem aprende**: provavelmente a que mais ajuda, porque dá **ordem** ao trabalho. Pelo que é
-anunciado, o foco é chegar à curva-alvo; não encontrei descrição de explicação de causas, de
-experimentos de uma variável ou de registro de percepção. É barata o bastante para ser **testada
-pelo desenvolvedor** como referência de comparação (ver JV-D018).
+**Para quem aprende**: provavelmente a que mais ajuda, porque dá **ordem** ao trabalho e documenta
+cada ajuste num relatório. Pelo que é anunciado, o foco é chegar à curva-alvo; não encontrei
+descrição de explicação de causas, de testes de uma variável ou de registro de percepção. Testá-la
+pode ser útil, mas é **opcional** (JV-D036).
 
 ## 4. Tuning Labs
 
@@ -86,7 +93,9 @@ pelo desenvolvedor** como referência de comparação (ver JV-D018).
 | Biblioteca de mais de 19 000 produtos; ferramentas no navegador; IA exige internet; uso offline por 30 dias | Anunciado (JV-S020) | — |
 | Edições Enthusiast, Shop Small, Shop Large; gestão de oficina, histórico de cliente e veículo nas edições de oficina | Anunciado (JV-S020) | foco declarado em oficinas |
 | **Divergência entre páginas**: uma página apresenta o copiloto de IA como futuro (“imagine um copiloto de IA posicionando cada filtro”), outras descrevem o Auto-Tune como existente | — | [dúvida registrada] |
-| Quais DSPs são suportados e como os filtros chegam ao DSP | não encontrado | [dúvida] |
+| Processadores suportados citados no FAQ: EDSP31-610, EDSP31-68, Dayton Audio DSP-408, BLAM LA808 e outros da família YDW; conexões por WebHID, ponte nativa e BLE (Bluetooth de baixo consumo) | Anunciado (JV-S029) | o FAQ não diz qual conexão serve a qual processador |
+| Lista de marcas da página principal (Audison, Helix, Arc Audio, JL Audio, Audiofrog, AudioControl, Focal, Morel, Hertz) | Anunciado | é o **catálogo** de produtos, não lista de compatibilidade |
+| Suporte ao HELIX | **não verificado** | nenhuma fonte acessível afirma compatibilidade |
 | Testado por nós | — | não |
 
 **Para quem aprende**: promete exatamente “orientação com IA”. Não encontrei documentação sobre
@@ -113,12 +122,12 @@ como a IA chega às recomendações, nem sobre a separação entre cálculo e in
 | --- | --- | --- | --- | --- | --- |
 | Medir com qualidade | sim | parcial (RTA, AMI) | via REW | via arquivo | sim |
 | Calcular EQ / atrasos | sim | sim (TuneEQ, ATM) | sim | sim | sim |
-| Ordem de trabalho guiada | não | parcial | **sim** | sim (anunciado) | sim (níveis) |
-| Explicar a causa de um problema específico | não | não | não encontrado | não encontrado | não encontrado |
-| Experimento de uma variável com previsão e veredito | não | não | não encontrado | não encontrado | não |
-| Registrar percepção antes/depois | não | não | não encontrado | não encontrado | não |
-| Histórico de sessões e aprendizado sobre o próprio carro | arquivos | arquivos de ajuste | não encontrado | sim, nas edições de oficina | não encontrado |
-| Funciona com HELIX | sim (manual) | sim | sim (EQ) | [dúvida] | não |
+| Ordem de trabalho guiada | não encontrado | parcial | **sim** (anunciado) | sim (anunciado) | sim (níveis) |
+| Explicar a causa de um problema específico | não encontrado | não encontrado | não encontrado | não encontrado | não encontrado |
+| Teste de uma variável com previsão e veredito | não encontrado | não encontrado | não encontrado | não encontrado | não encontrado |
+| Registrar percepção antes/depois | não encontrado | não encontrado | não encontrado | não encontrado | não encontrado |
+| Registro do que foi feito | arquivos de medição | arquivos de ajuste | relatório por ajuste (anunciado) | histórico de cliente e veículo nas edições de oficina (anunciado) | não encontrado |
+| Funciona com HELIX | sim (filtros digitados ou importados) | sim | EQ (anunciado; mecanismo não verificado) | não verificado | não: compatibilidade oficial só com Audison |
 
 “Não encontrado” significa que a documentação acessível não descreve a função — **não** que ela não
 exista.
@@ -139,6 +148,7 @@ pessoa:
 5. **Conviver com as ferramentas atuais**: o REW mede, o PC-Tool aplica (inclusive TuneEQ e ATM,
    quando fizer sentido), o Jarvis orienta e registra.
 
-**Recomendação**: antes ou durante o Marco 2, o desenvolvedor faz uma sessão com o Flat Liner (ou
-com TuneEQ/ATM) como referência. Isso preenche a coluna “Testado” e mostra, na prática, o que o
-Jarvis precisa fazer melhor para valer o esforço.
+**Opcional**: uma sessão com o Flat Liner, com TuneEQ/ATM ou com outra ferramenta pode servir de
+referência prática e preencher a coluna “Testado”. Não é obrigação de compra nem condição para
+concluir o projeto (JV-D036). TuneEQ e ATM, por já fazerem parte do PC-Tool, podem ser usados
+normalmente como etapas de calibração dentro do Jarvis (JV-D031).

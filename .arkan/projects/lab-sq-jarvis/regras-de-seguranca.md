@@ -1,7 +1,7 @@
 # Regras de Segurança do Equipamento — Lab SQ Jarvis
 
 > **Fonte canônica** dos identificadores `SEG-##` (constituição, P4 e P11).
-> **Versão**: 0.2.0 | **Data**: 2026-10-15 (revisão 2) | **Estado**: **proposta — aguardando ratificação (G3)**
+> **Versão**: 0.3.0 | **Data**: 2026-10-15 (revisão 3) | **Estado**: **proposta — aguardando ratificação (G3)**
 > Estas regras são **critérios técnicos**: só mudam por decisão `JV-D` registrada (constituição, P8).
 > Siglas: **SEG** — regra de segurança deste projeto; **EQ** — equalização; **DSP** — processador
 > digital de sinais; **Fs** — frequência de ressonância do alto-falante; **Xmax** — excursão linear
@@ -24,6 +24,12 @@ controlar, entre outros:
 
 O Jarvis declara essas limitações junto de cada recomendação sensível.
 
+**Aprovação não é verificação** (JV-D032). A aprovação de nível B autoriza um ato; não transforma uma
+condição desconhecida em condição tecnicamente verificada. Neste documento, **bloqueada** significa
+que o Jarvis **não recomenda** a alteração. O desenvolvedor continua livre para alterar o próprio
+DSP; se o fizer, o registro diz “decisão do usuário — condição não verificada”, e essa alteração
+nunca é apresentada como segura nem como recomendação do Jarvis.
+
 ## 1. Classificação das recomendações
 
 Toda alteração que muda **potência** entregue, **excursão** do cone, **frequência de corte** ou
@@ -31,7 +37,7 @@ Toda alteração que muda **potência** entregue, **excursão** do cone, **frequ
 
 | Classe | Exemplos | Exigências |
 | --- | --- | --- |
-| **Sensível — risco crescente** | aumentar ganho de canal ou de entrada; reforço de EQ (ganho positivo); baixar passa-altas; suavizar inclinação de filtro; aumentar nível do subwoofer | dados **confirmados** para as regras aplicáveis; todas as regras SEG; aprovação de nível B. Sem dado confirmado: **bloqueada** |
+| **Sensível — risco crescente** | aumentar ganho de canal ou de entrada; reforço de EQ (ganho positivo); baixar passa-altas; suavizar inclinação de filtro; aumentar nível do subwoofer | dados **confirmados** para as regras aplicáveis; todas as regras SEG; aprovação de nível B. Sem dado confirmado: **bloqueada** (não recomendada), sem exceção por aprovação |
 | **Sensível — risco decrescente** | reduzir ganho; corte de EQ (ganho negativo); subir passa-altas; inclinação mais íngreme | aprovação de nível B e **aviso de efeitos colaterais** (abaixo); regras sem dado ficam “não verificáveis”, sem bloquear |
 | **Não sensível** | polaridade; atraso | não mudam a energia elétrica entregue a cada alto-falante; seguem o procedimento seguro (SEG-08) e a aprovação normal do usuário |
 
@@ -58,12 +64,13 @@ normativa**, a ser revisto com fontes — não é verdade técnica.
 | SEG-04 | Ganho — passo | Aumentos de ganho e reforços de EQ: no máximo **+1,5 dB** por experimento. | — | **provisório** |
 | SEG-05 | Ganho — reforço de EQ | Um filtro não reforça mais que **+3 dB**; a soma dos reforços sobrepostos numa banda de um canal não passa de **+6 dB**. Preferir corte a reforço. | — | **provisório**; o guia do fabricante do HELIX alerta para reforços acima de ≈ 4 dB (JV-S017), o que é coerente com a ordem de grandeza, mas não fundamenta os valores exatos |
 | SEG-06 | Ganho — vales | Nunca recomendar reforço de EQ para preencher um vale classificado como cancelamento, interferência ou variação espacial (não equalizável). | — | fonte: guia do fabricante (JV-S017) desaconselha “encher” vales estreitos por distorção e ruído |
-| SEG-07 | Margem digital | Toda recomendação de reforço informa o efeito sobre a margem até a saturação digital do DSP; abaixo do critério vigente, é bloqueada. | marcada **não verificável**; exige nível B com aviso | critério **sem valor** ainda: a definir com fonte na spec da feature F007 |
+| SEG-07 | Margem digital | Toda recomendação de reforço informa o efeito sobre a margem até a saturação digital do DSP; abaixo do critério vigente, é bloqueada. Caminho de verificação proposto: o reforço é compensado por atenuação documentada a montante no mesmo caminho de sinal, de valor igual ou maior. | reforço **bloqueado** (regra geral de risco crescente); a aprovação não o libera (JV-D032) | critério e método **provisórios**: a fundamentar com fonte na spec da F007 |
 | SEG-08 | Procedimento seguro | Antes de alterar polaridade, crossover, atraso ou ganho: reduzir o volume; aplicar com o sinal parado; retomar o volume gradualmente até o nível de medição declarado. A receita sempre inclui esses passos. | — | prática de trabalho (prudência) |
 | SEG-09 | Nível de medição e audição | Toda receita declara o nível de medição; nunca recomendar nível acima do critério vigente de exposição sonora. | usar o nível mais baixo que garanta a relação sinal-ruído mínima | critério **sem valor** ainda: a definir com fonte na spec da F012 |
-| SEG-10 | Aprovação | Toda recomendação **sensível** (crescente ou decrescente) exige aprovação de nível B: o quê, em qual canal, quanto. | — | constituição, P4 |
+| SEG-10 | Aprovação | Toda recomendação **sensível** (crescente ou decrescente) exige aprovação de nível B: o quê, em qual canal, quanto. A aprovação não supre dado ausente. | — | constituição, P4; JV-D032 |
 | SEG-11 | Escrita no DSP | O Jarvis nunca escreve parâmetros no DSP; quem aplica é o desenvolvedor, no PC-Tool. | — | JV-D004, JV-D028 |
 | SEG-12 | Dados planejados | Equipamento `planejado` ou `informado` não alimenta nenhuma regra como se fosse instalado e confirmado. | a regra resulta **não verificável** | constituição, P5 |
+| SEG-13 | Etapas de calibração automatizadas | Antes de uma etapa com TuneEQ, ATM ou outra automação, o Jarvis informa os limites aplicáveis (por exemplo, reforço máximo e passa-altas mínimo) para você configurar na ferramenta, quando ela permitir. Depois, o conjunto resultante é conferido contra as regras SEG quando seus valores são informados ou arquivados. | conjunto **não verificado**; o Jarvis informa o que não pôde conferir | JV-D031 |
 
 ## 3. Como as regras são verificadas (G1 — testes automatizados)
 
@@ -79,3 +86,4 @@ normativa**, a ser revisto com fontes — não é verdade técnica.
 | --- | --- | --- |
 | 0.1.0 | 2026-10-15 | Proposta inicial (pedido do desenvolvedor: regras explícitas para potência, excursão, frequência de corte e ganho) |
 | 0.2.0 | 2026-10-15 | Revisão 2 (JV-D022): alcance e limites declarados, sem promessa de segurança absoluta; reduções passam a ser sensíveis (classe de risco decrescente), resolvendo a contradição da v0.1.0; coluna de fundamentação com valores provisórios identificados; SEG-05 e SEG-06 ligadas ao guia do fabricante (JV-S017) |
+| 0.3.0 | 2026-10-15 | Revisão 3 (JV-D032, JV-D031): aprovação não é verificação; “bloqueada” = não recomendada, sem exceção por aprovação; SEG-07 alinhada à regra geral, com caminho de verificação proposto; SEG-13 nova para etapas automatizadas |

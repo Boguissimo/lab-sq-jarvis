@@ -1,7 +1,7 @@
 # Briefing: Lab SQ Jarvis
 
 > **Projeto**: lab-sq-jarvis
-> **Status**: **Proposta (revisão 2) — aguardando aprovação do desenvolvedor** (documento vivo)
+> **Status**: **Proposta (revisão 3) — aguardando aprovação do desenvolvedor** (documento vivo)
 > **Data**: 2026-10-15
 > **Participantes**: Fabrício (desenvolvedor e usuário, engenheiro mecânico) + Claude (agente, Arkan)
 > **Insumos**: [`diagnostico-inicial.md`](diagnostico-inicial.md) (histórico) ·
@@ -53,7 +53,7 @@ Outros perfis só serão considerados na avaliação comercial, depois da versã
 ## 3. Objetivos
 
 1. **Marco 1 — Protótipo técnico**: o ciclo completo funciona com casos conhecidos, com cálculos
-   verificáveis, cadeia íntegra e regras de segurança testadas (critérios PT-01 a PT-10).
+   verificáveis, cadeia íntegra e regras de segurança testadas (critérios PT-01 a PT-11).
 2. **Marco 2 — Versão pessoal utilizável**: o desenvolvedor faz sessões reais no Focus, entende a
    orientação e retoma o trabalho em outro dia (critérios VP-01 a VP-10).
 3. Construir o conjunto de casos de teste e as métricas de diagnóstico antes de qualquer meta de
@@ -112,6 +112,7 @@ Outros perfis só serão considerados na avaliação comercial, depois da versã
 | JV-D020, JV-D021 | sessão guiada; percepção antes/depois |
 | JV-D022 a JV-D026 | limites técnicos e de segurança corrigidos |
 | JV-D027, JV-D028 | medições reais por arquivo; preservações reafirmadas |
+| JV-D030 a JV-D037 | comportamento do calibrador; diagnóstico × calibração; aprovação não verifica; origens dos números; níveis de confiança da configuração; critérios ajustados; comparação corrigida; incrementos executáveis |
 
 ### Dúvidas resolvidas
 
@@ -144,3 +145,4 @@ Outros perfis só serão considerados na avaliação comercial, depois da versã
 | --- | --- |
 | 2026-10-15 | Versão inicial |
 | 2026-10-15 | Revisão 2: foco pessoal; problema reescrito reconhecendo o que as ferramentas já fazem; objetivos por marco; público reduzido ao desenvolvedor |
+| 2026-10-15 | Revisão 3: decisões JV-D030 a JV-D037 resumidas; critérios PT até PT-11 |
