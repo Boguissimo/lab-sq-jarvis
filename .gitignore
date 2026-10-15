@@ -11,3 +11,9 @@ node_modules/
 # GUIA-DE-ADOCAO.md) — cada adotante gera os seus, não fazem parte do framework
 arkan-kb/dist/
 .arkan-kb/
+
+# Lab SQ Jarvis — ambiente Python local criado pelo INICIAR-JARVIS.bat e caches
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/

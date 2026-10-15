@@ -1,0 +1,4 @@
+# Lab SQ Jarvis — dependências do JV-V01 (versões fixadas; atualizar é decisão explícita, ADR-01)
+PySide6==6.10.2
+pyqtgraph==0.14.0
+numpy==2.4.6

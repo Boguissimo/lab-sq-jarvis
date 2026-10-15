@@ -1,0 +1,88 @@
+{
+  "caso": "REF-001-A",
+  "simulado": true,
+  "descricao": "Caso simulado e ideal: médio e tweeter com crossover Linkwitz-Riley de 4ª ordem em 3 000 Hz, alto-falantes planos, mesma distância. Serve para verificar cálculos e o percurso do programa; não representa o carro.",
+  "configuracao_declarada": {
+    "nome": "Ajuste inicial do caso REF-001-A (declarado)",
+    "parametros": [
+      {
+        "canal": "medio_esq",
+        "parametro": "polaridade",
+        "valor": "0°"
+      },
+      {
+        "canal": "tweeter_esq",
+        "parametro": "polaridade",
+        "valor": "0°"
+      },
+      {
+        "canal": "medio_esq",
+        "parametro": "passa-baixas",
+        "valor": "LR 24 dB/oit em 3000 Hz"
+      },
+      {
+        "canal": "tweeter_esq",
+        "parametro": "passa-altas",
+        "valor": "LR 24 dB/oit em 3000 Hz"
+      }
+    ]
+  },
+  "medicoes": [
+    {
+      "arquivo": "medio.txt",
+      "momento": "antes",
+      "papel": "via_a",
+      "canal": "medio_esq",
+      "descricao": "Médio esquerdo sozinho",
+      "referencia_temporal": {
+        "tipo": "loopback",
+        "id": "REF-001-A-loopback-simulado"
+      },
+      "taxa_amostragem": 48000,
+      "posicao_microfone": "P1 — posição de escuta do motorista (simulada)",
+      "simulado": true
+    },
+    {
+      "arquivo": "tweeter.txt",
+      "momento": "antes",
+      "papel": "via_b",
+      "canal": "tweeter_esq",
+      "descricao": "Tweeter esquerdo sozinho",
+      "referencia_temporal": {
+        "tipo": "loopback",
+        "id": "REF-001-A-loopback-simulado"
+      },
+      "taxa_amostragem": 48000,
+      "posicao_microfone": "P1 — posição de escuta do motorista (simulada)",
+      "simulado": true
+    },
+    {
+      "arquivo": "soma-antes.txt",
+      "momento": "antes",
+      "papel": "soma",
+      "canal": "medio_esq+tweeter_esq",
+      "descricao": "Médio e tweeter juntos",
+      "referencia_temporal": {
+        "tipo": "loopback",
+        "id": "REF-001-A-loopback-simulado"
+      },
+      "taxa_amostragem": 48000,
+      "posicao_microfone": "P1 — posição de escuta do motorista (simulada)",
+      "simulado": true
+    },
+    {
+      "arquivo": "soma-depois.txt",
+      "momento": "depois",
+      "papel": "soma",
+      "canal": "medio_esq+tweeter_esq",
+      "descricao": "Médio e tweeter juntos, depois de inverter o tweeter no DSP",
+      "referencia_temporal": {
+        "tipo": "loopback",
+        "id": "REF-001-A-loopback-simulado"
+      },
+      "taxa_amostragem": 48000,
+      "posicao_microfone": "P1 — posição de escuta do motorista (simulada)",
+      "simulado": true
+    }
+  ]
+}
