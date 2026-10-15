@@ -35,4 +35,5 @@ Branch: `lab-sq-jarvis/002-000-jv-v01-primeiro-percurso` · feature Arkan `002-0
 ## 6. Atualização (conclusão do JV-V01)
 - Feitos: `INICIAR-JARVIS.bat`, `COMO-EXPERIMENTAR.md`, tasks marcadas, `08-qa/qa-report.md` (aprovado com ressalvas), registro de entregas e F002–F008 `parcial (JV-V01)`, pacote `dist/jarvis-jv-v01.zip`.
 - G3 cumprido: o desenvolvedor executou no Windows (abre, percorre, reabre com histórico). Defeito de contraste do veredito corrigido (4544876).
-- Falta: confirmar visualmente o veredito legível (R04) e decidir a integração em `main` (só com aprovação).
+- Visual do veredito aprovado (R04 resolvida); QA aprovado.
+- Falta: decidir a integração em `main` (só com aprovação).

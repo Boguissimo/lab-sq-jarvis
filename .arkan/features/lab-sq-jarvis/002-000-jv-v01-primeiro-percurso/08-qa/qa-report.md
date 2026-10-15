@@ -4,8 +4,8 @@
 
 ## Resultado do QA
 
-**APROVADO COM RESSALVAS** — requisitos e invariantes verificados por teste automatizado (45 testes
-passando) e G3 (SC-004) cumprido pelo desenvolvedor no Windows em 2026-10-15. Ressalva restante: confirmar visualmente a correção de contraste do veredito (R04).
+**APROVADO** — requisitos e invariantes verificados por teste automatizado (45 testes
+passando) e G3 (SC-004) cumprido pelo desenvolvedor no Windows em 2026-10-15. Contraste e aparência do veredito confirmados pelo desenvolvedor após correção (commits `4544876`, `5d220e9`).
 
 **Bloqueadores abertos**: 0 | **Divergências spec↔código**: 0 conhecidas | **Itens de UAT pendentes**: 0
 
@@ -43,10 +43,10 @@ JV-D015: `grep` sem escapar colchetes).
 | # | Descrição | Prioridade | Quando |
 | --- | --- | --- | --- |
 | R01 | G3 no Windows executado (ver SC-004) | — | Resolvida |
-| R02 | Defeito achado no G3: texto do veredito ilegível no tema escuro; corrigido no commit `4544876` (texto escuro fixo nas caixas claras) | Alta | Resolvida no código; R04 |
+| R02 | Defeito achado no G3: texto do veredito ilegível no tema escuro; corrigido no commit `4544876` (texto escuro fixo nas caixas claras) | Alta | Resolvida |
 | R03 | Limiares e formato de texto do REW continuam provisórios | Média | JV-V02 / JV-V04 |
-| R04 | Confirmar visualmente o veredito legível após a correção | Média | Antes de integrar em `main` |
+| R04 | Veredito legível e visual aprovado pelo desenvolvedor | Média | Resolvida |
 
 ## 6. Decisão Final
 
-**APROVADO COM RESSALVAS** (2026-10-15). Integração em `main` somente com aprovação do desenvolvedor.
+**APROVADO** (2026-10-15). Limites do caso simulado e limiares provisórios seguem declarados (R03). Integração em `main` somente com aprovação do desenvolvedor.
