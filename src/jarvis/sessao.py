@@ -136,20 +136,111 @@ class Servico:
         return rid
 
     # ------------------------------------------------------------ passo 2
+    # @@T251 [FR-002] [FR-004] Entrada de arquivos sem exceção solta: todo problema vira mensagem simples
+    @staticmethod
+    def _problemas_da_configuracao(conf, onde: str) -> list[str]:
+        if not isinstance(conf, dict):
+            return [f"{onde} deve ser um objeto com “nome” e “parametros”"]
+        problemas = []
+        if not isinstance(conf.get("nome"), str) or not conf["nome"].strip():
+            problemas.append(f"falta o “nome” em {onde}")
+        parametros = conf.get("parametros")
+        if not isinstance(parametros, list):
+            problemas.append(f"falta a lista “parametros” em {onde}")
+        else:
+            for i, par in enumerate(parametros, 1):
+                if not isinstance(par, dict) or not all(isinstance(par.get(c), str) for c in ("canal", "parametro", "valor")):
+                    problemas.append(f"o parâmetro {i} de {onde} precisa de “canal”, “parametro” e “valor” em texto")
+                    break
+        return problemas
+
+    @staticmethod
+    def _ler_manifesto(pasta: Path) -> dict:
+        """Lê o manifesto e confere só o que o programa usa diretamente; nada de exceção do sistema para o usuário."""
+        try:
+            texto = (pasta / "manifesto.json").read_text(encoding="utf-8")
+        except OSError as erro:
+            raise ErroDoPercurso("Esta pasta não tem um caso de referência válido "
+                                 "(falta o arquivo manifesto.json).") from erro
+        except UnicodeDecodeError as erro:
+            raise ErroDoPercurso("O arquivo manifesto.json desta pasta não é um texto legível "
+                                 "(esperado UTF-8).") from erro
+        try:
+            manifesto = json.loads(texto)
+        except ValueError as erro:
+            raise ErroDoPercurso(f"O arquivo manifesto.json desta pasta não está em formato JSON válido ({erro}).") from erro
+        problemas: list[str] = []
+        if not isinstance(manifesto, dict):
+            raise ErroDoPercurso("O arquivo manifesto.json desta pasta não descreve um caso "
+                                 "(esperado um objeto JSON).")
+        if not isinstance(manifesto.get("caso"), str) or not manifesto["caso"].strip():
+            problemas.append("falta o campo “caso”")
+        medicoes = manifesto.get("medicoes")
+        if not isinstance(medicoes, list) or not medicoes:
+            problemas.append("falta a lista “medicoes”")
+        else:
+            for i, m in enumerate(medicoes, 1):
+                if not isinstance(m, dict):
+                    problemas.append(f"a medição {i} deve ser um objeto")
+                    continue
+                if not isinstance(m.get("arquivo"), str) or not m["arquivo"].strip():
+                    problemas.append(f"falta o “arquivo” na medição {i}")
+                if m.get("momento") not in ("antes", "depois"):
+                    problemas.append(f"“momento” da medição {i} deve ser “antes” ou “depois”")
+                if m.get("papel") not in ("via_a", "via_b", "soma"):
+                    problemas.append(f"“papel” da medição {i} deve ser via_a, via_b ou soma")
+                ref = m.get("referencia_temporal")
+                if "referencia_temporal" in m and not isinstance(ref, dict):
+                    problemas.append(f"“referencia_temporal” da medição {i} deve ser um objeto")
+                elif isinstance(ref, dict) and not all(ref.get(c) is None or isinstance(ref[c], str) for c in ("tipo", "id")):
+                    problemas.append(f"“tipo” e “id” da referência temporal da medição {i} devem ser texto")
+                taxa = m.get("taxa_amostragem")
+                if taxa is not None and (isinstance(taxa, bool) or not isinstance(taxa, (int, float)) or not taxa > 0):
+                    problemas.append(f"“taxa_amostragem” da medição {i} deve ser um número positivo")
+                for campo in ("canal", "descricao", "posicao_microfone", "suavizacao"):
+                    if m.get(campo) is not None and not isinstance(m[campo], str):
+                        problemas.append(f"“{campo}” da medição {i} deve ser texto")
+            if not any(isinstance(m, dict) and m.get("momento") == "antes" for m in medicoes):
+                problemas.append("não há nenhuma medição “antes”")
+        problemas += Servico._problemas_da_configuracao(manifesto.get("configuracao_declarada"), "“configuracao_declarada”") \
+            if "configuracao_declarada" in manifesto else ["falta o campo “configuracao_declarada”"]
+        if "simulado" in manifesto and not isinstance(manifesto["simulado"], bool):
+            problemas.append("“simulado” deve ser verdadeiro ou falso")
+        depois = manifesto.get("depois")
+        if depois is not None:
+            if not isinstance(depois, dict):
+                problemas.append("“depois” deve ser um objeto")
+            elif "configuracao_declarada" in depois:
+                problemas += Servico._problemas_da_configuracao(depois["configuracao_declarada"], "“depois.configuracao_declarada”")
+        if problemas:
+            resto = f" (e mais {len(problemas) - 4})" if len(problemas) > 4 else ""
+            raise ErroDoPercurso("O arquivo manifesto.json desta pasta está incompleto ou inválido: "
+                                 + "; ".join(problemas[:4]) + resto + ".")
+        return manifesto
+
+    @staticmethod
+    def _sha_do_arquivo(caminho: Path) -> str:
+        from jarvis.persistencia import sha256_de
+        try:
+            return sha256_de(caminho)
+        except OSError as erro:
+            raise ErroDoPercurso(f"Não consegui abrir “{caminho.name}”: {rew_texto.motivo_do_sistema(erro)}.") from erro
+
     def importar_caso(self, pasta: str | Path) -> dict:
         sid = self._exigir_sessao()
         pasta = Path(pasta)
-        try:
-            manifesto = json.loads((pasta / "manifesto.json").read_text(encoding="utf-8"))
-        except (OSError, ValueError) as erro:
-            raise ErroDoPercurso("Esta pasta não tem um caso de referência válido "
-                                 "(falta o arquivo manifesto.json).") from erro
+        manifesto = self._ler_manifesto(pasta)
         if self.b.registros(sid, "medicao"):
             raise ErroDoPercurso("As medições desta sessão já foram importadas.")
 
+        # Tudo ou nada: confere a leitura de todos os arquivos antes de registrar qualquer um, para uma falha no
+        # terceiro arquivo não deixar a sessão com medições pela metade ("já foram importadas") e sem saída.
+        antes = [m for m in manifesto["medicoes"] if m["momento"] == "antes"]
+        for meta in antes:
+            rew_texto.ler(pasta / meta["arquivo"])
         prov = self._proveniencia(pasta, manifesto)
         importadas = []
-        for meta in [m for m in manifesto["medicoes"] if m["momento"] == "antes"]:
+        for meta in antes:
             importadas.append(self._importar_medicao(pasta / meta["arquivo"], {**meta, "proveniencia": prov},
                                                      str(pasta)))
 
@@ -429,8 +520,11 @@ class Servico:
         pasta = Path(ms["dados"]["pasta_origem"])
         meta = None
         if caminho is None:
-            manifesto = json.loads((pasta / "manifesto.json").read_text(encoding="utf-8"))
-            meta = next(m for m in manifesto["medicoes"] if m["momento"] == "depois")
+            manifesto = self._ler_manifesto(pasta)
+            meta = next((m for m in manifesto["medicoes"] if m["momento"] == "depois"), None)
+            if meta is None:
+                raise ErroDoPercurso("Este caso não traz a medição “depois”. Informe o arquivo da medição "
+                                     "“depois” (médio e tweeter juntos).")
             caminho = pasta / meta["arquivo"]
         caminho = Path(caminho)
         if meta is None:
@@ -444,7 +538,7 @@ class Servico:
                                       str(caminho.parent))
         recusadas = []
         if meta.get("arquivo") and mesma_pasta:  # vias individuais "depois" declaradas no manifesto
-            manifesto = json.loads((pasta / "manifesto.json").read_text(encoding="utf-8"))
+            manifesto = self._ler_manifesto(pasta)
             for mv in manifesto["medicoes"]:
                 if mv["momento"] == "depois" and mv.get("papel") in ("via_a", "via_b"):
                     try:
@@ -453,8 +547,7 @@ class Servico:
                         recusadas.append({"arquivo": mv["arquivo"], "motivo": str(erro)})
         conf_depois_id = None
         if meta.get("arquivo") and mesma_pasta:
-            conf = (json.loads((pasta / "manifesto.json").read_text(encoding="utf-8")).get("depois") or {}) \
-                .get("configuracao_declarada")
+            conf = (self._ler_manifesto(pasta).get("depois") or {}).get("configuracao_declarada")
             if conf:
                 anterior = self.b.configuracoes(sid)[-1]
                 conf_depois_id = self.b.nova_configuracao(
@@ -488,7 +581,6 @@ class Servico:
         Cada aquisição é uma medição própria. Uma cópia do mesmo arquivo (mesmo SHA-256) ou com o mesmo
         ``aquisicao_id`` de outra já importada é recusada: não conta como repetição.
         """
-        from jarvis.persistencia import sha256_de
         sid = self._exigir_sessao()
         rec = self._ultimo("recomendacao")
         if self._ultimo("experimento") is None or rec is None or not rec["dados"].get("previsao_registrada_em"):
@@ -499,7 +591,7 @@ class Servico:
         if papel not in ("via_a", "via_b"):
             raise ErroDoPercurso("Informe a via da medição “depois” (via_a ou via_b).")
         meta["momento"] = "depois"
-        sha = sha256_de(caminho)
+        sha = self._sha_do_arquivo(caminho)
         anteriores = self._medicoes(papel, "depois")
         if any(m["dados"]["sha256"] == sha for m in anteriores):
             raise ErroDoPercurso(f"{caminho.name} é cópia de uma medição “depois” já importada desta via: "

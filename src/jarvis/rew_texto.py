@@ -75,12 +75,23 @@ def ler_texto(texto: str, nome: str = "arquivo") -> RespostaFrequencia:
     )
 
 
+def motivo_do_sistema(erro: OSError) -> str:
+    """Motivo, em português, de um erro de leitura de arquivo (o texto do sistema vem em inglês)."""
+    if isinstance(erro, FileNotFoundError):
+        return "o arquivo não existe (ou foi movido ou renomeado)"
+    if isinstance(erro, IsADirectoryError):
+        return "isto é uma pasta, não um arquivo"
+    if isinstance(erro, PermissionError):
+        return "sem permissão para ler o arquivo"
+    return "o sistema não deixou ler o arquivo"
+
+
 def ler(caminho: str | Path) -> RespostaFrequencia:
     caminho = Path(caminho)
     try:
         texto = caminho.read_text(encoding="utf-8", errors="replace")
     except OSError as erro:
-        raise FormatoInvalido(f"Não consegui abrir “{caminho.name}”: {erro.strerror}.") from erro
+        raise FormatoInvalido(f"Não consegui abrir “{caminho.name}”: {motivo_do_sistema(erro)}.") from erro
     return ler_texto(texto, caminho.name)
 
 

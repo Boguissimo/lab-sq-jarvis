@@ -178,3 +178,25 @@ def test_mudanca_suspeita_sem_afirmar_dsp(qtbot, tmp_path, monkeypatch):
     assert erros == []
     j.servico.b.fechar()
 
+
+
+# --- JV-T251: manifesto incompleto não derruba a interface ---
+
+def test_manifesto_incompleto_mostra_mensagem_e_a_janela_continua(qtbot, tmp_path):
+    import json
+    import shutil
+    from jarvis.referencia.ref001 import PASTA_PADRAO
+    janela, erros = _janela(qtbot, tmp_path / "d")
+    copia = tmp_path / "caso"
+    shutil.copytree(PASTA_PADRAO, copia)
+    m = json.loads((copia / "manifesto.json").read_text(encoding="utf-8"))
+    m.pop("medicoes")
+    (copia / "manifesto.json").write_text(json.dumps(m, ensure_ascii=False), encoding="utf-8")
+    janela.escolher_pasta = lambda: str(copia)
+    janela.botao_comecar.click()
+    janela._importar_outra()
+    assert erros and "incompleto ou inválido" in erros[0] and "medicoes" in erros[0]
+    assert not janela.servico.b.registros(janela.servico.sessao_id, "medicao")
+    janela.botao_importar.click()                       # a mesma sessão ainda aceita o caso certo
+    assert janela.servico.b.registros(janela.servico.sessao_id, "medicao")
+    janela.servico.b.fechar()
