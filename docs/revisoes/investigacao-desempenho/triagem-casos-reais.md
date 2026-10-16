@@ -42,3 +42,29 @@ Menções sem uso como caso: CAVEMOVE (gravado com REW; [arXiv 2508.19691](https
 3. Se nenhum caso R aparecer, aceita fechar a primeira fase com **estudos exploratórios + controles negativos**, declarando que ainda não há validação real?
 
 Nada foi executado nem commitado deste arquivo; aguardo sua decisão para commit.
+
+---
+
+## Adendo (2026-10-16) — decisões do desenvolvedor e novas verificações
+
+**Decisões registradas:** acesso por domínios públicos autorizado (alternativa: fontes verificáveis equivalentes); conversão de impulso→frequência e uso de exportações de texto do REW **autorizados só no harness**, preservando originais, hashes, taxa de amostragem, unidades, janela temporal, referência de fase e parâmetros da transformação, sem inventar metadados; a triagem inicial está encerrada **sem constituir validação real**; um conjunto sem diagnóstico **não é controle negativo comprovado** (ausência de relato não é ausência de problema); exploração com dado real, benchmark real com referência independente e sintéticos ficam em categorias separadas.
+
+**Acesso:** a configuração de rede do ambiente **continua bloqueando** `zenodo.org`, `arxiv.org`, `reddit.com`, `gearspace.com` e `diymobileaudio.com` (`connect_rejected`/DNS). Só o repositório do GitHub da sessão é alcançável. Não consigo alterar essa configuração daqui. Nada foi baixado.
+
+**Novos candidatos (somente por resumos de busca; não verificados na origem):**
+| Candidato | O que os resumos sustentam | O que NÃO está verificado | Viabilidade p/ o núcleo | Classe |
+| --- | --- | --- | --- | --- |
+| In-Car McVAMPIRE (Zenodo 12806684, v1.0, 02/08/2024, Cerence GmbH) | minivan de 8 lugares; 14 microfones suspensos; respostas ao impulso de **6 alto-falantes embutidos**; ruído de rodagem; arquivo `In-Car_McVAMPIRE_V1.0.zip` | licença (a do registro anexo, 12818781, é CC BY 4.0, mas **não se aplica por presunção**), taxa de amostragem, formato, referência de fase/tempo, quais alto-falantes são médio/tweeter, nível de calibração | **Baixa para crossover:** microfones no teto, não na posição de escuta; sem soma medida nem vias de mesma região; sem diagnóstico. Serve só para explorar a qualidade e a irregularidade de dado real | **E** (exploração real; **não** controle negativo) |
+| Reddit r/CarAV, "What's wrong with my car audio — REW measurement" (Audi A3, UMIK-1) | **nada**: a busca não encontrou a publicação; só guias genéricos (arquivo de calibração do UMIK-1, orientação 0°/90°) | existência do arquivo REW, pareceres, vias individuais, "depois" | desconhecida | **E** (não verificado; sem dados) |
+
+**Conclusão após as novas verificações:** continuam **zero** candidatos da classe R. Os dois novos entram como exploratórios, não como benchmark. Não há, neste ambiente, caminho para confirmar arquivo, licença ou parecer.
+
+**Pedido mínimo de ação sua (um item, pois os dois candidatos que você nomeou estão inacessíveis por outros meios):** em *Network access* do ambiente, liberar `zenodo.org` e `www.reddit.com` (e, se possível, `old.reddit.com` e `arxiv.org`). Isso evita qualquer download manual. Sem isso, a investigação segue só com planejamento e com casos sintéticos classificados como tal.
+
+## Protocolo do ensaio cego (a executar só depois do seu aceite e de existir dado bruto verificado)
+1. **Admissão:** verificar origem, licença, integridade (SHA-256 do arquivo baixado e, se publicado, comparar com o checksum da fonte), formato, taxa de amostragem, unidades, janela e referência de fase. Faltou metadado ⇒ registrar a limitação e **não** presumir; análise que dependa dele não é feita.
+2. **Entradas × referência separadas:** `entrada/` (somente dados) e `referencia/` (parecer publicado, autoria, data, confiabilidade); o SHA-256 da referência é gravado antes da execução; o executor não a abre.
+3. **Conversão no harness:** impulso→frequência com janela e FFT registradas em `transformacao.json`; o original e o derivado têm hash; nenhum código do produto muda.
+4. **Execução:** `Servico` (mesmo caminho do produto) e funções de `calculos`, sem interface; saída bruta gravada integralmente.
+5. **Confronto:** só depois, comparar com a referência (e com a evidência da intervenção, se houver). Registrar acertos, divergências, falsos positivos/negativos, abstenções corretas; classificar cada falha como implementação, limite do algoritmo ou insuficiência do dado; resultados negativos têm o mesmo destaque.
+6. **Sem ajuste:** nenhum algoritmo, critério ou limiar muda por causa de um resultado conhecido.
