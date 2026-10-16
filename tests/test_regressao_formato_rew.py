@@ -43,6 +43,14 @@ def test_separadores_antigos_continuam_valendo():
     assert not r.tem_fase and r.freq_hz.size == 15
 
 
+def test_limite_declarado_da_clarification_c1_virgula_decimal_nao_e_coberta():
+    """C-1 (FR-002): só milhar+decimal en-US vira um valor; "1,000" sem ponto decimal segue a regra antiga
+    (vírgula é separador de campos), então a frequência lida é 1, não 1000. Documenta o limite, não o aprova como ideal."""
+    linhas = ["1,000 80 -3"] + [f"{100 * (i + 2)} {80 + i} {-i}" for i in range(14)]
+    r = rew_texto.ler_texto("\n".join(linhas))
+    assert r.freq_hz[0] == 1.0 and r.nivel_db[0] == 0.0
+
+
 def _servico_com_arquivo_alterado(tmp_path, alterar):
     pasta = casos.gerar("REF-001-A", tmp_path / "caso")
     linhas = (pasta / "medio.txt").read_text(encoding="utf-8").splitlines()

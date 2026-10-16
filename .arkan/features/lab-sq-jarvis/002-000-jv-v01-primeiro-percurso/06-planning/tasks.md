@@ -5,7 +5,7 @@
 ## Fase 1 — Base e cálculo
 
 - [x] JV-T101 — Estrutura `src/jarvis/`, `requirements.txt`, `pyproject.toml` (pytest). Gate: G1. Evidência: `python -m pytest` executa.
-- [x] JV-T102 — `rew_texto.py`: leitura tolerante e escrita; erro em linguagem simples (FR-002). Gate: G1. Evidência: `tests/test_rew_texto.py`.
+- [x] JV-T102 — `rew_texto.py`: leitura tolerante e escrita; erro em linguagem simples (FR-002). Gate: G1. Evidência: `tests/test_rew_texto.py`, `tests/test_regressao_formato_rew.py` (Clarification C-1, 2026-10-16).
 - [x] JV-T103 — `calculos.py`: resposta complexa, somas, sobreposição, fase, atraso equivalente, comparação, qualidade, referência temporal (FR-004, FR-005). Gate: G1. Evidência: `tests/test_calculos.py`.
 - [x] JV-T104 — `referencia/ref001.py` e dados `REF-001-A` (FR-001). Gate: G1. Evidência: `tests/test_ref001.py`.
 
