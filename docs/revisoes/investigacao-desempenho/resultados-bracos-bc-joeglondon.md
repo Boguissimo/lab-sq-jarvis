@@ -53,6 +53,7 @@ O desvio-padrão ponto a ponto **entre as 5 repetições** (200 Hz–10 kHz, 48 
 | F-7 | Número de vales e atraso equivalente dependem da resolução e do método de reamostragem | Deficiência metodológica (estabilidade) | média |
 | F-8 | 24 ppo (mínimo aceito) desloca/subestima cancelamentos de baixa frequência | Limitação (densidade mínima vs. objetivo) | baixa para o V02 (domínio ≥ 200 Hz) |
 | F-9 | Fase/soma recusadas sem id e posição; ausência de "depois" | Dado insuficiente (recusa correta) | — |
+| F-10 | Verificação de densidade mínima falha em 24,0 ppo exatos (ponto flutuante) | Erro de implementação (borda) | baixa |
 
 **Recusas corretas:** formato ilegível (barra, embora com explicação errada); σ̂ não estimável em grade linear; fase sem metadados; "nada confirmado" quando σ̂ não estimável (porém a hipótese continuou a ser exibida).
 **Erros:** F-1, F-2. **Conclusões potencialmente inadequadas** (sem verdade independente, não contadas como falso positivo): hipótese de reflexão como "mais provável" (A2, B, C-janela, D-janela); "não dá para concluir" por σ̂ em medição repetível (C-pontual, D-pontual).
@@ -70,3 +71,7 @@ O desvio-padrão ponto a ponto **entre as 5 repetições** (200 Hz–10 kHz, 48 
 
 ## 6. O que não se pode concluir
 Que o Jarvis acerta diagnósticos de crossover; que vale para carro; que a posição ou a sincronização foram constantes (B/D são contrafactuais); que a reamostragem é medição independente; que as taxas de alarme sejam falsos positivos.
+
+## 7. Adendo (F-5 e ressalva do B)
+- **F-5** foi investigado em `f5-significado-do-sigma-joeglondon.md`: a estrutura acústica estável responde por praticamente todo o σ̂; o ruído de até ~1 dB é invisível para ele nessa sala; alternativas listadas lá para decisão humana.
+- **Ressalva do braço B/D:** para o par **L-3**, os cabeçalhos declaram outro atraso e um ajuste de relógio em `L + Sub 3`, contrariando a presunção de referência temporal compatível; os resultados de L-3 nos braços B e D devem ser lidos com essa ressalva (a fase em 30–150 Hz mudou pouco, ≈ 3°).

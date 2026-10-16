@@ -1,0 +1,753 @@
+{
+ "limiares_produto": {
+  "aviso_db": 0.5,
+  "reprovada_db": 1.5
+ },
+ "tipos": {
+  "L": {
+   "offset_medio_por_repeticao_db_200_10k": [
+    -0.006,
+    -0.022,
+    0.015,
+    0.007,
+    0.007
+   ],
+   "por_banda_48ppo_pontual": {
+    "200-400": {
+     "desvio_entre_rep_mediana_db": 0.14,
+     "sigma_hat_x_db": 2.125,
+     "sigma_hat_m_db": 2.221,
+     "sigma_hat_residuo_db": 0.173
+    },
+    "400-800": {
+     "desvio_entre_rep_mediana_db": 0.057,
+     "sigma_hat_x_db": 4.075,
+     "sigma_hat_m_db": 4.099,
+     "sigma_hat_residuo_db": 0.066
+    },
+    "800-1600": {
+     "desvio_entre_rep_mediana_db": 0.091,
+     "sigma_hat_x_db": 3.117,
+     "sigma_hat_m_db": 3.145,
+     "sigma_hat_residuo_db": 0.119
+    },
+    "1600-3200": {
+     "desvio_entre_rep_mediana_db": 0.108,
+     "sigma_hat_x_db": 3.724,
+     "sigma_hat_m_db": 3.66,
+     "sigma_hat_residuo_db": 0.153
+    },
+    "3200-6400": {
+     "desvio_entre_rep_mediana_db": 0.185,
+     "sigma_hat_x_db": 4.459,
+     "sigma_hat_m_db": 4.479,
+     "sigma_hat_residuo_db": 0.3
+    },
+    "6400-10000": {
+     "desvio_entre_rep_mediana_db": 0.335,
+     "sigma_hat_x_db": 3.257,
+     "sigma_hat_m_db": 3.144,
+     "sigma_hat_residuo_db": 0.341
+    }
+   },
+   "sigma_hat_produto_48ppo_pontual": {
+    "x_por_repeticao": [
+     3.533,
+     3.521,
+     3.558,
+     3.552,
+     3.574
+    ],
+    "m_estavel": 3.497,
+    "residuo_entre_aquisicoes": [
+     0.179,
+     0.153,
+     0.131,
+     0.118,
+     0.172
+    ]
+   },
+   "desvio_entre_repeticoes_mediana_db": 0.119,
+   "autocorr_lag1_residuo": [
+    -0.188,
+    0.061,
+    -0.127,
+    0.066,
+    0.069
+   ],
+   "classe_produto_x": [
+    "reprovada",
+    "reprovada",
+    "reprovada",
+    "reprovada",
+    "reprovada"
+   ],
+   "classe_se_so_ruido": [
+    "aprovada",
+    "aprovada",
+    "aprovada",
+    "aprovada",
+    "aprovada"
+   ],
+   "sigma_hat_de_m_mais_ruido_branco_conhecido": {
+    "0.25": 3.529,
+    "0.5": 3.595,
+    "1.0": 3.5,
+    "1.5": 3.821,
+    "2.0": 4.086
+   },
+   "sensibilidade_grade": {
+    "24-pontual": {
+     "x": 3.763,
+     "m": 3.807,
+     "residuo": 0.176,
+     "desvio_entre_rep": 0.12
+    },
+    "24-janela": {
+     "x": 2.109,
+     "m": 2.11,
+     "residuo": 0.035,
+     "desvio_entre_rep": 0.036
+    },
+    "48-pontual": {
+     "x": 3.552,
+     "m": 3.497,
+     "residuo": 0.153,
+     "desvio_entre_rep": 0.119
+    },
+    "48-janela": {
+     "x": 1.955,
+     "m": 1.948,
+     "residuo": 0.051,
+     "desvio_entre_rep": 0.05
+    },
+    "96-pontual": {
+     "x": 2.3,
+     "m": 2.338,
+     "residuo": 0.151,
+     "desvio_entre_rep": 0.117
+    },
+    "96-janela": {
+     "x": 1.622,
+     "m": 1.617,
+     "residuo": 0.063,
+     "desvio_entre_rep": 0.063
+    },
+    "192-pontual": {
+     "x": 1.557,
+     "m": 1.561,
+     "residuo": 0.123,
+     "desvio_entre_rep": 0.121
+    },
+    "192-janela": {
+     "x": 1.08,
+     "m": 1.07,
+     "residuo": 0.078,
+     "desvio_entre_rep": 0.086
+    },
+    "nativa-linear (réplica da fórmula)": {
+     "x": 0.027,
+     "m": 0.025,
+     "residuo": 0.009,
+     "desvio_entre_rep": 0.182
+    }
+   }
+  },
+  "R": {
+   "offset_medio_por_repeticao_db_200_10k": [
+    0.022,
+    0.114,
+    -0.045,
+    -0.044,
+    -0.047
+   ],
+   "por_banda_48ppo_pontual": {
+    "200-400": {
+     "desvio_entre_rep_mediana_db": 0.277,
+     "sigma_hat_x_db": 1.763,
+     "sigma_hat_m_db": 2.074,
+     "sigma_hat_residuo_db": 0.337
+    },
+    "400-800": {
+     "desvio_entre_rep_mediana_db": 0.194,
+     "sigma_hat_x_db": 1.534,
+     "sigma_hat_m_db": 1.616,
+     "sigma_hat_residuo_db": 0.382
+    },
+    "800-1600": {
+     "desvio_entre_rep_mediana_db": 0.24,
+     "sigma_hat_x_db": 2.761,
+     "sigma_hat_m_db": 2.804,
+     "sigma_hat_residuo_db": 0.367
+    },
+    "1600-3200": {
+     "desvio_entre_rep_mediana_db": 0.213,
+     "sigma_hat_x_db": 3.91,
+     "sigma_hat_m_db": 3.728,
+     "sigma_hat_residuo_db": 0.36
+    },
+    "3200-6400": {
+     "desvio_entre_rep_mediana_db": 0.195,
+     "sigma_hat_x_db": 4.099,
+     "sigma_hat_m_db": 4.275,
+     "sigma_hat_residuo_db": 0.311
+    },
+    "6400-10000": {
+     "desvio_entre_rep_mediana_db": 0.316,
+     "sigma_hat_x_db": 2.005,
+     "sigma_hat_m_db": 2.114,
+     "sigma_hat_residuo_db": 0.311
+    }
+   },
+   "sigma_hat_produto_48ppo_pontual": {
+    "x_por_repeticao": [
+     2.584,
+     2.645,
+     2.765,
+     2.645,
+     2.65
+    ],
+    "m_estavel": 2.702,
+    "residuo_entre_aquisicoes": [
+     0.466,
+     0.426,
+     0.285,
+     0.271,
+     0.3
+    ]
+   },
+   "desvio_entre_repeticoes_mediana_db": 0.238,
+   "autocorr_lag1_residuo": [
+    0.076,
+    -0.012,
+    0.063,
+    0.003,
+    0.018
+   ],
+   "classe_produto_x": [
+    "reprovada",
+    "reprovada",
+    "reprovada",
+    "reprovada",
+    "reprovada"
+   ],
+   "classe_se_so_ruido": [
+    "aprovada",
+    "aprovada",
+    "aprovada",
+    "aprovada",
+    "aprovada"
+   ],
+   "sigma_hat_de_m_mais_ruido_branco_conhecido": {
+    "0.25": 2.64,
+    "0.5": 2.739,
+    "1.0": 2.889,
+    "1.5": 2.958,
+    "2.0": 3.203
+   },
+   "sensibilidade_grade": {
+    "24-pontual": {
+     "x": 4.133,
+     "m": 4.14,
+     "residuo": 0.316,
+     "desvio_entre_rep": 0.25
+    },
+    "24-janela": {
+     "x": 1.935,
+     "m": 1.917,
+     "residuo": 0.078,
+     "desvio_entre_rep": 0.065
+    },
+    "48-pontual": {
+     "x": 2.645,
+     "m": 2.702,
+     "residuo": 0.3,
+     "desvio_entre_rep": 0.238
+    },
+    "48-janela": {
+     "x": 1.53,
+     "m": 1.524,
+     "residuo": 0.099,
+     "desvio_entre_rep": 0.08
+    },
+    "96-pontual": {
+     "x": 1.95,
+     "m": 1.952,
+     "residuo": 0.252,
+     "desvio_entre_rep": 0.245
+    },
+    "96-janela": {
+     "x": 1.287,
+     "m": 1.259,
+     "residuo": 0.114,
+     "desvio_entre_rep": 0.114
+    },
+    "192-pontual": {
+     "x": 1.255,
+     "m": 1.296,
+     "residuo": 0.203,
+     "desvio_entre_rep": 0.239
+    },
+    "192-janela": {
+     "x": 1.021,
+     "m": 0.997,
+     "residuo": 0.118,
+     "desvio_entre_rep": 0.157
+    },
+    "nativa-linear (réplica da fórmula)": {
+     "x": 0.023,
+     "m": 0.021,
+     "residuo": 0.009,
+     "desvio_entre_rep": 0.259
+    }
+   }
+  },
+  "Sub Only": {
+   "offset_medio_por_repeticao_db_200_10k": [
+    -0.081,
+    0.119,
+    -0.163,
+    0.386,
+    -0.26
+   ],
+   "por_banda_48ppo_pontual": {
+    "200-400": {
+     "desvio_entre_rep_mediana_db": 0.079,
+     "sigma_hat_x_db": 1.973,
+     "sigma_hat_m_db": 2.025,
+     "sigma_hat_residuo_db": 0.093
+    },
+    "400-800": {
+     "desvio_entre_rep_mediana_db": 0.233,
+     "sigma_hat_x_db": 4.033,
+     "sigma_hat_m_db": 3.913,
+     "sigma_hat_residuo_db": 0.256
+    },
+    "800-1600": {
+     "desvio_entre_rep_mediana_db": 0.239,
+     "sigma_hat_x_db": 3.929,
+     "sigma_hat_m_db": 3.955,
+     "sigma_hat_residuo_db": 0.276
+    },
+    "1600-3200": {
+     "desvio_entre_rep_mediana_db": 1.374,
+     "sigma_hat_x_db": 4.942,
+     "sigma_hat_m_db": 4.578,
+     "sigma_hat_residuo_db": 2.067
+    },
+    "3200-6400": {
+     "desvio_entre_rep_mediana_db": 4.801,
+     "sigma_hat_x_db": 7.443,
+     "sigma_hat_m_db": 3.13,
+     "sigma_hat_residuo_db": 5.34
+    },
+    "6400-10000": {
+     "desvio_entre_rep_mediana_db": 4.3,
+     "sigma_hat_x_db": 5.455,
+     "sigma_hat_m_db": 3.724,
+     "sigma_hat_residuo_db": 4.399
+    }
+   },
+   "sigma_hat_produto_48ppo_pontual": {
+    "x_por_repeticao": [
+     4.254,
+     3.937,
+     4.493,
+     4.641,
+     4.484
+    ],
+    "m_estavel": 3.536,
+    "residuo_entre_aquisicoes": [
+     0.651,
+     0.754,
+     0.756,
+     0.706,
+     0.778
+    ]
+   },
+   "desvio_entre_repeticoes_mediana_db": 0.656,
+   "autocorr_lag1_residuo": [
+    -0.086,
+    0.232,
+    -0.027,
+    0.068,
+    -0.013
+   ],
+   "classe_produto_x": [
+    "reprovada",
+    "reprovada",
+    "reprovada",
+    "reprovada",
+    "reprovada"
+   ],
+   "classe_se_so_ruido": [
+    "aviso",
+    "aviso",
+    "aviso",
+    "aviso",
+    "aviso"
+   ],
+   "sigma_hat_de_m_mais_ruido_branco_conhecido": {
+    "0.25": 3.669,
+    "0.5": 3.78,
+    "1.0": 3.706,
+    "1.5": 3.782,
+    "2.0": 3.999
+   },
+   "sensibilidade_grade": {
+    "24-pontual": {
+     "x": 4.903,
+     "m": 4.271,
+     "residuo": 0.779,
+     "desvio_entre_rep": 0.61
+    },
+    "24-janela": {
+     "x": 1.524,
+     "m": 1.307,
+     "residuo": 0.119,
+     "desvio_entre_rep": 0.129
+    },
+    "48-pontual": {
+     "x": 4.484,
+     "m": 3.536,
+     "residuo": 0.754,
+     "desvio_entre_rep": 0.656
+    },
+    "48-janela": {
+     "x": 1.677,
+     "m": 1.6,
+     "residuo": 0.185,
+     "desvio_entre_rep": 0.189
+    },
+    "96-pontual": {
+     "x": 3.171,
+     "m": 2.629,
+     "residuo": 0.658,
+     "desvio_entre_rep": 0.643
+    },
+    "96-janela": {
+     "x": 1.554,
+     "m": 1.147,
+     "residuo": 0.244,
+     "desvio_entre_rep": 0.276
+    },
+    "192-pontual": {
+     "x": 2.189,
+     "m": 1.647,
+     "residuo": 0.635,
+     "desvio_entre_rep": 0.648
+    },
+    "192-janela": {
+     "x": 1.135,
+     "m": 0.854,
+     "residuo": 0.321,
+     "desvio_entre_rep": 0.386
+    },
+    "nativa-linear (réplica da fórmula)": {
+     "x": 0.439,
+     "m": 0.393,
+     "residuo": 0.546,
+     "desvio_entre_rep": 3.747
+    }
+   }
+  },
+  "L + Sub": {
+   "offset_medio_por_repeticao_db_200_10k": [
+    0.009,
+    0.029,
+    0.05,
+    -0.031,
+    -0.057
+   ],
+   "por_banda_48ppo_pontual": {
+    "200-400": {
+     "desvio_entre_rep_mediana_db": 0.075,
+     "sigma_hat_x_db": 1.948,
+     "sigma_hat_m_db": 1.979,
+     "sigma_hat_residuo_db": 0.069
+    },
+    "400-800": {
+     "desvio_entre_rep_mediana_db": 0.221,
+     "sigma_hat_x_db": 2.992,
+     "sigma_hat_m_db": 3.146,
+     "sigma_hat_residuo_db": 0.184
+    },
+    "800-1600": {
+     "desvio_entre_rep_mediana_db": 0.613,
+     "sigma_hat_x_db": 3.615,
+     "sigma_hat_m_db": 3.467,
+     "sigma_hat_residuo_db": 0.828
+    },
+    "1600-3200": {
+     "desvio_entre_rep_mediana_db": 0.403,
+     "sigma_hat_x_db": 3.454,
+     "sigma_hat_m_db": 3.391,
+     "sigma_hat_residuo_db": 0.529
+    },
+    "3200-6400": {
+     "desvio_entre_rep_mediana_db": 0.457,
+     "sigma_hat_x_db": 4.395,
+     "sigma_hat_m_db": 4.35,
+     "sigma_hat_residuo_db": 0.454
+    },
+    "6400-10000": {
+     "desvio_entre_rep_mediana_db": 0.418,
+     "sigma_hat_x_db": 3.223,
+     "sigma_hat_m_db": 3.281,
+     "sigma_hat_residuo_db": 0.48
+    }
+   },
+   "sigma_hat_produto_48ppo_pontual": {
+    "x_por_repeticao": [
+     3.307,
+     3.345,
+     3.001,
+     3.328,
+     3.531
+    ],
+    "m_estavel": 3.203,
+    "residuo_entre_aquisicoes": [
+     0.263,
+     0.346,
+     0.531,
+     0.366,
+     0.364
+    ]
+   },
+   "desvio_entre_repeticoes_mediana_db": 0.374,
+   "autocorr_lag1_residuo": [
+    0.037,
+    -0.017,
+    -0.013,
+    0.069,
+    -0.122
+   ],
+   "classe_produto_x": [
+    "reprovada",
+    "reprovada",
+    "reprovada",
+    "reprovada",
+    "reprovada"
+   ],
+   "classe_se_so_ruido": [
+    "aprovada",
+    "aprovada",
+    "aviso",
+    "aprovada",
+    "aprovada"
+   ],
+   "sigma_hat_de_m_mais_ruido_branco_conhecido": {
+    "0.25": 3.161,
+    "0.5": 3.438,
+    "1.0": 3.512,
+    "1.5": 3.396,
+    "2.0": 3.838
+   },
+   "sensibilidade_grade": {
+    "24-pontual": {
+     "x": 3.257,
+     "m": 3.219,
+     "residuo": 0.379,
+     "desvio_entre_rep": 0.389
+    },
+    "24-janela": {
+     "x": 1.766,
+     "m": 1.725,
+     "residuo": 0.067,
+     "desvio_entre_rep": 0.06
+    },
+    "48-pontual": {
+     "x": 3.328,
+     "m": 3.203,
+     "residuo": 0.364,
+     "desvio_entre_rep": 0.374
+    },
+    "48-janela": {
+     "x": 1.8,
+     "m": 1.758,
+     "residuo": 0.1,
+     "desvio_entre_rep": 0.089
+    },
+    "96-pontual": {
+     "x": 2.35,
+     "m": 2.269,
+     "residuo": 0.307,
+     "desvio_entre_rep": 0.332
+    },
+    "96-janela": {
+     "x": 1.566,
+     "m": 1.473,
+     "residuo": 0.127,
+     "desvio_entre_rep": 0.13
+    },
+    "192-pontual": {
+     "x": 1.575,
+     "m": 1.526,
+     "residuo": 0.308,
+     "desvio_entre_rep": 0.317
+    },
+    "192-janela": {
+     "x": 1.139,
+     "m": 1.068,
+     "residuo": 0.168,
+     "desvio_entre_rep": 0.184
+    },
+    "nativa-linear (réplica da fórmula)": {
+     "x": 0.025,
+     "m": 0.023,
+     "residuo": 0.011,
+     "desvio_entre_rep": 0.392
+    }
+   }
+  },
+  "R + Sub": {
+   "offset_medio_por_repeticao_db_200_10k": [
+    0.007,
+    -0.012,
+    -0.003,
+    -0.001,
+    0.01
+   ],
+   "por_banda_48ppo_pontual": {
+    "200-400": {
+     "desvio_entre_rep_mediana_db": 0.063,
+     "sigma_hat_x_db": 1.591,
+     "sigma_hat_m_db": 1.598,
+     "sigma_hat_residuo_db": 0.067
+    },
+    "400-800": {
+     "desvio_entre_rep_mediana_db": 0.061,
+     "sigma_hat_x_db": 1.676,
+     "sigma_hat_m_db": 1.604,
+     "sigma_hat_residuo_db": 0.057
+    },
+    "800-1600": {
+     "desvio_entre_rep_mediana_db": 0.098,
+     "sigma_hat_x_db": 2.331,
+     "sigma_hat_m_db": 2.328,
+     "sigma_hat_residuo_db": 0.093
+    },
+    "1600-3200": {
+     "desvio_entre_rep_mediana_db": 0.08,
+     "sigma_hat_x_db": 3.814,
+     "sigma_hat_m_db": 3.839,
+     "sigma_hat_residuo_db": 0.091
+    },
+    "3200-6400": {
+     "desvio_entre_rep_mediana_db": 0.156,
+     "sigma_hat_x_db": 3.956,
+     "sigma_hat_m_db": 3.811,
+     "sigma_hat_residuo_db": 0.226
+    },
+    "6400-10000": {
+     "desvio_entre_rep_mediana_db": 0.225,
+     "sigma_hat_x_db": 1.877,
+     "sigma_hat_m_db": 2.191,
+     "sigma_hat_residuo_db": 0.26
+    }
+   },
+   "sigma_hat_produto_48ppo_pontual": {
+    "x_por_repeticao": [
+     2.385,
+     2.432,
+     2.475,
+     2.493,
+     2.495
+    ],
+    "m_estavel": 2.467,
+    "residuo_entre_aquisicoes": [
+     0.113,
+     0.101,
+     0.076,
+     0.102,
+     0.112
+    ]
+   },
+   "desvio_entre_repeticoes_mediana_db": 0.096,
+   "autocorr_lag1_residuo": [
+    0.005,
+    -0.105,
+    0.108,
+    -0.1,
+    0.008
+   ],
+   "classe_produto_x": [
+    "reprovada",
+    "reprovada",
+    "reprovada",
+    "reprovada",
+    "reprovada"
+   ],
+   "classe_se_so_ruido": [
+    "aprovada",
+    "aprovada",
+    "aprovada",
+    "aprovada",
+    "aprovada"
+   ],
+   "sigma_hat_de_m_mais_ruido_branco_conhecido": {
+    "0.25": 2.476,
+    "0.5": 2.368,
+    "1.0": 2.531,
+    "1.5": 2.842,
+    "2.0": 3.178
+   },
+   "sensibilidade_grade": {
+    "24-pontual": {
+     "x": 3.178,
+     "m": 3.225,
+     "residuo": 0.119,
+     "desvio_entre_rep": 0.095
+    },
+    "24-janela": {
+     "x": 1.523,
+     "m": 1.512,
+     "residuo": 0.03,
+     "desvio_entre_rep": 0.031
+    },
+    "48-pontual": {
+     "x": 2.475,
+     "m": 2.467,
+     "residuo": 0.102,
+     "desvio_entre_rep": 0.096
+    },
+    "48-janela": {
+     "x": 1.413,
+     "m": 1.411,
+     "residuo": 0.042,
+     "desvio_entre_rep": 0.038
+    },
+    "96-pontual": {
+     "x": 2.005,
+     "m": 1.999,
+     "residuo": 0.113,
+     "desvio_entre_rep": 0.1
+    },
+    "96-janela": {
+     "x": 1.329,
+     "m": 1.342,
+     "residuo": 0.05,
+     "desvio_entre_rep": 0.053
+    },
+    "192-pontual": {
+     "x": 1.333,
+     "m": 1.324,
+     "residuo": 0.098,
+     "desvio_entre_rep": 0.094
+    },
+    "192-janela": {
+     "x": 1.004,
+     "m": 1.011,
+     "residuo": 0.059,
+     "desvio_entre_rep": 0.069
+    },
+    "nativa-linear (réplica da fórmula)": {
+     "x": 0.023,
+     "m": 0.022,
+     "residuo": 0.008,
+     "desvio_entre_rep": 0.155
+    }
+   }
+  }
+ }
+}
