@@ -12,7 +12,7 @@
 | **Estrutura espectral** | σ̂ da média das capturas | ≈ σ̂ de cada captura (m_L 48 ppo: 0,75 × 0,61–0,85; 96 ppo: 0,24 × 0,23–0,26): o σ̂ vem da estrutura estável |
 | **Incerteza de medição (ruído aleatório)** | ruído esperado pela coerência: σ ≈ 8,686·√((1−γ²)/(2γ²·4)) | **0,03–0,20 dB** na banda útil (aproximação; bloco A, outro programa) |
 | **Admissibilidade para a análise** | classe do portão do produto (σ̂ 200 Hz–10 kHz) | depende da grade e da janela (§2) |
-Observações: a **variabilidade entre capturas (0,2–0,4 dB) é muito maior que o ruído aleatório esperado (≤ 0,2 dB)** e é **suave em frequência** (σ̂ do resíduo entre capturas só 0,06–0,33 dB): é deriva de posição/temperatura, não ruído branco. Os números de `w_R` reproduzem, por pipeline independente, o que o autor relata (0,19 dB abaixo de 150 Hz; 1,3–3,0 dB acima de 500 Hz), o que dá confiança na conversão IR→frequência.
+Observações: a **variabilidade entre capturas (0,2–0,4 dB) é muito maior que o ruído aleatório esperado (≤ 0,2 dB)** e é **suave em frequência** (σ̂ do resíduo entre capturas só 0,06–0,33 dB): é deriva observada de origem ainda não identificada (posição, operador e outros fatores não foram separados), não ruído branco. Os números de `w_R` reproduzem, por pipeline independente, o que o autor relata (0,19 dB abaixo de 150 Hz; 1,3–3,0 dB acima de 500 Hz), o que dá confiança na conversão IR→frequência.
 
 ## 2. F-5: σ̂ sob grade e janela (produto, chamada direta)
 | Curva | Grade | σ̂ (W30) | σ̂ (Wfull) | Classe (W30 / Wfull) |

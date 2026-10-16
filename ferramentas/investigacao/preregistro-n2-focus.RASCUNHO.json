@@ -1,0 +1,37 @@
+{
+ "titulo": "RASCUNHO de pré-registro — N2 no Focus (um par, polaridade e atraso conhecidos, soma medida)",
+ "estado": "RASCUNHO. NÃO é pré-registro válido até: (1) Fabrício autorizar a execução, (2) o par, o equipamento e as verificações V1–V8 serem confirmados, (3) este arquivo ser fechado (campos [CONFIRMAR] preenchidos), commitado e seu SHA-256 registrado ANTES de qualquer medição.",
+ "data_do_rascunho": "2026-10-16",
+ "natureza": "experimento físico; harness; NÃO altera src/, spec, limiares nem arquitetura; margem e admissibilidade são parâmetros experimentais; não valida o V02",
+ "protocolo": "docs/revisoes/investigacao-desempenho/protocolo-campo-n2-focus.md (v2)",
+ "par": {"A": "[CONFIRMAR]", "B": "[CONFIRMAR] (via que recebe as alterações)", "banda_operacional_A_hz": "[CONFIRMAR]", "banda_operacional_B_hz": "[CONFIRMAR]", "banda_declarada_hz": "[CONFIRMAR] = interseção, ≥ 1 oitava", "justificativa_da_escolha": "[CONFIRMAR]"},
+ "estados_aplicados_ao_DSP_em_B": ["polaridade invertida", "atraso nominal 1,00 ms", "atraso nominal 0,25 ms", "simulacro (sem alteração)"],
+ "opcional": "atraso nominal 0,10 ms (X5), só se V5 e V8 permitirem",
+ "ordem": "sorteada por n2_sorteio_cego.py; SHA-256 da tabela entregue ao analista antes da sessão; revelada após a gravação das previsões",
+ "entradas_do_prototipo": {
+  "previsao": "A_ref e B_ref: varreduras das vias isoladas do bloco B0 (3 repetições cada), exportadas do REW com nível e fase, mesma referência temporal",
+  "observacao": "S de cada bloco X e C: varreduras físicas A+B tocando juntas, arquivos exportados sem nenhuma operação",
+  "excluidas_ate_a_revelacao": ["B isolada dos blocos X (B_F)", "tabela de estados", "qualquer rótulo"],
+  "referencia_temporal": "loopback físico independente do DSP [CONFIRMAR]"
+ },
+ "parametros_experimentais": {
+  "C_ADM": 1.0,
+  "margem_constante": 0.2,
+  "margem_derivada_do_controle": "NÃO usada (rodada 3 adiada)",
+  "custo": "mediana|erro de nível dB| + mediana|erro de fase graus|/10, máscara −30 dB, 48 ppo",
+  "hipoteses": "normal; inversão de polaridade de B; atraso de B ∈ [−3, +3] ms, passo 0,01 ms, melhor ajuste contínuo",
+  "portao": "banda declarada = interseção das bandas operacionais das duas vias; ≥ 1 oitava; ≥ 20 pontos válidos; custo mínimo ≤ C_ADM; caso contrário 'inadmissivel' ou 'nao_conclui'",
+  "alarme_de_dependencia": "custo da hipótese normal em B0 < 0,01 invalida a sessão (arquivo duplicado, soma calculada ou erro de exportação)"
+ },
+ "verdade_usada": "a polaridade/atraso EFETIVOS estimados de B_F × B_ref depois da revelação; se diferirem do nominal além de ±max(0,02 ms; 10 %), vale o efetivo e a diferença é reportada",
+ "acerto": {
+  "simulacro_e_controles": "normal",
+  "polaridade": "inversao",
+  "atraso": "decisao atraso com |τ̂ − τ_efetivo| ≤ max(0,05 ms; 20 % de τ_efetivo)",
+  "classes": "certa / errada (omissão, identificação, falso alarme) / não concluiu / inadmissível; relatar a cobertura de conclusões sempre"
+ },
+ "metricas_a_relatar": ["matriz por estado × resultado, com cobertura", "falsos alarmes nos controles C1…C4 e no simulacro", "custo da hipótese verdadeira por bloco (piso físico)", "incerteza: repetibilidade (V6), estabilidade da referência (V3), deriva observada (V5, origem não identificada), diferença nominal × efetivo"],
+ "analises_secundarias_rotuladas": ["previsão a partir do controle imediatamente anterior em vez de B0", "estimativa das componentes (a) e (c) com estes dados"],
+ "o_que_nao_pode_ser_dito": ["que o Jarvis ou o V02 diagnostica em campo", "que o resultado vale para outros veículos, pares ou bandas", "que a deriva observada tem uma causa específica"],
+ "regras_fixas": "nenhum critério é ajustado após ver os resultados; resultado negativo ou abstenção é resultado válido; novas rodadas exigem novo pré-registro"
+}

@@ -60,6 +60,12 @@
 - **Protocolo de campo N2 no Focus preparado e NÃO iniciado** (`protocolo-campo-n2-focus.md`); depende de autorização expressa de Fabrício e da confirmação do equipamento (JV-D012).
 - Pendente de decisão: autorizar o N2; autorizar a rodada 3 (margem derivada do controle do próprio sistema); `C_ADM`/margem seguem como parâmetros do harness (limiar de produto = P8).
 
+### Atualização (2026-10-16, preparação do N2)
+- Diretriz de Fabrício: prioridade à validação física independente (N2); **preparação autorizada, execução NÃO autorizada**; rodada 3 (margem pelo controle do próprio sistema) **adiada** até haver dado físico. Margem e admissibilidade seguem como parâmetros experimentais.
+- Entregue: `protocolo-campo-n2-focus.md` (v2: um par de baixa/média frequência, soma efetivamente medida, linhagem de dados que demonstra a independência, instrumentação mínima/pendente/opcional, verificações V1–V8, segurança, cegamento por compromisso, restauração verificável), `preregistro-n2-focus.RASCUNHO.json` (a fechar antes da sessão) e `n2_sorteio_cego.py`.
+- **Equipamento não presumido:** HELIX PRO MK3 ainda não instalado; interface Behringer (modelo não confirmado, com Fernando), microfone e referência temporal pendentes. Sem compras recomendadas.
+- Redação: a *deriva* observada nos dados do Passat é tratada como **deriva observada de origem ainda não identificada** (a atribuição à temperatura é do autor da fonte, sem medição nossa).
+
 ---
 
 

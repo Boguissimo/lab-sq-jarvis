@@ -1,10 +1,12 @@
 # Deriva e refazer entre capturas (Passat B8) e utilidade do gatilho adaptativo
 
+> **Nota de redação (2026-10-16):** onde estes relatórios falam em *deriva*, trata-se de **deriva observada de origem ainda não identificada**. A atribuição à temperatura vem do autor da fonte (Passat), não de medição nossa; o estudo de causa (se houver) depende de registros ainda inexistentes (ver `protocolo-campo-n2-focus.md`, teste de repouso).
+
 > **Exploração com medições reais de um carro, uma sessão.** Complementa `metrologia-e-rigor-usabilidade-joeglondon.md` (limite nº 4). Não valida nem reprova o V02; não altera `src/`, spec, limiares nem arquitetura. 2026-10-16.
 > Fonte: `ayukhno/autosound-measurements` @ `7725d42` (CC BY 4.0; 63 arquivos conferidos por SHA-256). Pré-registro: `preregistro-deriva-passat.json` (SHA-256 `a2d4b356…457f`), commitado em `baa363c` **antes** do cálculo. Código: `deriva_passat.py`. Números: `deriva-passat.json`.
 
 ## O que estes dados são (e não são)
-**Não há deslocamento deliberado do microfone.** `m_L`, `m_L-ctl1`, `m_L-ctl3` são o mesmo ponto em tripé em t+0, +91 e +277 s (deriva de temperatura da cabine: 0 / −0,291 / −0,636 amostras a 96 kHz). `w_R` e `w_R-retake` são a mesma via 12 min depois, com o torso do operador em outra posição. O ensaio mede sensibilidade à **deriva temporal e ao refazer pelo operador**, não a reposicionamento deliberado.
+**Não há deslocamento deliberado do microfone.** `m_L`, `m_L-ctl1`, `m_L-ctl3` são o mesmo ponto em tripé em t+0, +91 e +277 s (deriva observada de origem ainda não identificada: 0 / −0,291 / −0,636 amostras a 96 kHz no tempo de chegada; o autor da fonte a atribui à temperatura da cabine, mas não há medição nossa que sustente a causa). `w_R` e `w_R-retake` são a mesma via 12 min depois, com o torso do operador em outra posição. O ensaio mede sensibilidade à **deriva temporal e ao refazer pelo operador**, não a reposicionamento deliberado.
 
 ## Estabilidade de decisões de balanço L/R (efeito a resolver: 1 dB; estável se amplitude ≤ 0,5 dB)
 | Decisão | Valores por captura (dB) | Amplitude | Classe |

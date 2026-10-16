@@ -1,5 +1,7 @@
 # Esclarecimento metodológico — diagnóstico por previsão física (antes da rodada 2)
 
+> **Nota de redação (2026-10-16):** onde estes relatórios falam em *deriva*, trata-se de **deriva observada de origem ainda não identificada**. A atribuição à temperatura vem do autor da fonte (Passat), não de medição nossa; o estudo de causa (se houver) depende de registros ainda inexistentes (ver `protocolo-campo-n2-focus.md`, teste de repouso).
+
 > Responde aos três pontos pedidos por Fabrício em 2026-10-16, **antes de executar a rodada 2**. Usa só arquivos já gravados da rodada 1 (`previsao-fisica-*.json`); nada novo foi calculado além de tabelas derivadas (`matriz_previsao.py`, `piso_construcao_previsao.py`). Não altera `src/`, spec, limiares nem arquitetura.
 
 ## Correção de uma formulação anterior

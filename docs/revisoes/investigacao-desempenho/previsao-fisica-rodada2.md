@@ -1,5 +1,7 @@
 # Previsão física — rodada 2: margens derivadas da incerteza, aquisições disjuntas e portão de admissibilidade
 
+> **Nota de redação (2026-10-16):** onde estes relatórios falam em *deriva*, trata-se de **deriva observada de origem ainda não identificada**. A atribuição à temperatura vem do autor da fonte (Passat), não de medição nossa; o estudo de causa (se houver) depende de registros ainda inexistentes (ver `protocolo-campo-n2-focus.md`, teste de repouso).
+
 > **Exploração no harness; protótipo, não o Jarvis.** Não altera `src/`, spec, limiares nem algoritmos; não valida o V02; **sem N2**. 2026-10-16.
 > Pré-registro: `preregistro-previsao-fisica-r2.json` (SHA-256 `817af766…dd4`, commit `c0bca8f`), antes de gerar casos. Margens estimadas **antes** de qualquer avaliação diagnóstica (`previsao-fisica-r2-margens.json`, commit `20d031a`). Execução cega com rótulos fora do alcance; `previsoes` SHA-256 `3ff1514f…4a08`. Código: `gerar_casos_previsao2.py`, `estimar_margem_previsao.py`, `diagnostico_previsao2.py`, `avaliar_previsao2.py`. Números: `previsao-fisica-r2-*.json`.
 > Premissas lidas em `esclarecimento-metodologico-previsao-fisica.md` (matriz da rodada 1, dados compartilhados, estimabilidade das componentes).
@@ -37,7 +39,7 @@ Cobertura de conclusões das falhas dentro do espaço: 100 % (o protótipo nunca
 | --- | ---: | ---: | ---: | ---: | ---: | --- |
 | N0 (mesma captura) | 70 | 60 | 60 | 0 | 10 (todas fora do espaço, corretas) | piso da hipótese verdadeira ≈ **0,000**: identidade algébrica, sem valor de diagnóstico |
 | N1s (captura disjunta da via faltosa) | 98 | 48 | 48 | 0 | 50 (14 fora do espaço, corretas; **36 dentro do espaço**) | C1 (200–500 Hz) e C3 (200–500 Hz): 100 % concluíram e acertaram, **inclusive 0,05 ms**; **C2 (2–10 kHz): 0 % de cobertura** |
-- **n efetivo no carro N1s = 8 variantes conclusivas** (C1 ×6, C3 ×2) de **3 pares**; o piso do C2 (mediana 1,74) excede `C_ADM` = 1,0 e o protótipo se abstém em todas (a deriva de temperatura derruba até o controle).
+- **n efetivo no carro N1s = 8 variantes conclusivas** (C1 ×6, C3 ×2) de **3 pares**; o piso do C2 (mediana 1,74) excede `C_ADM` = 1,0 e o protótipo se abstém em todas (a deriva observada de origem ainda não identificada derruba até o controle).
 - O carro continua com **A compartilhado, soma computada e nenhuma soma física**: 100 % em C1/C3 é **identificabilidade sob variação de captura**, não diagnóstico. Em 200–500 Hz o atraso de 0,05 ms é detectável porque 0,05 ms vale ≈ 6° a 350 Hz, acima do piso (0,13–0,40).
 
 ## 4. Portão de admissibilidade
@@ -53,7 +55,7 @@ Uma sala (L e R não são independentes: mesmo Sub, mesma época), um carro, uma
 | --- | --- | --- |
 | Polaridade | identificada em 40/40 casos disjuntos da sala (soma física), 0 falso alarme, também com margens diferentes | defeito real; outro sistema; carro com soma física |
 | Atraso | **detectado** (acusado) em 40/40 com 0,25 ms na sala; τ dentro da tolerância em 36/40; em 200–500 Hz do carro, 0,05 ms detectável (soma computada) | atrasos < 0,25 ms na sala dependem da margem e do sistema; ruído/deriva reais de campo |
-| Alta frequência no carro (2–10 kHz) | o método **se abstém** (custo do controle 1,7 > 1,0): comportamento seguro | utilidade: com capturas separadas por minutos a deriva de temperatura inviabiliza a previsão |
+| Alta frequência no carro (2–10 kHz) | o método **se abstém** (custo do controle 1,7 > 1,0): comportamento seguro | utilidade: com capturas separadas por minutos a deriva observada de origem ainda não identificada inviabiliza a previsão |
 | Margem | `0,2` constante e `√(a²+c²)` por componentes deram o mesmo desempenho na sala; margem empírica emprestada de outro lado **falhou** (8/40 falsos alarmes) | margem para o carro (faltam (c), (d)); transferência entre sistemas |
 | Portão por banda | 80/80 casos fora da banda barrados; ignorá-lo geraria até 19/80 falsos alarmes | — |
 **O que ainda falta para usar com confiança (em ordem de ganho):**
