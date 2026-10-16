@@ -2,7 +2,7 @@
 
 > Demonstração com **dados simulados**. As explicações vêm de regras, não de IA, e **não servem para
 > orientar ajustes reais** no carro (JV-D025). Este é o roteiro dos seus testes G3 no Windows (SC-206),
-> um por bloco. O JV-V02 ainda não foi executado no Windows por quem o escreveu.
+> um por bloco. A suíte automática já passou no Windows (211 passando, 1 `xfail` esperado, 16/10/2026); falta concluir este roteiro manual.
 
 ## Antes de começar
 - Windows com **Python 3.11 a 3.14** (o ambiente do V01 é reaproveitado; não há dependências novas).
@@ -23,17 +23,30 @@
    - **REF-001-A**: como no V01; qualidade **aprovada**; teste de polaridade; veredito **confirmada**.
    - **REF-001-B** (realista): mesmo percurso; veredito **confirmada** com **incerteza declarada maior**
      (σ̂ de alguns décimos de dB).
+   - Só **REF-001-A, B e N3** têm o teste de polaridade e o percurso até o veredito. Em **N1, N2, N4 e N5** o programa
+     recusa propor o teste de polaridade (é o esperado): confira só a análise e o texto de cada um.
    - **REF-001-N1**: indício **"vale numa via isolada"**; **interferência ou reflexão** em primeiro;
      nenhum teste de polaridade; aviso para **não reforçar a EQ**.
    - **REF-001-N2**: **"Não dá para concluir"**, com o motivo (σ̂ acima do limite provisório) e o que falta.
    - **REF-001-N3**: siga até o veredito (**Ver o teste proposto** → **Registrar** → **Importar a medição
      "depois"** → percepção). Esperado: **comprometida**, "mudança detectada e reproduzida" no tweeter,
-     com a faixa, e o texto **"o parâmetro alterado não é identificado pela medição"**.
+     com a faixa, e os textos **"a medição não identifica a causa"** e **"não comprova alteração no DSP"**.
    - **REF-001-N4**: fase e soma prevista **recusadas** ("Sem referência temporal declarada compatível"),
      só magnitude e soma de potências.
    - **REF-001-N5**: "Sem indício de problema no cruzamento"; em **4. Qual passo dar**, **Nada a alterar**
      abre com a justificativa **pré-preenchida**, que você pode editar.
 4. **Feche e abra de novo.** Reabra algumas sessões no **Histórico**: o que cada uma disse não muda.
+
+## G3 do bloco 1 — o que falta (16/10/2026)
+Já conferidos: suíte, abertura do programa, aviso de simulação, três sessões no Histórico, sessão V01 reaberta, N3 até a análise inicial.
+Faltam, nesta ordem (cerca de 10 minutos):
+1. **Backup e marcação da migração:** abra `%LOCALAPPDATA%\LabSQJarvis`, confirme que existe `jarvis.antes-v02-<data>.db`;
+   no Histórico abra uma sessão da V01 e confirme "reconstruída pelas regras 1.0".
+2. **N3 até o fim:** **Ver o teste proposto** → **Registrar** → **Importar a medição "depois"** → percepção → concluir.
+   Esperado: `comprometida`, "mudança detectada e reproduzida", "a medição não identifica a causa", "não comprova alteração no DSP".
+3. **REF-001-A, REF-001-B, N1, N2, N4, N5:** só o que a lista do passo 3 acima descreve.
+4. **Fechar e reabrir** o programa e abrir o N3 no Histórico: o veredito não muda.
+A variante sem repetição não aparece na lista da interface (não é distribuída); ela foi conferida por código, ver `08-qa/g3-bloco1-parcial.md`.
 
 ## Blocos 2 e 3
 Roteiros acrescentados quando os blocos estiverem prontos (segurança e casos REF-003-S; etapa de

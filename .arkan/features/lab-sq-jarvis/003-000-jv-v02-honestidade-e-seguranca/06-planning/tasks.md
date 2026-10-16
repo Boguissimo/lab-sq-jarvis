@@ -88,7 +88,7 @@
 
 - [x] JV-T222B [US-03] — **(E4)** Texto da indicativa "mudança suspeita; repetir a medição", sem afirmar alteração do DSP (`janela.py`, `sessao.py`, FR-209); framing de `tests/test_validacao_limiares.py` atualizado sem alterar números nem tabelas; ensaio complementar em `ferramentas/medir_e4.py` (depende de T222A). Gate: G1. Evidência: `test_interface.py::test_mudanca_suspeita_sem_afirmar_dsp` (passando; suíte completa em 2026-10-16: 211 passando e 1 `xfail`, com interface, em Linux com as libs), `08-qa/validacao-limiares.md` e `-e4.md`.
 
-- [ ] JV-T223 — **G3 do bloco 1**: roteiro no Windows, incluindo abrir o banco real (migração com backup) e reabrir as sessões (SC-206). Gate: G2 (roteiro) e G3. Evidência: seção do bloco 1 em `COMO-EXPERIMENTAR.md` e registro do desenvolvedor.
+- [ ] JV-T223 — **G3 do bloco 1**: roteiro no Windows, incluindo abrir o banco real (migração com backup) e reabrir as sessões (SC-206). Gate: G2 (roteiro) e G3. Evidência: seção do bloco 1 em `COMO-EXPERIMENTAR.md` e registro do desenvolvedor. **PARCIAL (16/10/2026, não concluída):** suíte Windows 211 + 1 `xfail`, abertura, sessão V01 reaberta e N3 até a análise OK; faltam backup/marcação da migração, N3 até o veredito, demais casos e reabertura. Registro em `08-qa/g3-bloco1-parcial.md`.
   - File: `COMO-EXPERIMENTAR.md`
 
 **Checkpoint**: bloco 1 aprovado no Windows — bloco 2 pode começar (bloco 3 também, ver dependências).

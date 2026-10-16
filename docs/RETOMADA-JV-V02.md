@@ -84,3 +84,6 @@ Commits: `2f0e8f1` (E1/R1), `1f6b62d` (E2/R1.1), `45f6401` (E3/R1.2 + revisão a
   - um incremento em três blocos; arquivo do PC-Tool opaco; calibração = alinhamento de atrasos tipo ATM;
   - SEG-02/07/09 só `não verificável`, e nenhum reforço é admitido;
   - presunções só para catálogo com proveniência verificada.
+
+## G3 do bloco 1 — andamento (16/10/2026)
+Parcial, **não concluído**: suíte Windows 211 + 1 `xfail`, abertura, sessão V01 e N3 (análise) OK. Faltam backup/migração, N3 até o veredito, demais casos e reabertura: ver `COMO-EXPERIMENTAR.md` e `08-qa/g3-bloco1-parcial.md`. Proposta da bancada automatizada (não decidida): `docs/revisoes/planejamento-bancada-validacao.md`.
