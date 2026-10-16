@@ -11,6 +11,7 @@ import json
 from pathlib import Path
 
 from jarvis import calculos, regras, regras_v1_0, rew_texto
+from jarvis.referencia import casos
 from jarvis.persistencia import Banco, agora
 
 CRITERIO_ACEITE = {  # provisório (spec do JV-V01, “Limites declarados”)
@@ -134,9 +135,11 @@ class Servico:
         if self.b.registros(sid, "medicao"):
             raise ErroDoPercurso("As medições desta sessão já foram importadas.")
 
+        prov = self._proveniencia(pasta, manifesto)
         importadas = []
         for meta in [m for m in manifesto["medicoes"] if m["momento"] == "antes"]:
-            importadas.append(self._importar_medicao(pasta / meta["arquivo"], meta, str(pasta)))
+            importadas.append(self._importar_medicao(pasta / meta["arquivo"], {**meta, "proveniencia": prov},
+                                                     str(pasta)))
 
         conf = manifesto["configuracao_declarada"]
         origem = "caso simulado" if manifesto.get("simulado") else "declarado"
@@ -146,6 +149,25 @@ class Servico:
         self.b.diario(sid, "importacao", f"Caso {manifesto['caso']} importado ({len(importadas)} medições)")
         return {"caso": manifesto["caso"], "simulado": manifesto.get("simulado", False),
                 "descricao": manifesto.get("descricao", ""), "medicoes": importadas}
+
+    # @@T216 [INV-214] Proveniência de catálogo conferida por hash (antecipada da JV-T218)
+    @staticmethod
+    def _proveniencia(pasta: Path, manifesto: dict) -> dict:
+        """Confere se a pasta tem exatamente os arquivos que o catálogo gera para o caso declarado."""
+        from jarvis.persistencia import sha256_de
+        arquivos = ["manifesto.json"] + [m["arquivo"] for m in manifesto.get("medicoes", [])]
+        try:
+            shas = {a: sha256_de(pasta / a) for a in arquivos}
+        except OSError:
+            return {"catalogo": False, "caso": manifesto.get("caso"), "motivo": "arquivo do caso ausente"}
+        return casos.proveniencia(manifesto.get("caso"), shas)
+
+    @staticmethod
+    def _suavizacao(dados: dict) -> str | None:
+        """Suavização declarada; ausente vale "nenhuma" só em caso do catálogo com proveniência (INV-214)."""
+        if dados.get("suavizacao") is not None:
+            return dados["suavizacao"]
+        return "nenhuma" if (dados.get("proveniencia") or {}).get("catalogo") else None
 
     def _importar_medicao(self, arquivo: Path, meta: dict, pasta_origem: str) -> dict:
         resposta = rew_texto.ler(arquivo)  # erro de formato sobe com mensagem simples
@@ -216,9 +238,25 @@ class Servico:
             ids["fase"] = self._registrar_calculo(
                 "diferenca_fase", "Diferença de fase entre as vias", fase, [ma, mb])
 
+        # @@T216 [FR-202] [FR-204] σ̂ de cada medição usada e vales individuais de cada via
+        qualidade = {"medicoes": {}}
+        ids_qualidade = {}
+        for m, r in ((ma, a), (mb, bb), (ms, s)):
+            irr = calculos.irregularidade(r, self._suavizacao(m["dados"]))
+            ids_qualidade[m["id"]] = self._registrar_calculo(
+                "irregularidade", f"Irregularidade ponto a ponto de {m['id']}", irr, [m],
+                {"suavizacao": self._suavizacao(m["dados"])}, irr["limiares"])
+            qualidade["medicoes"][m["id"]] = irr
+        vales_ind = {}
+        for via, m, r in (("via_a", ma, a), ("via_b", mb, bb)):
+            vales_ind[via] = calculos.vales_individuais(r)
+            ids[f"vales_individuais_{via}"] = self._registrar_calculo(
+                "vales_individuais", f"Vales na via isolada ({m['id']})", vales_ind[via], [m],
+                limiares=vales_ind[via]["limiares"])
+
         if fase is not None and not fase["calculavel"]:
             fase = None
-        resultado = regras.avaliar(sob, vale, fase, ids)
+        resultado = regras.avaliar(sob, vale, fase, ids, vales_individuais=vales_ind, qualidade=qualidade)
         if not ref["compativel"]:
             resultado["aviso_referencia"] = (
                 "Sem referência temporal compatível (" + "; ".join(ref["motivos"]) + "): a fase entre "
@@ -236,11 +274,11 @@ class Servico:
                         for h in resultado["hipoteses"]]
 
         # @@T209 [INV-211] Interpretação gravada: reabrir a sessão não reexecuta as regras (ADR-210)
-        usados = [self._registro_calculo(c) for c in ids.values()]
+        usados = [self._registro_calculo(c) for c in [*ids.values(), *ids_qualidade.values()]]
         avaliacao = {
             "versao_regras": regras.VERSAO,
-            "portao": {"classificacao": "qualidade básica aprovada", "conclui": True,
-                       "motivo": None, "falta": []},
+            "portao": resultado["portao"], "falta": resultado.get("falta", []),
+            "aviso_qualidade": resultado.get("aviso_qualidade"), "ids_qualidade": ids_qualidade,
             "sugestao": resultado["sugestao"], "motivo": resultado["motivo"],
             "hipoteses_ordem": hipotese_ids, "indicios": indicio_ids, "ids": ids,
             "aviso_referencia": resultado.get("aviso_referencia"),
@@ -552,7 +590,12 @@ class Servico:
                 "fase": fase["dados"]["resultado"] if fase else None,
                 "ids": ids,
                 "interpretacao": origem_interpretacao,
+                "portao": avaliacao.get("portao"),
+                "conclui": (avaliacao.get("portao") or {}).get("conclui", True),
+                "falta": avaliacao.get("falta", []),
             }
+            if avaliacao.get("aviso_qualidade"):
+                analise["aviso_qualidade"] = avaliacao["aviso_qualidade"]
             if analise_fase_motivos:
                 analise["aviso_fase"] = ("Fase e atraso entre as vias não calculáveis: "
                                          + "; ".join(analise_fase_motivos) + ".")

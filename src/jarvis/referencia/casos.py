@@ -20,6 +20,7 @@ Todos os casos são simulações: não representam o carro (JV-D025).
 from __future__ import annotations
 
 import copy
+import functools
 import hashlib
 import json
 import sys
@@ -372,8 +373,13 @@ def conteudo(nome: str) -> dict[str, bytes]:
     return caso(nome).construir()
 
 
+@functools.lru_cache(maxsize=64)
+def _sha_esperados(nome: str) -> tuple:
+    return tuple(sorted((arq, hashlib.sha256(b).hexdigest()) for arq, b in conteudo(nome).items()))
+
+
 def sha_esperados(nome: str) -> dict[str, str]:
-    return {arq: hashlib.sha256(b).hexdigest() for arq, b in conteudo(nome).items()}
+    return dict(_sha_esperados(nome))
 
 
 def gerar(nome: str, pasta: str | Path | None = None) -> Path:

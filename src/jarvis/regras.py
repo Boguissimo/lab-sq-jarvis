@@ -1,4 +1,4 @@
-"""Regras de diagnóstico do JV-V01: indícios e hipóteses sobre o cruzamento entre duas vias.
+"""Regras de diagnóstico (V01 e V02): indícios e hipóteses sobre o cruzamento entre duas vias.
 
 As explicações são geradas por estas regras — não por IA. Os limiares são **provisórios**: foram
 escolhidos pelo agente e só foram exercitados em casos simulados; não são critérios validados para o
@@ -7,7 +7,7 @@ carro (JV-D025, JV-D042).
 
 from __future__ import annotations
 
-VERSAO = "1.0"
+VERSAO = "1.1"  # JV-V02: portão de qualidade, I-3 e reordenação (as 1.0 ficam em regras_v1_0.py)
 
 LIMIARES = {
     "sobreposicao_max_diferenca_db": 6.0,
@@ -25,7 +25,7 @@ def _fmt(x: float, casas: int = 1) -> str:
     return f"{x:.{casas}f}".replace(".", ",").replace("-", "−")
 
 
-def avaliar(sobreposicao: dict, vale: dict | None, fase: dict | None, ids: dict[str, str]) -> dict:
+def _avaliar_cruzamento(sobreposicao: dict, vale: dict | None, fase: dict | None, ids: dict[str, str]) -> dict:
     """Aplica as regras e devolve indícios, hipóteses e a sugestão de próximo passo.
 
     ``ids`` mapeia o nome de cada cálculo para o identificador do registro (por exemplo,
@@ -123,3 +123,119 @@ def avaliar(sobreposicao: dict, vale: dict | None, fase: dict | None, ids: dict[
     return {"indicios": indicios, "hipoteses": [], "sugestao": "solicitar_dados",
             "motivo": "Há cancelamento, mas a fase não permite apontar a causa com estas regras; "
                       "são necessárias outras medições."}
+
+
+# ----------------------------------------------------------------- regras 1.1 (JV-V02)
+
+ORDEM_QUALIDADE = ("aprovada", "aviso", "nao_estimavel", "reprovada")
+
+
+# @@T216 [FR-203] [INV-201] [INV-212] Portão de qualidade (ADR-203)
+def portao(qualidade: dict | None) -> dict:
+    """Decide o que a qualidade das medições permite concluir.
+
+    ``qualidade``: ``{"medicoes": {id: resultado de calculos.irregularidade}}``. Sem qualidade
+    informada (chamadas do V01), o portão não limita nada.
+    - ``reprovada`` (σ̂ acima do limite em alguma medição) ⇒ “não dá para concluir”: sem hipóteses
+      ordenadas e sem teste proposto (INV-201);
+    - ``nao_estimavel`` ⇒ a análise descritiva segue, a incerteza fica “não quantificada” e nenhuma
+      hipótese é apresentada como confirmada (INV-212);
+    - ``aviso`` ⇒ segue, com incerteza declarada maior.
+    """
+    if not qualidade:
+        return {"classificacao": None, "conclui": True, "motivo": None, "falta": [], "sigma_max_db": None}
+    meds = qualidade.get("medicoes", {})
+    pior = max((m["classificacao"] for m in meds.values()), key=ORDEM_QUALIDADE.index, default="aprovada")
+    sigmas = [m["sigma_db"] for m in meds.values() if m.get("sigma_db") is not None]
+    sigma_max = max(sigmas) if sigmas else None
+    if pior == "reprovada":
+        ruins = [mid for mid, m in meds.items() if m["classificacao"] == "reprovada"]
+        lim = meds[ruins[0]]["limiares"]["limiares"]["irregularidade_reprovada_db"]["valor"]
+        return {"classificacao": pior, "conclui": False, "sigma_max_db": sigma_max,
+                "motivo": (f"A irregularidade ponto a ponto (σ̂ = {_fmt(sigma_max, 2)} dB) passa do limite provisório "
+                           f"de {_fmt(lim)} dB em {', '.join(ruins)}: com este ruído, a medição não permite concluir."),
+                "falta": ["nova medição com menos ruído (mais média, microfone fixo, ambiente mais silencioso)"]}
+    if pior == "nao_estimavel":
+        sem = [mid for mid, m in meds.items() if m["classificacao"] == "nao_estimavel"]
+        motivos = sorted({mt for mid in sem for mt in meds[mid].get("motivos", [])})
+        return {"classificacao": pior, "conclui": True, "sigma_max_db": sigma_max,
+                "motivo": ("Ruído não estimável em " + ", ".join(sem) + " (" + "; ".join(motivos) + "). "
+                           "As observações descritivas continuam; a incerteza fica não quantificada e nenhuma "
+                           "hipótese pode ser confirmada."),
+                "falta": ["medição sem suavização, em grade logarítmica com pelo menos 24 pontos por oitava"]}
+    return {"classificacao": pior, "conclui": True, "sigma_max_db": sigma_max, "falta": [],
+            "motivo": ("Irregularidade entre os limites de aviso: a análise segue com incerteza declarada maior."
+                       if pior == "aviso" else None)}
+
+
+def _indicio_vale_individual(vales_individuais: dict, ids: dict[str, str]) -> dict | None:
+    rotulos = {"via_a": "médio", "via_b": "tweeter"}
+    partes, calcs, valores = [], [], []
+    for via, res in (vales_individuais or {}).items():
+        if not res or not res.get("vales"):
+            continue
+        freqs = ", ".join(f"{_fmt(v['freq_hz'], 0)} Hz" for v in res["vales"])
+        cid = ids.get(f"vales_individuais_{via}")
+        partes.append(f"no {rotulos.get(via, via)} sozinho, em {freqs}" + (f" [{cid}]" if cid else ""))
+        calcs += [cid] if cid else []
+        valores += [{"via": via, **v} for v in res["vales"]]
+    if not partes:
+        return None
+    return {
+        "regra": "Regra 3 — vale numa via isolada",
+        "titulo": "Há vale estreito numa via medida sozinha",
+        "explicacao": ("A medição individual já mostra vale estreito " + "; ".join(partes) + ". Um vale que existe "
+                       "com a via tocando sozinha não vem da soma entre as vias: costuma ser interferência ou "
+                       "reflexão no caminho até o microfone, que muda com a posição e não se corrige com reforço de EQ."),
+        "valores": {"vales": valores},
+        "calculos": calcs,
+    }
+
+
+# @@T216 [FR-203] [FR-204] [FR-206] Regras 1.1: portão, I-3 e reordenação (ADR-210)
+def avaliar(sobreposicao: dict, vale: dict | None, fase: dict | None, ids: dict[str, str],
+            vales_individuais: dict | None = None, qualidade: dict | None = None) -> dict:
+    """Aplica as regras 1.1. As chamadas do V01 (sem ``vales_individuais`` nem ``qualidade``) dão o mesmo
+    resultado das regras 1.0, acrescido do campo ``portao``.
+    """
+    p = portao(qualidade)
+    if not p["conclui"]:
+        return {"indicios": [], "hipoteses": [], "sugestao": "nao_da_para_concluir",
+                "motivo": p["motivo"], "falta": p["falta"], "portao": p}
+    r = _avaliar_cruzamento(sobreposicao, vale, fase, ids)
+    i3 = _indicio_vale_individual(vales_individuais, ids) if sobreposicao.get("existe") else None
+    if i3:
+        r["indicios"].append(i3)
+        oposicao = any(i["regra"].startswith("Regra 2") for i in r["indicios"])
+        cancelamento = any(i["regra"].startswith("Regra 1") for i in r["indicios"])
+        if not oposicao:
+            hip = [{
+                "posicao": 1, "avaliacao": "mais provável",
+                "enunciado": "Interferência ou reflexão no caminho de uma via (vale presente na via isolada)",
+                "por_que": "O vale aparece na medição individual, sem oposição de fase constante entre as vias.",
+                "confirmaria": "O vale mudar de frequência ou profundidade ao medir em outras posições.",
+                "refutaria": "O vale continuar igual em várias posições de microfone.",
+                "apoio": ["Regra 3"],
+            }]
+            if cancelamento:
+                hip.append({
+                    "posicao": 2, "avaliacao": "pouco provável",
+                    "enunciado": "Polaridade invertida em uma das vias (médio ou tweeter)",
+                    "por_que": "Há cancelamento na soma, mas sem a oposição de 180° constante que a polaridade daria.",
+                    "confirmaria": "Diferença de fase constante perto de 180° na sobreposição.",
+                    "refutaria": "Diferença de fase variável, como a observada.",
+                    "apoio": ["Regra 1"],
+                })
+            r["hipoteses"] = hip
+            r["sugestao"] = "solicitar_dados"
+            r["motivo"] = ("O vale já existe numa via medida sozinha: antes de qualquer alteração, meça em outras "
+                           "posições para saber se é interferência. Não reforce a EQ para preencher o vale "
+                           "(não equalizável).")
+    if p["classificacao"] == "nao_estimavel":
+        for i in r["indicios"]:
+            i["qualidade"] = "não estimada"
+        r["aviso_qualidade"] = p["motivo"]
+    elif p["classificacao"] == "aviso":
+        r["aviso_qualidade"] = p["motivo"]
+    r["portao"] = p
+    return r

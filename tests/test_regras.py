@@ -45,3 +45,18 @@ def test_sem_fase_pede_dados():
 
 def test_limiares_declarados_provisorios():
     assert regras.LIMIARES_PROVISORIOS is True
+
+
+def test_i3_reordena_hipoteses():
+    """Com vale na via isolada e sem oposição constante, interferência vem antes de polaridade (FR-204)."""
+    sob = {"existe": True, "faixa_hz": [2000, 4500], "indices": [1, 2, 3]}
+    vale = {"min_relativo_db": -8.0, "freq_hz": 5000.0, "soma_no_vale_db": 70.0, "potencias_no_vale_db": 78.0}
+    fase = {"media_graus": 40.0, "dispersao_graus": 30.0, "atraso_equivalente_ms": 0.0, "faixa_hz": [2000, 4500]}
+    ids = {"vale": "C-1", "potencias": "C-2", "sobreposicao": "C-3", "fase": "C-4", "vales_individuais_via_b": "C-5"}
+    vi = {"via_a": {"vales": []}, "via_b": {"vales": [{"freq_hz": 5000.0, "profundidade_db": 12, "largura_oitava": 0.02}]}}
+    r = regras.avaliar(sob, vale, fase, ids, vales_individuais=vi)
+    assert [h["enunciado"].split()[0] for h in r["hipoteses"]] == ["Interferência", "Polaridade"]
+    assert r["sugestao"] == "solicitar_dados"
+    # sem I-3 o resultado é o das regras 1.0
+    from jarvis import regras_v1_0
+    assert regras.avaliar(sob, vale, fase, ids)["sugestao"] == regras_v1_0.avaliar(sob, vale, fase, ids)["sugestao"]

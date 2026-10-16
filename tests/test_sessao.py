@@ -157,7 +157,7 @@ def test_reabrir_nao_recalcula(servico, pasta_caso, banco, monkeypatch):
     from jarvis import regras, regras_v1_0
     _ate_analise(servico, pasta_caso)
     antes = servico.estado()["analise"]
-    assert antes["interpretacao"] == "registrada (regras 1.0)"
+    assert antes["interpretacao"] == f"registrada (regras {regras.VERSAO})"
 
     def proibido(*a, **k):
         raise AssertionError("estado() não pode reexecutar as regras")
@@ -185,3 +185,72 @@ def test_calculos_gravam_entradas_sha256(servico, pasta_caso, banco):
     assert av["dados"]["resultado"]["sugestao"] == "teste_polaridade"
     assert av["dados"]["limiares"]["limiares"]["cancelamento_min_db"] == 6.0
     assert banco.integridade() == []
+
+
+# --- JV-T216 (FR-203, FR-204, INV-201, INV-212): portão de qualidade, I-3 e reordenação ---
+
+from jarvis.referencia import casos as _casos  # noqa: E402
+
+
+def _analisar_caso(servico, nome):
+    servico.nova_sessao("investigacao")
+    servico.registrar_percepcao("antes", "não aplicável")
+    servico.importar_caso(_casos.PASTA_DADOS / nome if nome != "REF-001-A" else _casos.ref001.PASTA_PADRAO)
+    return servico.analisar()
+
+
+def test_ref001a_catalogo_com_qualidade_aprovada(servico, banco):
+    analise = _analisar_caso(servico, "REF-001-A")
+    assert analise["portao"]["classificacao"] == "aprovada" and analise["conclui"]
+    assert analise["sugestao"] == "teste_polaridade"
+    meds = banco.registros(servico.sessao_id, "medicao")
+    assert all(m["dados"]["proveniencia"]["catalogo"] for m in meds)
+
+
+def test_n2(servico):
+    analise = _analisar_caso(servico, "REF-001-N2")
+    assert analise["sugestao"] == "nao_da_para_concluir" and analise["conclui"] is False
+    assert "σ̂" in analise["motivo"] and "limite provisório" in analise["motivo"]
+    assert analise["falta"] and "menos ruído" in analise["falta"][0]
+    assert servico.b.registros(servico.sessao_id, "hipotese") == []
+    with pytest.raises(ErroDoPercurso):
+        servico.propor_teste()
+    # "solicitar dados adicionais" continua disponível
+    assert servico.decidir_sem_intervencao("solicitar_dados", "Refazer com menos ruído.")["tipo"] == "solicitar_dados"
+
+
+def test_n1(servico, banco):
+    analise = _analisar_caso(servico, "REF-001-N1")
+    assert analise["sugestao"] == "solicitar_dados"
+    hip = banco.registros(servico.sessao_id, "hipotese")
+    assert hip[0]["dados"]["enunciado"].startswith("Interferência ou reflexão")
+    assert not any("Polaridade" in h["dados"]["enunciado"] and h["dados"]["posicao"] == 1 for h in hip)
+    ind = banco.registros(servico.sessao_id, "indicio")
+    assert any(i["dados"]["regra"].startswith("Regra 3") for i in ind)
+    assert "Não reforce a EQ" in analise["motivo"]
+    with pytest.raises(ErroDoPercurso):
+        servico.propor_teste()
+
+
+def test_qualidade_limita_conclusao(servico, banco):
+    """Com vale numa via e ruído alto, prevalece "não dá para concluir" (edge case da spec)."""
+    _analisar_caso(servico, "REF-001-N2")
+    assert banco.registros(servico.sessao_id, "indicio") == []
+    assert banco.registros(servico.sessao_id, "hipotese") == []
+
+
+def test_nao_estimavel_preserva_descritivo(servico, banco, tmp_path):
+    """Fora do catálogo (cópia alterada), suavização ausente ⇒ não estimável; o descritivo continua."""
+    copia = tmp_path / "caso"
+    shutil.copytree(_casos.ref001.PASTA_PADRAO, copia)
+    m = json.loads((copia / "manifesto.json").read_text(encoding="utf-8"))
+    m["descricao"] += " (cópia externa)"
+    (copia / "manifesto.json").write_text(json.dumps(m, ensure_ascii=False), encoding="utf-8")
+    servico.nova_sessao("investigacao")
+    servico.importar_caso(copia)
+    analise = servico.analisar()
+    assert analise["portao"]["classificacao"] == "nao_estimavel" and analise["conclui"] is True
+    assert analise["vale"] is not None and analise["sobreposicao"]["existe"]
+    assert "não quantificada" in analise["aviso_qualidade"]
+    ind = banco.registros(servico.sessao_id, "indicio")
+    assert ind and all(i["dados"]["qualidade"] == "não estimada" for i in ind)
