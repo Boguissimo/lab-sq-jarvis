@@ -54,7 +54,7 @@
 
 - [x] JV-T212 [P] — `calculos.irregularidade`: condições de aplicação e σ̂ = 1,4826·MAD(Δ²L)/√6; `nao_estimavel` preserva o descritivo (FR-202, INV-212) (depende de T201). Gate: G1. Evidência: `test_calculos.py::test_irregularidade_ruido_conhecido`, `::test_irregularidade_nao_confunde_vale`, `::test_condicoes_aplicacao`, `::test_nao_estimavel_nao_aprova` (critério 3). `test_nao_estimavel_preserva_descritivo` fica na JV-T216, onde o portão usa σ̂.
   - File: `src/jarvis/calculos.py`
-- [ ] JV-T213 [P] — Contratos de `seguranca.py`: `classificar`, `avaliar`, `admissibilidade` (estrutura, classe de risco, estados), `VERSAO = "0.4.0"`; regras ainda como esqueleto testável (depende de T201). Gate: G1. Evidência: `test_seguranca.py::test_classificacao`, `::test_admissibilidade` (quatro situações do critério 4).
+- [x] JV-T213 [P] — Contratos de `seguranca.py`: `classificar`, `avaliar`, `admissibilidade` (estrutura, classe de risco, estados), `VERSAO = "0.4.0"`; regras ainda como esqueleto testável (depende de T201). Gate: G1. Evidência: `test_seguranca.py::test_classificacao`, `::test_admissibilidade` (quatro situações do critério 4).
   - File: `src/jarvis/seguranca.py`
 
 **Checkpoint**: banco migra com segurança, interpretação congelada, casos gerados com proveniência, contratos de qualidade e segurança testados — blocos podem começar.
