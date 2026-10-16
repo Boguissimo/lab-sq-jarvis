@@ -4,5 +4,5 @@ Incremento JV-V01: demonstração com dados simulados (caso REF-001-A). As expli
 implementadas, não de IA, e não servem para orientar ajustes reais no carro.
 """
 
-VERSAO = "0.1.0"
-INCREMENTO = "JV-V01"
+VERSAO = "0.2.0"
+INCREMENTO = "JV-V02"

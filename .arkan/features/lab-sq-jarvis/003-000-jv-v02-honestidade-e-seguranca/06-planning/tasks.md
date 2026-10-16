@@ -82,7 +82,7 @@
   - File: `src/jarvis/sessao.py`
 - [x] JV-T221 [P] — Varredura SC-208 (a, b): σ̂ e detector; oráculos analíticos e testes metamórficos; relatório marcado "domínio simulado" (depende de T212, T215). Gate: G1/G2. Evidência: `tests/test_validacao_limiares.py`, `tests/test_oraculos.py`, `tests/test_metamorficos.py` → `08-qa/validacao-limiares.md` (parcial).
   - File: `tests/test_validacao_limiares.py`, `tests/test_oraculos.py`, `tests/test_metamorficos.py`
-- [ ] JV-T222 [US-01..04] — Interface: seletor de caso, resultados novos (qualidade, detector com resolução, "ruído não estimável", "declarada compatível"), modo da sessão no Histórico (FR-209) (depende de T217, T220). Gate: G1. Evidência: `test_interface.py::test_seletor_casos`, `::test_textos_resultados`.
+- [x] JV-T222 [US-01..04] — Interface: seletor de caso, resultados novos (qualidade, detector com resolução, "ruído não estimável", "declarada compatível"), modo da sessão no Histórico (FR-209) (depende de T217, T220). Gate: G1. Evidência: `test_interface.py::test_seletor_casos`, `::test_textos_resultados`.
   - File: `src/jarvis/interface/janela.py`
 - [ ] JV-T223 — **G3 do bloco 1**: roteiro no Windows, incluindo abrir o banco real (migração com backup) e reabrir as sessões (SC-206). Gate: G2 (roteiro) e G3. Evidência: seção do bloco 1 em `COMO-EXPERIMENTAR.md` e registro do desenvolvedor.
   - File: `COMO-EXPERIMENTAR.md`

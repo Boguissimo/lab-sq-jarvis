@@ -78,3 +78,82 @@ def test_erro_aparece_em_linguagem_simples(qtbot, tmp_path):
     janela._importar_outra()
     assert erros and "manifesto" in erros[0]
     janela.servico.b.fechar()
+
+
+# --- JV-T222 (FR-209): seletor de caso e textos dos resultados do bloco 1 ---
+
+from PySide6.QtWidgets import QLabel, QTextBrowser  # noqa: E402
+
+
+def _textos(janela, pagina):
+    w = janela.paginas[pagina]
+    return " ".join([x.toPlainText() for x in w.findChildren(QTextBrowser)]
+                    + [x.text() for x in w.findChildren(QLabel)])
+
+
+def _escolher(janela, nome):
+    i = next(i for i in range(janela.seletor_caso.count()) if janela.seletor_caso.itemText(i).startswith(nome))
+    janela.seletor_caso.setCurrentIndex(i)
+
+
+def test_seletor_casos(qtbot, tmp_path):
+    janela, erros = _janela(qtbot, tmp_path / "d")
+    janela.botao_comecar.click()
+    nomes = [janela.seletor_caso.itemText(i) for i in range(janela.seletor_caso.count())]
+    assert nomes[0].startswith("REF-001-A")
+    for caso in ("REF-001-B", "REF-001-N1", "REF-001-N2", "REF-001-N3", "REF-001-N4", "REF-001-N5"):
+        assert any(n.startswith(caso) for n in nomes), caso
+    assert all("simulado" in n for n in nomes)
+    _escolher(janela, "REF-001-N2")
+    assert "ruído alto" in janela.descricao_caso.text()
+    janela.botao_importar.click()
+    janela.botao_analisar.click()
+    assert janela.servico.estado()["sessao"]["caso"] == "REF-001-N2"
+    texto = _textos(janela, 2)
+    assert "Não dá para concluir" in texto and "O que falta" in texto
+    assert erros == []
+    janela.servico.b.fechar()
+
+
+def _analisar_pela_interface(qtbot, tmp_path, nome):
+    janela, erros = _janela(qtbot, tmp_path / nome)
+    janela.botao_comecar.click()
+    _escolher(janela, nome)
+    janela.botao_importar.click()
+    janela.botao_analisar.click()
+    return janela, erros
+
+
+def test_textos_resultados(qtbot, tmp_path):
+    j, erros = _analisar_pela_interface(qtbot, tmp_path, "REF-001-N1")
+    t = _textos(j, 2)
+    assert "vale numa via isolada" in t and "Interferência ou reflexão" in t and "aprovada" in t
+    j.servico.b.fechar()
+
+    j, erros = _analisar_pela_interface(qtbot, tmp_path, "REF-001-N4")
+    assert "Sem referência temporal declarada compatível" in _textos(j, 2)
+    j.servico.b.fechar()
+
+    j, erros = _analisar_pela_interface(qtbot, tmp_path, "REF-001-N5")
+    assert "Sem indício de problema no cruzamento" in _textos(j, 2)
+    recebido = {}
+    j.pedir_texto = lambda titulo, rotulo, inicial="": (recebido.setdefault("inicial", inicial) or inicial, True)
+    j.botao_nada.click()
+    assert recebido["inicial"].startswith("Sem indício de problema")
+    assert j.servico.estado()["sessao"]["estado"] == "encerrada"
+    j.servico.b.fechar()
+
+    j, erros = _analisar_pela_interface(qtbot, tmp_path, "REF-001-N3")
+    j.botao_propor.click()
+    j.botao_aplicar.click()
+    j.botao_depois.click()
+    j.botao_concluir.click()
+    t = _textos(j, 4)
+    assert "comprometida" in t and "mudança detectada e reproduzida" in t
+    assert "o parâmetro alterado não é identificado pela medição" in t
+    assert "Médio: não verificada" in t
+    assert erros == []
+    j._montar_historico()
+    cab = [j.tabela_hist.horizontalHeaderItem(i).text() for i in range(j.tabela_hist.columnCount())]
+    assert "Modo" in cab
+    j.servico.b.fechar()

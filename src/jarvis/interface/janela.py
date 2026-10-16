@@ -15,12 +15,13 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
 from PySide6.QtWidgets import (
     QSizePolicy, QAbstractItemView, QButtonGroup, QDialog, QFileDialog, QGroupBox, QHBoxLayout, QHeaderView,
-    QInputDialog, QLabel, QListWidget, QListWidgetItem, QMainWindow, QMessageBox, QPlainTextEdit,
+    QComboBox, QInputDialog, QLabel, QListWidget, QListWidgetItem, QMainWindow, QMessageBox, QPlainTextEdit,
     QPushButton, QRadioButton, QScrollArea, QSplitter, QStackedWidget, QTableWidget, QTableWidgetItem,
     QTextBrowser, QVBoxLayout, QWidget,
 )
 
 from jarvis import INCREMENTO, VERSAO, regras
+from jarvis.referencia import casos
 from jarvis.referencia.ref001 import PASTA_PADRAO
 from jarvis.rew_texto import FormatoInvalido
 from jarvis.sessao import AVISO_SIMULADO, CRITERIO_ACEITE, ErroDoPercurso, Servico
@@ -127,7 +128,7 @@ class JanelaPrincipal(QMainWindow):
         self.setWindowTitle(f"Lab SQ Jarvis — {INCREMENTO} (demonstração com dados simulados)")
         self.resize(1280, 860)
         # funções substituíveis nos testes automatizados
-        self.pedir_texto = lambda titulo, rotulo: QInputDialog.getMultiLineText(self, titulo, rotulo)
+        self.pedir_texto = lambda titulo, rotulo, inicial="": QInputDialog.getMultiLineText(self, titulo, rotulo, inicial)
         self.escolher_pasta = lambda: QFileDialog.getExistingDirectory(self, "Pasta do caso de referência")
         self.mostrar_erro = lambda msg: QMessageBox.warning(self, "Lab SQ Jarvis", msg)
 
@@ -283,11 +284,23 @@ class JanelaPrincipal(QMainWindow):
             "sozinho e os dois juntos. Sem referência temporal comum, a fase entre as vias não pode ser "
             "comparada. O caso REF-001-A traz essas três medições, <b>simuladas</b>."))
         if e and not e["medicoes"] and not self._encerrada(e):
+            # @@T222 [FR-209] Seletor de caso: lista os casos distribuídos do bloco 1
+            self.seletor_caso = QComboBox()
+            for c in casos.listar(somente_distribuidos=True):
+                if c.nome.startswith("REF-001-"):
+                    pasta = PASTA_PADRAO if c.nome == "REF-001-A" else casos.PASTA_DADOS / c.nome
+                    self.seletor_caso.addItem(c.titulo + " (simulado)", str(pasta))
+            self.descricao_caso = _texto("")
+            self.seletor_caso.currentIndexChanged.connect(self._descrever_caso)
+            L.addWidget(self.seletor_caso)
+            L.addWidget(self.descricao_caso)
+            self._descrever_caso()
             linha = QHBoxLayout()
-            self.botao_importar = QPushButton("Importar o caso REF-001-A (dados simulados)")
+            self.botao_importar = QPushButton("Importar o caso escolhido (dados simulados)")
             self.botao_importar.setMinimumHeight(36)
             self.botao_importar.clicked.connect(
-                lambda: self._executar(lambda: self.servico.importar_caso(PASTA_PADRAO), ir_para=1))
+                lambda: self._executar(lambda: self.servico.importar_caso(Path(self.seletor_caso.currentData())),
+                                       ir_para=1))
             outra = QPushButton("Escolher outra pasta de caso…")
             outra.clicked.connect(self._importar_outra)
             linha.addWidget(self.botao_importar)
@@ -328,6 +341,14 @@ class JanelaPrincipal(QMainWindow):
                 L.addWidget(self.botao_analisar)
         L.addStretch()
 
+    def _descrever_caso(self) -> None:
+        import json
+        try:
+            m = json.loads((Path(self.seletor_caso.currentData()) / "manifesto.json").read_text(encoding="utf-8"))
+            self.descricao_caso.setText(html.escape(m.get("descricao", "")))
+        except (OSError, ValueError, TypeError):
+            self.descricao_caso.setText("")
+
     def _importar_outra(self) -> None:
         pasta = self.escolher_pasta()
         if pasta:
@@ -364,13 +385,30 @@ class JanelaPrincipal(QMainWindow):
                   "simulados.</p>"]
         ref = a["referencia"]
         partes.append("<p><b>Referência temporal:</b> " + (
-            "compatível entre as três medições — a fase pode ser comparada."
+            "declarada compatível entre as três medições — a fase pode ser comparada (igualdade declarada "
+            "no manifesto, não verificação física)."
             if ref["compativel"] else html.escape(a.get("aviso_referencia", ""))) + "</p>")
+        # @@T222 [FR-203] [FR-209] Qualidade (σ̂) e "não dá para concluir"
+        portao = a.get("portao") or {}
+        if portao.get("classificacao"):
+            rotulo = {"aprovada": "aprovada", "aviso": "com aviso (incerteza maior)",
+                      "nao_estimavel": "ruído não estimável", "reprovada": "reprovada"}[portao["classificacao"]]
+            sig = portao.get("sigma_max_db")
+            partes.append(f"<p><b>Qualidade das medições (irregularidade ponto a ponto σ̂):</b> {rotulo}"
+                          + (f" — σ̂ máximo {_fmt(sig, 2)} dB" if sig is not None else "") + ".</p>")
+        if not a.get("conclui", True):
+            partes.append("<h3>Não dá para concluir</h3><p>" + html.escape(a["motivo"]) + "</p>"
+                          + "<p><b>O que falta:</b> " + html.escape("; ".join(a.get("falta", []))) + "</p>")
+        if a.get("aviso_qualidade") and a.get("conclui", True):
+            partes.append("<p><b>Atenção:</b> " + html.escape(a["aviso_qualidade"]) + "</p>")
+        if a.get("aviso_fase"):
+            partes.append("<p><b>Fase:</b> " + html.escape(a["aviso_fase"]) + "</p>")
         if e["indicios"]:
             partes.append("<h3>Indícios</h3>")
             for ind in e["indicios"]:
+                marca = " — <i>qualidade não estimada</i>" if ind["dados"].get("qualidade") == "não estimada" else ""
                 partes.append(f"<p><b>{html.escape(ind['titulo'])}</b> <i>({ind['dados']['regra']}; "
-                              f"registro {ind['id']})</i><br>{html.escape(ind['dados']['explicacao'])}</p>")
+                              f"registro {ind['id']})</i>{marca}<br>{html.escape(ind['dados']['explicacao'])}</p>")
         if e["hipoteses"]:
             partes.append("<h3>Hipóteses, em ordem</h3><ol>")
             for h in e["hipoteses"]:
@@ -380,7 +418,11 @@ class JanelaPrincipal(QMainWindow):
                               f"<i>Confirmaria:</i> {html.escape(d['confirmaria'])}<br>"
                               f"<i>Refutaria:</i> {html.escape(d['refutaria'])}</li>")
             partes.append("</ol>")
-        partes.append(f"<p><b>Próximo passo sugerido pelas regras:</b> {html.escape(a['motivo'])}</p>")
+        if a.get("conclui", True):
+            partes.append(f"<p><b>Próximo passo sugerido pelas regras:</b> {html.escape(a['motivo'])}</p>")
+        if a.get("justificativa_sugerida"):
+            partes.append("<p><b>Sem indício de problema no cruzamento.</b> Se concordar, use “Nada a alterar” "
+                          "no passo 4: a justificativa vem pré-preenchida e você pode editá-la.</p>")
         lim = regras.LIMIARES
         partes.append(
             "<p style='color:#9a9a9a'><small>Limiares provisórios: vias a até "
@@ -497,7 +539,12 @@ class JanelaPrincipal(QMainWindow):
 
     def _sem_intervencao(self, tipo: str) -> None:
         titulo = "Nada a alterar" if tipo == "nada_a_alterar" else "Solicitar dados adicionais"
-        texto, ok = self.pedir_texto(titulo, "Fundamentação (obrigatória):")
+        e = self._estado()
+        inicial = ((e or {}).get("analise") or {}).get("justificativa_sugerida") if tipo == "nada_a_alterar" else None
+        if inicial:
+            texto, ok = self.pedir_texto(titulo, "Fundamentação (obrigatória; edite se quiser):", inicial)
+        else:
+            texto, ok = self.pedir_texto(titulo, "Fundamentação (obrigatória):")
         if ok:
             self._executar(lambda: self.servico.decidir_sem_intervencao(tipo, texto), ir_para=3)
 
@@ -558,7 +605,8 @@ class JanelaPrincipal(QMainWindow):
                             "refutada": ("#3a2121", "#e57373")}.get(d["veredito"], ("#2c2c2c", "#9e9e9e"))
             L.addWidget(_caixa(
                 f"<h3 style='margin:0 0 6px 0'>Veredito: hipótese {d['veredito']}</h3>"
-                f"<p>{html.escape(d['motivo'])}</p><p><b>Incerteza:</b> {html.escape(d['incerteza'])}</p>"
+                f"<p>{html.escape(d['motivo'])}</p>" + self._texto_verificacao(d)
+                + f"<p><b>Incerteza:</b> {html.escape(d['incerteza'])}</p>"
                 f"<p style='margin-bottom:0'><b>Limite:</b> {html.escape(d['limite'])}</p>", fundo, borda))
             decisoes = [x for x in e["decisoes"] if not x["dados"].get("sem_intervencao")]
             if not decisoes and not encerrada:
@@ -585,6 +633,37 @@ class JanelaPrincipal(QMainWindow):
                                "#2c2c2c", "#9e9e9e"))
         L.addStretch()
 
+    # @@T222 [FR-207] Resultado do detector por via, com resolução; sem nomear parâmetro
+    @staticmethod
+    def _texto_verificacao(d: dict) -> str:
+        v = d.get("verificacao_variavel_unica")
+        if not v:
+            return ""
+        nomes = {"via_a": "Médio", "via_b": "Tweeter"}
+        itens = []
+        for via, r in v["vias"].items():
+            res = r["resultado"]
+            if res == "nao_verificada":
+                txt = "não verificada (sem medição individual “depois”)"
+            elif res == "verificacao_inconclusiva":
+                txt = "verificação inconclusiva (condições de aquisição não comparáveis ou ruído não estimável)"
+            elif res == "mudanca_nao_detectada":
+                bandas = (r.get("resolucao") or {}).get("bandas_db")
+                txt = ("mudança não detectada (resolução: média 1,0 dB; bandas "
+                       + (f"{_fmt(bandas)} dB" if bandas is not None else "—") + ")")
+            else:
+                fx = r.get("faixa_mudanca_hz")
+                faixa = f" entre {_fmt(fx[0], 0)} Hz e {_fmt(fx[1], 0)} Hz" if fx else ""
+                txt = ("mudança detectada e reproduzida" if res == "mudanca_detectada_reproduzida"
+                       else "mudança detectada só numa aquisição (indicativa: repita a medição)") + faixa
+                txt += "; o parâmetro alterado não é identificado pela medição"
+            itens.append(f"<li>{nomes.get(via, via)}: {html.escape(txt)}</li>")
+        conf = {"igual": "igual à proposta", "diferente": "diferente da proposta",
+                "nao_declarada": "não declarada"}[v["configuracao"]]
+        aviso = f"<p><i>{html.escape(v['aviso'].capitalize())}.</i></p>" if v.get("aviso") else ""
+        return (f"<p><b>Verificação da variável única:</b> configuração declarada depois {conf}.</p>"
+                f"<ul>{''.join(itens)}</ul>{aviso}")
+
     def _concluir(self) -> None:
         def acao():
             if self.depois_sim.isChecked():
@@ -603,13 +682,13 @@ class JanelaPrincipal(QMainWindow):
         sessoes = self.servico.listar_sessoes()
         L.addWidget(_texto("Sessões guardadas neste computador. Abra uma para ver tudo o que foi feito "
                            "ou continuar de onde parou."))
-        self.tabela_hist = QTableWidget(len(sessoes), 5)
-        self.tabela_hist.setHorizontalHeaderLabels(["Sessão", "Criada em", "Caso", "Estado", "Encerramento"])
+        self.tabela_hist = QTableWidget(len(sessoes), 6)
+        self.tabela_hist.setHorizontalHeaderLabels(["Sessão", "Criada em", "Caso", "Modo", "Estado", "Encerramento"])
         self.tabela_hist.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tabela_hist.setSelectionBehavior(QAbstractItemView.SelectRows)
         for i, s in enumerate(sessoes):
             for j, v in enumerate([str(s["id"]), s["criada_em"][:16].replace("T", " "), s["caso"] or "—",
-                                   s["estado"], s["encerramento"] or "—"]):
+                                   s.get("modo") or "—", s["estado"], s["encerramento"] or "—"]):
                 self.tabela_hist.setItem(i, j, QTableWidgetItem(v))
         self.tabela_hist.horizontalHeader().setStretchLastSection(True)
         self.tabela_hist.setMinimumHeight(260)
