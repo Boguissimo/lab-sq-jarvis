@@ -55,6 +55,11 @@
 - **Clarification C-1 do FR-002 incorporada** à spec do JV-V01, com rastreio em `tasks.md` e teste do limite declarado, na branch `claude/correcao-pontual-formato-rew` (`bae3c3e`; 218 passando + 1 xfail). **A integração do código segue separada** (sem merge; aguarda ordem expressa).
 - **Investigação concluída nesta fase** (`docs/revisoes/investigacao-desempenho/`): `metrologia-e-rigor-usabilidade-joeglondon.md`, `deriva-passat-gatilho-adaptativo.md`, `diagnostico-por-previsao-fisica.md`. Fabrício **não aprovou limiar adaptativo definitivo**: a necessidade de repetição deve ser avaliada na faixa e para a decisão pretendida. Diagnóstico por previsão: N0/N1 apenas; **N2 (diagnóstico independente) não alcançado**.
 
+### Atualização (2026-10-16, previsão física)
+- Fabrício aprovou **conceitualmente** o diagnóstico por previsão física como direção do V04 (**sem autorizar mudanças no produto**) e autorizou a rodada 2 no harness. Feita e documentada: `esclarecimento-metodologico-previsao-fisica.md`, `previsao-fisica-rodada2.md` (viabilidade e o que falta). Conclusão: viável como direção para polaridade/atraso em banda baixa/média de par admissível, com abstenção; **ainda não utilizável com confiança** (sem N2; carro sem soma física; margem do carro não estimável).
+- **Protocolo de campo N2 no Focus preparado e NÃO iniciado** (`protocolo-campo-n2-focus.md`); depende de autorização expressa de Fabrício e da confirmação do equipamento (JV-D012).
+- Pendente de decisão: autorizar o N2; autorizar a rodada 3 (margem derivada do controle do próprio sistema); `C_ADM`/margem seguem como parâmetros do harness (limiar de produto = P8).
+
 ---
 
 
