@@ -1,6 +1,6 @@
-# Retomada — JV-V01 pausado em 2026-10-15
+# Retomada — JV-V01 concluído e aprovado (QA) em 2026-10-15
 
-Branch: `lab-sq-jarvis/002-000-jv-v01-primeiro-percurso` · feature Arkan `002-000-jv-v01-primeiro-percurso` · fase `07-implement`.
+Branch: `lab-sq-jarvis/002-000-jv-v01-primeiro-percurso` · feature Arkan `002-000-jv-v01-primeiro-percurso` · fase `08-qa` concluída (aprovado); integração em `main` pendente de decisão.
 
 ## 1. Feito no JV-V01
 - Arkan: ideação, spec, plano e tasks da feature (portões `check-prerequisites` PASS).
@@ -33,7 +33,7 @@ Branch: `lab-sq-jarvis/002-000-jv-v01-primeiro-percurso` · feature Arkan `002-0
 - Uso pessoal primeiro; comercial depois (JV-D017). GitHub: usar o mínimo (git direto).
 
 ## 6. Atualização (conclusão do JV-V01)
-- Feitos: `INICIAR-JARVIS.bat`, `COMO-EXPERIMENTAR.md`, tasks marcadas, `08-qa/qa-report.md` (aprovado com ressalvas), registro de entregas e F002–F008 `parcial (JV-V01)`, pacote `dist/jarvis-jv-v01.zip`.
+- Feitos: `INICIAR-JARVIS.bat`, `COMO-EXPERIMENTAR.md`, tasks marcadas, `08-qa/qa-report.md` (aprovado), registro de entregas e F002–F008 `parcial (JV-V01)`, pacote `dist/jarvis-jv-v01.zip`.
 - G3 cumprido: o desenvolvedor executou no Windows (abre, percorre, reabre com histórico). Defeito de contraste do veredito corrigido (4544876).
 - Visual do veredito aprovado (R04 resolvida); QA aprovado.
 - Falta: decidir a integração em `main` (só com aprovação).

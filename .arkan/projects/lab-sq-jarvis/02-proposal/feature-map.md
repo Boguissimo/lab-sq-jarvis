@@ -218,4 +218,4 @@ IA disponível para F009.
 | 2026-10-15 | v2: dois marcos (JV-D019); F008 vira sessão guiada com percepção (JV-D020, JV-D021); medições reais sem dependência da API do REW (JV-D027); novas F012 protocolo de medição, F016 retomada e aprendizado, F017 validação pessoal, F022 avaliação comercial no fim (JV-D017); comparação cega e API do REW passam para depois da versão pessoal | Revisão 2 do desenvolvedor |
 | 2026-10-15 | v3: incrementos executáveis JV-V01 a JV-V06 (JV-D037); F003, F007, F008, F015 e F017 ajustadas às decisões JV-D030 a JV-D036; PT-11; sem features novas | Revisão 3 do desenvolvedor |
 | 2026-10-15 | v4: aprovado (JV-D042); dependências compatíveis com entregas parciais; status `parcial (JV-Vxx)`; registro de entregas por incremento (JV-D041) | Autorização de construção do desenvolvedor |
-| 2026-10-15 | JV-V01 entregue e testado (QA com ressalvas); F002–F008 passam a `parcial (JV-V01)` | JV-D041 |
+| 2026-10-15 | JV-V01 entregue e testado (QA aprovado); F002–F008 passam a `parcial (JV-V01)` | JV-D041 |
