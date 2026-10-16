@@ -1,0 +1,261 @@
+{
+ "fonte": "https://github.com/ayukhno/autosound-measurements",
+ "commit": "7725d426745408b962ea1de4fab6e252bc6b89b6",
+ "autor": "ayukhno (único autor, 28 commits)",
+ "licenca": "dados CC BY 4.0 (arquivo LICENSE); scripts MIT (LICENSE-CODE). Citar: autosound-measurements (ayukhno), CC BY 4.0",
+ "veiculo": "VW Passat B8 sedan LHD, Helix DSP Ultra S, mic Behringer ECM8000, Scarlett 2i2, loopback físico",
+ "arquivos": {
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/ir-v7/c.json": {
+   "sha256": "ddda99d45506c962ea9adeea710e0d4292d5cb3bcbc7dede606239e998a87b7f",
+   "bytes": 8071583
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/ir-v7/m_L-ctl1.json": {
+   "sha256": "61998a186137362c8ee994e49378b46655dbf0f19a23ef41a260819c9c818dcb",
+   "bytes": 8069660
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/ir-v7/m_L-ctl3.json": {
+   "sha256": "8359f8c2285be8f31351e95878def34422b4c2998bc53ecbfeba2781309d375a",
+   "bytes": 8069953
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/ir-v7/m_L.json": {
+   "sha256": "04c3a2214a242b5a4f16ed04db80338bf86168cfcb0bc2604561328b1f3f4da9",
+   "bytes": 8067992
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/ir-v7/m_R.json": {
+   "sha256": "220bdf600cd5d9242bcc61039887d3b26d11ac6dcea2d0038a65663bfebdb6d7",
+   "bytes": 8069510
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/ir-v7/sw.json": {
+   "sha256": "26e12f6ca7760d2a7bf89901bb92a37da47db11a039834f941914a259068825b",
+   "bytes": 8068380
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/ir-v7/tw_L.json": {
+   "sha256": "e85a2e78d52a80cfb55e056998eec172ebfe783f69ab6be102770cfd985e7b70",
+   "bytes": 8070048
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/ir-v7/tw_R.json": {
+   "sha256": "c0f6d9d9d95158215b0ea2588d9821501c23d619cd9ef14c355dc576d8140494",
+   "bytes": 8068409
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/ir-v7/w_L-nf.json": {
+   "sha256": "fc894ef8be091bfe46b0d4faff824a36d0aa565234cd2f1fb1dcea17c8d3d149",
+   "bytes": 8067891
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/ir-v7/w_L.json": {
+   "sha256": "1791e078340821cd59b46236818c601eddfdda30a81fd71159885eceafafda3e",
+   "bytes": 8066511
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/ir-v7/w_R-nf.json": {
+   "sha256": "318c3c149a1bf5774cf2fdc466e4114bafe06cf4d57c6d04a2896b331fc24f3f",
+   "bytes": 8066139
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/ir-v7/w_R-retake.json": {
+   "sha256": "f9119c66541325b49ff14854186fdcd1503bc99c865eb3f1be533daa6968c962",
+   "bytes": 8066800
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/ir-v7/w_R.json": {
+   "sha256": "199496e9c2d694ba36a70c6e9bb0010437a94b14cbe4dad5384703ba200a2ef6",
+   "bytes": 8066467
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/coherence/c.txt": {
+   "sha256": "71709c3548f04b79febd6c41c7806886f62aaef5f39bcc43ffb4cb1cba7f6823",
+   "bytes": 8955
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/coherence/m_L-ctl1.txt": {
+   "sha256": "63d1e79175312eee2834654385238267845dfd437fa580b31ecc52f654223337",
+   "bytes": 8955
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/coherence/m_L-ctl2.txt": {
+   "sha256": "e4262a60703eebb988378889635e2c0745d361582ee97d7f63378fd774aaeec3",
+   "bytes": 8955
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/coherence/m_L-ctl3.txt": {
+   "sha256": "36bea70a7520a7ed260122c9bf816d8377d3b6caac8094a179ee78978001dca9",
+   "bytes": 8955
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/coherence/m_R.txt": {
+   "sha256": "c0e9860da21d7d20d717179de92e5c94a9ca5f2e1e5730531a6b4fc1bee63680",
+   "bytes": 8955
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/coherence/sw.txt": {
+   "sha256": "113eaea2dd9a1ed6b91b41fb9063ffd202501cbc42344431e4cb73f02f5d871a",
+   "bytes": 8955
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/coherence/tw_L.txt": {
+   "sha256": "873b4dfd82d7a13a2a93be6642324dda6305af2b6a929702eeeb024089ec98ae",
+   "bytes": 8955
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/coherence/tw_R.txt": {
+   "sha256": "2d07535aa572e5772e1b1b9dd3e71ed37479f12d4621d22976bcfcb1d9c3c4cc",
+   "bytes": 8955
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/coherence/w_L.txt": {
+   "sha256": "38897de0c7ef2528422c4782fa0c9602dc4424ac398e985c6371a2f1c48f5056",
+   "bytes": 8955
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/coherence/w_R.txt": {
+   "sha256": "6f37986f7e236a1548fb28d6eeb03581016b6c405439a6e1d444a3b52102a8ad",
+   "bytes": 8955
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/block-a-resonalyze.json": {
+   "sha256": "2cf9729ba86247a610a84a9de224a7e5a57e1518f6bf9e98fb13f6842604cc24",
+   "bytes": 7417
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/dsp-state.json": {
+   "sha256": "6034ab4d6d50d3e1a1a54f163d862bba6433e4a8574ae0e291998831163f4a46",
+   "bytes": 2012
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-20_front-set-02/manifest.json": {
+   "sha256": "89a4fc9fff16e7b4cc202e43618c56d4f1b0382643f58009b4d22d4b8ee6ce3e",
+   "bytes": 31731
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-06-15_front-set-01/ir-v7/c.json": {
+   "sha256": "212c73155f477d343475dfbcba98d43c5fdb46513937da6bacfe4429f288d725",
+   "bytes": 8069289
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-06-15_front-set-01/ir-v7/m_L.json": {
+   "sha256": "3eb5db3f44cb6518b7b1f0faab3438cb3edaf5843738ee76e10be41fb06ab7c0",
+   "bytes": 8068966
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-06-15_front-set-01/ir-v7/m_R.json": {
+   "sha256": "8dc4344c4e4546efa830a88456657992644ea7d30f239ccf25e8230972e741c5",
+   "bytes": 8068500
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-06-15_front-set-01/ir-v7/sw.json": {
+   "sha256": "599045d71f9b6032f8a1a41c92ef51012cd1b02a73d89ac4e986b1ee3d0241ce",
+   "bytes": 8068062
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-06-15_front-set-01/ir-v7/tw_L.json": {
+   "sha256": "cf2c9c7771edd9a9c96e1d70510ec525d89af201389c8b73ebf1e06c1b0b7c9c",
+   "bytes": 8068259
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-06-15_front-set-01/ir-v7/tw_R.json": {
+   "sha256": "8acd7a594ad5f2ede84a1305b84409ea42760a03c3e2b6ac96b4448b1641131f",
+   "bytes": 8068592
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-06-15_front-set-01/ir-v7/w_L.json": {
+   "sha256": "72974825fc278f0e2b5f38c829cf7282f24956884a07f8d64c76139fe3dbbd10",
+   "bytes": 8068258
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-06-15_front-set-01/ir-v7/w_R.json": {
+   "sha256": "e217735c4211a1cad999462473778f1d199d8e3aa2e67fb79e12168ed60446a0",
+   "bytes": 8069525
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-06-15_front-set-01/rta-mmm/c.txt": {
+   "sha256": "31288b935ea9e12fc5716a57c19d2ef07c8d6b405b57a92547b7db6122daa768",
+   "bytes": 21277
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-06-15_front-set-01/rta-mmm/m_L.txt": {
+   "sha256": "b869dd0507c597e577a2ba1f6877542a68ce48ff8b619b2b714f2d284190ed81",
+   "bytes": 21279
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-06-15_front-set-01/rta-mmm/m_R.txt": {
+   "sha256": "b724a76c7ee9230f57f35c7bcc712f2a998f2893f4efecde5a915e1461241c85",
+   "bytes": 21279
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-06-15_front-set-01/rta-mmm/sw.txt": {
+   "sha256": "9194d8d85d9743128597004fccf1a3ef1d558851b28ac4d398a98b613c370402",
+   "bytes": 21278
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-06-15_front-set-01/rta-mmm/tw_L.txt": {
+   "sha256": "8d4196bd7f761e3341cb290e91d099f9ec10c9335c15a15fb98606b4cde4fe61",
+   "bytes": 21280
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-06-15_front-set-01/rta-mmm/tw_R.txt": {
+   "sha256": "7215b0e94205b9afcf4a739379dd4f0a255d11f272ca5f0e6520a75207f3ab90",
+   "bytes": 21280
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-06-15_front-set-01/rta-mmm/w_L.txt": {
+   "sha256": "b53071eeafa3ee71c7d3d796bfcfef7cce16cdfd83eec037a2f3685b84cb0901",
+   "bytes": 21279
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-06-15_front-set-01/rta-mmm/w_R.txt": {
+   "sha256": "96735ea8c545f01eb84b2ad09dcbca730a61c701eaad003379085014530398d0",
+   "bytes": 21279
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-06-15_front-set-01/dsp-state.json": {
+   "sha256": "38a6da4d3a1fef8b8b8fadd646b1b46d86dbc3f80e7ebeb9b99eb9485c821f79",
+   "bytes": 10142
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-06-15_front-set-01/manifest.json": {
+   "sha256": "5b304382e1427a2be7938801988db88b7f481236af3462e96f3566f24c90584d",
+   "bytes": 18906
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-24_mmm-rta-levels/rta-mmm/m_L.txt": {
+   "sha256": "6b8ff2ae3fcd55b902fc74cde6255a59c55af8effef87208ff6f9d2db564b5bb",
+   "bytes": 21178
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-24_mmm-rta-levels/rta-mmm/m_R.txt": {
+   "sha256": "a75bd7a2e71754a71a559c46b6e845fb77ed2f3e366fa10aaf9470091e0a508b",
+   "bytes": 21178
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-24_mmm-rta-levels/rta-mmm/sum_L.txt": {
+   "sha256": "a54a34f77d27b42f823e99e77b955aaf75de2f052eb52b1dc6fea6d08bd37538",
+   "bytes": 21260
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-24_mmm-rta-levels/rta-mmm/sum_R.txt": {
+   "sha256": "957f1f2e916280400845ed32a1618caf529ecdd6552ade9f753aa9d899bca7d2",
+   "bytes": 21273
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-24_mmm-rta-levels/rta-mmm/sum_all.txt": {
+   "sha256": "b76f2b5dab421b38bace039418effcaf014cc206b81ec8fea91e9fa380b89371",
+   "bytes": 21276
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-24_mmm-rta-levels/rta-mmm/sum_sw_w.txt": {
+   "sha256": "91ab9b3de66b938410d6f6ba09a079abbc9c74da71955d5ef400069bfbb0f842",
+   "bytes": 20880
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-24_mmm-rta-levels/rta-mmm/sw.txt": {
+   "sha256": "f77b5cc5dbc82ab031992853fe0279ca50c082b79d72de33d1685d7a7c9f9ffa",
+   "bytes": 20711
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-24_mmm-rta-levels/rta-mmm/tw_L.txt": {
+   "sha256": "65f19fbaba2b94636c1f9a041b3aedb08445820205b4d59e1827d92ed755916e",
+   "bytes": 21039
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-24_mmm-rta-levels/rta-mmm/tw_R.txt": {
+   "sha256": "cd8144df50bc35e74332239e24c2c460db5dfadceef2556bbbb6247dff0b445e",
+   "bytes": 21054
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-24_mmm-rta-levels/rta-mmm/w_L.txt": {
+   "sha256": "f1dd6bf8cd3a66b92f72b08195086a951e70b0060b04d96e449a2174d607bee3",
+   "bytes": 20857
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-24_mmm-rta-levels/rta-mmm/w_R.txt": {
+   "sha256": "36475451b452aea1be54d2583e3d4263b20212a990e594e51acd876af7017468",
+   "bytes": 20869
+  },
+  "cars/vw-passat-b8-sedan-lhd/2026-08-24_mmm-rta-levels/manifest.json": {
+   "sha256": "c69d8106e300bb625bfda94aaef418d179b4f1bc252342c237c0f8065e39c55a",
+   "bytes": 8802
+  },
+  "cars/vw-passat-b8-sedan-lhd/CAR.md": {
+   "sha256": "990f6f8d7b33f913e3285d2a83b65275ab0b87aa1372820f8435484f452be450",
+   "bytes": 3720
+  },
+  "mics/behringer-ecm8000/ECM8000_0deg.txt": {
+   "sha256": "cc503e2c53da0d7fad64bb0024b5d9c7e93e2dd7e3fb4fddec8a3641ff8cec13",
+   "bytes": 611
+  },
+  "mics/behringer-ecm8000/ECM8000_90deg.txt": {
+   "sha256": "8ae4ba81180cf88e2a2bd51ebd7e321bea87b1bed8b50fe145aaf0c518410b52",
+   "bytes": 554
+  },
+  "mics/behringer-ecm8000/README.md": {
+   "sha256": "fffc881c8d2380b98e3a8fba18455e0dc4b50aed2ade06960125131fdd809b4b",
+   "bytes": 1903
+  },
+  "LICENSE": {
+   "sha256": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411",
+   "bytes": 18657
+  },
+  "FORMATS.md": {
+   "sha256": "5941de150fcd9d2fb488b78e75f312b1b19c75089e1f87243117e848581c9c83",
+   "bytes": 3928
+  },
+  "index.json": {
+   "sha256": "ce654fa20551350217601aedce7398765ace73e34b824135eaadbee374475199",
+   "bytes": 4777
+  }
+ }
+}

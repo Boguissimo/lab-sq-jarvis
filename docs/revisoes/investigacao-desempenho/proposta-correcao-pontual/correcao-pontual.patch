@@ -1,0 +1,81 @@
+diff --git a/src/jarvis/calculos.py b/src/jarvis/calculos.py
+index 2ca8fad..7e5c1a8 100644
+--- a/src/jarvis/calculos.py
++++ b/src/jarvis/calculos.py
+@@ -253,7 +253,7 @@ def irregularidade(r: RespostaFrequencia, suavizacao: str | None) -> dict:
+     razoes = f[1:] / f[:-1] if f.size > 1 else np.array([1.0])
+     razao = float(np.median(razoes))
+     grade_log = bool(razao > 1.0 and np.all(np.abs(razoes / razao - 1.0) <= tol))
+-    ppo = float(1.0 / np.log2(razao)) if razao > 1.0 else 0.0
++    ppo = round(float(1.0 / np.log2(razao)), 6) if razao > 1.0 else 0.0  # 6 casas: uma grade de exatos 24 ppo não cai para 23,9999…
+     if suavizacao is None or not str(suavizacao).strip():
+         estado_suav = "desconhecida"
+     elif str(suavizacao).strip().lower() == "nenhuma":
+diff --git a/src/jarvis/rew_texto.py b/src/jarvis/rew_texto.py
+index 79f5a9b..511cdaf 100644
+--- a/src/jarvis/rew_texto.py
++++ b/src/jarvis/rew_texto.py
+@@ -32,9 +32,17 @@ class RespostaFrequencia:
+         return self.fase_graus is not None
+ 
+ 
++# Número en-US com separador de milhar e parte decimal, como o REW exporta ("1,000.1222"). A forma exige o ponto
++# decimal para não confundir com vírgula decimal ("1,000" lido como 1,0), que continua tratada como antes.
++_MILHAR_EN_US = re.compile(r"[+-]?\d{1,3}(?:,\d{3})+\.\d+")
++
++
+ def _campos(linha: str) -> list[str]:
+     if ";" in linha:
+         return [c.strip().replace(",", ".") for c in linha.split(";") if c.strip()]
++    tokens = linha.split()
++    if any(_MILHAR_EN_US.fullmatch(t) for t in tokens):
++        return [t.replace(",", "") for t in tokens]  # vírgula dentro do número = milhar (REW, en-US)
+     return [c for c in re.split(r"[\s,]+", linha.strip()) if c]
+ 
+ 
+diff --git a/src/jarvis/sessao.py b/src/jarvis/sessao.py
+index cb48261..c66cbf9 100644
+--- a/src/jarvis/sessao.py
++++ b/src/jarvis/sessao.py
+@@ -195,6 +195,18 @@ class Servico:
+                 "qualidade": qualidade, "qualidade_id": cid}
+ 
+     # ------------------------------------------------------------ passo 3
++    @staticmethod
++    def _conselho_do_portao(itens_falhos: set[str]) -> str:
++        """O conselho depende da causa: frequências fora de ordem apontam leitura ruim do arquivo, não medição ruim."""
++        if "frequências em ordem crescente" in itens_falhos:
++            return (" As frequências do arquivo estão fora de ordem. Isso costuma indicar um arquivo que o Jarvis não "
++                    "conseguiu ler direito (ou que está corrompido), e não uma medição ruim: confira se foi exportado "
++                    "do REW como texto (frequência, nível e fase) e guarde o arquivo para análise.")
++        if "valores numéricos válidos" in itens_falhos:
++            return " O arquivo tem valores que não são números válidos; exporte-o de novo do REW como texto."
++        return (f" Refaça a medição cobrindo {calculos.FAIXA_MINIMA_HZ[0]:.0f} Hz a "
++                f"{calculos.FAIXA_MINIMA_HZ[1]:.0f} Hz com valores válidos.")
++
+     def analisar(self) -> dict:
+         sid = self._exigir_sessao()
+         if self._calculo("referencia_temporal"):
+@@ -204,17 +216,16 @@ class Servico:
+             raise ErroDoPercurso("Faltam medições: são necessárias as duas vias e a soma.")
+         a, bb, s = self._resposta(ma), self._resposta(mb), self._resposta(ms)
+         # @@T202 [FR-203] Portão básico obrigatório (ADR-212, A04)
+-        reprovadas = []
++        reprovadas, itens_falhos = [], set()
+         for m, r in ((ma, a), (mb, bb), (ms, s)):
+             q = calculos.qualidade_basica(r)
+             if not q["aprovada"]:
+-                falhas = ", ".join(i["item"] for i in q["itens"] if not i["ok"] and i["item"] != "contém fase")
+-                reprovadas.append(f"{m['dados'].get('descricao', m['id'])} ({m['id']}): falhou em {falhas}")
++                falhos = [i["item"] for i in q["itens"] if not i["ok"] and i["item"] != "contém fase"]
++                itens_falhos.update(falhos)
++                reprovadas.append(f"{m['dados'].get('descricao', m['id'])} ({m['id']}): falhou em {', '.join(falhos)}")
+         if reprovadas:
+             raise ErroDoPercurso("Não dá para analisar: a verificação básica de qualidade reprovou "
+-                                 + "; ".join(reprovadas) + ". Refaça a medição cobrindo "
+-                                 f"{calculos.FAIXA_MINIMA_HZ[0]:.0f} Hz a {calculos.FAIXA_MINIMA_HZ[1]:.0f} Hz "
+-                                 "com valores válidos.")
++                                 + "; ".join(reprovadas) + "." + self._conselho_do_portao(itens_falhos))
+         if not (calculos.mesma_grade(a, bb) and calculos.mesma_grade(a, s)):
+             raise ErroDoPercurso("As medições não usam a mesma grade de frequências; "
+                                  "exporte-as do REW com a mesma resolução.")
