@@ -1,0 +1,618 @@
+{
+ "fonte_commit": "799af5104e83d9b3af2e832e5bd1fb4db3dd352e",
+ "preregistro_sha256": "538ce86aec288b970352302a3b6b8881d7e2e0e9d890fa4224b198735828c294",
+ "aviso": "Resumos derivados; os dados originais de terceiros não são redistribuídos.",
+ "admissibilidade": [
+  {
+   "lado": "L",
+   "k": 1,
+   "admissivel": true,
+   "base": {
+    "mediana_erro_nivel_db": 0.1238839109996527,
+    "p95_erro_nivel_db": 0.4528736479314105,
+    "mediana_erro_fase_graus": 0.9087876056189259,
+    "pontos": 311
+   },
+   "melhor_atraso_sub_ms": -6.394884621840902e-14
+  },
+  {
+   "lado": "L",
+   "k": 2,
+   "admissivel": true,
+   "base": {
+    "mediana_erro_nivel_db": 0.10036812227579864,
+    "p95_erro_nivel_db": 0.45599086852295456,
+    "mediana_erro_fase_graus": 0.7610219388250528,
+    "pontos": 315
+   },
+   "melhor_atraso_sub_ms": 0.019999999999935625
+  },
+  {
+   "lado": "L",
+   "k": 3,
+   "admissivel": true,
+   "base": {
+    "mediana_erro_nivel_db": 0.13779315337225378,
+    "p95_erro_nivel_db": 0.3799190578681815,
+    "mediana_erro_fase_graus": 3.167368696907147,
+    "pontos": 314
+   },
+   "melhor_atraso_sub_ms": -0.020000000000063523
+  },
+  {
+   "lado": "L",
+   "k": 4,
+   "admissivel": true,
+   "base": {
+    "mediana_erro_nivel_db": 0.12671522017867806,
+    "p95_erro_nivel_db": 0.541812053433546,
+    "mediana_erro_fase_graus": 0.7687588435211978,
+    "pontos": 313
+   },
+   "melhor_atraso_sub_ms": -0.040000000000063096
+  },
+  {
+   "lado": "L",
+   "k": 5,
+   "admissivel": true,
+   "base": {
+    "mediana_erro_nivel_db": 0.11982855042552983,
+    "p95_erro_nivel_db": 0.5310002413837512,
+    "mediana_erro_fase_graus": 0.7684609148489301,
+    "pontos": 312
+   },
+   "melhor_atraso_sub_ms": -0.010000000000063736
+  },
+  {
+   "lado": "R",
+   "k": 1,
+   "admissivel": true,
+   "base": {
+    "mediana_erro_nivel_db": 0.09410172069208123,
+    "p95_erro_nivel_db": 0.33127482655800794,
+    "mediana_erro_fase_graus": 0.5915164985539008,
+    "pontos": 324
+   },
+   "melhor_atraso_sub_ms": -0.020000000000063523
+  },
+  {
+   "lado": "R",
+   "k": 2,
+   "admissivel": true,
+   "base": {
+    "mediana_erro_nivel_db": 0.09587097550163026,
+    "p95_erro_nivel_db": 0.3560782893773171,
+    "mediana_erro_fase_graus": 0.5139541691402201,
+    "pontos": 324
+   },
+   "melhor_atraso_sub_ms": -0.020000000000063523
+  },
+  {
+   "lado": "R",
+   "k": 3,
+   "admissivel": true,
+   "base": {
+    "mediana_erro_nivel_db": 0.07833621937065398,
+    "p95_erro_nivel_db": 0.2796573615871747,
+    "mediana_erro_fase_graus": 0.4834214072282208,
+    "pontos": 324
+   },
+   "melhor_atraso_sub_ms": 0.009999999999935838
+  },
+  {
+   "lado": "R",
+   "k": 4,
+   "admissivel": true,
+   "base": {
+    "mediana_erro_nivel_db": 0.06331415398660006,
+    "p95_erro_nivel_db": 0.2867305569464475,
+    "mediana_erro_fase_graus": 0.44102204299993275,
+    "pontos": 324
+   },
+   "melhor_atraso_sub_ms": -6.394884621840902e-14
+  },
+  {
+   "lado": "R",
+   "k": 5,
+   "admissivel": true,
+   "base": {
+    "mediana_erro_nivel_db": 0.07549674616316382,
+    "p95_erro_nivel_db": 0.3422686936890172,
+    "mediana_erro_fase_graus": 0.44977625918345154,
+    "pontos": 324
+   },
+   "melhor_atraso_sub_ms": 0.009999999999935838
+  }
+ ],
+ "repetibilidade_db": {
+  "L": {
+   "desvio_padrao_medio_db_30_150Hz": 0.13461822212978564
+  },
+  "R": {
+   "desvio_padrao_medio_db_30_150Hz": 0.1338399102318346
+  },
+  "Sub Only": {
+   "desvio_padrao_medio_db_30_150Hz": 0.07355290378080183
+  },
+  "L + Sub": {
+   "desvio_padrao_medio_db_30_150Hz": 0.060809709703373994
+  },
+  "R + Sub": {
+   "desvio_padrao_medio_db_30_150Hz": 0.06331330882218718
+  }
+ },
+ "A1": [
+  {
+   "par": "L-1",
+   "resultado": "recusou",
+   "pontos_com_frequencia_errada": 51884,
+   "pontos": 54614,
+   "mensagem": "Não dá para analisar: a verificação básica de qualidade reprovou L sozinho (repetição 1) (M-0001): falhou em frequências em ordem crescente, cobre 200 Hz a 10000 Hz; Subwoofer sozinho (repetição 1) (M-0002): falhou em frequências em ordem crescente, cobre 200 "
+  },
+  {
+   "par": "L-2",
+   "resultado": "recusou",
+   "pontos_com_frequencia_errada": 51884,
+   "pontos": 54614,
+   "mensagem": "Não dá para analisar: a verificação básica de qualidade reprovou L sozinho (repetição 2) (M-0001): falhou em frequências em ordem crescente, cobre 200 Hz a 10000 Hz; Subwoofer sozinho (repetição 2) (M-0002): falhou em frequências em ordem crescente, cobre 200 "
+  },
+  {
+   "par": "L-3",
+   "resultado": "recusou",
+   "pontos_com_frequencia_errada": 51884,
+   "pontos": 54614,
+   "mensagem": "Não dá para analisar: a verificação básica de qualidade reprovou L sozinho (repetição 3) (M-0001): falhou em frequências em ordem crescente, cobre 200 Hz a 10000 Hz; Subwoofer sozinho (repetição 3) (M-0002): falhou em frequências em ordem crescente, cobre 200 "
+  },
+  {
+   "par": "L-4",
+   "resultado": "recusou",
+   "pontos_com_frequencia_errada": 51884,
+   "pontos": 54614,
+   "mensagem": "Não dá para analisar: a verificação básica de qualidade reprovou L sozinho (repetição 4) (M-0001): falhou em frequências em ordem crescente, cobre 200 Hz a 10000 Hz; Subwoofer sozinho (repetição 4) (M-0002): falhou em frequências em ordem crescente, cobre 200 "
+  },
+  {
+   "par": "L-5",
+   "resultado": "recusou",
+   "pontos_com_frequencia_errada": 51884,
+   "pontos": 54614,
+   "mensagem": "Não dá para analisar: a verificação básica de qualidade reprovou L sozinho (repetição 5) (M-0001): falhou em frequências em ordem crescente, cobre 200 Hz a 10000 Hz; Subwoofer sozinho (repetição 5) (M-0002): falhou em frequências em ordem crescente, cobre 200 "
+  },
+  {
+   "par": "R-1",
+   "resultado": "recusou",
+   "pontos_com_frequencia_errada": 51884,
+   "pontos": 54614,
+   "mensagem": "Não dá para analisar: a verificação básica de qualidade reprovou R sozinho (repetição 1) (M-0001): falhou em frequências em ordem crescente, cobre 200 Hz a 10000 Hz; Subwoofer sozinho (repetição 1) (M-0002): falhou em frequências em ordem crescente, cobre 200 "
+  },
+  {
+   "par": "R-2",
+   "resultado": "recusou",
+   "pontos_com_frequencia_errada": 51884,
+   "pontos": 54614,
+   "mensagem": "Não dá para analisar: a verificação básica de qualidade reprovou R sozinho (repetição 2) (M-0001): falhou em frequências em ordem crescente, cobre 200 Hz a 10000 Hz; Subwoofer sozinho (repetição 2) (M-0002): falhou em frequências em ordem crescente, cobre 200 "
+  },
+  {
+   "par": "R-3",
+   "resultado": "recusou",
+   "pontos_com_frequencia_errada": 51884,
+   "pontos": 54614,
+   "mensagem": "Não dá para analisar: a verificação básica de qualidade reprovou R sozinho (repetição 3) (M-0001): falhou em frequências em ordem crescente, cobre 200 Hz a 10000 Hz; Subwoofer sozinho (repetição 3) (M-0002): falhou em frequências em ordem crescente, cobre 200 "
+  },
+  {
+   "par": "R-4",
+   "resultado": "recusou",
+   "pontos_com_frequencia_errada": 51884,
+   "pontos": 54614,
+   "mensagem": "Não dá para analisar: a verificação básica de qualidade reprovou R sozinho (repetição 4) (M-0001): falhou em frequências em ordem crescente, cobre 200 Hz a 10000 Hz; Subwoofer sozinho (repetição 4) (M-0002): falhou em frequências em ordem crescente, cobre 200 "
+  },
+  {
+   "par": "R-5",
+   "resultado": "recusou",
+   "pontos_com_frequencia_errada": 51884,
+   "pontos": 54614,
+   "mensagem": "Não dá para analisar: a verificação básica de qualidade reprovou R sozinho (repetição 5) (M-0001): falhou em frequências em ordem crescente, cobre 200 Hz a 10000 Hz; Subwoofer sozinho (repetição 5) (M-0002): falhou em frequências em ordem crescente, cobre 200 "
+  }
+ ],
+ "A2": [
+  {
+   "par": "L-1",
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "referencia_temporal_compativel": false,
+   "fase_calculada": false,
+   "jarvis_cruzamento_hz": 79.834,
+   "jarvis_sobreposicao_hz": [
+    0.3662,
+    19378.7858
+   ],
+   "jarvis_vale_hz": 7.3242,
+   "jarvis_vale_abaixo_db": 40.94711716486054,
+   "vales_via_a": 107,
+   "vales_via_b_sub": 815,
+   "indicios": [
+    "Regra 1 — cancelamento entre as vias",
+    "Regra 3 — vale numa via isolada"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presente na via isolada)",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "posthoc_fisico_30_150Hz": {
+    "par": "L-1",
+    "freq_minimo_relativo_hz": 44.3115,
+    "min_relativo_db": -23.594926891778982,
+    "dif_fase_nesse_ponto_graus": -175.96,
+    "dif_fase_circular_media_60_120hz": 35.15419705493005,
+    "dispersao_fase_60_120hz": 84.7363856667654,
+    "freq_niveis_iguais_30_150hz": 79.834
+   }
+  },
+  {
+   "par": "L-2",
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "referencia_temporal_compativel": false,
+   "fase_calculada": false,
+   "jarvis_cruzamento_hz": 376.4649,
+   "jarvis_sobreposicao_hz": [
+    2.1973,
+    19379.152
+   ],
+   "jarvis_vale_hz": 1090.9425,
+   "jarvis_vale_abaixo_db": 37.64765486946623,
+   "vales_via_a": 106,
+   "vales_via_b_sub": 780,
+   "indicios": [
+    "Regra 1 — cancelamento entre as vias",
+    "Regra 3 — vale numa via isolada"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presente na via isolada)",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "posthoc_fisico_30_150Hz": {
+    "par": "L-2",
+    "freq_minimo_relativo_hz": 44.3115,
+    "min_relativo_db": -22.833788180207122,
+    "dif_fase_nesse_ponto_graus": -175.48999999999998,
+    "dif_fase_circular_media_60_120hz": 35.223482137217644,
+    "dispersao_fase_60_120hz": 84.69531406605675,
+    "freq_niveis_iguais_30_150hz": 56.3965
+   }
+  },
+  {
+   "par": "L-3",
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "referencia_temporal_compativel": false,
+   "fase_calculada": false,
+   "jarvis_cruzamento_hz": 1192.3829,
+   "jarvis_sobreposicao_hz": [
+    1.0986,
+    19811.6471
+   ],
+   "jarvis_vale_hz": 6.958,
+   "jarvis_vale_abaixo_db": 28.52461096344871,
+   "vales_via_a": 103,
+   "vales_via_b_sub": 798,
+   "indicios": [
+    "Regra 1 — cancelamento entre as vias",
+    "Regra 3 — vale numa via isolada"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presente na via isolada)",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "posthoc_fisico_30_150Hz": {
+    "par": "L-3",
+    "freq_minimo_relativo_hz": 44.3115,
+    "min_relativo_db": -22.661254381735468,
+    "dif_fase_nesse_ponto_graus": -178.06,
+    "dif_fase_circular_media_60_120hz": 34.95184444112686,
+    "dispersao_fase_60_120hz": 84.9778371393391,
+    "freq_niveis_iguais_30_150hz": 79.4678
+   }
+  },
+  {
+   "par": "L-4",
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "referencia_temporal_compativel": false,
+   "fase_calculada": false,
+   "jarvis_cruzamento_hz": 375.0,
+   "jarvis_sobreposicao_hz": [
+    0.3662,
+    19928.8346
+   ],
+   "jarvis_vale_hz": 44.3115,
+   "jarvis_vale_abaixo_db": 23.77630454596241,
+   "vales_via_a": 109,
+   "vales_via_b_sub": 783,
+   "indicios": [
+    "Regra 1 — cancelamento entre as vias",
+    "Regra 3 — vale numa via isolada"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presente na via isolada)",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "posthoc_fisico_30_150Hz": {
+    "par": "L-4",
+    "freq_minimo_relativo_hz": 44.3115,
+    "min_relativo_db": -23.77630454596241,
+    "dif_fase_nesse_ponto_graus": -177.94,
+    "dif_fase_circular_media_60_120hz": 34.19324137586937,
+    "dispersao_fase_60_120hz": 85.03513843664476,
+    "freq_niveis_iguais_30_150hz": 56.3965
+   }
+  },
+  {
+   "par": "L-5",
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "referencia_temporal_compativel": false,
+   "fase_calculada": false,
+   "jarvis_cruzamento_hz": 72.1436,
+   "jarvis_sobreposicao_hz": [
+    0.3662,
+    19929.5671
+   ],
+   "jarvis_vale_hz": 44.3115,
+   "jarvis_vale_abaixo_db": 22.944038701824617,
+   "vales_via_a": 106,
+   "vales_via_b_sub": 821,
+   "indicios": [
+    "Regra 1 — cancelamento entre as vias",
+    "Regra 3 — vale numa via isolada"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presente na via isolada)",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "posthoc_fisico_30_150Hz": {
+    "par": "L-5",
+    "freq_minimo_relativo_hz": 44.3115,
+    "min_relativo_db": -22.944038701824617,
+    "dif_fase_nesse_ponto_graus": -175.13,
+    "dif_fase_circular_media_60_120hz": 35.03445533733842,
+    "dispersao_fase_60_120hz": 85.18272421469977,
+    "freq_niveis_iguais_30_150hz": 72.1436
+   }
+  },
+  {
+   "par": "R-1",
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "referencia_temporal_compativel": false,
+   "fase_calculada": false,
+   "jarvis_cruzamento_hz": 1.4648,
+   "jarvis_sobreposicao_hz": [
+    1.4648,
+    3314.5755
+   ],
+   "jarvis_vale_hz": 88.6231,
+   "jarvis_vale_abaixo_db": 24.519193371608758,
+   "vales_via_a": 86,
+   "vales_via_b_sub": 815,
+   "indicios": [
+    "Regra 1 — cancelamento entre as vias",
+    "Regra 3 — vale numa via isolada"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presente na via isolada)",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "posthoc_fisico_30_150Hz": {
+    "par": "R-1",
+    "freq_minimo_relativo_hz": 88.6231,
+    "min_relativo_db": -24.519193371608758,
+    "dif_fase_nesse_ponto_graus": 178.3,
+    "dif_fase_circular_media_60_120hz": 145.09073884815473,
+    "dispersao_fase_60_120hz": 97.54974828016549,
+    "freq_niveis_iguais_30_150hz": 99.6094
+   }
+  },
+  {
+   "par": "R-2",
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "referencia_temporal_compativel": false,
+   "fase_calculada": false,
+   "jarvis_cruzamento_hz": 1155.3956,
+   "jarvis_sobreposicao_hz": [
+    1.0986,
+    5389.893
+   ],
+   "jarvis_vale_hz": 88.9893,
+   "jarvis_vale_abaixo_db": 23.659377783551058,
+   "vales_via_a": 91,
+   "vales_via_b_sub": 780,
+   "indicios": [
+    "Regra 1 — cancelamento entre as vias",
+    "Regra 3 — vale numa via isolada"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presente na via isolada)",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "posthoc_fisico_30_150Hz": {
+    "par": "R-2",
+    "freq_minimo_relativo_hz": 88.9893,
+    "min_relativo_db": -23.659377783551058,
+    "dif_fase_nesse_ponto_graus": 176.26,
+    "dif_fase_circular_media_60_120hz": 145.12984727646187,
+    "dispersao_fase_60_120hz": 97.98552113723781,
+    "freq_niveis_iguais_30_150hz": 99.6094
+   }
+  },
+  {
+   "par": "R-3",
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "referencia_temporal_compativel": false,
+   "fase_calculada": false,
+   "jarvis_cruzamento_hz": 1227.173,
+   "jarvis_sobreposicao_hz": [
+    0.3662,
+    7541.0162
+   ],
+   "jarvis_vale_hz": 88.6231,
+   "jarvis_vale_abaixo_db": 23.41145273418121,
+   "vales_via_a": 99,
+   "vales_via_b_sub": 798,
+   "indicios": [
+    "Regra 1 — cancelamento entre as vias",
+    "Regra 3 — vale numa via isolada"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presente na via isolada)",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "posthoc_fisico_30_150Hz": {
+    "par": "R-3",
+    "freq_minimo_relativo_hz": 88.6231,
+    "min_relativo_db": -23.41145273418121,
+    "dif_fase_nesse_ponto_graus": 177.38,
+    "dif_fase_circular_media_60_120hz": 143.5346526761502,
+    "dispersao_fase_60_120hz": 97.84396071427544,
+    "freq_niveis_iguais_30_150hz": 121.582
+   }
+  },
+  {
+   "par": "R-4",
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "referencia_temporal_compativel": false,
+   "fase_calculada": false,
+   "jarvis_cruzamento_hz": 121.2158,
+   "jarvis_sobreposicao_hz": [
+    0.3662,
+    5389.5268
+   ],
+   "jarvis_vale_hz": 88.9893,
+   "jarvis_vale_abaixo_db": 24.739957606994224,
+   "vales_via_a": 97,
+   "vales_via_b_sub": 783,
+   "indicios": [
+    "Regra 1 — cancelamento entre as vias",
+    "Regra 3 — vale numa via isolada"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presente na via isolada)",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "posthoc_fisico_30_150Hz": {
+    "par": "R-4",
+    "freq_minimo_relativo_hz": 88.9893,
+    "min_relativo_db": -24.739957606994224,
+    "dif_fase_nesse_ponto_graus": 173.87,
+    "dif_fase_circular_media_60_120hz": 144.8288867775209,
+    "dispersao_fase_60_120hz": 97.84260372953447,
+    "freq_niveis_iguais_30_150hz": 121.2158
+   }
+  },
+  {
+   "par": "R-5",
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "referencia_temporal_compativel": false,
+   "fase_calculada": false,
+   "jarvis_cruzamento_hz": 121.9483,
+   "jarvis_sobreposicao_hz": [
+    1.8311,
+    10093.1405
+   ],
+   "jarvis_vale_hz": 88.6231,
+   "jarvis_vale_abaixo_db": 24.70436014181719,
+   "vales_via_a": 90,
+   "vales_via_b_sub": 821,
+   "indicios": [
+    "Regra 1 — cancelamento entre as vias",
+    "Regra 3 — vale numa via isolada"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presente na via isolada)",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "posthoc_fisico_30_150Hz": {
+    "par": "R-5",
+    "freq_minimo_relativo_hz": 88.6231,
+    "min_relativo_db": -24.70436014181719,
+    "dif_fase_nesse_ponto_graus": 178.57999999999998,
+    "dif_fase_circular_media_60_120hz": 143.89086022524455,
+    "dispersao_fase_60_120hz": 98.08381559739874,
+    "freq_niveis_iguais_30_150hz": 121.9483
+   }
+  }
+ ]
+}

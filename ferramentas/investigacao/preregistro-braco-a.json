@@ -1,0 +1,19 @@
+{
+  "registrado_em": "2026-10-16, antes de qualquer cálculo sobre os dados de joeglondon/speakers-2026-filters",
+  "natureza": "exploratório; critérios do harness, NÃO são limiares do produto",
+  "admissibilidade_da_soma_complexa": {
+    "pergunta": "A soma complexa (L ou R) + Sub Only da repetição k é admissível como previsão da medição (L ou R) + Sub k?",
+    "faixa_hz": [30, 150],
+    "mascara": "pontos em que nível de ambas as vias e da soma medida ficam a no máximo 30 dB abaixo do máximo de cada curva na faixa",
+    "admissivel_se": {"mediana_erro_nivel_db_max": 1.0, "p95_erro_nivel_db_max": 3.0, "mediana_erro_fase_graus_max": 10.0},
+    "diagnostico_nao_criterio": "varredura do atraso do Sub de -3 a +3 ms (passo 0,01 ms) e polaridade invertida: apenas quantifica a diferença de referência temporal; não altera a admissibilidade",
+    "se_nao_admissivel": "comparação classificada como não admissível; cálculos condicionais ficam separados e não contam como referência independente"
+  },
+  "braco_a_jarvis": {
+    "pares": "k = 1..5 para L e para R: via_a = lado k, via_b = Sub Only k, soma = lado + Sub k",
+    "metadados": "somente o que está nos arquivos ou é verificável por arquivo pareado do mesmo REW (taxa 48000 do arquivo de impulso de mesmo nome e data); posição do microfone e id da referência temporal NÃO são preenchidos",
+    "sem_depois": "não há medição posterior à intervenção; nenhum veredito de teste é esperado",
+    "registro": "saída integral do Servico/calculos por par; nenhum ajuste de código, regra ou limiar"
+  },
+  "braco_b_c": "executados depois, separados, rotulados (B: posição constante presumida e não verificada; C: reamostragem log só no harness)"
+}
