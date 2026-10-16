@@ -1,0 +1,6302 @@
+{
+ "d0524": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 1,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0242": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C1",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl1",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0135": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 2,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0123": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 2,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0269": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 4,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0454": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "P5",
+  "ko": "w_L",
+  "kp": "w_L",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0515": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "P4",
+  "ko": "tw_R",
+  "kp": "tw_R",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0007": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 5,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0131": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C2",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl3",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0345": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0037": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 5,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0379": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 5,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0144": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L",
+  "kp": "m_L-ctl1",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0162": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 4,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0224": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0471": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0365": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C3",
+  "ko": "w_R-retake",
+  "kp": "w_R-retake",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0189": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 1,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0257": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 5,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0581": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 2,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0043": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 3,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0260": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 3,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0518": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 2,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0003": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0385": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 3,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0211": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 4,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0538": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 2,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0516": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "P5",
+  "ko": "w_L",
+  "kp": "w_L",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0322": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 5,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0592": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 4,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0526": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 3,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0569": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0521": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl3",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0085": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0466": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 1,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0396": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0426": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0000": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0204": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 2,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0314": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 2,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0589": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 3,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0429": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C3",
+  "ko": "w_R",
+  "kp": "w_R",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0312": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0373": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 2,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0503": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C1",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl1",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0063": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl3",
+  "kp": "m_L",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0587": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 5,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0133": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0060": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 2,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0110": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 4,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0099": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0534": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 5,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0486": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "P5",
+  "ko": "w_L",
+  "kp": "w_L",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0555": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 5,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0118": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 5,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0205": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 2,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0433": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 3,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0540": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C3",
+  "ko": "w_R-retake",
+  "kp": "w_R",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0357": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0554": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 1,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0056": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl3",
+  "kp": "m_L",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0412": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 2,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0552": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 5,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0291": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0358": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0093": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0158": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 5,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0351": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 2,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0520": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 4,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0545": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 1,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0192": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 1,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0155": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C1",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl1",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0517": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0510": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C2",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl3",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0031": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 4,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0501": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 2,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0290": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0446": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 2,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0198": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 1,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0040": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl3",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0367": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl1",
+  "kp": "m_L",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0499": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C2",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl1",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0439": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C1",
+  "ko": "m_L",
+  "kp": "m_L",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0299": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0108": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C3",
+  "ko": "w_R-retake",
+  "kp": "w_R",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0519": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 5,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0042": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 5,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0568": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0354": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl1",
+  "kp": "m_L",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0378": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 1,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0431": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl3",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0394": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0068": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 4,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0342": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C1",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl3",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0347": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C1",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl3",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0411": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 1,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0401": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0294": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "P4",
+  "ko": "tw_R",
+  "kp": "tw_R",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0468": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 1,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0308": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 4,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0261": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C1",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl1",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0340": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C1",
+  "ko": "m_L",
+  "kp": "m_L",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0507": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0095": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0421": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 1,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0476": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 2,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0233": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 5,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0404": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C3",
+  "ko": "w_R",
+  "kp": "w_R-retake",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0470": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 2,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0331": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0072": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 1,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0428": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0453": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0165": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0363": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0084": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0278": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "P5",
+  "ko": "w_L",
+  "kp": "w_L",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0494": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 4,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0258": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 1,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0386": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L",
+  "kp": "m_L-ctl3",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0565": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 1,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0218": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C2",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl1",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0576": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 4,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0209": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 4,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0390": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 2,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0185": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0201": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl3",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0281": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 2,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0057": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0459": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "P4",
+  "ko": "tw_R",
+  "kp": "tw_R",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0284": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0558": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0356": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C3",
+  "ko": "w_R",
+  "kp": "w_R-retake",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0122": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 4,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0287": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 3,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0425": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 5,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0301": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L",
+  "kp": "m_L-ctl1",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0025": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 5,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0484": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 1,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0197": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C3",
+  "ko": "w_R-retake",
+  "kp": "w_R-retake",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0582": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L",
+  "kp": "m_L-ctl3",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0335": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl3",
+  "kp": "m_L",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0226": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 2,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0044": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 2,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0387": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 3,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0061": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 4,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0445": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0194": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 1,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0220": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 5,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0229": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0041": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 3,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0588": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0338": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L",
+  "kp": "m_L-ctl3",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0327": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl1",
+  "kp": "m_L",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0332": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 3,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0202": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L",
+  "kp": "m_L-ctl3",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0101": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 2,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0163": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl1",
+  "kp": "m_L",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0289": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0551": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0067": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 1,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0193": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C1",
+  "ko": "m_L",
+  "kp": "m_L",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0272": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0325": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 5,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0097": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 1,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0024": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 2,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0435": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 1,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0070": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 2,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0352": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L",
+  "kp": "m_L-ctl3",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0451": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl3",
+  "kp": "m_L",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0245": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 3,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0115": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0313": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0381": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L",
+  "kp": "m_L-ctl1",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0116": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0533": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C3",
+  "ko": "w_R",
+  "kp": "w_R",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0543": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl1",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0134": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0114": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0227": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 3,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0450": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 2,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0027": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 1,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0436": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0030": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 3,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0544": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0336": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl3",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0472": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C3",
+  "ko": "w_R",
+  "kp": "w_R-retake",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0190": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0055": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 3,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0456": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 3,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0100": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C1",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl1",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0001": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C1",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl1",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0228": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 1,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0437": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl3",
+  "kp": "m_L",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0214": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0575": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 1,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0029": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 5,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0389": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 4,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0148": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl1",
+  "kp": "m_L",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0022": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0318": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0221": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl3",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0059": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl1",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0132": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 3,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0361": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L",
+  "kp": "m_L-ctl3",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0399": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 3,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0578": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 3,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0492": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl3",
+  "kp": "m_L",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0071": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L",
+  "kp": "m_L-ctl1",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0239": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 3,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0432": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 1,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0500": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0383": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl1",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0181": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 2,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0064": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0077": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 2,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0397": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 4,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0039": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0441": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 3,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0138": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 1,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0174": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 4,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0113": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 2,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0288": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 4,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0104": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 2,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0464": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0522": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 4,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0532": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0359": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 3,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0274": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl3",
+  "kp": "m_L",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0561": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C1",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl1",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0086": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 3,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0150": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 4,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0094": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0279": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C2",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl1",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0080": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 3,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0457": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 1,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0255": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 4,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0346": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C2",
+  "ko": "m_L",
+  "kp": "m_L",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0512": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 5,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0013": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 4,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0416": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl3",
+  "kp": "m_L",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0311": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 3,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0052": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl3",
+  "kp": "m_L",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0362": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C1",
+  "ko": "m_L",
+  "kp": "m_L",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0021": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L",
+  "kp": "m_L-ctl1",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0564": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0527": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 5,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0256": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 2,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0076": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 5,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0195": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 3,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0349": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 4,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0270": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 4,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0300": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 1,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0237": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 5,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0139": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 1,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0282": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 3,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0066": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0010": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 5,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0316": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0461": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 2,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0089": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L",
+  "kp": "m_L-ctl3",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0583": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C2",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl3",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0509": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 3,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0417": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C2",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl1",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0535": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 5,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0306": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0531": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 3,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0179": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 5,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0164": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 4,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0303": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 4,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0217": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl1",
+  "kp": "m_L",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0062": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 2,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0506": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 1,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0420": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0498": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 1,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0369": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C2",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl3",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0393": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 5,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0186": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 1,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0206": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0180": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C2",
+  "ko": "m_L",
+  "kp": "m_L",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0248": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl3",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0395": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 2,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0140": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 3,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0566": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 1,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0286": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 2,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0120": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0009": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "P4",
+  "ko": "tw_R",
+  "kp": "tw_R",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0236": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 1,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0320": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0121": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 3,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0550": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 5,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0250": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 5,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0297": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 3,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0321": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C3",
+  "ko": "w_R",
+  "kp": "w_R",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0033": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 2,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0480": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl1",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0382": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl3",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0490": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0434": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 5,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0528": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0460": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl3",
+  "kp": "m_L",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0262": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 3,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0222": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 5,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0580": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl3",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0283": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 3,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0458": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0292": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl1",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0549": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C3",
+  "ko": "w_R-retake",
+  "kp": "w_R",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0315": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 4,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0530": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl3",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0597": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 4,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0333": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0083": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl1",
+  "kp": "m_L",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0159": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C3",
+  "ko": "w_R-retake",
+  "kp": "w_R",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0127": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0559": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 1,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0011": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C2",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl3",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0572": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 1,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0355": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C3",
+  "ko": "w_R",
+  "kp": "w_R-retake",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0410": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 5,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0591": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 3,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0590": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0216": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 3,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0082": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C3",
+  "ko": "w_R",
+  "kp": "w_R",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0166": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 3,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0023": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 4,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0368": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 4,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0406": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl3",
+  "kp": "m_L",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0073": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 2,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0596": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C2",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl1",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0388": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 2,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0050": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 2,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0353": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0502": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C3",
+  "ko": "w_R",
+  "kp": "w_R-retake",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0124": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 5,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0271": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 5,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0514": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L",
+  "kp": "m_L-ctl3",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0481": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0092": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 5,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0002": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 3,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0462": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0541": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 3,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0129": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl3",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0400": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 2,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0594": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C2",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl1",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0324": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl1",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0418": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 5,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0302": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 5,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0143": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 1,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0183": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0392": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C3",
+  "ko": "w_R-retake",
+  "kp": "w_R",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0098": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 5,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0170": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C2",
+  "ko": "m_L",
+  "kp": "m_L",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0065": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl1",
+  "kp": "m_L",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0562": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0276": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 5,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0019": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl1",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0495": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0079": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0523": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 1,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0563": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 4,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0130": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C3",
+  "ko": "w_R-retake",
+  "kp": "w_R-retake",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0408": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0574": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl3",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0191": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 4,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0424": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 5,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0045": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl1",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0047": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 4,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0081": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl1",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0364": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl1",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0016": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 1,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0374": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0005": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0252": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C2",
+  "ko": "m_L",
+  "kp": "m_L",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0169": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 3,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0268": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0199": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 3,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0119": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 4,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0125": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl1",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0225": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0173": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C3",
+  "ko": "w_R",
+  "kp": "w_R-retake",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0259": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 4,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0246": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C2",
+  "ko": "m_L",
+  "kp": "m_L",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0467": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C1",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl3",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0141": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 5,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0370": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 4,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0026": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L",
+  "kp": "m_L-ctl1",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0305": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 5,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0398": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 2,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0571": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 4,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0557": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C1",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl3",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0326": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 2,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0146": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0020": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 4,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0277": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0405": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C3",
+  "ko": "w_R",
+  "kp": "w_R",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0508": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L",
+  "kp": "m_L-ctl1",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0577": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0479": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 3,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0377": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "P4",
+  "ko": "tw_R",
+  "kp": "tw_R",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0075": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C1",
+  "ko": "m_L",
+  "kp": "m_L",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0112": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl1",
+  "kp": "m_L",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0440": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0489": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0212": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 4,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0152": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0069": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 2,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0298": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 5,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0496": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 3,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0004": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 2,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0414": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C1",
+  "ko": "m_L",
+  "kp": "m_L",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0337": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L",
+  "kp": "m_L-ctl3",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0036": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 1,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0231": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 3,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0449": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 2,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0254": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 2,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0230": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl1",
+  "kp": "m_L",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0529": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 4,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0525": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0339": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 1,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0263": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C3",
+  "ko": "w_R-retake",
+  "kp": "w_R-retake",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0154": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 1,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0309": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L",
+  "kp": "m_L-ctl3",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0415": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0103": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0215": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0142": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "P5",
+  "ko": "w_L",
+  "kp": "w_L",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0593": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 3,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0046": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 4,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0006": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl1",
+  "kp": "m_L",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0266": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl3",
+  "kp": "m_L",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0483": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 4,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0147": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 1,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0391": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl3",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0145": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 1,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0542": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 4,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0117": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 1,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0485": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L",
+  "kp": "m_L-ctl3",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0375": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C3",
+  "ko": "w_R",
+  "kp": "w_R",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0051": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 4,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0109": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 1,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0014": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0223": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C2",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl3",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0293": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl1",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0053": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 3,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0422": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C2",
+  "ko": "m_L",
+  "kp": "m_L",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0442": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 4,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0241": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C2",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl1",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0015": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0028": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 4,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0234": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 2,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0213": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 1,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0444": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 1,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0032": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C1",
+  "ko": "m_L",
+  "kp": "m_L",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0128": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 2,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0126": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl1",
+  "kp": "m_L",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0182": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 3,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0200": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 2,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0341": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0091": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 3,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0273": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L",
+  "kp": "m_L-ctl1",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0171": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 5,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0156": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 4,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0251": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L",
+  "kp": "m_L-ctl1",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0329": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C3",
+  "ko": "w_R-retake",
+  "kp": "w_R-retake",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0427": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0107": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C2",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl3",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0537": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 5,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0012": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 1,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0319": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L",
+  "kp": "m_L-ctl1",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0210": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 3,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0430": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 2,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0482": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0317": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 5,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0088": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0078": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C3",
+  "ko": "w_R-retake",
+  "kp": "w_R",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0463": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L",
+  "kp": "m_L-ctl1",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0074": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl3",
+  "kp": "m_L",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0504": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 1,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0187": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0151": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 3,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0438": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 1,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0505": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 5,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0058": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 2,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0556": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 2,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0343": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 5,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0546": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 1,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0106": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0153": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 4,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0366": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C2",
+  "ko": "m_L",
+  "kp": "m_L",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0469": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 4,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0413": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0497": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 4,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0176": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 4,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0570": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 3,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0280": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl1",
+  "kp": "m_L",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0323": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C1",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl3",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0137": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0035": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 4,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0184": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0491": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0595": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0586": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0267": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 2,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0310": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 4,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0452": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 1,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0403": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 5,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0017": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 1,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0295": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0208": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 2,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0477": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 3,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0372": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 4,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0447": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 4,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0307": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L",
+  "kp": "m_L-ctl1",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0487": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 4,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0247": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C3",
+  "ko": "w_R-retake",
+  "kp": "w_R",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0344": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 4,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0178": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 5,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0371": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl1",
+  "kp": "m_L",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0168": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L",
+  "kp": "m_L-ctl3",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0328": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 5,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0167": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl1",
+  "kp": "m_L-ctl3",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0240": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0560": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 5,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0513": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C1",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl3",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0493": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 1,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0096": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L",
+  "kp": "m_L-ctl3",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0330": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0102": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 1,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0177": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "P4",
+  "ko": "tw_R",
+  "kp": "tw_R",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0407": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl1",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0136": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0350": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C3",
+  "ko": "w_R",
+  "kp": "w_R-retake",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0579": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 3,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0157": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 3,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0049": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 5,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0304": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 3,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0478": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L",
+  "kp": "m_L-ctl1",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0553": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 2,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0475": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0376": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 5,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0488": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 3,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0207": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 3,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0034": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 5,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0105": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 5,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0465": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 4,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0573": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0473": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0455": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 2,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0008": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 1,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0584": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 5,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0285": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0443": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "P4",
+  "ko": "tw_R",
+  "kp": "tw_R",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0334": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 4,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0149": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 2,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0054": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0219": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 5,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0536": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0448": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 4,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0238": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 3,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0253": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 3,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0548": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl1",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0038": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0511": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 1,
+  "kp": 2,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0474": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0243": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 2,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0175": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0235": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 5,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0188": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C3",
+  "ko": "w_R-retake",
+  "kp": "w_R-retake",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0402": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0090": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 1,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0172": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 1,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0249": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C3",
+  "ko": "w_R",
+  "kp": "w_R",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0087": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L-ctl3",
+  "kp": "m_L",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0264": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0203": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 5,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0048": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 1,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0567": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "adm_neg",
+  "par": "L+Sub",
+  "ko": 4,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0539": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 3,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0409": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 1,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0423": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C1",
+  "ko": "m_L",
+  "kp": "m_L-ctl1",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0161": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "P5",
+  "ko": "w_L",
+  "kp": "w_L",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0296": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C3",
+  "ko": "w_R-retake",
+  "kp": "w_R-retake",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0419": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 1,
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "d0275": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 2,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0360": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N0",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 1,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0380": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 2,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0585": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 5,
+  "kp": 2,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0111": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "C1",
+  "ko": "m_L-ctl3",
+  "kp": "m_L-ctl3",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "d0547": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 3,
+  "kp": 4,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   200.0,
+   10000.0
+  ]
+ },
+ "d0348": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "adm_neg",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 2,
+  "falha": "controle",
+  "tau_ms": null,
+  "banda_declarada": [
+   20.0,
+   20000.0
+  ]
+ },
+ "d0244": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N1s",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 5,
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0384": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 2,
+  "kp": 2,
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "d0196": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 1,
+  "kp": 3,
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "d0232": {
+  "conjunto": "sala",
+  "grupo": "sala-R",
+  "nivel": "N1s",
+  "par": "R+Sub",
+  "ko": 4,
+  "kp": 5,
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "d0265": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N1s",
+  "par": "C2",
+  "ko": "m_L",
+  "kp": "m_L-ctl3",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "d0160": {
+  "conjunto": "carro",
+  "grupo": "carro",
+  "nivel": "N0",
+  "par": "P5",
+  "ko": "w_L",
+  "kp": "w_L",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "d0018": {
+  "conjunto": "sala",
+  "grupo": "sala-L",
+  "nivel": "N0",
+  "par": "L+Sub",
+  "ko": 3,
+  "kp": 3,
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ }
+}
