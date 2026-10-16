@@ -1,0 +1,3643 @@
+{
+ "preregistro": "preregistro-passat.json",
+ "casos": [
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 772.1629,
+   "jarvis_vale_hz": 829.977315,
+   "jarvis_vale_abaixo_db": 20.9,
+   "fase": {
+    "media_graus": -172.12,
+    "dispersao_graus": 109.08,
+    "atraso_equivalente_ms": -0.2,
+    "faixa_hz": [
+     130.713236,
+     11661.19562
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 6,
+   "vales_via_b_sub": 4,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_L",
+    "m_L"
+   ],
+   "janela": "W30",
+   "ppo": 48,
+   "injecao": "controle",
+   "pontuacao": "sem pontuação"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 772.1629,
+   "jarvis_vale_hz": 9665.272962,
+   "jarvis_vale_abaixo_db": 20.7,
+   "fase": {
+    "media_graus": 7.88,
+    "dispersao_graus": 109.08,
+    "atraso_equivalente_ms": -0.2,
+    "faixa_hz": [
+     130.713236,
+     11661.19562
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 6,
+   "vales_via_b_sub": 4,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_L",
+    "m_L"
+   ],
+   "janela": "W30",
+   "ppo": 48,
+   "injecao": "polaridade",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 772.1629,
+   "jarvis_vale_hz": 339.02819,
+   "jarvis_vale_abaixo_db": 19.7,
+   "fase": {
+    "media_graus": 165.25,
+    "dispersao_graus": 106.87,
+    "atraso_equivalente_ms": -0.24,
+    "faixa_hz": [
+     130.713236,
+     11661.19562
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 6,
+   "vales_via_b_sub": 4,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_L",
+    "m_L"
+   ],
+   "janela": "W30",
+   "ppo": 48,
+   "injecao": "atraso_0.25ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 772.1629,
+   "jarvis_vale_hz": 794.789,
+   "jarvis_vale_abaixo_db": 20.4,
+   "fase": {
+    "media_graus": -49.15,
+    "dispersao_graus": 131.29,
+    "atraso_equivalente_ms": -0.48,
+    "faixa_hz": [
+     130.713236,
+     11661.19562
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 6,
+   "vales_via_b_sub": 4,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_L",
+    "m_L"
+   ],
+   "janela": "W30",
+   "ppo": 48,
+   "injecao": "atraso_1.0ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 777.75831,
+   "jarvis_vale_hz": 829.977315,
+   "jarvis_vale_abaixo_db": 20.9,
+   "fase": {
+    "media_graus": -164.72,
+    "dispersao_graus": 110.49,
+    "atraso_equivalente_ms": -0.57,
+    "faixa_hz": [
+     129.772849,
+     11661.19562
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 9,
+   "vales_via_b_sub": 6,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_L",
+    "m_L"
+   ],
+   "janela": "W30",
+   "ppo": 96,
+   "injecao": "controle",
+   "pontuacao": "sem pontuação"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 777.75831,
+   "jarvis_vale_hz": 9665.272962,
+   "jarvis_vale_abaixo_db": 20.7,
+   "fase": {
+    "media_graus": 15.28,
+    "dispersao_graus": 110.49,
+    "atraso_equivalente_ms": -0.57,
+    "faixa_hz": [
+     129.772849,
+     11661.19562
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 9,
+   "vales_via_b_sub": 6,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_L",
+    "m_L"
+   ],
+   "janela": "W30",
+   "ppo": 96,
+   "injecao": "polaridade",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 777.75831,
+   "jarvis_vale_hz": 341.484928,
+   "jarvis_vale_abaixo_db": 20.3,
+   "fase": {
+    "media_graus": 163.89,
+    "dispersao_graus": 109.04,
+    "atraso_equivalente_ms": -0.73,
+    "faixa_hz": [
+     129.772849,
+     11661.19562
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 9,
+   "vales_via_b_sub": 6,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_L",
+    "m_L"
+   ],
+   "janela": "W30",
+   "ppo": 96,
+   "injecao": "atraso_0.25ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 777.75831,
+   "jarvis_vale_hz": 800.548368,
+   "jarvis_vale_abaixo_db": 21.0,
+   "fase": {
+    "media_graus": -35.16,
+    "dispersao_graus": 130.1,
+    "atraso_equivalente_ms": -1.01,
+    "faixa_hz": [
+     130.713236,
+     11661.19562
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 9,
+   "vales_via_b_sub": 6,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_L",
+    "m_L"
+   ],
+   "janela": "W30",
+   "ppo": 96,
+   "injecao": "atraso_1.0ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "aviso",
+   "sigma_db": [
+    0.746,
+    0.783,
+    0.988
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 1566.788535,
+   "jarvis_vale_hz": 829.977315,
+   "jarvis_vale_abaixo_db": 23.1,
+   "fase": {
+    "media_graus": -176.96,
+    "dispersao_graus": 99.24,
+    "atraso_equivalente_ms": -0.2,
+    "faixa_hz": [
+     132.614504,
+     11661.19562
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 7,
+   "vales_via_b_sub": 4,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_L",
+    "m_L"
+   ],
+   "janela": "Wfull",
+   "ppo": 48,
+   "injecao": "controle",
+   "pontuacao": "sem pontuação"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "aviso",
+   "sigma_db": [
+    0.746,
+    0.783,
+    0.861
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 1566.788535,
+   "jarvis_vale_hz": 4974.243539,
+   "jarvis_vale_abaixo_db": 18.4,
+   "fase": {
+    "media_graus": 3.04,
+    "dispersao_graus": 99.24,
+    "atraso_equivalente_ms": -0.2,
+    "faixa_hz": [
+     132.614504,
+     11661.19562
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 7,
+   "vales_via_b_sub": 4,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_L",
+    "m_L"
+   ],
+   "janela": "Wfull",
+   "ppo": 48,
+   "injecao": "polaridade",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "aviso",
+   "sigma_db": [
+    0.746,
+    0.783,
+    0.989
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 1566.788535,
+   "jarvis_vale_hz": 339.02819,
+   "jarvis_vale_abaixo_db": 20.1,
+   "fase": {
+    "media_graus": 169.61,
+    "dispersao_graus": 97.61,
+    "atraso_equivalente_ms": -0.26,
+    "faixa_hz": [
+     132.614504,
+     11661.19562
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 7,
+   "vales_via_b_sub": 4,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_L",
+    "m_L"
+   ],
+   "janela": "Wfull",
+   "ppo": 48,
+   "injecao": "atraso_0.25ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "aviso",
+   "sigma_db": [
+    0.746,
+    0.783,
+    1.004
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 1566.788535,
+   "jarvis_vale_hz": 794.789,
+   "jarvis_vale_abaixo_db": 21.3,
+   "fase": {
+    "media_graus": -85.25,
+    "dispersao_graus": 121.93,
+    "atraso_equivalente_ms": -0.48,
+    "faixa_hz": [
+     132.614504,
+     11661.19562
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 7,
+   "vales_via_b_sub": 4,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_L",
+    "m_L"
+   ],
+   "janela": "Wfull",
+   "ppo": 48,
+   "injecao": "atraso_1.0ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "aprovada",
+   "sigma_db": [
+    0.248,
+    0.262,
+    0.303
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 1566.788535,
+   "jarvis_vale_hz": 829.977315,
+   "jarvis_vale_abaixo_db": 23.1,
+   "fase": {
+    "media_graus": -170.96,
+    "dispersao_graus": 100.78,
+    "atraso_equivalente_ms": -0.57,
+    "faixa_hz": [
+     131.660438,
+     11661.19562
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 9,
+   "vales_via_b_sub": 6,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_L",
+    "m_L"
+   ],
+   "janela": "Wfull",
+   "ppo": 96,
+   "injecao": "controle",
+   "pontuacao": "sem pontuação"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "aprovada",
+   "sigma_db": [
+    0.248,
+    0.262,
+    0.298
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 1566.788535,
+   "jarvis_vale_hz": 1365.939713,
+   "jarvis_vale_abaixo_db": 18.8,
+   "fase": {
+    "media_graus": 9.04,
+    "dispersao_graus": 100.78,
+    "atraso_equivalente_ms": -0.57,
+    "faixa_hz": [
+     131.660438,
+     11661.19562
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 9,
+   "vales_via_b_sub": 6,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_L",
+    "m_L"
+   ],
+   "janela": "Wfull",
+   "ppo": 96,
+   "injecao": "polaridade",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "aprovada",
+   "sigma_db": [
+    0.248,
+    0.262,
+    0.312
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 1566.788535,
+   "jarvis_vale_hz": 341.484928,
+   "jarvis_vale_abaixo_db": 20.2,
+   "fase": {
+    "media_graus": 167.95,
+    "dispersao_graus": 99.78,
+    "atraso_equivalente_ms": -0.74,
+    "faixa_hz": [
+     131.660438,
+     11661.19562
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 9,
+   "vales_via_b_sub": 6,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_L",
+    "m_L"
+   ],
+   "janela": "Wfull",
+   "ppo": 96,
+   "injecao": "atraso_0.25ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "aprovada",
+   "sigma_db": [
+    0.248,
+    0.261,
+    0.247
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 1566.788535,
+   "jarvis_vale_hz": 800.548368,
+   "jarvis_vale_abaixo_db": 22.5,
+   "fase": {
+    "media_graus": -75.23,
+    "dispersao_graus": 122.59,
+    "atraso_equivalente_ms": -1.0,
+    "faixa_hz": [
+     131.660438,
+     11661.19562
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 9,
+   "vales_via_b_sub": 6,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_L",
+    "m_L"
+   ],
+   "janela": "Wfull",
+   "ppo": 96,
+   "injecao": "atraso_1.0ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 7240.773439,
+   "jarvis_vale_hz": 1416.153002,
+   "jarvis_vale_abaixo_db": 18.9,
+   "fase": {
+    "media_graus": 91.05,
+    "dispersao_graus": 97.31,
+    "atraso_equivalente_ms": -0.02,
+    "faixa_hz": [
+     842.049613,
+     19053.407727
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 4,
+   "vales_via_b_sub": 7,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "m_L",
+    "tw_L"
+   ],
+   "janela": "W30",
+   "ppo": 48,
+   "injecao": "controle",
+   "pontuacao": "sem pontuação"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 7240.773439,
+   "jarvis_vale_hz": 4122.85525,
+   "jarvis_vale_abaixo_db": 16.8,
+   "fase": {
+    "media_graus": -88.95,
+    "dispersao_graus": 97.31,
+    "atraso_equivalente_ms": -0.02,
+    "faixa_hz": [
+     842.049613,
+     19053.407727
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 4,
+   "vales_via_b_sub": 7,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "m_L",
+    "tw_L"
+   ],
+   "janela": "W30",
+   "ppo": 48,
+   "injecao": "polaridade",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 7240.773439,
+   "jarvis_vale_hz": 8365.647121,
+   "jarvis_vale_abaixo_db": 29.1,
+   "fase": {
+    "media_graus": -113.9,
+    "dispersao_graus": 76.08,
+    "atraso_equivalente_ms": 0.1,
+    "faixa_hz": [
+     842.049613,
+     19053.407727
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 4,
+   "vales_via_b_sub": 7,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "m_L",
+    "tw_L"
+   ],
+   "janela": "W30",
+   "ppo": 48,
+   "injecao": "atraso_0.25ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 7240.773439,
+   "jarvis_vale_hz": 4902.928797,
+   "jarvis_vale_abaixo_db": 22.0,
+   "fase": {
+    "media_graus": 104.37,
+    "dispersao_graus": 171.18,
+    "atraso_equivalente_ms": 0.56,
+    "faixa_hz": [
+     842.049613,
+     19053.407727
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 4,
+   "vales_via_b_sub": 7,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "m_L",
+    "tw_L"
+   ],
+   "janela": "W30",
+   "ppo": 48,
+   "injecao": "atraso_1.0ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 3808.071263,
+   "jarvis_vale_hz": 5010.288958,
+   "jarvis_vale_abaixo_db": 34.1,
+   "fase": {
+    "media_graus": 84.71,
+    "dispersao_graus": 97.15,
+    "atraso_equivalente_ms": 0.17,
+    "faixa_hz": [
+     835.991673,
+     19470.623028
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 6,
+   "vales_via_b_sub": 9,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "m_L",
+    "tw_L"
+   ],
+   "janela": "W30",
+   "ppo": 96,
+   "injecao": "controle",
+   "pontuacao": "sem pontuação"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 3808.071263,
+   "jarvis_vale_hz": 6312.568524,
+   "jarvis_vale_abaixo_db": 20.3,
+   "fase": {
+    "media_graus": -95.29,
+    "dispersao_graus": 97.15,
+    "atraso_equivalente_ms": 0.17,
+    "faixa_hz": [
+     835.991673,
+     19470.623028
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 6,
+   "vales_via_b_sub": 9,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "m_L",
+    "tw_L"
+   ],
+   "janela": "W30",
+   "ppo": 96,
+   "injecao": "polaridade",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 3808.071263,
+   "jarvis_vale_hz": 8365.647121,
+   "jarvis_vale_abaixo_db": 29.1,
+   "fase": {
+    "media_graus": -116.07,
+    "dispersao_graus": 77.95,
+    "atraso_equivalente_ms": 0.22,
+    "faixa_hz": [
+     835.991673,
+     19470.623028
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 6,
+   "vales_via_b_sub": 9,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "m_L",
+    "tw_L"
+   ],
+   "janela": "W30",
+   "ppo": 96,
+   "injecao": "atraso_0.25ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 5010.288958,
+   "jarvis_vale_hz": 5010.288958,
+   "jarvis_vale_abaixo_db": 30.4,
+   "fase": {
+    "media_graus": 167.93,
+    "dispersao_graus": 149.09,
+    "atraso_equivalente_ms": 0.8,
+    "faixa_hz": [
+     835.991673,
+     19470.623028
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 6,
+   "vales_via_b_sub": 9,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "m_L",
+    "tw_L"
+   ],
+   "janela": "W30",
+   "ppo": 96,
+   "injecao": "atraso_1.0ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "nao_da_para_concluir",
+   "portao": "reprovada",
+   "sigma_db": [
+    0.783,
+    2.024,
+    0.81
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 8487.32826,
+   "jarvis_vale_hz": 1416.153002,
+   "jarvis_vale_abaixo_db": 18.8,
+   "fase": {
+    "media_graus": 93.89,
+    "dispersao_graus": 102.39,
+    "atraso_equivalente_ms": 0.01,
+    "faixa_hz": [
+     20.586045,
+     19053.407727
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 4,
+   "vales_via_b_sub": 9,
+   "indicios": [],
+   "hipoteses": [],
+   "par": [
+    "m_L",
+    "tw_L"
+   ],
+   "janela": "Wfull",
+   "ppo": 48,
+   "injecao": "controle",
+   "pontuacao": "sem pontuação"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "nao_da_para_concluir",
+   "portao": "reprovada",
+   "sigma_db": [
+    0.783,
+    2.024,
+    0.832
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 8487.32826,
+   "jarvis_vale_hz": 4122.85525,
+   "jarvis_vale_abaixo_db": 16.0,
+   "fase": {
+    "media_graus": -86.11,
+    "dispersao_graus": 102.39,
+    "atraso_equivalente_ms": 0.01,
+    "faixa_hz": [
+     20.586045,
+     19053.407727
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 4,
+   "vales_via_b_sub": 9,
+   "indicios": [],
+   "hipoteses": [],
+   "par": [
+    "m_L",
+    "tw_L"
+   ],
+   "janela": "Wfull",
+   "ppo": 48,
+   "injecao": "polaridade",
+   "pontuacao": "abstenção"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "nao_da_para_concluir",
+   "portao": "reprovada",
+   "sigma_db": [
+    0.783,
+    2.024,
+    0.829
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 8487.32826,
+   "jarvis_vale_hz": 8365.647121,
+   "jarvis_vale_abaixo_db": 28.7,
+   "fase": {
+    "media_graus": -118.59,
+    "dispersao_graus": 88.43,
+    "atraso_equivalente_ms": 0.14,
+    "faixa_hz": [
+     20.586045,
+     19053.407727
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 4,
+   "vales_via_b_sub": 9,
+   "indicios": [],
+   "hipoteses": [],
+   "par": [
+    "m_L",
+    "tw_L"
+   ],
+   "janela": "Wfull",
+   "ppo": 48,
+   "injecao": "atraso_0.25ms",
+   "pontuacao": "abstenção"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "nao_da_para_concluir",
+   "portao": "reprovada",
+   "sigma_db": [
+    0.783,
+    2.025,
+    0.783
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 8487.32826,
+   "jarvis_vale_hz": 4902.928797,
+   "jarvis_vale_abaixo_db": 21.8,
+   "fase": {
+    "media_graus": 134.18,
+    "dispersao_graus": 150.69,
+    "atraso_equivalente_ms": 0.55,
+    "faixa_hz": [
+     20.586045,
+     19053.407727
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 4,
+   "vales_via_b_sub": 9,
+   "indicios": [],
+   "hipoteses": [],
+   "par": [
+    "m_L",
+    "tw_L"
+   ],
+   "janela": "Wfull",
+   "ppo": 48,
+   "injecao": "atraso_1.0ms",
+   "pontuacao": "abstenção"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "aviso",
+   "sigma_db": [
+    0.262,
+    1.087,
+    0.279
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 5010.288958,
+   "jarvis_vale_hz": 5010.288958,
+   "jarvis_vale_abaixo_db": 26.2,
+   "fase": {
+    "media_graus": 85.84,
+    "dispersao_graus": 104.03,
+    "atraso_equivalente_ms": 0.12,
+    "faixa_hz": [
+     20.437943,
+     19470.623028
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 6,
+   "vales_via_b_sub": 12,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "m_L",
+    "tw_L"
+   ],
+   "janela": "Wfull",
+   "ppo": 96,
+   "injecao": "controle",
+   "pontuacao": "sem pontuação"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "aviso",
+   "sigma_db": [
+    0.262,
+    1.087,
+    0.292
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 5010.288958,
+   "jarvis_vale_hz": 6312.568524,
+   "jarvis_vale_abaixo_db": 22.0,
+   "fase": {
+    "media_graus": -94.16,
+    "dispersao_graus": 104.03,
+    "atraso_equivalente_ms": 0.12,
+    "faixa_hz": [
+     20.437943,
+     19470.623028
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 6,
+   "vales_via_b_sub": 12,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "m_L",
+    "tw_L"
+   ],
+   "janela": "Wfull",
+   "ppo": 96,
+   "injecao": "polaridade",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "aviso",
+   "sigma_db": [
+    0.262,
+    1.086,
+    0.31
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 5010.288958,
+   "jarvis_vale_hz": 3808.071263,
+   "jarvis_vale_abaixo_db": 32.8,
+   "fase": {
+    "media_graus": -117.53,
+    "dispersao_graus": 89.08,
+    "atraso_equivalente_ms": 0.17,
+    "faixa_hz": [
+     20.437943,
+     19470.623028
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 6,
+   "vales_via_b_sub": 12,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "m_L",
+    "tw_L"
+   ],
+   "janela": "Wfull",
+   "ppo": 96,
+   "injecao": "atraso_0.25ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "aviso",
+   "sigma_db": [
+    0.262,
+    1.086,
+    0.259
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 5010.288958,
+   "jarvis_vale_hz": 5010.288958,
+   "jarvis_vale_abaixo_db": 48.1,
+   "fase": {
+    "media_graus": 169.09,
+    "dispersao_graus": 149.4,
+    "atraso_equivalente_ms": 0.73,
+    "faixa_hz": [
+     20.437943,
+     19470.623028
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 6,
+   "vales_via_b_sub": 12,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "m_L",
+    "tw_L"
+   ],
+   "janela": "Wfull",
+   "ppo": 96,
+   "injecao": "atraso_1.0ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 329.376716,
+   "jarvis_vale_hz": 324.654507,
+   "jarvis_vale_abaixo_db": 28.8,
+   "fase": {
+    "media_graus": -179.42,
+    "dispersao_graus": 104.25,
+    "atraso_equivalente_ms": -0.34,
+    "faixa_hz": [
+     138.48585,
+     8487.32826
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 10,
+   "vales_via_b_sub": 4,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_R",
+    "m_R"
+   ],
+   "janela": "W30",
+   "ppo": 48,
+   "injecao": "controle",
+   "pontuacao": "sem pontuação"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 329.376716,
+   "jarvis_vale_hz": 3726.472148,
+   "jarvis_vale_abaixo_db": 15.6,
+   "fase": {
+    "media_graus": 0.58,
+    "dispersao_graus": 104.25,
+    "atraso_equivalente_ms": -0.34,
+    "faixa_hz": [
+     138.48585,
+     8487.32826
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 10,
+   "vales_via_b_sub": 4,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_R",
+    "m_R"
+   ],
+   "janela": "W30",
+   "ppo": 48,
+   "injecao": "polaridade",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 329.376716,
+   "jarvis_vale_hz": 343.959469,
+   "jarvis_vale_abaixo_db": 17.4,
+   "fase": {
+    "media_graus": 56.33,
+    "dispersao_graus": 107.02,
+    "atraso_equivalente_ms": -0.09,
+    "faixa_hz": [
+     138.48585,
+     8487.32826
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 10,
+   "vales_via_b_sub": 4,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_R",
+    "m_R"
+   ],
+   "janela": "W30",
+   "ppo": 48,
+   "injecao": "atraso_0.25ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 892.120489,
+   "jarvis_vale_hz": 866.72355,
+   "jarvis_vale_abaixo_db": 19.0,
+   "fase": {
+    "media_graus": 60.28,
+    "dispersao_graus": 101.69,
+    "atraso_equivalente_ms": 0.01,
+    "faixa_hz": [
+     138.48585,
+     8487.32826
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 10,
+   "vales_via_b_sub": 4,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_R",
+    "m_R"
+   ],
+   "janela": "W30",
+   "ppo": 48,
+   "injecao": "atraso_1.0ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 329.376716,
+   "jarvis_vale_hz": 324.654507,
+   "jarvis_vale_abaixo_db": 28.8,
+   "fase": {
+    "media_graus": 176.97,
+    "dispersao_graus": 105.02,
+    "atraso_equivalente_ms": -0.27,
+    "faixa_hz": [
+     137.489544,
+     14171.237191
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 15,
+   "vales_via_b_sub": 9,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_R",
+    "m_R"
+   ],
+   "janela": "W30",
+   "ppo": 96,
+   "injecao": "controle",
+   "pontuacao": "sem pontuação"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 329.376716,
+   "jarvis_vale_hz": 2433.827878,
+   "jarvis_vale_abaixo_db": 15.8,
+   "fase": {
+    "media_graus": -3.03,
+    "dispersao_graus": 105.02,
+    "atraso_equivalente_ms": -0.27,
+    "faixa_hz": [
+     137.489544,
+     14171.237191
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 15,
+   "vales_via_b_sub": 9,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_R",
+    "m_R"
+   ],
+   "janela": "W30",
+   "ppo": 96,
+   "injecao": "polaridade",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 329.376716,
+   "jarvis_vale_hz": 341.484928,
+   "jarvis_vale_abaixo_db": 18.6,
+   "fase": {
+    "media_graus": 48.6,
+    "dispersao_graus": 108.17,
+    "atraso_equivalente_ms": -0.03,
+    "faixa_hz": [
+     137.489544,
+     14171.237191
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 15,
+   "vales_via_b_sub": 9,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_R",
+    "m_R"
+   ],
+   "janela": "W30",
+   "ppo": 96,
+   "injecao": "atraso_0.25ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 1346.356507,
+   "jarvis_vale_hz": 2046.597138,
+   "jarvis_vale_abaixo_db": 22.4,
+   "fase": {
+    "media_graus": 64.35,
+    "dispersao_graus": 100.1,
+    "atraso_equivalente_ms": 0.01,
+    "faixa_hz": [
+     137.489544,
+     14171.237191
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 15,
+   "vales_via_b_sub": 9,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_R",
+    "m_R"
+   ],
+   "janela": "W30",
+   "ppo": 96,
+   "injecao": "atraso_1.0ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "aviso",
+   "sigma_db": [
+    1.048,
+    0.815,
+    1.096
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 179.593928,
+   "jarvis_vale_hz": 320.0,
+   "jarvis_vale_abaixo_db": 24.8,
+   "fase": {
+    "media_graus": 179.83,
+    "dispersao_graus": 104.73,
+    "atraso_equivalente_ms": -0.34,
+    "faixa_hz": [
+     138.48585,
+     8487.32826
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 10,
+   "vales_via_b_sub": 4,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_R",
+    "m_R"
+   ],
+   "janela": "Wfull",
+   "ppo": 48,
+   "injecao": "controle",
+   "pontuacao": "sem pontuação"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "aviso",
+   "sigma_db": [
+    1.048,
+    0.815,
+    0.797
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 179.593928,
+   "jarvis_vale_hz": 3726.472148,
+   "jarvis_vale_abaixo_db": 15.6,
+   "fase": {
+    "media_graus": -0.17,
+    "dispersao_graus": 104.73,
+    "atraso_equivalente_ms": -0.34,
+    "faixa_hz": [
+     138.48585,
+     8487.32826
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 10,
+   "vales_via_b_sub": 4,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_R",
+    "m_R"
+   ],
+   "janela": "Wfull",
+   "ppo": 48,
+   "injecao": "polaridade",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "aviso",
+   "sigma_db": [
+    1.048,
+    0.815,
+    0.896
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 179.593928,
+   "jarvis_vale_hz": 794.789,
+   "jarvis_vale_abaixo_db": 15.2,
+   "fase": {
+    "media_graus": 57.45,
+    "dispersao_graus": 105.96,
+    "atraso_equivalente_ms": -0.09,
+    "faixa_hz": [
+     138.48585,
+     8487.32826
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 10,
+   "vales_via_b_sub": 4,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_R",
+    "m_R"
+   ],
+   "janela": "Wfull",
+   "ppo": 48,
+   "injecao": "atraso_0.25ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "aviso",
+   "sigma_db": [
+    1.048,
+    0.815,
+    0.817
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 179.593928,
+   "jarvis_vale_hz": 866.72355,
+   "jarvis_vale_abaixo_db": 19.7,
+   "fase": {
+    "media_graus": 58.84,
+    "dispersao_graus": 101.25,
+    "atraso_equivalente_ms": 0.02,
+    "faixa_hz": [
+     138.48585,
+     8487.32826
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 10,
+   "vales_via_b_sub": 4,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_R",
+    "m_R"
+   ],
+   "janela": "Wfull",
+   "ppo": 48,
+   "injecao": "atraso_1.0ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "aprovada",
+   "sigma_db": [
+    0.474,
+    0.25,
+    0.396
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 179.593928,
+   "jarvis_vale_hz": 322.318852,
+   "jarvis_vale_abaixo_db": 37.1,
+   "fase": {
+    "media_graus": 178.24,
+    "dispersao_graus": 105.5,
+    "atraso_equivalente_ms": -0.29,
+    "faixa_hz": [
+     138.48585,
+     8487.32826
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 15,
+   "vales_via_b_sub": 9,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_R",
+    "m_R"
+   ],
+   "janela": "Wfull",
+   "ppo": 96,
+   "injecao": "controle",
+   "pontuacao": "sem pontuação"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "aprovada",
+   "sigma_db": [
+    0.474,
+    0.25,
+    0.318
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 179.593928,
+   "jarvis_vale_hz": 2433.827878,
+   "jarvis_vale_abaixo_db": 16.1,
+   "fase": {
+    "media_graus": -1.76,
+    "dispersao_graus": 105.5,
+    "atraso_equivalente_ms": -0.29,
+    "faixa_hz": [
+     138.48585,
+     8487.32826
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 15,
+   "vales_via_b_sub": 9,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_R",
+    "m_R"
+   ],
+   "janela": "Wfull",
+   "ppo": 96,
+   "injecao": "polaridade",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "aprovada",
+   "sigma_db": [
+    0.474,
+    0.25,
+    0.303
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 179.593928,
+   "jarvis_vale_hz": 800.548368,
+   "jarvis_vale_abaixo_db": 16.8,
+   "fase": {
+    "media_graus": 50.54,
+    "dispersao_graus": 109.59,
+    "atraso_equivalente_ms": -0.04,
+    "faixa_hz": [
+     138.48585,
+     8487.32826
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 15,
+   "vales_via_b_sub": 9,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_R",
+    "m_R"
+   ],
+   "janela": "Wfull",
+   "ppo": 96,
+   "injecao": "atraso_0.25ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "aprovada",
+   "sigma_db": [
+    0.474,
+    0.25,
+    0.302
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 179.593928,
+   "jarvis_vale_hz": 2046.597138,
+   "jarvis_vale_abaixo_db": 23.3,
+   "fase": {
+    "media_graus": 64.0,
+    "dispersao_graus": 99.16,
+    "atraso_equivalente_ms": 0.03,
+    "faixa_hz": [
+     138.48585,
+     8487.32826
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 15,
+   "vales_via_b_sub": 9,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "w_R",
+    "m_R"
+   ],
+   "janela": "Wfull",
+   "ppo": 96,
+   "injecao": "atraso_1.0ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 18780.242805,
+   "jarvis_vale_hz": 5424.451043,
+   "jarvis_vale_abaixo_db": 14.5,
+   "fase": {
+    "media_graus": -50.46,
+    "dispersao_graus": 101.14,
+    "atraso_equivalente_ms": 0.11,
+    "faixa_hz": [
+     20.0,
+     18780.242805
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 4,
+   "vales_via_b_sub": 4,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "m_R",
+    "tw_R"
+   ],
+   "janela": "W30",
+   "ppo": 48,
+   "injecao": "controle",
+   "pontuacao": "sem pontuação"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 18780.242805,
+   "jarvis_vale_hz": 1636.15619,
+   "jarvis_vale_abaixo_db": 24.2,
+   "fase": {
+    "media_graus": 129.54,
+    "dispersao_graus": 101.14,
+    "atraso_equivalente_ms": 0.11,
+    "faixa_hz": [
+     20.0,
+     18780.242805
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 4,
+   "vales_via_b_sub": 4,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "m_R",
+    "tw_R"
+   ],
+   "janela": "W30",
+   "ppo": 48,
+   "injecao": "polaridade",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 5346.681766,
+   "jarvis_vale_hz": 10240.0,
+   "jarvis_vale_abaixo_db": 17.7,
+   "fase": {
+    "media_graus": -93.14,
+    "dispersao_graus": 91.06,
+    "atraso_equivalente_ms": 0.37,
+    "faixa_hz": [
+     20.0,
+     18780.242805
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 4,
+   "vales_via_b_sub": 6,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "m_R",
+    "tw_R"
+   ],
+   "janela": "W30",
+   "ppo": 48,
+   "injecao": "atraso_0.25ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 918.261614,
+   "jarvis_vale_hz": 2091.41178,
+   "jarvis_vale_abaixo_db": 18.0,
+   "fase": {
+    "media_graus": -92.48,
+    "dispersao_graus": 104.43,
+    "atraso_equivalente_ms": 0.77,
+    "faixa_hz": [
+     20.0,
+     18780.242805
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 4,
+   "vales_via_b_sub": 6,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "m_R",
+    "tw_R"
+   ],
+   "janela": "W30",
+   "ppo": 48,
+   "injecao": "atraso_1.0ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 18780.242805,
+   "jarvis_vale_hz": 5424.451043,
+   "jarvis_vale_abaixo_db": 14.5,
+   "fase": {
+    "media_graus": -56.31,
+    "dispersao_graus": 100.92,
+    "atraso_equivalente_ms": 0.26,
+    "faixa_hz": [
+     20.0,
+     18916.332186
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 9,
+   "vales_via_b_sub": 7,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "m_R",
+    "tw_R"
+   ],
+   "janela": "W30",
+   "ppo": 96,
+   "injecao": "controle",
+   "pontuacao": "sem pontuação"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 18780.242805,
+   "jarvis_vale_hz": 1636.15619,
+   "jarvis_vale_abaixo_db": 24.2,
+   "fase": {
+    "media_graus": 123.69,
+    "dispersao_graus": 100.92,
+    "atraso_equivalente_ms": 0.26,
+    "faixa_hz": [
+     20.0,
+     18916.332186
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 9,
+   "vales_via_b_sub": 7,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "m_R",
+    "tw_R"
+   ],
+   "janela": "W30",
+   "ppo": 96,
+   "injecao": "polaridade",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 5346.681766,
+   "jarvis_vale_hz": 7085.618596,
+   "jarvis_vale_abaixo_db": 23.5,
+   "fase": {
+    "media_graus": -97.34,
+    "dispersao_graus": 93.73,
+    "atraso_equivalente_ms": 0.35,
+    "faixa_hz": [
+     20.0,
+     18916.332186
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 9,
+   "vales_via_b_sub": 10,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "m_R",
+    "tw_R"
+   ],
+   "janela": "W30",
+   "ppo": 96,
+   "injecao": "atraso_0.25ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 918.261614,
+   "jarvis_vale_hz": 2091.41178,
+   "jarvis_vale_abaixo_db": 18.0,
+   "fase": {
+    "media_graus": -82.61,
+    "dispersao_graus": 105.37,
+    "atraso_equivalente_ms": 0.92,
+    "faixa_hz": [
+     20.0,
+     18916.332186
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 9,
+   "vales_via_b_sub": 9,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "m_R",
+    "tw_R"
+   ],
+   "janela": "W30",
+   "ppo": 96,
+   "injecao": "atraso_1.0ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "nao_da_para_concluir",
+   "portao": "reprovada",
+   "sigma_db": [
+    0.815,
+    2.177,
+    0.745
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 5346.681766,
+   "jarvis_vale_hz": 38.861278,
+   "jarvis_vale_abaixo_db": 20.2,
+   "fase": {
+    "media_graus": -30.51,
+    "dispersao_graus": 105.56,
+    "atraso_equivalente_ms": 0.14,
+    "faixa_hz": [
+     20.0,
+     19330.545924
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 4,
+   "vales_via_b_sub": 10,
+   "indicios": [],
+   "hipoteses": [],
+   "par": [
+    "m_R",
+    "tw_R"
+   ],
+   "janela": "Wfull",
+   "ppo": 48,
+   "injecao": "controle",
+   "pontuacao": "sem pontuação"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "nao_da_para_concluir",
+   "portao": "reprovada",
+   "sigma_db": [
+    0.815,
+    2.177,
+    0.824
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 5346.681766,
+   "jarvis_vale_hz": 1636.15619,
+   "jarvis_vale_abaixo_db": 24.5,
+   "fase": {
+    "media_graus": 149.49,
+    "dispersao_graus": 105.56,
+    "atraso_equivalente_ms": 0.14,
+    "faixa_hz": [
+     20.0,
+     19330.545924
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 4,
+   "vales_via_b_sub": 10,
+   "indicios": [],
+   "hipoteses": [],
+   "par": [
+    "m_R",
+    "tw_R"
+   ],
+   "janela": "Wfull",
+   "ppo": 48,
+   "injecao": "polaridade",
+   "pontuacao": "abstenção"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "nao_da_para_concluir",
+   "portao": "reprovada",
+   "sigma_db": [
+    0.815,
+    2.177,
+    0.764
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 5346.681766,
+   "jarvis_vale_hz": 38.861278,
+   "jarvis_vale_abaixo_db": 17.6,
+   "fase": {
+    "media_graus": -76.18,
+    "dispersao_graus": 103.2,
+    "atraso_equivalente_ms": 0.39,
+    "faixa_hz": [
+     20.0,
+     19330.545924
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 4,
+   "vales_via_b_sub": 10,
+   "indicios": [],
+   "hipoteses": [],
+   "par": [
+    "m_R",
+    "tw_R"
+   ],
+   "janela": "Wfull",
+   "ppo": 48,
+   "injecao": "atraso_0.25ms",
+   "pontuacao": "abstenção"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "nao_da_para_concluir",
+   "portao": "reprovada",
+   "sigma_db": [
+    0.815,
+    2.177,
+    0.738
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 5346.681766,
+   "jarvis_vale_hz": 2091.41178,
+   "jarvis_vale_abaixo_db": 18.1,
+   "fase": {
+    "media_graus": -84.25,
+    "dispersao_graus": 124.3,
+    "atraso_equivalente_ms": 0.75,
+    "faixa_hz": [
+     20.0,
+     19330.545924
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 4,
+   "vales_via_b_sub": 10,
+   "indicios": [],
+   "hipoteses": [],
+   "par": [
+    "m_R",
+    "tw_R"
+   ],
+   "janela": "Wfull",
+   "ppo": 48,
+   "injecao": "atraso_1.0ms",
+   "pontuacao": "abstenção"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "aviso",
+   "sigma_db": [
+    0.25,
+    1.246,
+    0.222
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 1199.467286,
+   "jarvis_vale_hz": 38.861278,
+   "jarvis_vale_abaixo_db": 20.2,
+   "fase": {
+    "media_graus": -30.96,
+    "dispersao_graus": 108.51,
+    "atraso_equivalente_ms": 0.27,
+    "faixa_hz": [
+     20.0,
+     19330.545924
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 9,
+   "vales_via_b_sub": 15,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "m_R",
+    "tw_R"
+   ],
+   "janela": "Wfull",
+   "ppo": 96,
+   "injecao": "controle",
+   "pontuacao": "sem pontuação"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "aviso",
+   "sigma_db": [
+    0.25,
+    1.246,
+    0.247
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 1199.467286,
+   "jarvis_vale_hz": 1636.15619,
+   "jarvis_vale_abaixo_db": 24.5,
+   "fase": {
+    "media_graus": 149.04,
+    "dispersao_graus": 108.51,
+    "atraso_equivalente_ms": 0.27,
+    "faixa_hz": [
+     20.0,
+     19330.545924
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 9,
+   "vales_via_b_sub": 15,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "m_R",
+    "tw_R"
+   ],
+   "janela": "Wfull",
+   "ppo": 96,
+   "injecao": "polaridade",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "aviso",
+   "sigma_db": [
+    0.25,
+    1.246,
+    0.307
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 1199.467286,
+   "jarvis_vale_hz": 7085.618596,
+   "jarvis_vale_abaixo_db": 25.1,
+   "fase": {
+    "media_graus": -79.46,
+    "dispersao_graus": 109.44,
+    "atraso_equivalente_ms": 0.44,
+    "faixa_hz": [
+     20.0,
+     19330.545924
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 9,
+   "vales_via_b_sub": 15,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "m_R",
+    "tw_R"
+   ],
+   "janela": "Wfull",
+   "ppo": 96,
+   "injecao": "atraso_0.25ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "aviso",
+   "sigma_db": [
+    0.25,
+    1.246,
+    0.253
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 1199.467286,
+   "jarvis_vale_hz": 56.978461,
+   "jarvis_vale_abaixo_db": 22.0,
+   "fase": {
+    "media_graus": -67.08,
+    "dispersao_graus": 127.01,
+    "atraso_equivalente_ms": 0.84,
+    "faixa_hz": [
+     20.0,
+     19330.545924
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 9,
+   "vales_via_b_sub": 15,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "m_R",
+    "tw_R"
+   ],
+   "janela": "Wfull",
+   "ppo": 96,
+   "injecao": "atraso_1.0ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 60.804018,
+   "jarvis_vale_hz": 64.419613,
+   "jarvis_vale_abaixo_db": 33.1,
+   "fase": {
+    "media_graus": -139.65,
+    "dispersao_graus": 39.67,
+    "atraso_equivalente_ms": -3.15,
+    "faixa_hz": [
+     26.31405,
+     164.688358
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 7,
+   "vales_via_b_sub": 7,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "sw",
+    "w_L"
+   ],
+   "janela": "W30",
+   "ppo": 48,
+   "injecao": "controle",
+   "pontuacao": "sem pontuação"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 60.804018,
+   "jarvis_vale_hz": 162.327254,
+   "jarvis_vale_abaixo_db": -0.1,
+   "fase": {
+    "media_graus": 40.35,
+    "dispersao_graus": 39.67,
+    "atraso_equivalente_ms": -3.15,
+    "faixa_hz": [
+     26.31405,
+     164.688358
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 7,
+   "vales_via_b_sub": 7,
+   "indicios": [
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ]
+   ],
+   "par": [
+    "sw",
+    "w_L"
+   ],
+   "janela": "W30",
+   "ppo": 48,
+   "injecao": "polaridade",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 60.804018,
+   "jarvis_vale_hz": 66.307252,
+   "jarvis_vale_abaixo_db": 35.4,
+   "fase": {
+    "media_graus": -135.43,
+    "dispersao_graus": 38.43,
+    "atraso_equivalente_ms": -2.92,
+    "faixa_hz": [
+     26.31405,
+     164.688358
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 7,
+   "vales_via_b_sub": 7,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "sw",
+    "w_L"
+   ],
+   "janela": "W30",
+   "ppo": 48,
+   "injecao": "atraso_0.25ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 59.932283,
+   "jarvis_vale_hz": 69.242925,
+   "jarvis_vale_abaixo_db": 23.9,
+   "fase": {
+    "media_graus": -121.55,
+    "dispersao_graus": 34.84,
+    "atraso_equivalente_ms": -2.29,
+    "faixa_hz": [
+     25.56494,
+     164.688358
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 7,
+   "vales_via_b_sub": 6,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "sw",
+    "w_L"
+   ],
+   "janela": "W30",
+   "ppo": 48,
+   "injecao": "atraso_1.0ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 60.804018,
+   "jarvis_vale_hz": 64.886424,
+   "jarvis_vale_abaixo_db": 38.1,
+   "fase": {
+    "media_graus": -139.98,
+    "dispersao_graus": 39.09,
+    "atraso_equivalente_ms": -4.22,
+    "faixa_hz": [
+     26.31405,
+     164.688358
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 8,
+   "vales_via_b_sub": 9,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "sw",
+    "w_L"
+   ],
+   "janela": "W30",
+   "ppo": 96,
+   "injecao": "controle",
+   "pontuacao": "sem pontuação"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 60.804018,
+   "jarvis_vale_hz": 162.327254,
+   "jarvis_vale_abaixo_db": -0.1,
+   "fase": {
+    "media_graus": 40.02,
+    "dispersao_graus": 39.09,
+    "atraso_equivalente_ms": -4.22,
+    "faixa_hz": [
+     26.31405,
+     164.688358
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 8,
+   "vales_via_b_sub": 9,
+   "indicios": [
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ]
+   ],
+   "par": [
+    "sw",
+    "w_L"
+   ],
+   "janela": "W30",
+   "ppo": 96,
+   "injecao": "polaridade",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 60.804018,
+   "jarvis_vale_hz": 65.830219,
+   "jarvis_vale_abaixo_db": 42.8,
+   "fase": {
+    "media_graus": -135.77,
+    "dispersao_graus": 37.86,
+    "atraso_equivalente_ms": -3.99,
+    "faixa_hz": [
+     26.31405,
+     164.688358
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 8,
+   "vales_via_b_sub": 9,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "sw",
+    "w_L"
+   ],
+   "janela": "W30",
+   "ppo": 96,
+   "injecao": "atraso_0.25ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "solicitar_dados",
+   "portao": "nao_estimavel",
+   "sigma_db": [
+    null,
+    null,
+    null
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 65.830219,
+   "jarvis_vale_hz": 69.242925,
+   "jarvis_vale_abaixo_db": 23.9,
+   "fase": {
+    "media_graus": -121.41,
+    "dispersao_graus": 33.69,
+    "atraso_equivalente_ms": -2.66,
+    "faixa_hz": [
+     25.56494,
+     164.688358
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 8,
+   "vales_via_b_sub": 9,
+   "indicios": [
+    "Regra 1",
+    "Regra 3"
+   ],
+   "hipoteses": [
+    [
+     "Interferência ou reflexão no caminho de uma via (vale presen",
+     "mais provável"
+    ],
+    [
+     "Polaridade invertida em uma das vias (médio ou tweeter)",
+     "pouco provável"
+    ]
+   ],
+   "par": [
+    "sw",
+    "w_L"
+   ],
+   "janela": "W30",
+   "ppo": 96,
+   "injecao": "atraso_1.0ms",
+   "pontuacao": "erro"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "nao_da_para_concluir",
+   "portao": "reprovada",
+   "sigma_db": [
+    2.528,
+    0.746,
+    0.744
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 70.250086,
+   "jarvis_vale_hz": 70.250086,
+   "jarvis_vale_abaixo_db": 24.5,
+   "fase": {
+    "media_graus": -157.57,
+    "dispersao_graus": 59.63,
+    "atraso_equivalente_ms": -0.0,
+    "faixa_hz": [
+     24.130091,
+     17221.558584
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 9,
+   "vales_via_b_sub": 7,
+   "indicios": [],
+   "hipoteses": [],
+   "par": [
+    "sw",
+    "w_L"
+   ],
+   "janela": "Wfull",
+   "ppo": 48,
+   "injecao": "controle",
+   "pontuacao": "sem pontuação"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "nao_da_para_concluir",
+   "portao": "reprovada",
+   "sigma_db": [
+    2.528,
+    0.746,
+    0.746
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 70.250086,
+   "jarvis_vale_hz": 31.292856,
+   "jarvis_vale_abaixo_db": 4.0,
+   "fase": {
+    "media_graus": 22.43,
+    "dispersao_graus": 59.63,
+    "atraso_equivalente_ms": -0.0,
+    "faixa_hz": [
+     24.130091,
+     17221.558584
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 9,
+   "vales_via_b_sub": 7,
+   "indicios": [],
+   "hipoteses": [],
+   "par": [
+    "sw",
+    "w_L"
+   ],
+   "janela": "Wfull",
+   "ppo": 48,
+   "injecao": "polaridade",
+   "pontuacao": "abstenção"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "nao_da_para_concluir",
+   "portao": "reprovada",
+   "sigma_db": [
+    2.528,
+    0.746,
+    0.765
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 70.250086,
+   "jarvis_vale_hz": 41.770951,
+   "jarvis_vale_abaixo_db": 19.2,
+   "fase": {
+    "media_graus": -150.72,
+    "dispersao_graus": 57.6,
+    "atraso_equivalente_ms": -0.05,
+    "faixa_hz": [
+     24.130091,
+     17221.558584
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 9,
+   "vales_via_b_sub": 7,
+   "indicios": [],
+   "hipoteses": [],
+   "par": [
+    "sw",
+    "w_L"
+   ],
+   "janela": "Wfull",
+   "ppo": 48,
+   "injecao": "atraso_0.25ms",
+   "pontuacao": "abstenção"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "nao_da_para_concluir",
+   "portao": "reprovada",
+   "sigma_db": [
+    2.528,
+    0.746,
+    0.751
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 70.250086,
+   "jarvis_vale_hz": 41.770951,
+   "jarvis_vale_abaixo_db": 30.1,
+   "fase": {
+    "media_graus": -138.78,
+    "dispersao_graus": 54.13,
+    "atraso_equivalente_ms": -0.01,
+    "faixa_hz": [
+     24.130091,
+     17221.558584
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 9,
+   "vales_via_b_sub": 7,
+   "indicios": [],
+   "hipoteses": [],
+   "par": [
+    "sw",
+    "w_L"
+   ],
+   "janela": "Wfull",
+   "ppo": 48,
+   "injecao": "atraso_1.0ms",
+   "pontuacao": "abstenção"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "nao_da_para_concluir",
+   "portao": "reprovada",
+   "sigma_db": [
+    1.992,
+    0.248,
+    0.261
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 70.250086,
+   "jarvis_vale_hz": 70.250086,
+   "jarvis_vale_abaixo_db": 24.5,
+   "fase": {
+    "media_graus": -157.84,
+    "dispersao_graus": 61.01,
+    "atraso_equivalente_ms": -0.06,
+    "faixa_hz": [
+     24.130091,
+     20041.155832
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 14,
+   "vales_via_b_sub": 9,
+   "indicios": [],
+   "hipoteses": [],
+   "par": [
+    "sw",
+    "w_L"
+   ],
+   "janela": "Wfull",
+   "ppo": 96,
+   "injecao": "controle",
+   "pontuacao": "sem pontuação"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "nao_da_para_concluir",
+   "portao": "reprovada",
+   "sigma_db": [
+    1.992,
+    0.248,
+    0.252
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 70.250086,
+   "jarvis_vale_hz": 31.519617,
+   "jarvis_vale_abaixo_db": 4.5,
+   "fase": {
+    "media_graus": 22.16,
+    "dispersao_graus": 61.01,
+    "atraso_equivalente_ms": -0.06,
+    "faixa_hz": [
+     24.130091,
+     20041.155832
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 14,
+   "vales_via_b_sub": 9,
+   "indicios": [],
+   "hipoteses": [],
+   "par": [
+    "sw",
+    "w_L"
+   ],
+   "janela": "Wfull",
+   "ppo": 96,
+   "injecao": "polaridade",
+   "pontuacao": "abstenção"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "nao_da_para_concluir",
+   "portao": "reprovada",
+   "sigma_db": [
+    1.992,
+    0.247,
+    0.262
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 70.250086,
+   "jarvis_vale_hz": 41.770951,
+   "jarvis_vale_abaixo_db": 19.2,
+   "fase": {
+    "media_graus": -152.62,
+    "dispersao_graus": 60.23,
+    "atraso_equivalente_ms": -0.03,
+    "faixa_hz": [
+     24.130091,
+     20041.155832
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 14,
+   "vales_via_b_sub": 9,
+   "indicios": [],
+   "hipoteses": [],
+   "par": [
+    "sw",
+    "w_L"
+   ],
+   "janela": "Wfull",
+   "ppo": 96,
+   "injecao": "atraso_0.25ms",
+   "pontuacao": "abstenção"
+  },
+  {
+   "resultado": "analisou",
+   "sugestao": "nao_da_para_concluir",
+   "portao": "reprovada",
+   "sigma_db": [
+    1.992,
+    0.247,
+    0.253
+   ],
+   "ref_temporal_compativel": true,
+   "jarvis_cruzamento_hz": 70.250086,
+   "jarvis_vale_hz": 41.770951,
+   "jarvis_vale_abaixo_db": 30.1,
+   "fase": {
+    "media_graus": -138.77,
+    "dispersao_graus": 56.12,
+    "atraso_equivalente_ms": -0.02,
+    "faixa_hz": [
+     24.130091,
+     20041.155832
+    ]
+   },
+   "fase_calculada": true,
+   "vales_via_a": 14,
+   "vales_via_b_sub": 9,
+   "indicios": [],
+   "hipoteses": [],
+   "par": [
+    "sw",
+    "w_L"
+   ],
+   "janela": "Wfull",
+   "ppo": 96,
+   "injecao": "atraso_1.0ms",
+   "pontuacao": "abstenção"
+  }
+ ]
+}
