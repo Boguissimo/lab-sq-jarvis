@@ -254,3 +254,29 @@ def test_nao_estimavel_preserva_descritivo(servico, banco, tmp_path):
     assert "não quantificada" in analise["aviso_qualidade"]
     ind = banco.registros(servico.sessao_id, "indicio")
     assert ind and all(i["dados"]["qualidade"] == "não estimada" for i in ind)
+
+
+# --- JV-T217 (FR-205, FR-206): N4 e N5 ---
+
+def test_n4(servico, banco):
+    analise = _analisar_caso(servico, "REF-001-N4")
+    assert not analise["referencia"]["compativel"] and analise["referencia"]["declarada"]
+    assert analise["fase"] is None and analise["vale"] is not None
+    assert "declarada compatível" in analise["aviso_referencia"]
+    assert "mesma referência temporal" in analise["aviso_referencia"]
+    nomes = {c["dados"]["nome"] for c in banco.registros(servico.sessao_id, "calculo")}
+    assert "diferenca_fase" not in nomes and "soma_potencias" in nomes
+    with pytest.raises(ErroDoPercurso):
+        servico.propor_teste()
+
+
+def test_n5(servico, banco):
+    analise = _analisar_caso(servico, "REF-001-N5")
+    assert analise["sugestao"] == "nada_a_alterar"
+    assert analise["justificativa_sugerida"].startswith("Sem indício de problema no cruzamento")
+    assert not banco.registros(servico.sessao_id, "decisao")  # nada é registrado sem confirmação
+    editada = analise["justificativa_sugerida"] + " Conferi a soma no programa."
+    d = servico.decidir_sem_intervencao("nada_a_alterar", editada)
+    assert d["fundamentacao"] == editada
+    assert servico.estado()["sessao"]["estado"] == "encerrada"
+    assert banco.integridade() == []

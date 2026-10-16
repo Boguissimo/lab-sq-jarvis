@@ -72,7 +72,7 @@
   - File: `src/jarvis/calculos.py`
 - [x] JV-T216 [US-01] [US-02] — `regras` 1.1: I-3, reordenação, portão de qualidade (`reprovada`/`nao_estimavel`) (FR-203, FR-204) (depende de T209, T212, T214). Gate: G1. Evidência: `test_regras.py::test_i3_reordena_hipoteses`, `test_sessao.py::test_n1`, `::test_n2`, `::test_qualidade_limita_conclusao`.
   - File: `src/jarvis/regras.py`, `src/jarvis/sessao.py`
-- [ ] JV-T217 [US-01] — N4 (fase recusada sem referência declarada) e N5 (nada a alterar) no serviço (FR-205, FR-206) (depende de T203, T216). Gate: G1. Evidência: `test_sessao.py::test_n4`, `::test_n5`.
+- [x] JV-T217 [US-01] — N4 (fase recusada sem referência declarada) e N5 (nada a alterar) no serviço (FR-205, FR-206) (depende de T203, T216). Gate: G1. Evidência: `test_sessao.py::test_n4`, `::test_n5`.
   - File: `src/jarvis/sessao.py`
 - [ ] JV-T218 [US-03] — `_medicoes()` e `importar_depois` com várias medições por via; recusa de cópia (hash/`aquisicao_id`); presunções só com proveniência verificada (INV-214) (depende de T211). Gate: G1. Evidência: `test_sessao.py::test_copia_nao_e_repeticao`, `::test_simulado_declarado_nao_presume`.
   - File: `src/jarvis/sessao.py`

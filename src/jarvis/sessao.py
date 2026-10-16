@@ -29,6 +29,13 @@ PROCEDIMENTO_SEG08 = [
 ]
 RETOMADA_SEG08 = "Retome o volume aos poucos até o nível de medição declarado."
 
+# @@T217 [FR-205] Recusa de fase sem referência temporal declarada compatível
+AVISO_REFERENCIA = (
+    "Sem referência temporal declarada compatível ({}): a fase entre as vias e a soma prevista não foram "
+    "calculadas, nem o atraso. Só a magnitude e a soma de potências foram analisadas. Para comparar fase, meça "
+    "todas as vias com a mesma referência temporal (loopback ou referência acústica), a mesma taxa de "
+    "amostragem e a mesma posição de microfone, e declare esses dados.")
+
 ORIGENS_PERCEPCAO = ("não aplicável", "simulada", "real")
 AVISO_SIMULADO = ("Demonstração com dados simulados. As explicações vêm de regras implementadas, "
                   "não de IA, e não servem para orientar ajustes reais no carro.")
@@ -259,8 +266,7 @@ class Servico:
         resultado = regras.avaliar(sob, vale, fase, ids, vales_individuais=vales_ind, qualidade=qualidade)
         if not ref["compativel"]:
             resultado["aviso_referencia"] = (
-                "Sem referência temporal compatível (" + "; ".join(ref["motivos"]) + "): a fase entre "
-                "as vias e a soma prevista não foram calculadas. Só a magnitude foi analisada.")
+                AVISO_REFERENCIA.format("; ".join(ref["motivos"])))
 
         indicio_ids = []
         for ind in resultado["indicios"]:
@@ -594,6 +600,11 @@ class Servico:
                 "conclui": (avaliacao.get("portao") or {}).get("conclui", True),
                 "falta": avaliacao.get("falta", []),
             }
+            # @@T217 [FR-206] "Nada a alterar" com justificativa pré-preenchida e editável
+            if avaliacao["sugestao"] == "nada_a_alterar":
+                analise["justificativa_sugerida"] = (
+                    "Sem indício de problema no cruzamento: " + avaliacao["motivo"]
+                    + " Nenhum vale foi encontrado nas vias medidas sozinhas.")
             if avaliacao.get("aviso_qualidade"):
                 analise["aviso_qualidade"] = avaliacao["aviso_qualidade"]
             if analise_fase_motivos:
@@ -601,8 +612,7 @@ class Servico:
                                          + "; ".join(analise_fase_motivos) + ".")
             if not ref["compativel"]:
                 analise["aviso_referencia"] = (
-                    "Sem referência temporal compatível (" + "; ".join(ref["motivos"]) + "): a fase "
-                    "entre as vias e a soma prevista não foram calculadas. Só a magnitude foi analisada.")
+                    AVISO_REFERENCIA.format("; ".join(ref["motivos"])))
         curvas = {}
         for m in medicoes:
             r = self._resposta(m)
