@@ -253,7 +253,7 @@ def irregularidade(r: RespostaFrequencia, suavizacao: str | None) -> dict:
     razoes = f[1:] / f[:-1] if f.size > 1 else np.array([1.0])
     razao = float(np.median(razoes))
     grade_log = bool(razao > 1.0 and np.all(np.abs(razoes / razao - 1.0) <= tol))
-    ppo = float(1.0 / np.log2(razao)) if razao > 1.0 else 0.0
+    ppo = round(float(1.0 / np.log2(razao)), 6) if razao > 1.0 else 0.0  # 6 casas: uma grade de exatos 24 ppo não cai para 23,9999…
     if suavizacao is None or not str(suavizacao).strip():
         estado_suav = "desconhecida"
     elif str(suavizacao).strip().lower() == "nenhuma":
