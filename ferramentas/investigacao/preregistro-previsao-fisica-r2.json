@@ -1,0 +1,80 @@
+{
+ "titulo": "Pré-registro — rodada 2 da previsão física: margens de decisão derivadas da incerteza, aquisições disjuntas e portão de admissibilidade por banda",
+ "data": "2026-10-16",
+ "natureza": "exploratório no harness; NÃO altera src/, spec, limiares, arquitetura nem algoritmos do produto; NÃO valida o V02; sem N2",
+ "autorizacao": "Fabrício, 2026-10-16: nova rodada no harness para avaliar margens derivadas da incerteza, com pré-registro e sem ajustar critérios aos resultados",
+ "depende_de": ["preregistro-previsao-fisica.json (rodada 1)", "esclarecimento-metodologico-previsao-fisica.md (commit 309772b)"],
+ "fontes": {"sala": "joeglondon/speakers-2026-filters @ 799af51 (sem licença; só números derivados)", "carro": "ayukhno/autosound-measurements @ 7725d42 (CC BY 4.0)", "conferencia": "SHA-256 contra admissao-*.json"},
+ "mudancas_em_relacao_a_rodada_1": [
+  "1. aquisições DISJUNTAS: na sala, previsão (lado kp, Sub kp) e observação (lado+Sub ko, Sub ko para a falha) com ko ≠ kp para todas as vias; no carro, a via que recebe a falha vem sempre de captura diferente da usada na previsão",
+  "2. margens derivadas da incerteza, só para a sala, por calibração CRUZADA entre lados (margem estimada com os controles do lado X avalia apenas o lado Y ≠ X)",
+  "3. portão de admissibilidade por banda: o par só é analisado se a banda declarada = interseção das bandas operacionais das duas vias, ≥ 1 oitava e ≥ 20 pontos na máscara",
+  "4. a ablação 'banda cheia' deixa de ser resultado de diagnóstico; só existe como custo de IGNORAR o portão (rotulado)",
+  "5. relatório com cobertura de conclusões, erros de omissão separados de erros de identificação, e n efetivo declarado"
+ ],
+ "bandas_operacionais_declaradas_hz": {
+  "sala": {"L": [20, 20000], "R": [20, 20000], "Sub": [30, 150], "nota": "L e R sem restrição declarada (assumida 20–20000); Sub = faixa já usada no braço A. Interseção do par = 30–150."},
+  "carro": {"sw": [30, 150], "w": [40, 500], "m": [200, 10000], "tw": [2000, 16000], "origem": "bandas úteis de preregistro-passat.json"}
+ },
+ "casos": {
+  "sala": {
+   "N0": "kp = ko (previsão e observação com a mesma repetição): comparador 'por construção'; 2 lados × 5 × 7 falhas = 70",
+   "N1s": "ordenados (ko, kp), ko ≠ kp: 2 lados × 20 × 7 falhas = 280; A_pred = lado kp; B_pred = Sub Only kp; observação = (lado+Sub ko) − (Sub Only ko) + F(Sub Only ko)",
+   "adm_neg": "controles de N1s (40) com banda declarada 200–10000 Hz e 20–20000 Hz (fora da interseção): 80 casos; resposta esperada = 'inadmissivel'"
+  },
+  "carro": {
+   "pares": {
+    "C1": {"A": "w_L", "B": "m_L", "capturas_B": ["m_L", "m_L-ctl1", "m_L-ctl3"], "banda_hz": [200, 500]},
+    "C2": {"A": "tw_L", "B": "m_L", "capturas_B": ["m_L", "m_L-ctl1", "m_L-ctl3"], "banda_hz": [2000, 10000]},
+    "C3": {"A": "m_R", "B": "w_R", "capturas_B": ["w_R", "w_R-retake"], "banda_hz": [200, 500]},
+    "P4": {"A": "m_R", "B": "tw_R", "capturas_B": ["única"], "banda_hz": [2000, 10000], "so": "N0"},
+    "P5": {"A": "sw", "B": "w_L", "capturas_B": ["única"], "banda_hz": [40, 150], "so": "N0"}
+   },
+   "N1s": "B (via faltosa) da previsão = captura kp, observação = captura ko ≠ kp; A é a mesma captura única nos dois lados (limite: A compartilhado e a soma é computada); C1 6 + C2 6 + C3 2 = 14 variantes × 7 = 98",
+   "N0": "kp = ko: C1 3 + C2 3 + C3 2 + P4 + P5 = 10 variantes × 7 = 70",
+   "limite": "NÃO existe soma física no conjunto do carro; A é compartilhado; nenhuma margem derivada é emitida para o carro (componentes (c) e (d) não estimáveis)"
+  },
+  "falhas": "controle, polaridade, atraso +0,05/0,10/0,25/1,00 ms, ganho +3 dB (fora do espaço) — como na rodada 1",
+  "total": "sala 70 + 280 + 80 = 430; carro 98 + 70 = 168; total 598",
+  "semente_ids": 20261017
+ },
+ "estimativa_das_margens": {
+  "somente": "sala, banda 30–150 Hz, 48 ppo, máscara −30 dB; custo c(x,y) = mediana|dB| + mediana|fase|/10 (como na rodada 1)",
+  "Pk": "P_k(lado) = lado k + Sub Only k (soma prevista, hipótese normal); M_k = lado + Sub k (soma medida)",
+  "c_rep": "P95 de c(P_k, P_k′) sobre os 20 pares ordenados k ≠ k′ do lado — variabilidade entre aquisições",
+  "c_mod": "P95 de c(P_k, M_k) sobre as 5 repetições do lado — discrepância do modelo (inclui deslocamento de tempo intra-repetição, não separável)",
+  "c_tim": "NÃO entra na margem: o erro absoluto de referência temporal não é estimável nesta sala (sem id/loopback); descreve-se só a dispersão de τ* nos controles disjuntos",
+  "margem_C_componentes": "sqrt(c_rep² + c_mod²) (cota superior grosseira da folga de um controle; ignora c_tim, logo pode ser otimista)",
+  "gap_controle": "para cada controle disjunto (ko ≠ kp) do lado: g = custo(normal) − min(custo(inversão), custo(atraso*)) com A = lado kp, B = Sub kp, observação = M_ko",
+  "margem_B_empirica": "P95 de g sobre os 20 controles do lado (numpy.percentile, interpolação linear)",
+  "calibracao_cruzada": "avaliação de L usa margens estimadas em R; avaliação de R usa margens de L",
+  "percentil": "P95 fixo; nenhuma outra escolha é feita depois de ver os resultados",
+  "C_ADM": "1,0, inalterado (não derivado nesta rodada, para não confundir efeitos)"
+ },
+ "candidatas": {
+  "M_A": "0,2 constante (referência da rodada 1)",
+  "M_B": "margem_B_empirica do lado oposto",
+  "M_C": "margem_C_componentes do lado oposto"
+ },
+ "criterio_de_aceitacao_fixado_agora": {
+  "onde": "sala N1s (280 casos; 140 por lado), com a margem do lado oposto; carro NÃO participa",
+  "aceitavel_se": ["falsos alarmes em controles ≤ 2 de 40 (≤ 5 %)", "polaridade correta ≥ 36 de 40", "fora do espaço (ganho +3 dB) com 'nao_conclui' ≥ 36 de 40"],
+  "entre_as_aceitaveis": "relatar o menor atraso com ≥ 90 % de acertos (certas/n; n = 40 por tamanho), sem escolher uma margem 'vencedora'; a escolha de limiar é de Fabrício (P8)",
+  "se_nenhuma": "declarar 'nenhuma margem testada é aceitável'"
+ },
+ "portao_de_admissibilidade": {
+  "condicoes": ["banda declarada = interseção das bandas operacionais das duas vias", "largura ≥ 1 oitava e ≥ 20 pontos válidos na máscara", "custo mínimo ≤ C_ADM"],
+  "saidas": ["inadmissivel (condição i ou ii falha)", "nao_conclui (custo mínimo > C_ADM)", "normal / inversao / atraso"],
+  "custo_de_ignorar_o_portao": "nos 80 casos adm_neg, rodar também com o portão desligado e contar acusações de falha em controles; rotulado como NÃO-diagnóstico; serve para quantificar o risco de generalizar fora da banda"
+ },
+ "protocolo_cego": "como na rodada 1: o protótipo lê apenas arrays + banda declarada + bandas operacionais + 'grupo' (sala-L, sala-R, carro); rótulos fora do alcance durante a execução; previsoes gravadas e com SHA-256 registrado antes da avaliação. O grupo não revela a falha.",
+ "relatorio": [
+  "componentes (a)–(d) estimados ou declarados não estimáveis, com números",
+  "matriz por nível (N0, N1s) e conjunto, com cobertura, certas, erradas (omissão × identificação) e não concluiu",
+  "piso por construção (custo da hipótese verdadeira) em N0 × N1s",
+  "avaliação das três margens, cruzada, segundo o critério fixado",
+  "admissibilidade: 80/80 inadmissíveis esperados; custo de ignorar o portão",
+  "conclusão objetiva de viabilidade e o que falta (N2, carro, margem do carro)"
+ ],
+ "regras_fixas_antes_do_resultado": "nada é ajustado depois de ver os números; se o resultado contrariar a expectativa é reportado; novas rodadas exigem novo pré-registro"
+}
