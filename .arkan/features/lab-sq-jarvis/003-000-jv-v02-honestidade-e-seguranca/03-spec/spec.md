@@ -1,6 +1,6 @@
 # Spec — 003-000-jv-v02-honestidade-e-seguranca (JV-V02)
 
-> **Status**: rascunho — aguardando aprovação do desenvolvedor | **Data**: 2026-10-15
+> **Status**: aprovada pelo desenvolvedor em 2026-10-16 | **Data**: 2026-10-15
 > **Entrada**: [ideacao.md](../01-discovery/ideacao.md) (aprovada). Complementa a spec do JV-V01; o que não é dito aqui continua valendo como no V01.
 > Siglas: **REW** — Room EQ Wizard; **DSP** — processador digital de sinais; **SEG** — regra de segurança; **ATM** — alinhamento automático de atrasos da ferramenta do DSP; **T/S** — parâmetros Thiele-Small; **Fs** — frequência de ressonância; **G1/G2/G3** — gates.
 
