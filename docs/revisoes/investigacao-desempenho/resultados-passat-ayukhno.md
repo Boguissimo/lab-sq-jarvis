@@ -40,13 +40,13 @@ Cinco pares (`w_L+m_L`, `m_L+tw_L`, `w_R+m_R`, `m_R+tw_R`, `sw+w_L`) × janelas 
 
 - **Nenhuma falha injetada foi reconhecida.** Os "erros" são a mesma hipótese de **reflexão/interferência** dada também no **controle**: a saída do Jarvis **não muda** com a injeção. As abstenções vêm do portão ("reprovada": tweeter fora de banda, sub fora de banda).
 - **A fase vê a inversão, a regra não a usa:** a média da diferença de fase desloca **exatamente 180°** entre controle e polaridade (ex.: 93,9° → −86,1°), mas a Regra 2 exige dispersão ≤ 15° e o par real tem 54–150° (faixa de sobreposição de banda larga, 20 Hz–20 kHz).
-- **Post hoc, restrito a uma faixa operacional do par** (chamada direta de `calculos.diferenca_fase`; faixas 150–400 Hz, 2–4 kHz, 60–150 Hz escolhidas pelas faixas úteis, não ajustadas): a dispersão **continua grande (39–130°)**. Em drivers reais **sem crossover projetado**, a diferença de fase natural não é constante; "oposição constante de 180°" não é assinatura utilizável. A **inversão desloca a média em 180° e inverte o sinal do ganho previsto da inversão** (ex.: `w_L+m_L` +7,6 → −7,6 dB), mas o **controle natural já tem valores não nulos** (+0,6 a +7,6 dB): sem referência, não há limiar óbvio; a inferência exige comparar com uma previsão ou com um estado anterior.
+- **Post hoc, restrito a uma faixa operacional do par** (chamada direta de `calculos.diferenca_fase`; faixas 150–400 Hz, 2–4 kHz, 60–150 Hz escolhidas pelas faixas úteis, não ajustadas): a dispersão **continua grande (39–130°)**. Em drivers reais **sem crossover projetado**, a diferença de fase natural não é constante; "oposição constante de 180°" não é assinatura utilizável. A **inversão desloca a média em 180° e inverte o sinal do ganho previsto da inversão** (ex.: `w_L+m_L` +7,6 → −7,6 dB), mas o **controle natural já tem valores não nulos** (−1,1 a +7,6 dB): sem referência, não há limiar óbvio; a inferência exige comparar com uma previsão ou com um estado anterior.
 - **Atraso:** o `atraso_equivalente` do produto muda com a injeção (ex.: `w_L+m_L` 0,54 → 0,79 → 1,54 ms), mas a hipótese "diferença de tempo" só é considerada dentro do ramo de polaridade; sem oposição constante ela nunca aparece.
 
 ## 4. Classificação
 | Achado | Classe |
 | --- | --- |
-| Rule 2 (oposição constante ≤ 15°) não detecta polaridade em drivers reais sem crossover | **Limitação de domínio** (a regra supõe vias com crossover projetado em fase) e **deficiência metodológica** para o uso real (a "assinatura" não existe em sistemas não alinhados) |
+| Regra 2 (oposição constante ≤ 15°) não detecta polaridade em drivers reais sem crossover | **Limitação de domínio** (a regra supõe vias com crossover projetado em fase) e **deficiência metodológica** para o uso real (a "assinatura" não existe em sistemas não alinhados) |
 | Sobreposição/fase de banda larga, sem faixa operacional da via | Limitação de domínio (F-6) |
 | Regra 3/hipótese de reflexão idêntica com e sem injeção | Deficiência metodológica (F-3); **sem contar falsos positivos** |
 | σ̂ dependente de grade e janela; super e subestima | Questão metodológica (F-5) |
