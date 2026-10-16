@@ -2,3 +2,5 @@
 # (sem isto, os portões do Arkan falham no Git Bash: ver JV-D009)
 *.sh text eol=lf
 *.bat text eol=crlf
+# Fixture do banco do V01 (JV-T205): bytes exatos, sem conversão de fim de linha
+tests/dados/** -text

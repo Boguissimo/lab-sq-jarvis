@@ -29,7 +29,7 @@
 
 ### 0b. Migração (ADR-207)
 
-- [ ] JV-T205 [P] — Gerador da fixture: roda o percurso do REF-001-A num checkout de `main@389e580` e grava banco + cofre + README de geração; fixture só sintética, versionada, permanente. Gate: G1/G2. Evidência: `tests/dados/banco-v01/` commitado; teste confere que os originais do cofre são os arquivos do REF-001-A.
+- [x] JV-T205 [P] — Gerador da fixture: roda o percurso do REF-001-A num checkout de `main@389e580` e grava banco + cofre + README de geração; fixture só sintética, versionada, permanente. Gate: G1/G2. Evidência: `tests/dados/banco-v01/` commitado; teste confere que os originais do cofre são os arquivos do REF-001-A.
   - File: `ferramentas/gerar_banco_v01.py`, `tests/dados/banco-v01/`
 - [ ] JV-T206 — `migracao.py`: impressão digital do esquema, `detectar()`, backup por `Connection.backup` + `integrity_check` + contagem, migração 0 → 2 transacional sem `executescript` (depende de T204). Gate: G1. Evidência: parte de `tests/test_migracao.py`.
   - File: `src/jarvis/migracao.py`
