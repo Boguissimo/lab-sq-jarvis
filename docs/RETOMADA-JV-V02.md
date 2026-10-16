@@ -66,6 +66,9 @@
 - **Equipamento não presumido:** HELIX PRO MK3 ainda não instalado; interface Behringer (modelo não confirmado, com Fernando), microfone e referência temporal pendentes. Sem compras recomendadas.
 - Redação: a *deriva* observada nos dados do Passat é tratada como **deriva observada de origem ainda não identificada** (a atribuição à temperatura é do autor da fonte, sem medição nossa).
 
+### Atualização (2026-10-16, nova prioridade)
+- **Prioridade:** candidato interno do Jarvis 1.0 (não é versão comercial nem beta; sem contato externo). **Investigação acústica preservada e suspensa**; o N2 permanece em preparação, sem execução. Avaliação do produto, escopo mínimo (P0/P1/P2) e pacotes em `.arkan/features/lab-sq-jarvis/003-000-jv-v02-honestidade-e-seguranca/status.md` e `tasks.md` (Fase 5, T250–T259, proposta aguardando aprovação).
+
 ---
 
 
