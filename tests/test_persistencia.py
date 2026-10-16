@@ -65,3 +65,51 @@ def test_integridade_decisao_sem_intervencao(banco):
     problemas = banco.integridade()
     assert any("sem fundamentação" in p for p in problemas)
     assert any("sem registros que a sustentem" in p for p in problemas)
+
+
+# --- JV-T204 (ADR-212, A06): cofre atômico, reconciliado e varrido pela integridade ---
+
+def test_falha_entre_copia_e_insert_reconcilia(banco, pasta_caso, monkeypatch):
+    def falha(*a, **k):
+        raise RuntimeError("queda simulada entre a cópia e o INSERT")
+    monkeypatch.setattr(banco, "_inserir_inventario", falha)
+    with pytest.raises(RuntimeError):
+        banco.guardar_original(pasta_caso / "medio.txt", "texto")
+    sha = sha256_de(pasta_caso / "medio.txt")
+    assert banco.caminho_original(sha).exists()
+    assert any("órfão" in p for p in banco.integridade())
+    monkeypatch.undo()
+    assert banco.guardar_original(pasta_caso / "medio.txt", "texto") == sha  # reconcilia
+    assert banco.con.execute("SELECT COUNT(*) FROM arquivo_original WHERE sha256 = ?", (sha,)).fetchone()[0] == 1
+    assert banco.integridade() == []
+
+
+def test_orfao_no_cofre_detectado(banco, pasta_caso):
+    sha = sha256_de(pasta_caso / "tweeter.txt")
+    destino = banco.caminho_original(sha)
+    destino.parent.mkdir(parents=True, exist_ok=True)
+    destino.write_bytes((pasta_caso / "tweeter.txt").read_bytes())
+    problemas = banco.integridade()
+    assert any(sha[:12] in p and "órfão" in p for p in problemas)
+
+
+def test_linha_sem_arquivo_e_hash_divergente_detectados(banco, pasta_caso):
+    sha = banco.guardar_original(pasta_caso / "medio.txt", "texto")
+    caminho = banco.caminho_original(sha)
+    caminho.chmod(0o644)
+    caminho.write_text("adulterado")
+    assert any("hash divergente" in p for p in banco.integridade())
+    caminho.unlink()
+    assert any("sem arquivo no cofre" in p for p in banco.integridade())
+
+
+def test_tmp_residual_detectado(banco):
+    tmp = banco.cofre / ".tmp"
+    tmp.mkdir(parents=True, exist_ok=True)
+    (tmp / "resto").write_bytes(b"x")
+    assert any(".tmp/resto" in p for p in banco.integridade())
+
+
+def test_guardar_nao_deixa_tmp(banco, pasta_caso):
+    banco.guardar_original(pasta_caso / "soma-antes.txt", "texto")
+    assert not any((banco.cofre / ".tmp").iterdir())

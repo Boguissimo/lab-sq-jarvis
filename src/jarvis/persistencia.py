@@ -15,6 +15,7 @@ import os
 import shutil
 import sqlite3
 import stat
+import uuid
 from datetime import datetime
 from pathlib import Path
 
@@ -115,22 +116,66 @@ class Banco:
     def caminho_original(self, sha: str) -> Path:
         return self.cofre / sha[:2] / sha
 
+    # @@T204 [FR-222] Cofre atômico e reconciliado (ADR-212, A06)
     def guardar_original(self, origem: Path, tipo: str) -> str:
+        """Guarda o original no cofre e garante a linha do inventário.
+
+        A cópia vai para ``cofre/.tmp/<uuid>``, tem o hash conferido e só então é movida com
+        ``os.replace`` (atômico no mesmo volume). Se o arquivo já existe no cofre, o hash é conferido e o
+        inventário é **reconciliado**: uma falha entre a cópia e o INSERT numa execução anterior não
+        deixa órfão. “Imutável” é política de preservação e detecção, não impossibilidade física.
+        """
         origem = Path(origem)
         sha = sha256_de(origem)
         destino = self.caminho_original(sha)
         if destino.exists():
             if sha256_de(destino) != sha:
                 raise OriginalImutavel(f"O original {sha[:12]}… no cofre foi alterado fora do programa.")
-            return sha  # mesmo conteúdo já guardado: nada a fazer
-        destino.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(origem, destino)
-        os.chmod(destino, stat.S_IREAD | stat.S_IRGRP | stat.S_IROTH)
+        else:
+            tmp_dir = self.cofre / ".tmp"
+            tmp_dir.mkdir(parents=True, exist_ok=True)
+            tmp = tmp_dir / uuid.uuid4().hex
+            try:
+                shutil.copyfile(origem, tmp)
+                if sha256_de(tmp) != sha:
+                    raise OriginalImutavel(f"A cópia de {origem.name} para o cofre não conferiu com o hash.")
+                destino.parent.mkdir(parents=True, exist_ok=True)
+                os.replace(tmp, destino)
+            finally:
+                if tmp.exists():
+                    tmp.unlink()
+            os.chmod(destino, stat.S_IREAD | stat.S_IRGRP | stat.S_IROTH)
+        self._inserir_inventario(sha, origem.name, tipo, destino)
+        return sha
+
+    def _inserir_inventario(self, sha: str, nome: str, tipo: str, destino: Path) -> None:
         self.con.execute(
             "INSERT OR IGNORE INTO arquivo_original VALUES (?, ?, ?, ?, ?)",
-            (sha, origem.name, tipo, destino.stat().st_size, agora()))
+            (sha, nome, tipo, destino.stat().st_size, agora()))
         self.con.commit()
-        return sha
+
+    # @@T204 [FR-222] Varredura física do cofre (ADR-212, A06)
+    def integridade_cofre(self) -> list[str]:
+        """Confere o cofre físico contra o inventário ``arquivo_original``."""
+        problemas = []
+        inventario = {r[0] for r in self.con.execute("SELECT sha256 FROM arquivo_original")}
+        no_disco = {}
+        for caminho in self.cofre.rglob("*"):
+            if not caminho.is_file():
+                continue
+            rel = caminho.relative_to(self.cofre)
+            if rel.parts[0] == ".tmp":
+                problemas.append(f"cofre: resto de cópia interrompida em .tmp/{rel.name}")
+                continue
+            no_disco[caminho.name] = caminho
+        for nome, caminho in sorted(no_disco.items()):
+            if nome not in inventario:
+                problemas.append(f"cofre: arquivo {nome[:12]}… sem linha no inventário (órfão)")
+            elif caminho != self.caminho_original(nome) or sha256_de(caminho) != nome:
+                problemas.append(f"cofre: arquivo {nome[:12]}… com hash divergente ou fora do lugar")
+        for sha in sorted(inventario - set(no_disco)):
+            problemas.append(f"cofre: inventário {sha[:12]}… sem arquivo no cofre")
+        return problemas
 
     def substituir_original(self, sha: str, novo_conteudo: bytes) -> None:
         """Existe só para deixar explícito (e testável) que substituir é proibido."""
@@ -245,4 +290,5 @@ class Banco:
                     problemas.append(f"{rid}: decisão sem intervenção sem registros que a sustentem")
             if tipo == "medicao" and not self.verificar_original(dados.get("sha256", "")):
                 problemas.append(f"{rid}: original da medição ausente ou alterado no cofre")
+        problemas.extend(self.integridade_cofre())
         return problemas

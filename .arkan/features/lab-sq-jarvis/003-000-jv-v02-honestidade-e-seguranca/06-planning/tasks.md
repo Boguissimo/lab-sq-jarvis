@@ -22,7 +22,7 @@
   - File: `src/jarvis/calculos.py`, `src/jarvis/sessao.py`
 - [x] JV-T203 [P] — A02: `referencia_temporal` 1.1 exige `tipo` ≠ `nenhuma`, `id`, `taxa_amostragem`, `posicao_microfone`; devolve `{compativel, declarada: true, motivos}` (FR-205). Gate: G1. Evidência: `test_calculos.py::test_referencia_campos_ausentes`.
   - File: `src/jarvis/calculos.py`
-- [ ] JV-T204 [P] — A06: cofre atômico (`.tmp/<uuid>`, hash, `os.replace`, `INSERT OR IGNORE` sempre) e varredura física em `integridade()`. Gate: G1. Evidência: `test_persistencia.py::test_falha_entre_copia_e_insert_reconcilia`, `::test_orfao_no_cofre_detectado`, `::test_tmp_residual_detectado`.
+- [x] JV-T204 [P] — A06: cofre atômico (`.tmp/<uuid>`, hash, `os.replace`, `INSERT OR IGNORE` sempre) e varredura física em `integridade()`. Gate: G1. Evidência: `test_persistencia.py::test_falha_entre_copia_e_insert_reconcilia`, `::test_orfao_no_cofre_detectado`, `::test_tmp_residual_detectado`.
   - File: `src/jarvis/persistencia.py`
 
 > T202 e T203 tocam `calculos.py` em funções diferentes; se feitas em paralelo, integrar com cuidado (ou fazer em sequência).
