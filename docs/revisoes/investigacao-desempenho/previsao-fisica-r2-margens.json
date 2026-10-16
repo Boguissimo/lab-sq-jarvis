@@ -1,0 +1,85 @@
+{
+ "preregistro_sha256": "817af766fd031aabedf874da800d5ecd43952a8f5159111fbe3462fdfb4fdd4c",
+ "sala": {
+  "L": {
+   "n_pares_rep": 20,
+   "c_rep_P95": 0.1581,
+   "c_rep_mediana": 0.1296,
+   "c_mod_P95": 0.3313,
+   "c_mod_mediana": 0.2126,
+   "folga_controle_P95": 0.103,
+   "folga_controle_max": 0.1192,
+   "n_controles": 20,
+   "tau_melhor_nos_controles_ms": {
+    "mediana": 0.01,
+    "min": -0.02,
+    "max": 0.12
+   },
+   "c_tim": "NAO_ESTIMAVEL_ABSOLUTO (sem id/loopback); só a dispersão relativa de τ* acima"
+  },
+  "R": {
+   "n_pares_rep": 20,
+   "c_rep_P95": 0.1674,
+   "c_rep_mediana": 0.1437,
+   "c_mod_P95": 0.154,
+   "c_mod_mediana": 0.1368,
+   "folga_controle_P95": 0.0056,
+   "folga_controle_max": 0.006,
+   "n_controles": 20,
+   "tau_melhor_nos_controles_ms": {
+    "mediana": 0.0,
+    "min": -0.02,
+    "max": 0.01
+   },
+   "c_tim": "NAO_ESTIMAVEL_ABSOLUTO (sem id/loopback); só a dispersão relativa de τ* acima"
+  }
+ },
+ "carro": {
+  "C1 (w_L + m_L, 200–500)": {
+   "banda_hz": [
+    200.0,
+    500.0
+   ],
+   "n_pares_rep": 6,
+   "c_rep_max": 0.229,
+   "c_rep_mediana": 0.1745,
+   "c_mod": "NAO_ESTIMAVEL (não há soma medida no conjunto)",
+   "folga_efetiva": "NAO_ESTIMAVEL (n ≤ 6 e sem c_mod)",
+   "c_tim_deriva_conhecida_max": 0.1753
+  },
+  "C2 (tw_L + m_L, 2000–10000)": {
+   "banda_hz": [
+    2000.0,
+    10000.0
+   ],
+   "n_pares_rep": 6,
+   "c_rep_max": 2.1966,
+   "c_rep_mediana": 1.4843,
+   "c_mod": "NAO_ESTIMAVEL (não há soma medida no conjunto)",
+   "folga_efetiva": "NAO_ESTIMAVEL (n ≤ 6 e sem c_mod)",
+   "c_tim_deriva_conhecida_max": 1.0533
+  },
+  "C3 (m_R + w_R, 200–500)": {
+   "banda_hz": [
+    200.0,
+    500.0
+   ],
+   "n_pares_rep": 2,
+   "c_rep_max": 0.4652,
+   "c_rep_mediana": 0.4652,
+   "c_mod": "NAO_ESTIMAVEL (não há soma medida no conjunto)",
+   "folga_efetiva": "NAO_ESTIMAVEL (n ≤ 6 e sem c_mod)"
+  }
+ },
+ "margens": {
+  "M_B": {
+   "L": 0.103,
+   "R": 0.0056
+  },
+  "M_C": {
+   "L": 0.3671,
+   "R": 0.2274
+  }
+ },
+ "nota": "Nenhuma margem é emitida para o carro: componentes (c) e (d) não estimáveis."
+}
