@@ -1,0 +1,221 @@
+{
+ "fonte": "https://github.com/joeglondon/speakers-2026-filters",
+ "commit": "799af5104e83d9b3af2e832e5bd1fb4db3dd352e",
+ "autor_commit": "joeglondon (único autor, 12 commits)",
+ "licenca": "nenhum arquivo LICENSE encontrado (404 em raw); direitos não declarados",
+ "data_medicao": "2026-04-18 (cabeçalhos REW V5.31.3)",
+ "arquivos": {
+  "All Measurements (center).mdat": {
+   "sha256": "eb099b25d8e2c95c004a6ff485f51b855aab4deee2dc9b706fa6ade7485c6fc5",
+   "bytes": 37902721
+  },
+  "Distortion/Distortion.txt": {
+   "sha256": "ca9e16122761368a4a6cccafb2e3ca130f69abbe1eb8b056ec914d21dd0a9f10",
+   "bytes": 14040
+  },
+  "Impulse/L + Sub 1.txt": {
+   "sha256": "b2e1201978b16dbe770653d4c1b6d3d099c7e50e69d2540d06270d838e14cc95",
+   "bytes": 1721984
+  },
+  "Impulse/L + Sub 2.txt": {
+   "sha256": "201c4aeaa2f1a5a2b6ae18050b674d73f781d06b4ec4e48ae979336645d84a64",
+   "bytes": 1722283
+  },
+  "Impulse/L + Sub 3.txt": {
+   "sha256": "24aaadc1e2e28b51fb8c196d9a1591793e3d2dbdeb547432bf2a859b0a747d33",
+   "bytes": 1721479
+  },
+  "Impulse/L + Sub 4.txt": {
+   "sha256": "9b131b575de53a2835864e4289f54fe22f4f71fe02b8a8d5fdc235f3b54a4e6e",
+   "bytes": 1720725
+  },
+  "Impulse/L + Sub 5.txt": {
+   "sha256": "66cf2b13cdd8700ef65267f26f861c4b227675edd1a2110e9b0e5c82bfa484c8",
+   "bytes": 1720628
+  },
+  "Impulse/L 1.txt": {
+   "sha256": "4c62df122b7035918a932b3789e6c4551e18d72db44f45044d842a547fce69b0",
+   "bytes": 1723165
+  },
+  "Impulse/L 2.txt": {
+   "sha256": "4a8d79cf62db34624600aea937ea3cd65995ed038fc74b23e9b1d56f5651eed8",
+   "bytes": 1720337
+  },
+  "Impulse/L 3.txt": {
+   "sha256": "e034172da8b4c451e2c5e0d96ef7bc6733e65f852e4b6ca9d23fc42471637fa5",
+   "bytes": 1720306
+  },
+  "Impulse/L 4.txt": {
+   "sha256": "5f075e7d959849d8e90ad2c258ea498ed60bb6b54ba8fa85079683b8fd2f1c8e",
+   "bytes": 1720997
+  },
+  "Impulse/L 5.txt": {
+   "sha256": "58ba1903b2f1a3a8e1c4152b8b2b082a9eda7f2255c3c287a19a769540a52912",
+   "bytes": 1720861
+  },
+  "Impulse/R + Sub 1.txt": {
+   "sha256": "ea30efdc46094acd71e29dd9f7af8ac648971b7d25b265afb338e02c9d56e702",
+   "bytes": 1722102
+  },
+  "Impulse/R + Sub 2.txt": {
+   "sha256": "85f20a092575bd2db1b47c577feea9970f4dca3273622d14810e8c52b51e7767",
+   "bytes": 1721019
+  },
+  "Impulse/R + Sub 3.txt": {
+   "sha256": "710c52c82837b926d82451fd3e948118863bc24d5a8eecc8c1cbc8dfd2bf17d8",
+   "bytes": 1719672
+  },
+  "Impulse/R + Sub 4.txt": {
+   "sha256": "c80aae7fa54dca1ece0c6b1da2519a7a55b2d647f20170a91f2e3c35eeab8548",
+   "bytes": 1719849
+  },
+  "Impulse/R + Sub 5.txt": {
+   "sha256": "ccdc14fc4efd0c697efe77c003d96c3dab08554bdb0a718f035d249e5218449c",
+   "bytes": 1718909
+  },
+  "Impulse/R 1.txt": {
+   "sha256": "ff3f52efe388d2fcf665db74b9eb0fed3ba65ff1d57dc1fc78dbb89faf3baf01",
+   "bytes": 1719546
+  },
+  "Impulse/R 2.txt": {
+   "sha256": "dbd7af92a07dc2b4a041e951e44bf17c103f6b155037c71a7f0a4179e852e58c",
+   "bytes": 1720536
+  },
+  "Impulse/R 3.txt": {
+   "sha256": "5ebd912b558bfa4262414bc4d455e187945937b015873eebb01a7b894e5fdeb9",
+   "bytes": 1720091
+  },
+  "Impulse/R 4.txt": {
+   "sha256": "ab866e847ca96ca9f3ef2254a4047b4c7adefc92e98cd2e32f968e318d419deb",
+   "bytes": 1721062
+  },
+  "Impulse/R 5.txt": {
+   "sha256": "f2d02d1401cd1b839e4b50e0328c3bd07d730d03c0f367d282fa7a7ca8facb4d",
+   "bytes": 1719550
+  },
+  "Impulse/Sub Only 1.txt": {
+   "sha256": "17542b5989807bee55c10533d0d3930239c3be12c2221809681c772372c9ddc4",
+   "bytes": 1706119
+  },
+  "Impulse/Sub Only 2.txt": {
+   "sha256": "bedb4e84165677e5e2cd354b494b66fcb65113091551ba5b10f86d6538544fcf",
+   "bytes": 1707583
+  },
+  "Impulse/Sub Only 3.txt": {
+   "sha256": "1d202fb3a9891e371baae7cf13def67e765ae7982f25783768f5317326850d2d",
+   "bytes": 1705986
+  },
+  "Impulse/Sub Only 4.txt": {
+   "sha256": "1897bbd1638ccab80df5f9590f1c0d7867e484c71be5eec252bca38df7f23220",
+   "bytes": 1703853
+  },
+  "Impulse/Sub Only 5.txt": {
+   "sha256": "e6ea4b2d877082c7b54ff123c345cc61177c643f45c9c4ded45877d6dae4d9df",
+   "bytes": 1708009
+  },
+  "Microphone Correction.txt": {
+   "sha256": "02dde30e92ba568c1fc0d7b38dc4f4d065a5c99352e23788fc67196d22a55d7e",
+   "bytes": 10018
+  },
+  "SPL/L + Sub 1.txt": {
+   "sha256": "d996b21064d8c84fa4da88f71aaba211e2755d317b605aa235cb3eb388e91065",
+   "bytes": 1407379
+  },
+  "SPL/L + Sub 2.txt": {
+   "sha256": "e7e58fdc3441ec25881a370c53cc8d49dc59755e5a1c6bdb5d25efbe7c2cf96f",
+   "bytes": 1407081
+  },
+  "SPL/L + Sub 3.txt": {
+   "sha256": "4b13df89da77f020252f2e58f5d1d7b4eef6f1c4fc4bf8c97ce41188405be643",
+   "bytes": 1377118
+  },
+  "SPL/L + Sub 4.txt": {
+   "sha256": "a757ce4b5f9d902af971f417d9f58d2ae95b4835242a380320a60d48a9060cde",
+   "bytes": 1406934
+  },
+  "SPL/L + Sub 5.txt": {
+   "sha256": "9de57c55745b572b1102f9e3ccec7ff68b23b851f7010020e36631a4edc635cd",
+   "bytes": 1407712
+  },
+  "SPL/L 1.txt": {
+   "sha256": "bc6fb8eb819f2170c5d2d5ced7da55fa23acbe993cb8fde9e1409f03258f5857",
+   "bytes": 1407079
+  },
+  "SPL/L 2.txt": {
+   "sha256": "c4e16f507e956cd565c919b8d08c92bead8d0afb52c53b99ffe3d708ab5eadd5",
+   "bytes": 1407146
+  },
+  "SPL/L 3.txt": {
+   "sha256": "fa2393424838c3f635b4e8ef4054f12cc60e1378f2a0817095c427ea522b3c30",
+   "bytes": 1407314
+  },
+  "SPL/L 4.txt": {
+   "sha256": "b2be97a80491e5b890df5dd5ce76107aaf7ae301e613a9ae913b49945e664c44",
+   "bytes": 1407611
+  },
+  "SPL/L 5.txt": {
+   "sha256": "1bd5a85ce2c815e262d2f9a6527d87895be45fb65d74219b5ed4558daff33d6f",
+   "bytes": 1407558
+  },
+  "SPL/R + Sub 1.txt": {
+   "sha256": "efedf41c533ddae371ae8e1e065d9921ebf38126a143e7e5cc1ccbd2feb18554",
+   "bytes": 1389402
+  },
+  "SPL/R + Sub 2.txt": {
+   "sha256": "bb90d4ace756166d331b00018b3e5298c14e32245d9da358f91ef5f2f85c4ea5",
+   "bytes": 1391451
+  },
+  "SPL/R + Sub 3.txt": {
+   "sha256": "29f326c16cadc483fe7d6d21aa59f5b93936c59dac2fdec44ec4029c98eeb0a6",
+   "bytes": 1394038
+  },
+  "SPL/R + Sub 4.txt": {
+   "sha256": "71e2e157d3d19a93470500f9d5a4e89896d5057c4fac4d43c05f36f4b7bbfb92",
+   "bytes": 1392717
+  },
+  "SPL/R + Sub 5.txt": {
+   "sha256": "b0c94d617132475c24af0f18a73c50c4edf561a02ad1ead6c80e46afced0db47",
+   "bytes": 1390304
+  },
+  "SPL/R 1.txt": {
+   "sha256": "92c96f189ed8165aa7bcffff82cd2a45c999f45a38f2560f570f6ef7f7430836",
+   "bytes": 1394985
+  },
+  "SPL/R 2.txt": {
+   "sha256": "b03817f0968ae70892a603d8753c887b9852f94462b7b834dfbb49ccc413a8b1",
+   "bytes": 1389877
+  },
+  "SPL/R 3.txt": {
+   "sha256": "b4e75ec31fcaf550ee1c10ce7ecb9f3df518eb5e2c989d7064517e728840c318",
+   "bytes": 1389338
+  },
+  "SPL/R 4.txt": {
+   "sha256": "869e7184c35af49b5a0823987f09436ad2cb36897409b3c6a5aa5fa5dcd68358",
+   "bytes": 1389370
+  },
+  "SPL/R 5.txt": {
+   "sha256": "27ed18f61ece95ee57f2f05eccc67421a22025586e6f31043760595b183d3121",
+   "bytes": 1387856
+  },
+  "SPL/Sub Only 1.txt": {
+   "sha256": "435c9d18d4cfa2503790f8c50a5129e0534f7fe6e2b2b719fc47e08ea4e89ddc",
+   "bytes": 1380823
+  },
+  "SPL/Sub Only 2.txt": {
+   "sha256": "353b96679baaf8b2d3afe80f99e9884f685d3f7fa1d22eb4c6f95be4e885361c",
+   "bytes": 1381141
+  },
+  "SPL/Sub Only 3.txt": {
+   "sha256": "e619094538fa8e9bef62242d3400626e05fbf870bc4ff3a2a9a4d90e1de33788",
+   "bytes": 1381556
+  },
+  "SPL/Sub Only 4.txt": {
+   "sha256": "3b5353d1e270e91bb1739f8ae294d5df020bbd7e8e10a9a4db1922a2fffb7484",
+   "bytes": 1380944
+  },
+  "SPL/Sub Only 5.txt": {
+   "sha256": "2a2898dbc604e19c8042f072dc43d33ee742c89f26a75189ce71b87314ab5534",
+   "bytes": 1380907
+  }
+ }
+}
