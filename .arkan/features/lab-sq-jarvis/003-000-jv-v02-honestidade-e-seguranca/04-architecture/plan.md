@@ -1,7 +1,7 @@
 # Plano de Implementação — 003-000-jv-v02-honestidade-e-seguranca (JV-V02)
 
 **Branch**: `lab-sq-jarvis/003-000-jv-v02-honestidade-e-seguranca` | **Data**: 2026-10-15 | **Spec**: `03-spec/spec.md` (com emendas E1 e E2)
-> **Status**: **revisão R1 aprovada** pelo desenvolvedor em 2026-10-15 (nível B), incluindo os pontos para aprovação listados no fim · **complemento R1.1** (emenda E2: casos REF-003-S, ruído não estimável descritivo, fixture permanente): **aprovado em 2026-10-15 (nível B)**
+> **Status**: **revisão R1 aprovada** pelo desenvolvedor em 2026-10-15 (nível B), incluindo os pontos para aprovação listados no fim · **complemento R1.1** (emenda E2: casos REF-003-S, ruído não estimável descritivo, fixture permanente): **aprovado em 2026-10-15 (nível B)** · **complemento R1.2** (emenda E3, revisão adversarial A01–A09; ADR-212 nova): **aprovado em 2026-10-15 (nível B)**
 > **R1** (2026-10-15) aplica a revisão externa (`docs/revisoes/jv-v02-revisao-tecnica-do-plano.md`, itens 1 a 12) e a emenda E1 da spec. Situação das ADRs:
 > - **Revistas:** ADR-202, 204, 205, 207 e 208.
 > - **Ajustadas:** ADR-201, 203, 206, 209 e 210.
@@ -44,14 +44,14 @@ A R1 acrescenta três frentes que a revisão mostrou necessárias:
 
 | Princípio | Verificação |
 | --- | --- |
-| I. Spec Governa Código | PASS — cada módulo e teste cita FR/INV/SC da spec; a matriz de rastreabilidade abaixo fecha FR-201 a FR-222, INV-201 a INV-212 e SC-201 a SC-208 |
+| I. Spec Governa Código | PASS — cada módulo e teste cita FR/INV/SC da spec; a matriz de rastreabilidade abaixo fecha FR-201 a FR-223, INV-201 a INV-214 e SC-201 a SC-209 (conferido por script a cada emenda) |
 | II. Gate Obrigatório | PASS — `check-prerequisites` roda antes de cada fase; este plano só segue com PASS |
 | III. Conclusividade | PASS — nenhum `[NEEDS CLARIFICATION]` aberto; limiares provisórios estão declarados, não pendentes |
 | IV. Modo Declarado | PASS — feature de peso Code, pipeline completo |
 | V. PT-BR First | PASS — identificadores, textos e documentos em português |
 | VI. Especialização por Modo | PASS — agente de domínio do projeto declarado em `.arkan/config.md`, sem alteração |
 | VII. Independência Estrutural | PASS — nenhuma importação de código de outras features |
-| VIII. Agente Propõe, Humano Decide | PASS — emenda E1 da spec e esta R1 aguardam aprovação de nível B (ato e escopo nomeados no fim deste plano) |
+| VIII. Agente Propõe, Humano Decide | PASS — E1/R1 e E2/R1.1 aprovadas em nível B em 2026-10-15; E3/R1.2 aprovadas em nível B em 2026-10-15 |
 
 ### Projeto (P1–P14)
 
@@ -178,7 +178,7 @@ ferramentas/gerar_banco_v01.py   [novo]  roda o percurso do V01 num checkout de 
   - aprovação como `decisao ← recomendacao` (exige emenda ao P1);
   - avaliar SEG só para exibição (permitiria recomendar algo bloqueado).
 - **Consequência:** a verificação se dá em três camadas: serviço, gatilho `BEFORE INSERT` (recomendação existente, mesma sessão, tipo certo) e rotina de integridade.
-  - **R1.1 (E2, FR-223):** polaridade e atrasos não são sensíveis, então os casos de referência não exercitam aprovação nem bloqueio. Por isso entram os casos sintéticos `REF-003-S1` (reforço admissível com equipamento confirmado → aprovação B), `-S2` (mesmo reforço, equipamento `planejado` → bloqueada) e `-S3` (corte com regra sem dado → risco decrescente com aviso → aprovação B). O manifesto traz `equipamento` (sintético, com `estado`) e `alteracao_candidata`; o serviço ganha `avaliar_alteracao_candidata()`, que passa pela mesma classificação, regras e admissibilidade de qualquer recomendação. Exercitados em `test_sessao.py::test_s1_s2_s3`, `test_interface.py::test_casos_seguranca` e no G3 do bloco 2 (SC-209), além do SC-204.
+  - **R1.1 (E2, FR-223):** polaridade e atrasos não são sensíveis, então os casos de referência não exercitam aprovação nem bloqueio. Por isso entram os casos sintéticos `REF-003-S1` (**R1.2/E3:** reforço com equipamento confirmado → **bloqueado por SEG-07**, já que margem digital não tem método; sem exceção de simulação), `-S2` (mesmo reforço, equipamento `planejado` → bloqueado por SEG-12 e SEG-07) e `-S3` (corte com regra sem dado → risco decrescente com aviso → aprovação B). O manifesto traz `equipamento` (sintético, com `estado`) e `alteracao_candidata`; o serviço ganha `avaliar_alteracao_candidata()`, que passa pela mesma classificação, regras e admissibilidade de qualquer recomendação. Exercitados em `test_sessao.py::test_s1_s2_s3`, `test_interface.py::test_casos_seguranca` e no G3 do bloco 2 (SC-209), além do SC-204.
 
 ### ADR-205 — Dois fluxos no serviço: teste de diagnóstico e etapa de calibração *(revista na R1, item 2)*
 - **Decisão:** reutilizar `recomendacao`, `experimento` e `conclusao` com `tipo_intervencao` ∈ {`teste de diagnóstico`, `etapa de calibração`}, sem tocar em `DERIVACOES_PERMITIDAS`.
@@ -247,6 +247,27 @@ ferramentas/gerar_banco_v01.py   [novo]  roda o percurso do V01 num checkout de 
 - **Consequência:**
   - Sem medições individuais "depois", vale só (a), com o aviso. O REF-001-A continua `confirmada` (INV-210).
   - Variantes de teste do N3: só declarada; só medida; posição diferente ⇒ inconclusiva; ruído alto ⇒ resolução maior.
+  - **R1.2 (E3, A03/A07):** a comparabilidade é **declarada**. `mudança detectada` com uma só medição "depois" é indicativa e leva no máximo a `inconclusiva`; só com repetição (segunda medição individual "depois", com o microfone recolocado) ela vira `comprometida`. O N3 passa a ter duas **aquisições independentes** "depois" do tweeter, cada uma com registro e `aquisicao_id` próprios, ambas com +3 dB. O texto diz que a mudança foi reproduzida, mas não identifica o parâmetro. **Serviço:** `Servico._medicao(papel, momento)` devolve só a última medição; o V02 acrescenta `_medicoes(papel, momento) -> list`, e `importar_depois` aceita várias medições por via. Uma cópia com o mesmo SHA-256 ou o mesmo `aquisicao_id` é recusada como repetição. **Presunções:** só para caso do catálogo interno com proveniência verificada (caso listado em `casos.listar()` e SHA-256 dos arquivos iguais aos gerados); `simulado: true` sozinho não concede nada (INV-214). O veredito `confirmada` passa a exigir somas "antes" e "depois" com aquisição comparável declarada; sem isso, "melhora observada, sem confirmação causal". Testes novos:
+    - `test_n3_sem_repeticao_inconclusiva`;
+    - `test_reposicionamento_nao_compromete` (o gerador desloca um nulo estreito sem mexer no DSP);
+    - `test_depois_outra_posicao_nao_confirma`;
+    - `test_copia_nao_e_repeticao`, `test_mudanca_reproduzida_nao_nomeia_parametro`;
+    - `test_casos.py::test_proveniencia_catalogo` (arquivo do catálogo alterado em 1 byte perde as presunções), `test_sessao.py::test_simulado_declarado_nao_presume`.
+
+### ADR-212 — Correções do V01 na fundação *(nova na R1.2; revisão adversarial A02, A04, A06)*
+- **Decisão:**
+  - **A04 — portão básico obrigatório:** `Servico.analisar` recusa medição com `qualidade_basica.aprovada = false`, explicando o motivo (faixa não coberta, valores inválidos). `calculos.diferenca_fase` e `sobreposicao` exigem amostras mínimas (≥ 8 pontos e ≥ 1/3 de oitava de sobreposição, provisório em `limiares.py`); abaixo disso, fase e atraso ficam "não calculáveis", sem regressão degenerada.
+  - **A06 — cofre atômico e reconciliado:** `guardar_original` copia para `cofre/.tmp/<uuid>`, confere o hash da cópia, move com `os.replace` (atômico no mesmo volume) e só então insere o inventário. Se o arquivo já existe, confere o hash e **reconcilia** (`INSERT OR IGNORE` sempre), em vez de retornar antes do inventário. `integridade()` passa a varrer o cofre físico: acusa arquivo sem linha em `arquivo_original`, linha sem arquivo, hash divergente e restos em `.tmp`.
+  - **A02 — referência temporal declarada:** `calculos.referencia_temporal` passa a exigir `tipo` ≠ `nenhuma`, `id`, `taxa_amostragem` e `posicao_microfone` presentes e não vazios, e devolve `{compativel, declarada: true, motivos}`. A interface diz "declarada compatível". A versão sobe para 1.1, e a interpretação das sessões antigas fica congelada (INV-211).
+- **Motivo:** os três defeitos foram reproduzidos no código do V01 durante a conferência da revisão adversarial.
+  - A02: medições sem `id` nem taxa saíam compatíveis.
+  - A04: o portão básico era ignorado, e um único ponto de sobreposição dava atraso 0 com `RankWarning`.
+  - A06: um arquivo órfão não entrava no inventário, e a integridade não acusava nada.
+- **Alternativas descartadas:** deixar para um incremento de manutenção (o V02 depende do portão e da integridade); confiar em `chmod` e gatilhos como garantia física. "Imutável" passa a ser política de preservação e detecção, não impossibilidade física.
+- **Consequência:** os testes do V01 continuam passando, porque o REF-001-A cobre a faixa, tem todos os campos de referência e não tem órfãos. Testes negativos novos:
+  - `test_sessao.py::test_qualidade_basica_reprovada_bloqueia`;
+  - `test_calculos.py::test_sobreposicao_insuficiente`, `::test_referencia_campos_ausentes`;
+  - `test_persistencia.py::test_falha_entre_copia_e_insert_reconcilia`, `::test_orfao_no_cofre_detectado`, `::test_tmp_residual_detectado`.
 
 ### ADR-209 — Interface *(ajustada)*
 - **Decisão:** `janela.py` orquestra; os blocos novos ficam em `seguranca_view.py` e `configuracao_view.py`. O seletor de caso lê o catálogo, e a etapa aparece no passo 4 quando a sessão é `etapa-simulada`.
@@ -325,6 +346,7 @@ ferramentas/gerar_banco_v01.py   [novo]  roda o percurso do V01 num checkout de 
 
 ### Fase 0 — Fundação (bloqueia o resto)
 
+0. **Correções do V01** (ADR-212, R1.2): portão básico obrigatório e amostras mínimas (A04), cofre atômico e reconciliado com varredura física na integridade (A06), referência temporal declarada com campos obrigatórios (A02). Cada correção vem acompanhada dos seus testes negativos, e a suíte do V01 continua passando.
 1. **Migração** (ADR-207): `migracao.py`, reorganização de `Banco.__init__`, `aprovacao` e gatilhos de `configuracao`; fixture do V01 real; `test_migracao.py`.
 2. **Interpretação congelada** (ADR-210, INV-211): `avaliacao_regras` gravada, `entradas_sha256`, `regras_v1_0.py`, `estado()` lendo do registro. Isto vem **antes** de mexer em `regras.py`.
 3. **Modelo físico e catálogo** (ADR-201): `modelo.py`, `casos.py`, dados dos casos e variantes; testes de determinismo, coerência física e REF-001-A byte a byte.
@@ -368,10 +390,10 @@ Legenda de módulos: `calc` = `calculos.py`, `seg` = `seguranca.py`, `cal` = `ca
 | FR-202 | `calc.irregularidade`, `limiares` | `test_calculos.py::test_irregularidade_ruido_conhecido`, `::test_irregularidade_nao_confunde_vale`, `::test_condicoes_aplicacao`, `::test_nao_estimavel_nao_aprova` | 202 | F/1 |
 | FR-203 | `regras` (portão), `ses.analisar` | `test_sessao.py::test_n2`, `::test_qualidade_limita_conclusao` | 203 | 1 |
 | FR-204 | `calc.vales_individuais`, `regras` (I-3) | `test_regras.py::test_i3_reordena_hipoteses`, `test_sessao.py::test_n1` | 210 | 1 |
-| FR-205 | `calc.referencia_temporal` (V01), `ses.analisar` | `test_sessao.py::test_n4` | — | 1 |
+| FR-205 | `calc.referencia_temporal` (1.1, declarada), `ses.analisar` | `test_sessao.py::test_n4`, `test_calculos.py::test_referencia_campos_ausentes` | 212 | F/1 |
 | FR-206 | `regras`, `ses.decidir_sem_intervencao` | `test_sessao.py::test_n5` | — | 1 |
-| FR-207 | `calc.faixa_util`, `calc.condicoes_comparaveis`, `calc.detector_mudanca_via`, `ses.importar_depois`, `ses.concluir` | `test_calculos.py::test_detector_mudanca`, `test_sessao.py::test_n3`, `::test_n3_so_declarada`, `::test_n3_so_medida`, `::test_n3_posicao_diferente_inconclusiva`, `::test_sem_dados_nao_e_sem_mudanca` | 208 | 1 |
-| FR-208 | `ses.concluir` (incerteza de σ̂) | `test_sessao.py::test_ref001b`, `::test_nao_estimavel_limita_veredito` | 202, 203 | 1 |
+| FR-207 | `calc.faixa_util`, `calc.condicoes_comparaveis`, `calc.detector_mudanca_via`, `ses.importar_depois`, `ses.concluir` | `test_calculos.py::test_detector_mudanca`, `test_sessao.py::test_n3`, `::test_n3_so_declarada`, `::test_n3_so_medida`, `::test_n3_posicao_diferente_inconclusiva`, `::test_n3_sem_repeticao_inconclusiva`, `::test_reposicionamento_nao_compromete`, `::test_sem_dados_nao_e_sem_mudanca` | 208 | 1 |
+| FR-208 | `ses.concluir` (incerteza de σ̂; aquisição comparável declarada) | `test_sessao.py::test_ref001b`, `::test_nao_estimavel_limita_veredito`, `::test_depois_outra_posicao_nao_confirma` | 202, 203, 208 | 1 |
 | FR-209 | `UI/janela.py` | `test_interface.py::test_seletor_casos`, `::test_textos_resultados` | 209 | 1 |
 | FR-210 | `seg.classificar` | `test_seguranca.py::test_classificacao` | 204 | 2 |
 | FR-211 | `seg.avaliar`, `seg.admissibilidade`, `ses.propor_teste` | `test_seguranca.py::test_seg01` … `::test_seg13` (permitido/limítrofe/proibido), `::test_admissibilidade`, `test_sessao.py::test_polaridade_passa_por_seguranca` | 204 | F/2 |
@@ -405,6 +427,7 @@ Legenda de módulos: `calc` = `calculos.py`, `seg` = `seguranca.py`, `cal` = `ca
 | INV-211 | `ses.estado`, `regras_v1_0`, `pers` | `test_sessao.py::test_reabrir_nao_recalcula`, `test_persistencia.py::test_sessao_v01_legivel` |
 | INV-212 | `calc`, `ses` | `test_calculos.py::test_nao_estimavel_nao_aprova`, `::test_nao_estimavel_preserva_descritivo`, `test_sessao.py::test_sem_dados_nao_e_sem_mudanca` |
 | INV-213 | `referencia/casos.py`, `ref001.py` | `test_casos.py::test_deterministico`, `::test_ref001a_intacto` |
+| INV-214 | `referencia/casos.py` (hashes esperados), `ses._importar_medicao` (proveniência), `calc.irregularidade`, `calc.condicoes_comparaveis` | `test_casos.py::test_proveniencia_catalogo`, `test_sessao.py::test_simulado_declarado_nao_presume` |
 
 ### Critérios de sucesso
 
@@ -417,7 +440,7 @@ Legenda de módulos: `calc` = `calculos.py`, `seg` = `seguranca.py`, `cal` = `ca
 | SC-205 | `test_configuracao.py::test_reversao_tres_desfechos` | 3 |
 | SC-206 | roteiro `COMO-EXPERIMENTAR.md` no Windows (G3 por bloco) | 1/2/3 |
 | SC-207 | `python -m pytest` em Linux (V01 + V02) | N |
-| SC-208 | `test_validacao_limiares.py` → `08-qa/validacao-limiares.md` | 1/2/3 |
+| SC-208 | `test_validacao_limiares.py` → `08-qa/validacao-limiares.md`; `test_oraculos.py` (vetores analíticos: quadratura, LR4, atraso puro), `test_metamorficos.py` (ganho global, troca de vias); domínio declarado: só simulado (E3) | 1/2/3 |
 | SC-209 | `test_sessao.py::test_s1_s2_s3`, `test_interface.py::test_casos_seguranca`, G3 do bloco 2 | 2 |
 
 ---
@@ -449,3 +472,20 @@ Legenda de módulos: `calc` = `calculos.py`, `seg` = `seguranca.py`, `cal` = `ca
 4. **Observação de cobertura**: nos percursos dos casos do V02 nenhuma recomendação é sensível (polaridade e atrasos não são). Bloqueio e aprovação de nível B ficam exercidos por testes de serviço com alterações sintéticas e pelo SC-204, não pelo roteiro do G3. → **Resolvido na E2** com os casos REF-003-S (FR-223, SC-209).
 
 Decisões da E2 sobre esses pontos (2026-10-15): (1) ruído não estimável preserva o descritivo e limita o que depende da qualidade; (3) fixture gerada pelo V01 original, só sintética, permanente; (4) casos REF-003-S nos testes e no G3; casos de referência existentes inalterados (INV-213). Redação do complemento R1.1 aprovada em 2026-10-15 (nível B).
+
+### Complemento R1.2 — emenda E3 (revisão adversarial, `docs/revisoes/revisao-adversarial-projeto.md`)
+
+| Achado | Onde ficou | Critério de teste |
+| --- | --- | --- |
+| A01 | spec US-08, FR-223, SC-209; ADR-204 | S1 bloqueado por SEG-07 com equipamento confirmado; S2 por SEG-12 e SEG-07; S3 admitido com aprovação B; nenhum caminho admite reforço |
+| A02 | spec, definição normativa e FR-205; ADR-212 | campos ausentes ⇒ incompatível; rótulo "declarada" em tela e dados |
+| A03 | spec, precedência e FR-208; ADR-208 | "depois" em outra posição, ganho ou nível ⇒ "melhora observada", no máximo `inconclusiva` |
+| A04 | ADR-212 (fundação) | grade estreita recusada; sobreposição < mínimo ⇒ fase "não calculável", sem `RankWarning` |
+| A05 | spec SC-208 e limites; ADR-211 | oráculos analíticos e metamórficos; ruído correlacionado; relatório marca "domínio simulado" |
+| A06 | ADR-212 (fundação); data-model, integridade | falha simulada entre a cópia e o INSERT reconcilia; órfão, linha sem arquivo e `.tmp` acusados |
+| A07 | spec, detector e "repetição"; ADR-208; data-model | sem repetição ⇒ no máximo `inconclusiva`; reposicionamento simulado não compromete; N3 com duas aquisições independentes ⇒ `comprometida` sem nomear parâmetro; cópia (mesmo hash ou `aquisicao_id`) não é repetição |
+| Proveniência (ajuste) | spec, definição e INV-214; ADR-201 | presunções só para catálogo com hashes conferidos; `simulado: true` externo ⇒ tratado como externo |
+| A08 | spec, objetivo da etapa | texto exibido nunca diz "alinhado" nem "calibrado"; oráculo de quadratura: deficit 0 sem afirmar alinhamento |
+| A09 | Constitution Check (I e VIII) corrigido | matriz conferida por script; duas avaliações separadas. **(i) G3 do bloco 3 do V02:** comparação de **esforço operacional** com dados sintéticos (tempo e passos de 2 ou 3 tarefas, Jarvis contra REW + planilha), registrada no QA como custo de fluxo. **(ii) VP-10 (utilidade real):** fica para incremento com medições reais. Nenhuma conclusão sobre vantagem na calibração do carro sai do V02 |
+
+**Aprovado (nível B) em 2026-10-15:** redação da emenda E3 na spec e deste complemento R1.2 (ADR-212 nova; ADR-204, 208, 211 e Fase 0 ajustadas; matriz e data-model).

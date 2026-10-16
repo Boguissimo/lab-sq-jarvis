@@ -60,10 +60,13 @@
 - **Caso:** `semente`, `ruido_sigma_db`, `tipo_sessao` (`investigacao` | `etapa-simulada`), `modelo` (parâmetros físicos usados, para auditoria), `depois.configuracao_declarada`.
 - **Por medição:** `suavizacao` (`nenhuma` | texto da suavização declarada), `ganho_entrada_db`, `referencia_nivel`, `posicao_microfone` (já existe), `referencia_temporal` (já existe).
 - **Casos de segurança REF-003-S (E2, FR-223):** `equipamento` (sintético: `[{canal, alto_falante, estado: confirmado|planejado|informado, potencia_rms_w?, fs_hz?, passa_altas_min_hz?, inclinacao_min_db_oit?}]`, sempre com `simulado: true`) e `alteracao_candidata` (`{canal, parametro, de, para, tipo: reforco_eq|corte_eq|ganho|passa_altas, freq_hz?, q?}`). A alteração passa por `seguranca.classificar`/`avaliar`/`admissibilidade` e é registrada como `recomendacao` (admitida ou bloqueada), com as mesmas estruturas acima.
+- **Repetição do "depois" (E3):** cada aquisição individual "depois" é um registro `medicao` próprio (id `M-…`), com arquivo próprio no cofre (SHA-256 distinto), `aquisicao_id` único e `repeticao` (1, 2, …). Todas têm a mesma `posicao_microfone` declarada. Não há limite de uma medição por via e momento: o serviço lê todas (`_medicoes`). Mesmo SHA-256 ou mesmo `aquisicao_id` ⇒ recusada como repetição. O REF-001-N3 traz duas para o tweeter. O cálculo `detector_mudanca` passa a guardar `depois: [ids]`, `reproduzida: bool` e `parametro_identificado: false`.
+- **Referência temporal (E3):** `referencia_temporal.tipo`, `referencia_temporal.id`, `taxa_amostragem` e `posicao_microfone` são obrigatórios para uma referência declarada compatível; o cálculo grava `declarada: true`.
 - **Medições "depois":** `via_a` e `via_b` com `momento: "depois"`.
 
 Regra de ausência:
-- `suavizacao` ausente num caso com `simulado: true` gerado pelo catálogo do Jarvis vale `nenhuma`. Num arquivo externo vale `desconhecida`.
+- `suavizacao` ausente vale `nenhuma` **só** num caso do catálogo interno com proveniência verificada. Em qualquer outro arquivo, inclusive com `simulado: true`, vale `desconhecida` (INV-214).
+- **Proveniência:** ao importar, o serviço grava em `dados` da medição `proveniencia: {catalogo: bool, caso, sha256_esperado}`; `catalogo: true` só quando o caso está em `casos.listar()` e o SHA-256 confere com o gerado.
 - `ganho_entrada_db` ou `referencia_nivel` ausentes ⇒ condições não comparáveis para o detector.
 
 ## Integridade (FR-222; revisão, item 9)
@@ -94,6 +97,13 @@ Além das verificações do V01, `integridade()` confere:
    - eventos com `sessao` apontam para uma sessão existente;
    - `id` e `momento` são não decrescentes;
    - toda sessão `encerrada` tem evento de encerramento.
+
+8. **Cofre físico (E3, A06; ADR-212)**:
+   - todo arquivo em `cofre/` tem linha em `arquivo_original`, e toda linha tem arquivo;
+   - o hash de cada arquivo confere com o nome;
+   - não restam arquivos em `cofre/.tmp/`.
+
+"Imutável" é política de preservação e detecção, não impossibilidade física.
 
 Cada verificação tem um teste com inconsistência deliberada em `test_integridade.py`. A inconsistência é inserida por SQL direto, com gatilhos ou `foreign_keys` desligados só dentro do teste.
 

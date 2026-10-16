@@ -12,9 +12,9 @@
 
    Reabra cada sessão e confira que nada mudou.
 4. **Bloco 2**: em qualquer recomendação, confira a "Verificação de segurança": regras, provisórios, limitações e admissibilidade. Depois percorra os casos de segurança (simulados):
-   - REF-003-S1: reforço admitido como risco crescente; aprove (nível B) e confira que os resultados das regras não mudaram.
-   - REF-003-S2: "alteração bloqueada — não recomendada", com o que falta, sem receita nem opção de aprovar.
-   - REF-003-S3: corte admitido como risco decrescente, com a lista do não verificado e o aviso de efeitos colaterais; exige aprovação.
+   - REF-003-S1: reforço com equipamento confirmado, "alteração bloqueada — não recomendada" por SEG-07 (margem digital sem método), sem receita nem opção de aprovar.
+   - REF-003-S2: o mesmo reforço com equipamento planejado, bloqueado por SEG-12 e SEG-07, com o que falta.
+   - REF-003-S3: corte admitido como risco decrescente, com a lista do não verificado e o aviso de efeitos colaterais; aprove (nível B) e confira que os resultados das regras não mudaram.
 5. **Bloco 3**: as quatro variantes REF-002-A (etapa de calibração tipo ATM): objetivo, limites, antes/depois e resultado. Depois:
    - guarde arquivos de ajuste de exemplo;
    - abra uma sessão nova e confira a última configuração da sessão anterior;
