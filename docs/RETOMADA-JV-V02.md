@@ -1,53 +1,68 @@
-# Retomada — JV-V02 pausado em 2026-10-16
+# Retomada — JV-V02 (atualizada em 2026-10-15)
 
-Branch: `lab-sq-jarvis/003-000-jv-v02-honestidade-e-seguranca` · feature Arkan `003-000-jv-v02-honestidade-e-seguranca` · fase `04-architecture` (plano em **revisão**).
+Branch: `lab-sq-jarvis/003-000-jv-v02-honestidade-e-seguranca` · feature Arkan `003-000-jv-v02-honestidade-e-seguranca` · fase `04-architecture` **concluída** (spec e plano aprovados). Próximo: `/arkan.tasks`.
 `main` contém o JV-V01 completo (commit `389e580`, QA aprovado, G3 cumprido no Windows). Esta branch parte dele.
 
-## 1. Feito no JV-V02
+## 1. Estado do JV-V02
 | Fase | Artefato | Estado |
 | --- | --- | --- |
-| 01 Ideação | `01-discovery/ideacao.md` | **aprovada** (peso Code; superfície crítica: sim) |
-| 03 Spec | `03-spec/spec.md` (FR-201 a FR-222, INV-201 a INV-212, SC-201 a SC-208) | **aprovada** (2026-10-15, data local; os commits mostram 16/10 em UTC). Decisões: um incremento em três blocos; arquivo de ajuste do PC-Tool opaco; calibração simulada tipo ATM; SEG-02/07/09 só `não verificável`. **Emenda E1** (revisão externa: σ̂ por segunda diferença, detector de mudança por via, admissibilidade SEG, INV-211/212, reversão documentada, casos-limite da etapa): **aprovada em 2026-10-15 (nível B)** |
-| 04 Plano | `04-architecture/plan.md`, `data-model.md`, `quickstart.md` (ADR-201 a ADR-211) | **revisão R1** (2026-10-15) aplica os 12 itens da revisão e traz matriz de rastreabilidade e critérios de teste; **aprovada em 2026-10-15** |
-| 06 Tasks | — | não iniciada (esperar o plano aprovado) |
+| 01 Ideação | `01-discovery/ideacao.md` | aprovada (peso Code; superfície crítica: sim) |
+| 03 Spec | `03-spec/spec.md` (FR-201 a FR-223, INV-201 a INV-214, SC-201 a SC-209) | aprovada em 2026-10-15, com as emendas **E1**, **E2** e **E3**, todas aprovadas em nível B; decisões nas Clarifications |
+| 04 Plano | `04-architecture/plan.md` (ADR-201 a ADR-212), `data-model.md`, `quickstart.md` | revisão **R1** e complementos **R1.1** e **R1.2** aprovados em nível B; inclui a matriz de rastreabilidade (46 IDs, conferida por script) e os critérios de teste |
+| 06 Tasks | — | **próximo passo** |
 
 Nenhum código do V02 foi escrito. Testes do V01: 45 passando.
 
-## 2. Revisão externa a aplicar (fonte: `docs/revisoes/jv-v02-revisao-tecnica-do-plano.md`)
-Veredito: **aprovar com ajustes**; não refazer a arquitetura. Conferi no código do V01 e **confirmei** quatro afirmações: o V01 não grava `PRAGMA user_version` (banco legado = versão 0); `Banco.__init__` roda o esquema antes de qualquer migração; `Banco.configuracoes(sessao)` consulta só a sessão informada; a tabela `configuracao` não tem gatilho de só inserção (apenas `parametro_config` tem).
+Commits: `2f0e8f1` (E1/R1), `1f6b62d` (E2/R1.1), `45f6401` (E3/R1.2 + revisão adversarial).
 
-| # | Sev. | Ajuste | Onde mexe | Exige mudar a spec? |
-| --- | --- | --- | --- | --- |
-| 1 | Alta | Migração: reconhecer esquema legado (v0), migrar para 2; transacional, idempotente, com backup; teste com banco real do V01; recusar versão desconhecida sem modificar; reorganizar `Banco.__init__` | ADR-207, data-model | não |
-| 2 | Alta | Adaptar `propor_teste`, `registrar_aplicacao`, `estado`, `resumo` aos dois fluxos (teste de polaridade e etapa de calibração); testar criar/executar/encerrar/histórico/reabrir | ADR-205 | não |
-| 3 | Alta | Estimador de ruído mede irregularidade espectral, não ruído: pode reprovar cancelamentos e reflexões reais. Comparar com o ruído injetado em casos só-ruído, só-cancelamento e combinados | ADR-202 | **sim** (definição normativa de ruído, FR-202, limiar 1,5 dB) |
-| 4 | Alta | Avaliação SEG participa da admissibilidade da recomendação; bloqueada nunca aparece como recomendada/segura; aplicar também às recomendações herdadas do V01 | ADR-204 | possível (FR-211/INV-203) |
-| 5 | Alta | Persistir resultados de qualidade, versões, limiares usados e hashes das entradas; não reconstruir interpretação histórica reexecutando regras | ADR-210, data-model | possível |
-| 6 | Média | Aprovação: reforçar integridade (recomendação existente, mesma sessão, nível, escopo, momento, alteração autorizada) | ADR-204 | não |
-| 7 | Média | `comprometida`: aceitar medições "depois" de **ambas** as vias, faixas por alto-falante, distinguir "sem alteração comprovada" de "sem dados para verificar" | ADR-208 | **sim** (definição "depois comprometido", FR-207) |
-| 8 | Média | Recuperar última configuração **entre sessões**; distinguir arquivo/receita disponíveis de restauração física confirmada | ADR-206 | possível (FR-220/221) |
-| 9 | Média | Integridade estendida (aprovações, configurações, arquivos, resultados SEG, diário), testes com inconsistências deliberadas; gatilho de imutabilidade em `configuracao` | FR-222 | não |
-| 10 | Média | Gerador: respostas fisicamente coerentes (filtros, atrasos, polaridade determinam juntos magnitude, fase, soma); ruído acrescentado depois | ADR-201 | não |
-| 11 | Média | Quatro variantes de REF-002-A explícitas; déficit inicial nulo e divisão por zero; SC-204 a SC-207 | spec/plano | possível (definições de resultado) |
-| 12 | Baixa | Cronologia das datas de aprovação; qualificar "reversão garantida" (documental × física) | spec, plano | texto |
+## 2. O que cada emenda decidiu (resumo; detalhe nas Clarifications da spec)
+- **E1 — revisão técnica externa** (`docs/revisoes/jv-v02-revisao-tecnica-do-plano.md`):
+  - irregularidade σ̂ por MAD da segunda diferença; o método antigo reprovava o próprio REF-001-A;
+  - detector de mudança por via, nas duas vias, com três resultados;
+  - admissibilidade SEG pela classe de risco;
+  - INV-211 (interpretação lida do registro, sem recálculo) e INV-212 (incerteza desconhecida não vira aprovação);
+  - "reversão documentada";
+  - precedência e casos-limite da etapa de calibração;
+  - SC-208 (varredura de limiares);
+  - datas corrigidas para a data local.
+- **E2 — decisões sobre a R1:**
+  - "ruído não estimável" preserva as observações descritivas;
+  - fixture do banco V01 gerada pelo V01 original, só sintética e permanente;
+  - casos de segurança REF-003-S1 a S3 (FR-223, SC-209);
+  - casos de referência inalterados (INV-213).
+- **E3 — revisão adversarial** (`docs/revisoes/revisao-adversarial-projeto.md`, A01 a A09):
+  - REF-003-S1 **bloqueado por SEG-07**, sem exceção para simulação;
+  - referência temporal e aquisição comparável **declaradas**; `confirmada` exige aquisição comparável;
+  - mudança só medida exige repetição por **aquisições independentes**, e mudança reproduzida não identifica o parâmetro;
+  - presunções só para catálogo interno com **proveniência verificada** por hash (INV-214);
+  - SC-208 restrito ao domínio simulado, com oráculos e testes metamórficos;
+  - objetivo da etapa sem alegar alinhamento;
+  - **ADR-212**: correções do V01 na fundação (portão básico obrigatório, cofre atômico, referência com campos obrigatórios);
+  - esforço no G3 (dados sintéticos) separado da utilidade real (VP-10).
 
-Limiares: continuam provisórios; a revisão pede validação por varredura (valores logo acima/abaixo), registro de falsos positivos/negativos e **não ajustar critérios só para os casos de referência passarem**. Sequência: manter os três blocos; migração na fundação; contratos de qualidade e segurança antes de integrar recomendações; fluxo completo com histórico e reabertura no bloco 3. ADR-201, 203, 206, 209, 210 mantidas; 204 mantida com integridade reforçada; 205 e 208 ampliadas; 207 corrigida; 202 revista.
+## 3. Pendências fora do V02
+- **Diretriz REW** (`docs/revisoes/diretriz-fontes-de-medicao-e-rew.md`): registrar no planejamento evolutivo (proposta `JV-D043` e nota no feature map para F004/F013/F018) **com aprovação do desenvolvedor**.
+- **VP-10 (utilidade real):** avaliar em incremento com medições reais.
 
-## 3. Diretriz de evolução (fontes de medição e REW)
-Fonte: `docs/revisoes/diretriz-fontes-de-medicao-e-rew.md`. **Não entra no JV-V02.** Pendente: registrar no planejamento evolutivo (proposta: nova decisão `JV-D043`, e nota no feature map para F004/F013/F018) **com aprovação do desenvolvedor**, e identificar interfaces a preparar (por exemplo, campos de origem `SYNTHETIC`/`EXPERIMENTAL`/`CALIBRATED`, calibração de resposta e de SPL, referência temporal, equipamento, posição). Casa com o item 10 da revisão (gerador coerente).
-
-## 4. Próximos passos (ordem sugerida)
-1. ~~Debater os itens que exigem mudar a spec~~ — feito em 2026-10-15; decisões na Clarification "Emenda E1" da spec.
-2. ~~Revisar `plan.md` e `data-model.md`~~ — revisão R1 feita.
-3. ~~Entregar ADRs revisadas, matriz e critérios~~ — no `plan.md` R1. Aprovados (nível B) em 2026-10-15. Próximo: `/arkan.tasks`.
-4. `/arkan.tasks` (tasks `JV-T201…`, três blocos, ponto G3 por bloco), depois `/arkan.analyze`, implementação, QA.
-5. Registrar a diretriz REW por decisão própria, se aprovado.
+## 4. Próximos passos
+1. `/arkan.tasks`: tasks `JV-T201…`, nos três blocos com ponto G3 por bloco, mais a fase 0. A fase 0 traz as correções do V01 (ADR-212), a migração (ADR-207), a interpretação congelada, o modelo físico e o catálogo, e os contratos de qualidade e segurança.
+2. `/arkan.analyze`, implementação, QA.
 
 ## 5. Como retomar (nova sessão)
-- Repositório `Boguissimo/lab-sq-jarvis` (público). Clonar a branch: `git clone -b lab-sq-jarvis/003-000-jv-v02-honestidade-e-seguranca https://github.com/Boguissimo/lab-sq-jarvis`. Em sessão na nuvem, usar `add_repo` (push) antes.
-- Ler: este arquivo, `docs/RETOMADA.md` (V01), `docs/revisoes/*`, e os artefatos da feature 003.
-- Testes: `python -m venv .venv && .venv/bin/pip install -r requirements-dev.txt`; no Linux, `apt-get install libegl1 libgl1 libxkbcommon0 libfontconfig1 libdbus-1-3` e `QT_QPA_PLATFORM=offscreen python -m pytest` (esperado: 45 passando).
-- Convenções: Core do Arkan intacto; branches `lab-sq-jarvis/NNN-CCC-slug`; PT-BR; interface não calcula (ADR-03 do V01); limiares provisórios continuam provisórios; aprovação não verifica (JV-D032); status da feature só aceita `em-desenvolvimento`/`em-producao`/`arquivada`; `.sh` em LF; `.bat` em CRLF.
-- Defeitos do Core já registrados (JV-D015): `qa-mecanico.sh` exige seções "N/A" em planos Doc e dá falso positivo para marcadores `[TODO]` (colchetes sem escape).
-- Máquina do desenvolvedor (Windows): clone em `C:\Users\fabri\lab-sq-jarvis\lab-sq-jarvis` (pasta aninhada); banco do V01 em `%LOCALAPPDATA%\LabSQJarvis` com sessões que não podem ser perdidas.
-- Decisões da spec já tomadas e **não** a reabrir sem motivo: um incremento em três blocos; arquivo do PC-Tool opaco; calibração = alinhamento de atrasos tipo ATM; SEG-02/07/09 só `não verificável`.
+- Repositório `Boguissimo/lab-sq-jarvis` (público). Na máquina do desenvolvedor, o **clone de trabalho** é `C:\Users\fabri\src-jv\repo`. A pasta `C:\Users\fabri\lab-sq-jarvis` é um pacote extraído em 2026-09-30, **sem `.git`**, e não deve ser editada.
+- Para clonar em outro lugar: `git clone -b lab-sq-jarvis/003-000-jv-v02-honestidade-e-seguranca https://github.com/Boguissimo/lab-sq-jarvis`. No Windows, use um caminho curto: o clone em pasta muito longa falhou com "`$GIT_DIR` too big".
+- Leia este arquivo, `docs/RETOMADA.md` (V01), `docs/revisoes/*` e os artefatos da feature 003.
+- **Testes:** `python -m venv .venv` e `pip install -r requirements-dev.txt`. No Linux, instale `libegl1 libgl1 libxkbcommon0 libfontconfig1 libdbus-1-3` e rode `QT_QPA_PLATFORM=offscreen python -m pytest` (esperado: 45 passando). Há uma venv pronta em `C:\Users\fabri\lab-sq-jarvis\.venv`; o `python` do PATH no Windows é o atalho da Microsoft Store e trava.
+- **Git neste clone:** sem identidade configurada; os commits usam `-c user.name=Claude -c user.email=noreply@anthropic.com`, como os anteriores da branch.
+- **Convenções:**
+  - Core do Arkan intacto; PT-BR; branches `lab-sq-jarvis/NNN-CCC-slug`.
+  - A interface não calcula (ADR-03 do V01); limiares provisórios continuam provisórios; aprovação não verifica (JV-D032).
+  - Emendas normativas exigem aprovação de nível B (ato e escopo nomeados).
+  - O status da feature só aceita `em-desenvolvimento`, `em-producao` ou `arquivada`.
+  - `.sh` em LF; `.bat` em CRLF.
+- **Defeitos do Core já registrados (JV-D015):** `qa-mecanico.sh` exige seções "N/A" em planos Doc e dá falso positivo para marcadores `[TODO]` (colchetes sem escape).
+- **Banco do V01** em `%LOCALAPPDATA%\LabSQJarvis`, com sessões que não podem ser perdidas. A migração (ADR-207) faz backup antes de mexer.
+- **Decisões a não reabrir sem motivo:**
+  - um incremento em três blocos; arquivo do PC-Tool opaco; calibração = alinhamento de atrasos tipo ATM;
+  - SEG-02/07/09 só `não verificável`, e nenhum reforço é admitido;
+  - presunções só para catálogo com proveniência verificada.
