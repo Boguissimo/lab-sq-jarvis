@@ -1,0 +1,85 @@
+{
+ "titulo": "Pré-registro — diagnóstico por previsão física (soma prevista × soma observada) com falhas injetadas e protocolo cego",
+ "data": "2026-10-16",
+ "natureza": "exploratório; experimento isolado em ferramentas/investigacao/; NÃO altera src/, spec, limiares nem algoritmos do produto; NÃO valida o V02 acusticamente; o 'algoritmo' avaliado é um protótipo do experimento, não o Jarvis",
+ "motivacao": "No Passat, a regra por assinatura de fase constante (Regra 2) acertou 0/80 falhas injetadas (resultados-passat-ayukhno.md). Pergunta: comparar a soma observada com a soma PREVISTA fisicamente (a partir das vias isoladas e de hipóteses sobre polaridade e atraso) identifica essas falhas? Não se refaz o ensaio anterior; ele é a referência.",
+ "fontes": {
+  "sala": {"repo": "joeglondon/speakers-2026-filters", "commit": "799af5104e83d9b3af2e832e5bd1fb4db3dd352e", "licenca": "sem licença: dados NÃO redistribuídos; só números derivados"},
+  "carro": {"repo": "ayukhno/autosound-measurements", "commit": "7725d426745408b962ea1de4fab6e252bc6b89b6", "licenca": "dados CC BY 4.0"},
+  "conferencia": "SHA-256 contra admissao-*.json antes de gerar casos"
+ },
+ "niveis_de_evidencia": {
+  "N0_consistencia_matematica": "previsão e 'soma observada' derivam das MESMAS capturas; a falha é injetada por código. Prova só que a hipótese é identificável (teto ideal). NÃO é diagnóstico.",
+  "N1_robustez_a_variacao_de_captura": "a previsão usa uma captura (ou repetição) diferente da usada para formar a 'soma observada'. Na sala, a soma observada contém a soma FÍSICA medida (lado + Sub), com a falha injetada só na parcela do Sub; no carro a soma continua computada. Mede robustez a ruído/deriva, ainda com falha injetada por código. NÃO é diagnóstico independente.",
+  "N2_diagnostico_independente": "exigiria defeito REAL documentado, medição antes/depois e parecer externo. NÃO existe em nenhum conjunto; este experimento NÃO alcança N2 e não pode alegá-lo.",
+  "controles_sala": "as somas físicas não alteradas (controle) da sala são evidência independente de que a previsão descreve a física em 30–150 Hz, já estabelecida em resultados-braco-a-joeglondon.md; aqui aparecem como controles do diagnóstico, não como novo resultado de modelo."
+ },
+ "protocolo_cego": {
+  "estrutural": "o prototipo diagnóstico (diagnostico_previsao.py) lê SOMENTE arquivos de caso com arrays (f, hA, hB, hS), a banda operacional declarada e um id aleatório; nenhum rótulo, tipo de falha, magnitude, ordem ou nome que o revele. Os rótulos ficam em outro diretório (rotulos.json), que o prototipo não importa nem lê.",
+  "verificacao": "o diagnóstico é executado em processo cujo diretório de trabalho e caminhos NÃO contêm o rótulo (diretório de rótulos ausente) e o resultado é gravado antes da avaliação; um teste confirma que a função tem assinatura diagnosticar(f, hA, hB, hS, banda_hz) sem outro argumento",
+  "ordem": "ids embaralhados com semente 20261016; a avaliação (avaliar_previsao.py) só roda depois que previsoes.json foi gravado e seu SHA-256 registrado",
+  "limite_honesto": "o cegamento é ESTRUTURAL, não epistêmico: quem escreveu o gerador (Claude) conhece o desenho dos casos. O que se garante é que o prototipo não recebe a resposta e que os limiares foram fixados aqui, antes de qualquer execução."
+ },
+ "prototipo_diagnostico": {
+  "hipoteses": ["normal (soma = hA + hB)", "polaridade invertida de B (hA − hB)", "atraso de B, τ ∈ [−3, +3] ms, passo 0,01 ms, melhor ajuste contínuo (hA + hB·e^{−j2πfτ})"],
+  "faixa": "banda operacional declarada do par (interseção das bandas úteis das duas vias); ablação pré-registrada: banda cheia 20–20000 Hz com a mesma máscara",
+  "mascara": "pontos em que |hA|, |hB| e |hS| ficam a no máximo 30 dB abaixo do máximo de cada curva na banda",
+  "custo": "mediana(|erro de nível dB|) + mediana(|erro de fase graus|)/10 sobre a máscara (1 dB ≡ 10°)",
+  "decisao": {
+   "C_ADM": 1.0,
+   "MARGEM": 0.2,
+   "regra": "se o menor custo > C_ADM → 'nao_conclui' (nenhuma hipótese compatível); senão, se custo(normal) − min(custo(inversão), custo(atraso*)) < MARGEM → 'normal'; senão a de menor custo entre inversão e atraso*",
+   "origem_dos_valores": "C_ADM = 1,0 dB, o mesmo limite de mediana do critério de admissibilidade já pré-registrado (preregistro-braco-a.json); MARGEM = 0,2 escolhida a priori como ~2× o pior custo de controle observado em repetibilidade (0,1) sem ver nenhum resultado deste experimento. NÃO ajustados depois."
+  },
+  "saida": "decisao ∈ {normal, inversao, atraso, nao_conclui}, tau_ms, custos"
+ },
+ "casos": {
+  "falhas_injetadas_na_via_B": {
+   "controle": "nenhuma",
+   "polaridade": "B → −B",
+   "atraso_0.05_ms": "B·e^{−j2πf·0,00005}", "atraso_0.10_ms": "idem 0,10 ms", "atraso_0.25_ms": "idem 0,25 ms", "atraso_1.00_ms": "idem 1,00 ms",
+   "ganho_+3dB_fora_do_espaco": "B·10^(3/20): falha FORA do espaço de hipóteses, para medir falsa confiança; resposta correta = 'nao_conclui'"
+  },
+  "sala": {
+   "pares": "L e R × repetições 1..5 (10 pares); A = lado k; B = Sub Only; soma observada = (lado+Sub)k − Sub k + falha(Sub k)",
+   "N1": "B da previsão = Sub Only da repetição k' = (k mod 5)+1, diferente de k",
+   "N0": "B da previsão = Sub Only da mesma repetição k",
+   "banda_operacional_hz": [30, 150]
+  },
+  "carro": {
+   "pares": [
+    {"id": "P1", "A": "w_L", "B": "m_L", "banda_hz": [200, 500], "nivel": "N1", "variantes": "soma formada com m_L-ctl1 e m_L-ctl3 (previsão com m_L)"},
+    {"id": "P2", "A": "m_L", "B": "tw_L", "banda_hz": [2000, 10000], "nivel": "N1", "variantes": "A da soma = m_L-ctl1 e m_L-ctl3 (previsão com m_L)"},
+    {"id": "P3", "A": "w_R", "B": "m_R", "banda_hz": [200, 500], "nivel": "N1", "variantes": "A da soma = w_R-retake (previsão com w_R)"},
+    {"id": "P4", "A": "m_R", "B": "tw_R", "banda_hz": [2000, 10000], "nivel": "N0", "variantes": "mesmas capturas"},
+    {"id": "P5", "A": "sw", "B": "w_L", "banda_hz": [40, 150], "nivel": "N0", "variantes": "mesmas capturas"}
+   ],
+   "conversao": "passat_comum.py: janela W30, bin FFT mais próximo, grade log de 48 ppo, fase relativa ao loopback; sem metadados hipotéticos além dos do README da fonte",
+   "origem_das_bandas": "bandas úteis de preregistro-passat.json (sw 30–150, w 40–500, m 200–10000, tw 2000–16000), interseção por par"
+  },
+  "grade_comum": "20–20000 Hz, 48 ppo (sala reamostrada por interpolação pontual de nível e fase desenrolada; a soma/falha é formada na grade nativa ANTES de reamostrar)",
+  "total_estimado": "sala 10×7×(N1+N0) = 140; carro (P1 2 + P2 2 + P3 1 + P4 1 + P5 1 = 7 variantes)×7 = 49"
+ },
+ "acerto": {
+  "controle": "normal",
+  "polaridade": "inversao",
+  "atraso": "decisao atraso com |τ* − τ_verdadeiro| ≤ max(0,05 ms; 20 % de τ_verdadeiro)",
+  "ganho_fora_do_espaco": "nao_conclui",
+  "classes": "acerto / abstencao (nao_conclui numa falha DENTRO do espaço) / erro (qualquer outra decisão); abstenção NÃO conta como acerto nem como erro",
+  "falsa_confianca": "decisão ≠ nao_conclui numa falha fora do espaço, ou 'atraso/inversao' num controle"
+ },
+ "relatorio": [
+  "contagens (acerto/abstenção/erro) por falha × nível (N0, N1-sala, N1-carro) com intervalo de Wilson 95 %",
+  "limite de detecção de atraso: menor τ com acerto ≥ 90 % por conjunto, comparado com a incerteza de fase da metrologia (metrologia-e-rigor-usabilidade-joeglondon.md)",
+  "ablação: banda operacional × banda cheia",
+  "sensibilidade post hoc (rotulada): MARGEM ∈ {0,1; 0,2; 0,5; 1,0}; nenhuma escolha de limiar é feita com base nela",
+  "separação explícita entre o que é consistência matemática (N0), robustez a captura (N1) e o que NÃO foi provado (N2)"
+ ],
+ "o_que_o_resultado_nao_pode_dizer": [
+  "que o Jarvis ou o V02 diagnostica em campo",
+  "que a previsão vale em carros/salas diferentes; são 1 sala e 1 carro, uma sessão cada",
+  "que a falha injetada represente defeitos reais (a injeção é ideal: −1 exato ou N amostras exatas)",
+  "que somas computadas do carro representem somas físicas medidas"
+ ],
+ "regras_fixas_antes_do_resultado": "nada aqui é ajustado depois de ver os números; resultados contrários à expectativa são reportados; novas rodadas exigem novo pré-registro"
+}
