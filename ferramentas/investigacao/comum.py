@@ -15,9 +15,9 @@ def sha256(p) -> str:
     return h.hexdigest()
 
 
-def verificar_origem(fonte: Path) -> dict:
+def verificar_origem(fonte: Path, admissao: Path = ADMISSAO) -> dict:
     """Confere o SHA-256 de todos os arquivos do manifesto; aborta se algo divergir."""
-    adm = json.loads(ADMISSAO.read_text(encoding="utf-8"))
+    adm = json.loads(Path(admissao).read_text(encoding="utf-8"))
     ruins = [a for a, m in adm["arquivos"].items() if sha256(fonte / a) != m["sha256"]]
     if ruins:
         raise SystemExit(f"Arquivos que não conferem com o manifesto: {ruins[:5]}")

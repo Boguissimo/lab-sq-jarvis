@@ -1,0 +1,35 @@
+{
+  "registrado_em": "2026-10-16, antes de qualquer cálculo sobre ayukhno/autosound-measurements",
+  "natureza": "exploratório; critérios do harness, NÃO são limiares do produto; estimador σ̂, portão e limiares do Jarvis não são alterados",
+  "fonte": {"repo": "ayukhno/autosound-measurements", "commit": "7725d426745408b962ea1de4fab6e252bc6b89b6", "licenca": "CC BY 4.0 (atribuição)", "manifesto": "docs/revisoes/investigacao-desempenho/admissao-ayukhno.json"},
+  "conversao_ir_para_frequencia": {
+    "taxa_hz": 96000, "unidade": "fração da escala cheia; nível em dB re escala cheia (sem SPL offset, sem calibração do microfone)",
+    "referencia_de_tempo": "amostra 0 = loopback físico; a DFT usa a origem de tempo no índice 0 (fase relativa ao loopback preservada); o tempo negativo (cauda do vetor) é descartado",
+    "fft": "rfft de 262144 pontos do sinal janelado, zeros fora da janela",
+    "janelas": {
+      "W30": "início = primeira chegada (rewTimeOfIrStartS) − 0,5 ms; duração 30 ms; meia-Hann nos últimos 5 ms. Para pares: início pelo MENOR rewTimeOfIrStartS do par, mesma janela nas duas vias",
+      "Wfull": "início = amostra 0; fim = amostra 166395 (t ≥ 0 causal, ~1,73 s); meia-Hann nos últimos 100 ms"
+    },
+    "grade": "logarítmica de 20 Hz a 20 kHz com 48 e 96 pontos/oitava; valor do bin FFT MAIS PRÓXIMO (sem interpolação de fase) ",
+    "suavizacao_declarada_ao_produto": {"W30": "janela temporal de 30 ms (harness)", "Wfull": "nenhuma"}
+  },
+  "F5_carro": {
+    "conjuntos_de_repeticao": {"m_L_tripe": ["m_L", "m_L-ctl1", "m_L-ctl3"], "w_R_retake": ["w_R", "w_R-retake"]},
+    "estatisticas": ["σ̂ do produto (calculos.irregularidade, 200 Hz–10 kHz) por captura, por janela e por grade", "σ̂ na banda útil do canal (réplica da fórmula, conferida contra o produto)", "σ̂ da média, σ̂ do resíduo leave-one-out escalonado por √(1+1/(n−1)), desvio entre capturas (n−1) por ponto, mediana na banda", "deslocamento de nível por captura", "ruído esperado pela coerência: σ_dB ≈ 8,686·√((1−γ²)/(2γ²·4)), mediana na banda, bloco A (Resonalyze, outro programa, minutos antes); aproximação, não igual ao ruído do bloco B"],
+    "bandas_uteis_hz": {"sw": [30, 150], "w_L": [40, 500], "w_R": [40, 500], "m_L": [200, 10000], "m_R": [200, 10000], "tw_L": [2000, 16000], "tw_R": [2000, 16000], "c": [200, 10000]},
+    "rta_mmm": "σ̂ do produto nas 11 curvas de 2026-08-24 na grade nativa (96 ppo), 200 Hz–10 kHz, e classe do portão"
+  },
+  "D_real_e_H": {
+    "pares": [["w_L", "m_L"], ["m_L", "tw_L"], ["w_R", "m_R"], ["m_R", "tw_R"], ["sw", "w_L"]],
+    "soma": "adição complexa das duas vias (soma CALCULADA, classe declarada); nenhuma soma medida",
+    "metadados_do_caso": {"referencia_temporal": {"tipo": "loopback físico (README/CAR.md)", "id": "autosound-2026-08-20-blocoB"}, "taxa_amostragem": 96000, "posicao_microfone": "tripé no ponto da cabeça do motorista (README da sessão)", "configuracao_declarada": "dsp-state.json: polaridade normal, atraso 0, ganho 0 dB, HPF de proteção"},
+    "injecoes_na_via_b": {"controle": "nenhuma", "polaridade": "IR × −1", "atraso_0.25ms": "IR deslocada 24 amostras para a direita, zeros à esquerda", "atraso_1.0ms": "IR deslocada 96 amostras"},
+    "classe": "R-injetado nas injeções (real com falha injetada); controle é dado real sem injeção. Verdade das injeções = a falha aplicada; verdade do controle desconhecida além do estado declarado do DSP",
+    "pontuacao": {
+      "polaridade": {"acerto": "sugestão teste_polaridade E hipótese 1 = polaridade invertida", "abstencao": "sugestão solicitar_dados ou nao_da_para_concluir", "erro": "qualquer outra hipótese 1 ou nada_a_alterar"},
+      "atraso": {"acerto": "hipótese 1 = diferença de tempo de chegada", "abstencao": "solicitar_dados ou nao_da_para_concluir", "erro": "hipótese 1 = polaridade ou reflexão, ou nada_a_alterar"},
+      "controle": "sem pontuação de falso positivo (sem verdade independente); registra-se se a hipótese 1 contradiz o estado declarado do DSP (polaridade invertida onde o DSP diz normal)"
+    }
+  },
+  "nao_fazer": ["alterar σ̂, portão, regras ou limiares", "ajustar parâmetros do harness depois de ver resultados", "contar falsos positivos sem verdade independente", "tratar R-injetado como problema de campo"]
+}
