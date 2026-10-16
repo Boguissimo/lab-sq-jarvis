@@ -1,0 +1,26 @@
+{
+ "titulo": "Pré-registro — sensibilidade da decisão à deriva/refazer entre capturas e utilidade do gatilho adaptativo (Passat B8)",
+ "data": "2026-10-16",
+ "natureza": "exploratório; não altera src/, spec, limiares nem arquitetura; não valida o V02; complementa preregistro-metrologia-rigor.json (parte E), cuja limitação nº 4 (repetições sem reposicionamento) motiva este ensaio",
+ "fonte": {"repo": "ayukhno/autosound-measurements", "commit": "7725d426745408b962ea1de4fab6e252bc6b89b6", "licenca": "dados CC BY 4.0 (citar: autosound-measurements (ayukhno), CC BY 4.0)", "conferencia": "SHA-256 contra admissao-ayukhno.json"},
+ "o_que_os_dados_sao": "NÃO há deslocamento deliberado do microfone. m_L, m_L-ctl1 e m_L-ctl3 são o mesmo ponto em tripé em t+0 s, +91 s, +277 s (deriva de temperatura da cabine, manifest.drift: 0 / −0,291 / −0,636 amostras a 96 kHz). w_R e w_R-retake são a mesma via 12 min depois com o torso do operador em outra posição (README: 0,19 dB RMS abaixo de 150 Hz, 0,46 dB até 500 Hz, 1,3–3,0 dB acima de 500 Hz). O ensaio mede, portanto, sensibilidade à deriva temporal e ao refazer pelo operador, não a reposicionamento deliberado.",
+ "reuso": "conversão IR→frequência por passat_comum.py (janela W30, bin FFT mais próximo, grade log); não se refazem σ̂, F-5 nem as injeções de falha",
+ "janela": "W30",
+ "grade_ppo": 48,
+ "decisoes_D": {
+  "D1_balanco_LR_medios_db": {"definicao": "mediana em 200–10000 Hz de nível(m_L, captura k) − nível(m_R); k ∈ {m_L, m_L-ctl1, m_L-ctl3}", "efeito_db": 1.0},
+  "D2_balanco_LR_woofers_40_500_db": {"definicao": "mediana em 40–500 Hz de nível(w_L) − nível(w_R, captura k); k ∈ {w_R, w_R-retake}", "efeito_db": 1.0},
+  "D3_balanco_LR_woofers_500_2000_db": {"definicao": "idem em 500–2000 Hz", "efeito_db": 1.0}
+ },
+ "estabilidade_da_decisao": "estável se (máximo − mínimo) de D entre as capturas ≤ 0,5 × efeito (0,5 dB); instável se > efeito; intermediária entre os dois",
+ "gatilho_adaptativo": {
+  "regra": "como no pré-registro anterior: pedir mais uma captura se a mediana de |Δ nível| entre duas capturas consecutivas, na banda útil do canal, for > tau = 0,3 dB",
+  "bandas_uteis_hz": {"m_L": [200, 10000], "w_R": [40, 500]},
+  "pares_avaliados": ["m_L×m_L-ctl1", "m_L×m_L-ctl3", "m_L-ctl1×m_L-ctl3", "w_R×w_R-retake"],
+  "complemento_rotulado": "mesmo gatilho calculado na banda da decisão D3 (500–2000 Hz) para w_R×w_R-retake, para ver se o gatilho na banda útil perde a instabilidade que aparece fora dela"
+ },
+ "descritivo_de_fase": "mediana de |Δfase| entre capturas em 200–2000 Hz para os pares m_L, comparada com 360·f·Δt, Δt = diferença de deriva do manifesto (0,291; 0,345; 0,636 amostras); apenas consistência, sem critério",
+ "relatorio": "para cada D: valores por captura, amplitude, estabilidade; por par: valor do gatilho e se pediria nova captura; tabela gatilho × decisão estável/instável (n pequeno, descritivo)",
+ "limites_declarados": "um carro, uma sessão, 3 + 2 capturas; sem verdade independente; sem deslocamento deliberado do microfone; w_L/m_R sem repetição; D1–D3 são só balanço de nível (não há soma medida no conjunto, então polaridade/atraso/soma prevista não são testáveis aqui); n pequeno demais para estatística",
+ "regras_fixas_antes_do_resultado": "nenhuma regra ajustada depois de ver os números; resultados contrários à expectativa reportados como estão"
+}
