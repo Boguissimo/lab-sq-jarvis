@@ -1,4 +1,15 @@
-# Retomada — JV-V02 (atualizada em 2026-10-15)
+# Retomada — JV-V02 (atualizada em 2026-10-16)
+
+> **Estado em 2026-10-16:** fase `07-implementation`. Tasks JV-T201 a T222 concluídas (fase 0 e bloco 1);
+> suíte com 208 testes passando e 1 `xfail` estrito. Roteiro do G3 do bloco 1 pronto em `COMO-EXPERIMENTAR.md`
+> (JV-T223 aguarda o desenvolvedor). **Antes do G3**, decidir duas divergências registradas em
+> `08-qa/validacao-limiares.md`, sem ajustar limiar (P8):
+> 1. o detector de mudança dá ~10 % de falsos positivos em "só polaridade" a σ = 1,5 dB (SC-208(b) pede zero); com fator 3,5 cai para 2 % e com fator 4 para 0,6 %, e o N3 continua detectado em 100 %;
+> 2. o σ̂ tem 22 de 1 400 realizações fora de "15 % de σ + 0,05 dB", com a média sempre dentro (o SC-208 não diz se o critério vale por realização).
+>
+> Próximo: proposta de emenda (`JV-D`) para essas divergências → G3 do bloco 1 → bloco 2 (JV-T224…).
+> Venv de testes do clone: `.venv` na raiz (criada em 2026-10-15).
+
 
 Branch: `lab-sq-jarvis/003-000-jv-v02-honestidade-e-seguranca` · feature Arkan `003-000-jv-v02-honestidade-e-seguranca` · fase `04-architecture` **concluída** (spec e plano aprovados). Próximo: `/arkan.tasks`.
 `main` contém o JV-V01 completo (commit `389e580`, QA aprovado, G3 cumprido no Windows). Esta branch parte dele.
