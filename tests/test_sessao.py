@@ -420,3 +420,51 @@ def test_sem_dados_nao_e_sem_mudanca(servico, pasta_caso):
     v = c["verificacao_variavel_unica"]
     assert v["vias"] == {"via_a": {"resultado": "nao_verificada"}, "via_b": {"resultado": "nao_verificada"}}
     assert v["aviso"] == "outras alterações não foram verificadas"
+
+
+# --- JV-T220 (FR-208, SC-202): REF-001-B, incerteza e aquisição comparável ---
+
+def test_ref001b(servico):
+    b = _percurso_ate_veredito(servico, _casos.PASTA_DADOS / "REF-001-B")
+    assert b["veredito"] == "confirmada" and b["precedencia_aplicada"] == 4
+    servico2 = Servico(servico.b)
+    a = _percurso_ate_veredito(servico2, _casos.ref001.PASTA_PADRAO)
+    assert b["incerteza_declarada"]["quantificada"] and a["incerteza_declarada"]["quantificada"]
+    assert b["incerteza_declarada"]["sigma_max_db"] > a["incerteza_declarada"]["sigma_max_db"]
+    assert "Incerteza declarada" in b["incerteza"]
+
+
+def _copia_ref001a(tmp_path, alterar):
+    copia = tmp_path / "caso"
+    shutil.copytree(_casos.ref001.PASTA_PADRAO, copia)
+    m = json.loads((copia / "manifesto.json").read_text(encoding="utf-8"))
+    for med in m["medicoes"]:
+        med["suavizacao"] = "nenhuma"
+    alterar(m)
+    (copia / "manifesto.json").write_text(json.dumps(m, ensure_ascii=False), encoding="utf-8")
+    return copia
+
+
+def test_nao_estimavel_limita_veredito(servico, tmp_path):
+    def sem_suavizacao_no_depois(m):
+        del m["medicoes"][3]["suavizacao"]
+        for med in m["medicoes"]:
+            med.update(ganho_entrada_db=0.0, referencia_nivel="94 dB")
+    c = _percurso_ate_veredito(servico, _copia_ref001a(tmp_path, sem_suavizacao_no_depois))
+    assert c["veredito"] == "inconclusiva" and c["precedencia_aplicada"] == 2
+    assert c["incerteza_declarada"]["quantificada"] is False
+
+
+def test_depois_outra_posicao_nao_confirma(servico, tmp_path):
+    def outra_posicao(m):
+        for med in m["medicoes"]:
+            med.update(ganho_entrada_db=0.0, referencia_nivel="94 dB")
+        m["medicoes"][3]["posicao_microfone"] = "P2 — outra posição"
+    c = _percurso_ate_veredito(servico, _copia_ref001a(tmp_path, outra_posicao))
+    assert c["veredito"] == "inconclusiva"
+    assert "Melhora observada, sem confirmação causal" in c["motivo"]
+    # com tudo declarado igual, a mesma cópia externa confirma
+    servico2 = Servico(servico.b)
+    c2 = _percurso_ate_veredito(servico2, _copia_ref001a(tmp_path / "b", lambda m: [
+        med.update(ganho_entrada_db=0.0, referencia_nivel="94 dB") for med in m["medicoes"]]))
+    assert c2["veredito"] == "confirmada"

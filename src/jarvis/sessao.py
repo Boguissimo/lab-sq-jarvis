@@ -537,13 +537,13 @@ class Servico:
             motivo = (f"O resultado não ficou perto o bastante da previsão (RMS {_fmt(r['rms_db'], 2)} dB, "
                       f"máximo {_fmt(r['max_abs_db'], 2)} dB) [{comp['id']}].")
         veredito, motivo, precedencia = self._precedencia(veredito, motivo, verif)
+        incerteza = self._incerteza()
         md = self._medicao("soma", "depois")
         aid = self.b.novo_registro(
             sid, "conclusao", f"Veredito: hipótese {veredito}",
             {"veredito": veredito, "motivo": motivo, "tipo": "conclusão experimental",
              "precedencia_aplicada": precedencia, "verificacao_variavel_unica": verif,
-             "incerteza": ("Caso simulado e ideal, sem ruído: a incerteza é só a do arredondamento dos "
-                           "arquivos (milésimos de dB). Limiares e critério de aceite provisórios."),
+             "incerteza": incerteza["texto"], "incerteza_declarada": incerteza,
              "limite": ("Este resultado vale para o caso simulado. No carro, reflexões, distâncias e a "
                         "resposta real dos alto-falantes mudam o quadro (JV-D025).")},
             origens=[(exp["id"], "experimento"), (comp["id"], "comparação"), (md["id"], "medição depois"),
@@ -631,6 +631,28 @@ class Servico:
         q = calculos.irregularidade(self._resposta(mdp), self._suavizacao(mdp["dados"]))
         verif["qualidade_depois"] = {"classificacao": q["classificacao"], "sigma_db": q["sigma_db"]}
         return verif
+
+    # @@T220 [FR-208] Incerteza declarada calculada de σ̂ (spec E1)
+    def _incerteza(self) -> dict:
+        """Maior σ̂ entre as medições usadas no veredito (vias e somas); não estimável ⇒ "não quantificada"."""
+        usadas = [m for m in (self._medicao("via_a"), self._medicao("via_b"), self._medicao("soma"),
+                              self._medicao("soma", "depois")) if m]
+        sigmas, nao_est = [], []
+        for m in usadas:
+            q = calculos.irregularidade(self._resposta(m), self._suavizacao(m["dados"]))
+            (sigmas.append(q["sigma_db"]) if q["sigma_db"] is not None else nao_est.append(m["id"]))
+        if nao_est:
+            return {"sigma_max_db": None, "quantificada": False, "nao_estimaveis": nao_est,
+                    "texto": "Incerteza não quantificada: ruído não estimável em " + ", ".join(nao_est)
+                             + ". Limiares e critério de aceite provisórios."}
+        smax = max(sigmas)
+        if smax <= 0.05:
+            texto = ("Caso simulado e ideal, sem ruído: a incerteza é só a do arredondamento dos arquivos "
+                     f"(σ̂ máximo {_fmt(smax, 3)} dB). Limiares e critério de aceite provisórios.")
+        else:
+            texto = (f"Incerteza declarada: irregularidade ponto a ponto de até {_fmt(smax, 2)} dB (σ̂) nas medições "
+                     "usadas; diferenças dessa ordem não são significativas. Limiares e critério de aceite provisórios.")
+        return {"sigma_max_db": smax, "quantificada": True, "nao_estimaveis": [], "texto": texto}
 
     # @@T219 [FR-207] [FR-208] Precedência do veredito do teste (spec E1/E3)
     @staticmethod

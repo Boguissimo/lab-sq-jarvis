@@ -78,7 +78,7 @@
   - File: `src/jarvis/sessao.py`
 - [x] JV-T219 [US-03] — `comprometida` com precedência E1 e repetição por aquisições independentes; `verificacao_variavel_unica` gravada (FR-207) (depende de T215, T218). Gate: G1. Evidência: `test_sessao.py::test_n3`, `::test_n3_so_declarada`, `::test_n3_so_medida`, `::test_n3_posicao_diferente_inconclusiva`, `::test_n3_sem_repeticao_inconclusiva`, `::test_reposicionamento_nao_compromete`, `::test_mudanca_reproduzida_nao_nomeia_parametro`, `::test_sem_dados_nao_e_sem_mudanca`, `::test_comprometida_nao_refuta`.
   - File: `src/jarvis/sessao.py`
-- [ ] JV-T220 [US-04] — REF-001-B: incerteza de σ̂ no veredito, aquisição comparável exigida para `confirmada` (FR-208) (depende de T219). Gate: G1. Evidência: `test_sessao.py::test_ref001b`, `::test_nao_estimavel_limita_veredito`, `::test_depois_outra_posicao_nao_confirma`.
+- [x] JV-T220 [US-04] — REF-001-B: incerteza de σ̂ no veredito, aquisição comparável exigida para `confirmada` (FR-208) (depende de T219). Gate: G1. Evidência: `test_sessao.py::test_ref001b`, `::test_nao_estimavel_limita_veredito`, `::test_depois_outra_posicao_nao_confirma`.
   - File: `src/jarvis/sessao.py`
 - [ ] JV-T221 [P] — Varredura SC-208 (a, b): σ̂ e detector; oráculos analíticos e testes metamórficos; relatório marcado "domínio simulado" (depende de T212, T215). Gate: G1/G2. Evidência: `tests/test_validacao_limiares.py`, `tests/test_oraculos.py`, `tests/test_metamorficos.py` → `08-qa/validacao-limiares.md` (parcial).
   - File: `tests/test_validacao_limiares.py`, `tests/test_oraculos.py`, `tests/test_metamorficos.py`
