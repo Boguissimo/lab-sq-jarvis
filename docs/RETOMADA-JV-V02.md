@@ -7,8 +7,8 @@ Branch: `lab-sq-jarvis/003-000-jv-v02-honestidade-e-seguranca` · feature Arkan 
 | Fase | Artefato | Estado |
 | --- | --- | --- |
 | 01 Ideação | `01-discovery/ideacao.md` | **aprovada** (peso Code; superfície crítica: sim) |
-| 03 Spec | `03-spec/spec.md` (FR-201 a FR-222, INV-201 a INV-210, SC-201 a SC-207) | **aprovada** (2026-10-16). Decisões: um incremento em três blocos; arquivo de ajuste do PC-Tool opaco; calibração simulada tipo ATM; SEG-02/07/09 só `não verificável`; `comprometida` por duas vias |
-| 04 Plano | `04-architecture/plan.md`, `data-model.md`, `quickstart.md` (ADR-201 a ADR-210) | rascunho no commit `e2ab7ff`; **não aprovado**: revisão externa pede ajustes |
+| 03 Spec | `03-spec/spec.md` (FR-201 a FR-222, INV-201 a INV-212, SC-201 a SC-208) | **aprovada** (2026-10-15, data local; os commits mostram 16/10 em UTC). Decisões: um incremento em três blocos; arquivo de ajuste do PC-Tool opaco; calibração simulada tipo ATM; SEG-02/07/09 só `não verificável`. **Emenda E1** (revisão externa: σ̂ por segunda diferença, detector de mudança por via, admissibilidade SEG, INV-211/212, reversão documentada, casos-limite da etapa): **aprovada em 2026-10-15 (nível B)** |
+| 04 Plano | `04-architecture/plan.md`, `data-model.md`, `quickstart.md` (ADR-201 a ADR-211) | **revisão R1** (2026-10-15) aplica os 12 itens da revisão e traz matriz de rastreabilidade e critérios de teste; **aprovada em 2026-10-15** |
 | 06 Tasks | — | não iniciada (esperar o plano aprovado) |
 
 Nenhum código do V02 foi escrito. Testes do V01: 45 passando.
@@ -37,9 +37,9 @@ Limiares: continuam provisórios; a revisão pede validação por varredura (val
 Fonte: `docs/revisoes/diretriz-fontes-de-medicao-e-rew.md`. **Não entra no JV-V02.** Pendente: registrar no planejamento evolutivo (proposta: nova decisão `JV-D043`, e nota no feature map para F004/F013/F018) **com aprovação do desenvolvedor**, e identificar interfaces a preparar (por exemplo, campos de origem `SYNTHETIC`/`EXPERIMENTAL`/`CALIBRATED`, calibração de resposta e de SPL, referência temporal, equipamento, posição). Casa com o item 10 da revisão (gerador coerente).
 
 ## 4. Próximos passos (ordem sugerida)
-1. Debater com o desenvolvedor os itens que exigem mudar a spec (3, 7 e, se for o caso, 4, 5, 8, 11). Aplicar via `/arkan.clarify` ou emenda na spec, **com nova aprovação**.
-2. Revisar `plan.md` e `data-model.md` (ADR-202, 204, 205, 207, 208 revistas; 206, 210 ajustadas) e corrigir as datas (item 12).
-3. Entregar: ADRs revisadas, **matriz de rastreabilidade** FR/INV/SC → módulo → teste, e critérios de teste de cada correção. Obter aprovação do plano.
+1. ~~Debater os itens que exigem mudar a spec~~ — feito em 2026-10-15; decisões na Clarification "Emenda E1" da spec.
+2. ~~Revisar `plan.md` e `data-model.md`~~ — revisão R1 feita.
+3. ~~Entregar ADRs revisadas, matriz e critérios~~ — no `plan.md` R1. Aprovados (nível B) em 2026-10-15. Próximo: `/arkan.tasks`.
 4. `/arkan.tasks` (tasks `JV-T201…`, três blocos, ponto G3 por bloco), depois `/arkan.analyze`, implementação, QA.
 5. Registrar a diretriz REW por decisão própria, se aprovado.
 

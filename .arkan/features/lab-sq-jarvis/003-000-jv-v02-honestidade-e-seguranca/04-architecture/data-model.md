@@ -1,25 +1,101 @@
 # Modelo de dados — JV-V02
 
-> Complementa o modelo do JV-V01 (`002-000-jv-v01-primeiro-percurso/04-architecture/plan.md`). Nada do V01 é removido ou renomeado.
+> Complementa o modelo do JV-V01 (`002-000-jv-v01-primeiro-percurso/04-architecture/plan.md`). Nada do V01 é removido, renomeado ou alterado; **nenhum `ALTER TABLE`** em tabelas do V01.
+> **Revisão R1** (2026-10-15): versão legada 0, migração transacional com backup, `aprovacao` com integridade reforçada, gatilho em `configuracao`, interpretação gravada (INV-211) e estruturas da emenda E1.
 
-## Esquema
+## Versões do esquema
 
-`PRAGMA user_version`: **1** (V01) → **2** (V02). A migração é idempotente e não toca em dados existentes (ADR-207).
+| `user_version` | Significado | Ao abrir (ADR-207) |
+| --- | --- | --- |
+| 0, sem tabelas | arquivo novo/vazio | cria o esquema 2 numa transação |
+| 0, impressão digital = V01 | **banco legado do JV-V01** (o V01 não grava `user_version`) | backup consistente → `integrity_check` do backup → migração 0 → 2 em `BEGIN IMMEDIATE … COMMIT` |
+| 2, impressão digital = V02 | atual | abre; nada é alterado (idempotência) |
+| qualquer outro (1, > 2, impressão desconhecida) | não reconhecido | `ErroVersaoBanco`; o arquivo **não** é modificado |
+
+**Impressão digital**: o conjunto (tipo, nome, SQL normalizado) de tabelas e gatilhos em `sqlite_master`, comparado às constantes `ESQUEMA_V01` (cópia literal do V01) e `ESQUEMA_V02`. A leitura é feita numa conexão `mode=ro`.
+
+**Backup**: `jarvis.antes-v02-<AAAAMMDD-HHMMSS>.db` na pasta de dados, gerado por `sqlite3.Connection.backup`. O cofre não é copiado, porque a migração não o toca.
+
+## Tabelas
 
 | Tabela | Mudança | Campos | Regras |
 | --- | --- | --- | --- |
-| `aprovacao` | **nova** | id, sessao, recomendacao (id em `registro`), nivel (`B`), escopo (texto: o quê, canal, quanto), momento | só inserção (gatilho); integridade confere que `recomendacao` existe e é do tipo `recomendacao` |
+| `aprovacao` | **nova** | `id` INTEGER PK; `sessao` INTEGER NOT NULL → `sessao(id)`; `recomendacao` TEXT NOT NULL UNIQUE → `registro(id)`; `nivel` TEXT NOT NULL CHECK (`nivel = 'B'`); `escopo` TEXT NOT NULL (JSON `{canal, parametro, de, para}`); `momento` TEXT NOT NULL; `autor` TEXT NOT NULL DEFAULT 'usuário' | **Só inserção:** gatilhos que recusam UPDATE e DELETE. **Gatilho `BEFORE INSERT`:** recusa se não existe `registro` com `id = NEW.recomendacao`, `tipo = 'recomendacao'` e `sessao = NEW.sessao`. **Serviço:** recusa recomendação não sensível, não admissível ou com escopo diferente da alteração, e `momento` anterior ao `criado_em` da recomendação. **Integridade:** confere tudo isso de novo |
+| `configuracao` | **gatilhos novos** | — | só inserção: gatilhos `so_insercao_configuracao_update`/`_delete`, criados na migração (o V01 nunca altera essa tabela) |
 | `arquivo_original` | uso novo | `tipo = 'ajuste-pctool'` para arquivos de ajuste | já é só inserção |
-| `configuracao` | uso novo | `arquivo_sha256` preenchido quando o nível é `arquivada` | nunca sobrescrita |
-| `registro` | uso novo | `dados` da `recomendacao` ganha `tipo_intervencao` (`teste de diagnóstico` \| `etapa de calibração`), `seguranca.regras[]` com resultado por regra; `dados` da `conclusao` ganha `resultado` (etapa) e `comprometida` como veredito | tipos e derivações do V01 inalterados |
+| `configuracao` | uso novo | `arquivo_sha256` preenchido quando o nível é `arquivada` | — |
+| `sessao` | uso novo | `modo` ganha o valor `etapa-simulada`; `calibracao` continua recusado (V04) | — |
+| `registro` | uso novo | ver estruturas abaixo | tipos e `DERIVACOES_PERMITIDAS` do V01 inalterados |
 
-## Estruturas em `dados` (JSON)
+## Estruturas em `registro.dados` (JSON)
 
-- **Resultado de regra SEG**: `{regra, resultado: aprovada|bloqueada|não verificável, motivo, provisorio: bool, limite?}`.
-- **Etapa de calibração (recomendação)**: `{tipo_intervencao, objetivo: {deficit_max_db, provisorio}, limites_informados: [...], conjunto: [{canal, parametro, de, para}], previsao?, seguranca}`.
-- **Resultado da etapa (conclusão)**: `{resultado: objetivo atingido|parcial|não atingido|inconclusivo, deficit_antes_db, deficit_depois_db, reducao_percentual, nao_verificado: [...], texto}`; nunca contém atribuição a um ajuste isolado.
-- **Manifesto de caso (extensões, todas opcionais)**: `semente`, `ruido_sigma_db`, `tipo_sessao` (`investigacao` \| `etapa_calibracao`), `depois.configuracao_declarada`, medição individual `via_b` com `momento: "depois"`, `referencia_temporal` por medição.
+**Comum a todo `calculo` novo** (ADR-210): `{nome, versao, parametros, limiares: {<nome>: {valor, provisorio}}, entradas: [ids], entradas_sha256: {id: sha256}, resultado}`. Para medição, `entradas_sha256` é o hash do arquivo no cofre; para outros registros, é o SHA-256 do JSON canônico (`sort_keys`, sem espaços) de `dados`.
 
-## Integridade (FR-222)
+| Cálculo (`nome`) | `resultado` |
+| --- | --- |
+| `irregularidade` (uma por medição) | `{sigma_db: float \| null, aplicavel, condicoes: {grade_log_uniforme, pontos_por_oitava, suavizacao: nenhuma\|declarada\|desconhecida}, classificacao: aprovada\|aviso\|reprovada\|nao_estimavel}` |
+| `vales_individuais` (por via) | `{vales: [{freq_hz, profundidade_db, largura_oitava}]}` |
+| `avaliacao_regras` (**INV-211**) | `{versao_regras, portao: {classificacao, conclui: bool, motivo, falta}, sugestao, motivo, hipoteses_ordem: [ids], aviso_referencia?}`; deriva de todos os cálculos que usou |
+| `detector_mudanca` (por via, no "depois") | `{via, condicoes_comparaveis: {ok, diferencas: [...]}, faixa_util_hz: [min, max], media_db, pior_banda: {freq_hz, delta_db}, limiar_bandas_db, resultado: mudanca_detectada\|nao_detectada\|inconclusiva, resolucao: {media_db: 1.0, bandas_db}}` |
+| `deficit_cruzamento` | `{deficit_db (≥ 0), freq_hz, indices}` |
 
-Além das verificações do V01: toda `aprovacao` aponta para uma `recomendacao` existente; toda `conclusao` de etapa aponta para um `experimento` de etapa; toda `configuracao` `arquivada` aponta para um arquivo existente no cofre com hash conferido; nenhum registro de `etapa de calibração` contém veredito de teste, e vice-versa.
+**`recomendacao`**:
+- **Comum:** `{tipo_intervencao: teste de diagnóstico | etapa de calibração, seguranca: {versao_regras_seg: "0.4.0", classe, regras: [ResultadoRegra], admissibilidade: {admissivel, estado: recomendada|bloqueada, motivo, falta: [], nao_verificadas: []}, limitacoes: [...]}, receita: [...] | null, reversao}`.
+- **Alteração bloqueada:** `admissivel: false`, `receita: null`, título "Alteração bloqueada — não recomendada".
+- **Teste:** `variavel`, `hipotese`, `previsao`, `previsao_resumo`, `criterio`, `previsao_registrada_em`. São os mesmos campos do V01; muda só a origem do bloco `seguranca`.
+- **Etapa:** `{objetivo: {deficit_max_db, provisorio}, limites_informados: [...], conjunto: [{canal, parametro, de, para}], deficit_antes: id}`.
+
+**ResultadoRegra**: `{regra, resultado: aprovada|bloqueada|não verificável|não se aplica, motivo, provisorio: bool, limite?, falta?}`.
+
+**`reversao`** (na recomendação e na decisão): `{documentada: bool, modo: arquivo|receita|nenhum, arquivo_sha256?, receita_inversa?, falta: [], confirmacao_fisica: false, aviso}`. Registros do V01 têm `{garantida, receita_inversa, base}`; `garantida: true` é lido como `documentada: true, modo: receita`.
+
+**`conclusao`**:
+- **De teste:** `{veredito: confirmada|refutada|inconclusiva|comprometida, motivo, precedencia_aplicada: 1..4, verificacao_variavel_unica: {configuracao: igual|diferente|nao_declarada, diferencas: [...], vias: {via_a: {resultado | "nao_verificada", detector?: id}, via_b: {...}}, aviso?: "outras alterações não foram verificadas"}, incerteza: {sigma_max_db | "não quantificada"}, limite}`.
+- **De etapa:** `{resultado: objetivo atingido|parcial|não atingido|inconclusivo, precedencia_aplicada: 1..4, deficit_antes_db, deficit_depois_db, reducao_percentual | null, nao_verificado: [{canal, parametro}], verificado: [{canal, parametro, valor, origem: declarado|medição}], texto}`. Nunca contém atribuição a um ajuste isolado nem campo `veredito`.
+
+**`aprovacao.escopo`**: `{canal, parametro, de, para}`, igual à alteração da recomendação.
+
+## Manifesto de caso (extensões, todas opcionais)
+
+- **Caso:** `semente`, `ruido_sigma_db`, `tipo_sessao` (`investigacao` | `etapa-simulada`), `modelo` (parâmetros físicos usados, para auditoria), `depois.configuracao_declarada`.
+- **Por medição:** `suavizacao` (`nenhuma` | texto da suavização declarada), `ganho_entrada_db`, `referencia_nivel`, `posicao_microfone` (já existe), `referencia_temporal` (já existe).
+- **Medições "depois":** `via_a` e `via_b` com `momento: "depois"`.
+
+Regra de ausência:
+- `suavizacao` ausente num caso com `simulado: true` gerado pelo catálogo do Jarvis vale `nenhuma`. Num arquivo externo vale `desconhecida`.
+- `ganho_entrada_db` ou `referencia_nivel` ausentes ⇒ condições não comparáveis para o detector.
+
+## Integridade (FR-222; revisão, item 9)
+
+Além das verificações do V01, `integridade()` confere:
+
+1. **Aprovação**:
+   - aponta para um `registro` existente do tipo `recomendacao`, da mesma sessão, sensível e admissível;
+   - o escopo é igual à alteração da recomendação;
+   - o momento é posterior à recomendação;
+   - não há duas aprovações para a mesma recomendação.
+2. **Configuração**:
+   - `anterior` aponta para uma configuração existente, sem ciclo;
+   - nível `arquivada` ⇒ `arquivo_sha256` existe em `arquivo_original` e confere no cofre;
+   - toda configuração tem ao menos um parâmetro.
+3. **Arquivo de ajuste**: `tipo = 'ajuste-pctool'` existe no cofre com o hash conferido e está ligado a uma configuração.
+4. **Resultados SEG**:
+   - toda `recomendacao` do V02 tem `seguranca.regras` e `admissibilidade`;
+   - recomendação bloqueada não tem receita, nem `experimento` derivado, nem aprovação;
+   - recomendação sensível com `experimento` tem aprovação.
+5. **Etapa × teste**:
+   - nenhum registro de `etapa de calibração` contém `veredito`, e nenhum de teste contém `resultado`;
+   - toda `conclusao` de etapa aponta para um `experimento` de etapa.
+6. **Interpretação**:
+   - toda sessão do V02 com análise tem `avaliacao_regras`;
+   - todo cálculo do V02 tem `entradas_sha256`, e os hashes de medição conferem com o cofre.
+7. **Diário**:
+   - eventos com `sessao` apontam para uma sessão existente;
+   - `id` e `momento` são não decrescentes;
+   - toda sessão `encerrada` tem evento de encerramento.
+
+Cada verificação tem um teste com inconsistência deliberada em `test_integridade.py`. A inconsistência é inserida por SQL direto, com gatilhos ou `foreign_keys` desligados só dentro do teste.
+
+## Legado do V01 (INV-211)
+
+Sessões sem `avaliacao_regras` são do V01. `estado()` reconstrói a análise com `regras_v1_0.py` (cópia congelada), marca "reconstruída pelas regras 1.0" e não exige `entradas_sha256`, `irregularidade` nem `seguranca.admissibilidade`.
