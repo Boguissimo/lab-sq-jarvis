@@ -338,3 +338,85 @@ def test_simulado_declarado_nao_presume(servico, tmp_path):
     meds = servico.b.registros(servico.sessao_id, "medicao")
     assert all(md["dados"]["proveniencia"]["catalogo"] is False for md in meds)
     assert servico.analisar()["portao"]["classificacao"] == "nao_estimavel"
+
+
+# --- JV-T219 (FR-207, INV-202; ADR-208): comprometida com precedência e repetição ---
+
+def _percurso_ate_veredito(servico, pasta):
+    servico.nova_sessao("investigacao")
+    servico.registrar_percepcao("antes", "não aplicável")
+    servico.importar_caso(pasta)
+    analise = servico.analisar()
+    assert analise["sugestao"] == "teste_polaridade", analise["motivo"]
+    servico.propor_teste()
+    servico.registrar_aplicacao()
+    servico.importar_depois()
+    servico.registrar_percepcao("depois", "não aplicável")
+    return servico.concluir()["dados"]
+
+
+def _variante(tmp_path, nome):
+    return _casos.gerar(nome, tmp_path / nome)
+
+
+def test_n3(servico, banco):
+    c = _percurso_ate_veredito(servico, _casos.PASTA_DADOS / "REF-001-N3")
+    assert c["veredito"] == "comprometida" and c["precedencia_aplicada"] == 3
+    assert "Mudança reproduzida no tweeter" in c["motivo"]
+    assert c["verificacao_variavel_unica"]["vias"]["via_b"]["resultado"] == "mudanca_detectada_reproduzida"
+    assert c["verificacao_variavel_unica"]["vias"]["via_a"]["resultado"] == "nao_verificada"
+    assert banco.integridade() == []
+
+
+def test_mudanca_reproduzida_nao_nomeia_parametro(servico, banco):
+    c = _percurso_ate_veredito(servico, _casos.PASTA_DADOS / "REF-001-N3")
+    assert "o parâmetro alterado não é identificado pela medição" in c["motivo"]
+    assert "ganho" not in c["motivo"].lower()
+    det = next(x for x in banco.registros(servico.sessao_id, "calculo") if x["dados"]["nome"] == "detector_mudanca")
+    assert det["dados"]["resultado"]["parametro_identificado"] is False
+    assert len(det["dados"]["resultado"]["depois"]) == 2
+
+
+def test_comprometida_nao_refuta(servico, banco):
+    c = _percurso_ate_veredito(servico, _casos.PASTA_DADOS / "REF-001-N3")
+    assert c["veredito"] == "comprometida"
+    assert "refutada" not in json.dumps(c, ensure_ascii=False)
+    assert "refaça o teste mudando só uma variável" in c["motivo"]
+
+
+def test_n3_so_declarada(servico, tmp_path):
+    c = _percurso_ate_veredito(servico, _variante(tmp_path, "REF-001-N3-so-declarada"))
+    assert c["veredito"] == "comprometida" and c["precedencia_aplicada"] == 1
+    assert "tweeter_esq ganho" in c["motivo"]
+    assert c["verificacao_variavel_unica"]["aviso"] == "outras alterações não foram verificadas"
+
+
+def test_n3_so_medida(servico, tmp_path):
+    c = _percurso_ate_veredito(servico, _variante(tmp_path, "REF-001-N3-so-medida"))
+    assert c["veredito"] == "comprometida" and c["verificacao_variavel_unica"]["configuracao"] == "igual"
+
+
+def test_n3_sem_repeticao_inconclusiva(servico, tmp_path):
+    c = _percurso_ate_veredito(servico, _variante(tmp_path, "REF-001-N3-sem-repeticao"))
+    assert c["veredito"] == "inconclusiva"
+    assert "repita a medição individual" in c["motivo"]
+
+
+def test_n3_posicao_diferente_inconclusiva(servico, tmp_path):
+    c = _percurso_ate_veredito(servico, _variante(tmp_path, "REF-001-N3-posicao-diferente"))
+    assert c["veredito"] != "comprometida" or c["precedencia_aplicada"] == 1
+    assert c["verificacao_variavel_unica"]["vias"]["via_b"]["resultado"] == "verificacao_inconclusiva"
+    assert c["verificacao_variavel_unica"]["aviso"] == "outras alterações não foram verificadas"
+
+
+def test_reposicionamento_nao_compromete(servico, tmp_path):
+    c = _percurso_ate_veredito(servico, _variante(tmp_path, "REF-001-N3-reposicionamento"))
+    assert c["veredito"] != "comprometida"
+
+
+def test_sem_dados_nao_e_sem_mudanca(servico, pasta_caso):
+    c = _percurso_ate_veredito(servico, pasta_caso)
+    assert c["veredito"] == "confirmada"  # REF-001-A continua confirmada (INV-210)
+    v = c["verificacao_variavel_unica"]
+    assert v["vias"] == {"via_a": {"resultado": "nao_verificada"}, "via_b": {"resultado": "nao_verificada"}}
+    assert v["aviso"] == "outras alterações não foram verificadas"

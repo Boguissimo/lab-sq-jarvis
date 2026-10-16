@@ -10,7 +10,7 @@ import hashlib
 import json
 from pathlib import Path
 
-from jarvis import calculos, regras, regras_v1_0, rew_texto
+from jarvis import calculos, limiares, regras, regras_v1_0, rew_texto
 from jarvis.referencia import casos
 from jarvis.persistencia import Banco, agora
 
@@ -440,6 +440,15 @@ class Servico:
                         self.importar_via_depois(pasta / mv["arquivo"], mv)
                     except ErroDoPercurso as erro:
                         recusadas.append({"arquivo": mv["arquivo"], "motivo": str(erro)})
+        conf_depois_id = None
+        if meta.get("arquivo") and mesma_pasta:
+            conf = (json.loads((pasta / "manifesto.json").read_text(encoding="utf-8")).get("depois") or {}) \
+                .get("configuracao_declarada")
+            if conf:
+                anterior = self.b.configuracoes(sid)[-1]
+                conf_depois_id = self.b.nova_configuracao(
+                    sid, conf["nome"], "declarada", [{**p, "origem": "declarado"} for p in conf["parametros"]],
+                    anterior=anterior["id"])
         md = self._medicao("soma", "depois")
         depois = self._resposta(md)
         prev = self.b.registros(sid, "calculo")
@@ -452,6 +461,7 @@ class Servico:
         comp["nivel_vale_depois_db"] = calculos.nivel_em(depois.freq_hz.tolist(), depois.nivel_db.tolist(), f_vale)
         comp["aumento_vale_db"] = comp["nivel_vale_depois_db"] - comp["nivel_vale_antes_db"]
         comp["qualidade_depois_aprovada"] = info["qualidade"]["aprovada"]
+        comp["configuracao_depois_id"] = conf_depois_id
         cid = self._registrar_calculo("comparacao", "Comparação previsto × medido depois", comp,
                                       [prev, md, ms], {"faixa_hz": CRITERIO_ACEITE["faixa_hz"]})
         self.b.diario(sid, "medicao", f"Medição depois importada ({md['id']}); comparação {cid}")
@@ -510,6 +520,7 @@ class Servico:
             raise ErroDoPercurso("Registre a percepção “depois” (ou marque “não aplicável”).")
         r = comp["dados"]["resultado"]
         c = CRITERIO_ACEITE
+        verif = self._verificacao_variavel_unica(exp, r)
         if not r["qualidade_depois_aprovada"]:
             veredito, motivo = "inconclusiva", "A medição “depois” não passou na verificação de qualidade."
         elif r["rms_db"] <= c["rms_max_db"] and r["max_abs_db"] <= c["max_abs_db"] \
@@ -525,18 +536,139 @@ class Servico:
             veredito = "inconclusiva"
             motivo = (f"O resultado não ficou perto o bastante da previsão (RMS {_fmt(r['rms_db'], 2)} dB, "
                       f"máximo {_fmt(r['max_abs_db'], 2)} dB) [{comp['id']}].")
+        veredito, motivo, precedencia = self._precedencia(veredito, motivo, verif)
         md = self._medicao("soma", "depois")
         aid = self.b.novo_registro(
             sid, "conclusao", f"Veredito: hipótese {veredito}",
             {"veredito": veredito, "motivo": motivo, "tipo": "conclusão experimental",
+             "precedencia_aplicada": precedencia, "verificacao_variavel_unica": verif,
              "incerteza": ("Caso simulado e ideal, sem ruído: a incerteza é só a do arredondamento dos "
                            "arquivos (milésimos de dB). Limiares e critério de aceite provisórios."),
              "limite": ("Este resultado vale para o caso simulado. No carro, reflexões, distâncias e a "
                         "resposta real dos alto-falantes mudam o quadro (JV-D025).")},
             origens=[(exp["id"], "experimento"), (comp["id"], "comparação"), (md["id"], "medição depois"),
-                     (pdepois["id"], "percepção depois")])
+                     (pdepois["id"], "percepção depois"),
+                     *[(cid, "verificação da variável única") for cid in verif["calculos"]]])
         self.b.diario(sid, "conclusao", f"Veredito {veredito} ({aid})")
         return self.estado()["conclusao"]
+
+    # @@T219 [FR-207] [INV-202] Verificação da variável única por via (ADR-208; spec E1/E3)
+    def _verificacao_variavel_unica(self, exp: dict, comp: dict) -> dict:
+        """(a) configuração declarada "depois" contra a proposta; (b) detector de mudança por via.
+
+        Grava um cálculo ``detector_mudanca`` por via com medição individual "depois". A mudança só é
+        **confirmada** quando reproduzida por duas aquisições independentes; mesmo assim, o parâmetro
+        alterado não é identificado pela medição.
+        """
+        sid = self.sessao_id
+        variavel = exp["dados"]["variavel"]
+        configs = {c["id"]: c for c in self.b.configuracoes(sid)}
+        conf_depois_id = comp.get("configuracao_depois_id")
+        if conf_depois_id:
+            declarada = configs[conf_depois_id]
+            proposta = configs[declarada["anterior"]]
+            pd = {(p["canal"], p["parametro"]): p["valor"] for p in proposta["parametros"]}
+            dd = {(p["canal"], p["parametro"]): p["valor"] for p in declarada["parametros"]}
+            diferencas = [{"canal": k[0], "parametro": k[1], "proposto": pd.get(k), "declarado": dd.get(k)}
+                          for k in sorted(set(pd) | set(dd)) if pd.get(k) != dd.get(k)]
+            situacao_conf = "diferente" if diferencas else "igual"
+        else:
+            diferencas, situacao_conf = [], "nao_declarada"
+        vias, calcs = {}, []
+        for via in ("via_a", "via_b"):
+            antes = self._medicao(via)
+            depois = self._medicoes(via, "depois")
+            if not antes or not depois:
+                vias[via] = {"resultado": "nao_verificada"}
+                continue
+            ra = self._resposta(antes)
+            sa = calculos.irregularidade(ra, self._suavizacao(antes["dados"]))["sigma_db"]
+            faixa = calculos.faixa_util(ra)
+            dets = []
+            for md in depois:
+                rd = self._resposta(md)
+                sd = calculos.irregularidade(rd, self._suavizacao(md["dados"]))["sigma_db"]
+                cat = bool((antes["dados"].get("proveniencia") or {}).get("catalogo")
+                           and (md["dados"].get("proveniencia") or {}).get("catalogo"))
+                comparaveis = calculos.condicoes_comparaveis(antes["dados"], md["dados"], catalogo=cat)
+                dets.append({"medicao": md["id"],
+                             **calculos.detector_mudanca_via(ra, rd, sa, sd, faixa, comparaveis)})
+            detectadas = [d for d in dets if d["resultado"] == "mudanca_detectada"]
+            reproduzida = False
+            if len(detectadas) >= 2:
+                d1, d2 = detectadas[0], detectadas[1]
+                x1 = d1["pior_banda"]["delta_db"] if d1["pior_banda"] else d1["media_db"]
+                x2 = d2["pior_banda"]["delta_db"] if d2["pior_banda"] else d2["media_db"]
+                tol = max(d1["limiar_bandas_db"] or 0.0, d2["limiar_bandas_db"] or 0.0,
+                          limiares.valor("detector_banda_db"))
+                reproduzida = (x1 * x2 > 0) and abs(x1 - x2) <= tol
+            if any(d["resultado"] == "inconclusiva" for d in dets):
+                resultado = "verificacao_inconclusiva"
+            elif reproduzida:
+                resultado = "mudanca_detectada_reproduzida"
+            elif detectadas:
+                resultado = "mudanca_detectada_indicativa"
+            else:
+                resultado = "mudanca_nao_detectada"
+            faixa_mud = next((d["faixa_mudanca_hz"] for d in detectadas if d.get("faixa_mudanca_hz")), None)
+            dados_det = {"via": via, "depois": [d["medicao"] for d in dets], "deteccoes": dets,
+                         "reproduzida": reproduzida, "parametro_identificado": False, "resultado": resultado,
+                         "faixa_mudanca_hz": faixa_mud}
+            cid = self._registrar_calculo("detector_mudanca", f"Detector de mudança da via ({via})", dados_det,
+                                          [antes, *depois], limiares=dets[0]["limiares"])
+            calcs.append(cid)
+            vias[via] = {"resultado": resultado, "detector": cid, "faixa_mudanca_hz": faixa_mud,
+                         "resolucao": dets[0].get("resolucao")}
+        verif = {"configuracao": situacao_conf, "diferencas": diferencas, "vias": vias, "calculos": calcs,
+                 "variavel": variavel}
+        if any(v["resultado"] in ("nao_verificada", "verificacao_inconclusiva") for v in vias.values()):
+            verif["aviso"] = "outras alterações não foram verificadas"
+        # somas "antes" e "depois" com condições de aquisição comparáveis declaradas (E3)
+        ms, mdp = self._medicao("soma"), self._medicao("soma", "depois")
+        cat = bool((ms["dados"].get("proveniencia") or {}).get("catalogo")
+                   and (mdp["dados"].get("proveniencia") or {}).get("catalogo"))
+        verif["somas_comparaveis"] = calculos.condicoes_comparaveis(ms["dados"], mdp["dados"], catalogo=cat)
+        q = calculos.irregularidade(self._resposta(mdp), self._suavizacao(mdp["dados"]))
+        verif["qualidade_depois"] = {"classificacao": q["classificacao"], "sigma_db": q["sigma_db"]}
+        return verif
+
+    # @@T219 [FR-207] [FR-208] Precedência do veredito do teste (spec E1/E3)
+    @staticmethod
+    def _precedencia(veredito: str, motivo: str, verif: dict) -> tuple[str, str, int]:
+        rotulos = {"via_a": "médio", "via_b": "tweeter"}
+        if verif["configuracao"] == "diferente":
+            outras = [d for d in verif["diferencas"] if not (d["canal"] == verif["variavel"]["canal"]
+                                                             and d["parametro"] == verif["variavel"]["parametro"])]
+            if outras:
+                lista = "; ".join(f"{d['canal']} {d['parametro']}: proposto {d['proposto'] or '—'}, "
+                                  f"declarado {d['declarado'] or '—'}" for d in outras)
+                return ("comprometida", "A configuração declarada depois difere da proposta além da variável "
+                        f"testada ({lista}). A hipótese não foi confirmada nem refutada: refaça o teste mudando "
+                        "só uma variável.", 1)
+        qd = verif.get("qualidade_depois", {}).get("classificacao")
+        def teto(texto, nivel):
+            if veredito == "inconclusiva":
+                return veredito, motivo + " " + texto, nivel
+            return "inconclusiva", texto, nivel
+        if qd in ("reprovada", "nao_estimavel"):
+            return teto("A qualidade da medição “depois” não permite concluir (irregularidade "
+                        + ("acima do limite" if qd == "reprovada" else "não estimável") + "): no máximo inconclusiva.", 2)
+        tipo_sem_magnitude = verif["variavel"].get("parametro") in ("polaridade", "atraso")
+        reproduzidas = [v for v, d in verif["vias"].items() if d["resultado"] == "mudanca_detectada_reproduzida"]
+        if reproduzidas and tipo_sem_magnitude:
+            v = reproduzidas[0]
+            fx = verif["vias"][v].get("faixa_mudanca_hz")
+            faixa = f"{_fmt(fx[0], 0)} Hz a {_fmt(fx[1], 0)} Hz" if fx else "faixa útil"
+            return ("comprometida", f"Mudança reproduzida no {rotulos[v]}, na faixa {faixa}; o parâmetro alterado "
+                    "não é identificado pela medição. A variável testada não muda a magnitude da via isolada, "
+                    "então houve outra alteração: refaça o teste mudando só uma variável.", 3)
+        if any(d["resultado"] == "mudanca_detectada_indicativa" for d in verif["vias"].values()):
+            return teto("Possível alteração além da variável testada; repita a medição individual “depois” "
+                        "(retire e recoloque o microfone na mesma posição).", 3)
+        if not verif.get("somas_comparaveis", {}).get("ok", True):
+            return teto("Melhora observada, sem confirmação causal: as somas “antes” e “depois” não têm "
+                        "condições de aquisição comparáveis declaradas (posição, ganho de entrada, referência de nível).", 3)
+        return veredito, motivo, 4
 
     def decidir(self, escolha: str) -> dict:
         sid = self._exigir_sessao()
