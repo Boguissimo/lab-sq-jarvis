@@ -18,7 +18,7 @@
 
 - [x] JV-T201 [P] — Limiares do V02 centralizados: `{valor, unidade, provisorio, origem}`, incluindo as amostras mínimas da ADR-212 (ADR-211). Gate: G1. Evidência: `tests/test_limiares.py` (todo limiar tem origem e rótulo provisório).
   - File: `src/jarvis/limiares.py`
-- [ ] JV-T202 — A04: portão básico obrigatório em `Servico.analisar`; amostras mínimas em `diferenca_fase` e `sobreposicao` (fase e atraso "não calculáveis", sem `RankWarning`) (depende de T201). Gate: G1. Evidência: `test_sessao.py::test_qualidade_basica_reprovada_bloqueia`, `test_calculos.py::test_sobreposicao_insuficiente`.
+- [x] JV-T202 — A04: portão básico obrigatório em `Servico.analisar`; amostras mínimas em `diferenca_fase` e `sobreposicao` (fase e atraso "não calculáveis", sem `RankWarning`) (depende de T201). Gate: G1. Evidência: `test_sessao.py::test_qualidade_basica_reprovada_bloqueia`, `test_calculos.py::test_sobreposicao_insuficiente`.
   - File: `src/jarvis/calculos.py`, `src/jarvis/sessao.py`
 - [ ] JV-T203 [P] — A02: `referencia_temporal` 1.1 exige `tipo` ≠ `nenhuma`, `id`, `taxa_amostragem`, `posicao_microfone`; devolve `{compativel, declarada: true, motivos}` (FR-205). Gate: G1. Evidência: `test_calculos.py::test_referencia_campos_ausentes`.
   - File: `src/jarvis/calculos.py`

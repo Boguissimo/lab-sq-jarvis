@@ -133,3 +133,19 @@ def test_sessao_encerrada_nao_aceita_alteracao(servico, pasta_caso):
 def test_modo_calibracao_ainda_nao_disponivel(servico):
     with pytest.raises(ErroDoPercurso, match="JV-V04"):
         servico.nova_sessao("calibracao")
+
+
+# --- JV-T202 (ADR-212, A04): portão básico obrigatório ---
+
+def test_qualidade_basica_reprovada_bloqueia(servico, pasta_caso, tmp_path, banco):
+    copia = tmp_path / "caso"
+    shutil.copytree(pasta_caso, copia)
+    arq = copia / "tweeter.txt"
+    linhas = arq.read_text(encoding="utf-8").splitlines()
+    mantidas = [l for l in linhas if l.startswith("*") or float(l.split()[0]) <= 5000.0]
+    arq.write_text("\n".join(mantidas) + "\n", encoding="utf-8")
+    servico.nova_sessao("investigacao")
+    servico.importar_caso(copia)
+    with pytest.raises(ErroDoPercurso, match="verificação básica de qualidade reprovou.*cobre 200 Hz a 10000 Hz"):
+        servico.analisar()
+    assert servico.estado()["analise"] is None

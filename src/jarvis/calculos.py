@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import numpy as np
 
+from jarvis import limiares
 from jarvis.rew_texto import RespostaFrequencia
 
 VERSOES = {
@@ -20,8 +21,8 @@ VERSOES = {
     "referencia_temporal": "1.0",
     "soma_complexa": "1.0",
     "soma_potencias": "1.0",
-    "sobreposicao": "1.0",
-    "diferenca_fase": "1.0",
+    "sobreposicao": "1.1",    # JV-T202: pontos e largura em oitavas
+    "diferenca_fase": "1.1",  # JV-T202: amostras mínimas (ADR-212, A04)
     "vale_relativo": "1.0",
     "comparacao": "1.0",
 }
@@ -122,7 +123,30 @@ def sobreposicao(a: RespostaFrequencia, b: RespostaFrequencia, max_diferenca_db:
         "nivel_a_no_cruzamento_db": float(a.nivel_db[i_cruz]),
         "nivel_b_no_cruzamento_db": float(b.nivel_db[i_cruz]),
         "indices": np.flatnonzero(mascara).tolist(),
+        "pontos": int(mascara.sum()),
+        "largura_oitavas": float(np.log2(f.max() / f.min())),
     }
+
+
+# @@T202 [FR-205] Amostras mínimas para fase e atraso (ADR-212, A04)
+def amostras_fase_suficientes(a: RespostaFrequencia, indices: list[int]) -> dict:
+    """Confere se a sobreposição tem pontos e largura suficientes para estimar fase e atraso.
+
+    Abaixo do mínimo, a regressão do atraso é degenerada (um ponto dá atraso 0); fase e atraso
+    ficam “não calculáveis” em vez de produzir um número sem sentido.
+    """
+    pontos_min = int(limiares.valor("fase_pontos_min"))
+    largura_min = limiares.valor("sobreposicao_largura_min_oitava")
+    idx = np.asarray(indices, dtype=int)
+    pontos = int(idx.size)
+    largura = float(np.log2(a.freq_hz[idx].max() / a.freq_hz[idx].min())) if pontos else 0.0
+    motivos = []
+    if pontos < pontos_min:
+        motivos.append(f"a sobreposição tem {pontos} ponto(s); são necessários pelo menos {pontos_min}")
+    if largura < largura_min - 1e-9:
+        motivos.append(f"a sobreposição cobre {largura:.2f} oitava; é necessário pelo menos 1/3 de oitava")
+    return {"suficiente": not motivos, "pontos": pontos, "largura_oitavas": largura, "motivos": motivos,
+            "limiares": limiares.snapshot("fase_pontos_min", "sobreposicao_largura_min_oitava")}
 
 
 def diferenca_fase(a: RespostaFrequencia, b: RespostaFrequencia, indices: list[int]) -> dict:
@@ -132,6 +156,9 @@ def diferenca_fase(a: RespostaFrequencia, b: RespostaFrequencia, indices: list[i
     diferença crescer com a frequência (360° × f × atraso). O atraso equivalente é a inclinação da
     diferença desdobrada em função da frequência.
     """
+    amostras = amostras_fase_suficientes(a, indices)
+    if not amostras["suficiente"]:
+        return {"calculavel": False, "motivos": amostras["motivos"], "amostras": amostras}
     idx = np.asarray(indices, dtype=int)
     d = _reduzir_graus(a.fase_graus[idx] - b.fase_graus[idx])
     vetor = np.exp(1j * np.deg2rad(d))
@@ -142,6 +169,7 @@ def diferenca_fase(a: RespostaFrequencia, b: RespostaFrequencia, indices: list[i
     inclinacao = np.polyfit(a.freq_hz[idx], desdobrada, 1)[0]  # rad por Hz
     atraso_ms = float(inclinacao / (2.0 * np.pi) * 1000.0)  # positivo: B chega depois de A
     return {
+        "calculavel": True,
         "media_graus": float(_reduzir_graus(np.array([np.rad2deg(np.angle(media))]))[0]),
         "dispersao_graus": dispersao,
         "atraso_equivalente_ms": atraso_ms,

@@ -96,3 +96,28 @@ def test_reprodutivel():
     f, lp, hp = _vias()
     a, b = _resp(f, lp), _resp(f, -hp)
     assert calculos.soma_complexa(a, b) == calculos.soma_complexa(a, b)
+
+
+# --- JV-T202 (ADR-212, A04): amostras mínimas para fase e atraso ---
+
+def test_sobreposicao_insuficiente():
+    import warnings
+    f, lp, hp = _vias()
+    a, b = _resp(f, lp), _resp(f, hp, atraso_s=1e-4)
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")  # nenhum RankWarning nem outro aviso numérico
+        um_ponto = calculos.diferenca_fase(a, b, [int(np.argmin(np.abs(f - 3000.0)))])
+        assert um_ponto["calculavel"] is False
+        assert "atraso_equivalente_ms" not in um_ponto
+        i = int(np.argmin(np.abs(f - 3000.0)))
+        estreita = calculos.diferenca_fase(a, b, list(range(i, i + 9)))  # 9 pontos, < 1/3 de oitava
+        assert estreita["calculavel"] is False
+        assert any("oitava" in m for m in estreita["motivos"])
+
+
+def test_sobreposicao_suficiente_calcula():
+    f, lp, hp = _vias()
+    sob = calculos.sobreposicao(_resp(f, lp), _resp(f, hp), 6.0)
+    assert sob["pontos"] >= 8 and sob["largura_oitavas"] >= 1 / 3
+    d = calculos.diferenca_fase(_resp(f, lp), _resp(f, hp), sob["indices"])
+    assert d["calculavel"] is True

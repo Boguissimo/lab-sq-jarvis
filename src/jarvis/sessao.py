@@ -153,6 +153,18 @@ class Servico:
         if not (ma and mb and ms):
             raise ErroDoPercurso("Faltam medições: são necessárias as duas vias e a soma.")
         a, bb, s = self._resposta(ma), self._resposta(mb), self._resposta(ms)
+        # @@T202 [FR-203] Portão básico obrigatório (ADR-212, A04)
+        reprovadas = []
+        for m, r in ((ma, a), (mb, bb), (ms, s)):
+            q = calculos.qualidade_basica(r)
+            if not q["aprovada"]:
+                falhas = ", ".join(i["item"] for i in q["itens"] if not i["ok"] and i["item"] != "contém fase")
+                reprovadas.append(f"{m['dados'].get('descricao', m['id'])} ({m['id']}): falhou em {falhas}")
+        if reprovadas:
+            raise ErroDoPercurso("Não dá para analisar: a verificação básica de qualidade reprovou "
+                                 + "; ".join(reprovadas) + ". Refaça a medição cobrindo "
+                                 f"{calculos.FAIXA_MINIMA_HZ[0]:.0f} Hz a {calculos.FAIXA_MINIMA_HZ[1]:.0f} Hz "
+                                 "com valores válidos.")
         if not (calculos.mesma_grade(a, bb) and calculos.mesma_grade(a, s)):
             raise ErroDoPercurso("As medições não usam a mesma grade de frequências; "
                                  "exporte-as do REW com a mesma resolução.")
@@ -188,6 +200,8 @@ class Servico:
             ids["fase"] = self._registrar_calculo(
                 "diferenca_fase", "Diferença de fase entre as vias", fase, [ma, mb])
 
+        if fase is not None and not fase["calculavel"]:
+            fase = None
         resultado = regras.avaliar(sob, vale, fase, ids)
         if not ref["compativel"]:
             resultado["aviso_referencia"] = (
@@ -480,10 +494,17 @@ class Servico:
         if "referencia_temporal" in calcs:
             vale = calcs.get("vale_relativo")
             fase = calcs.get("diferenca_fase")
+            if fase and not fase["dados"]["resultado"].get("calculavel", True):
+                analise_fase_motivos = fase["dados"]["resultado"]["motivos"]
+                fase = None
+                ids_sem_fase = True
+            else:
+                analise_fase_motivos, ids_sem_fase = None, False
             sob = calcs["sobreposicao"]["dados"]["resultado"]
             ids = {k: calcs[n]["id"] for k, n in [("vale", "vale_relativo"), ("fase", "diferenca_fase"),
                                                    ("potencias", "soma_potencias"),
-                                                   ("sobreposicao", "sobreposicao")] if n in calcs}
+                                                   ("sobreposicao", "sobreposicao")]
+                   if n in calcs and not (ids_sem_fase and n == "diferenca_fase")}
             avaliacao = regras.avaliar(sob, vale["dados"]["resultado"] if vale else None,
                                        fase["dados"]["resultado"] if fase else None, ids)
             ref = calcs["referencia_temporal"]["dados"]["resultado"]
@@ -494,6 +515,9 @@ class Servico:
                 "fase": fase["dados"]["resultado"] if fase else None,
                 "ids": ids,
             }
+            if analise_fase_motivos:
+                analise["aviso_fase"] = ("Fase e atraso entre as vias não calculáveis: "
+                                         + "; ".join(analise_fase_motivos) + ".")
             if not ref["compativel"]:
                 analise["aviso_referencia"] = (
                     "Sem referência temporal compatível (" + "; ".join(ref["motivos"]) + "): a fase "
