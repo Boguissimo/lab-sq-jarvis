@@ -25,6 +25,7 @@ VERSOES = {
     "diferenca_fase": "1.1",  # JV-T202: amostras mínimas (ADR-212, A04)
     "vale_relativo": "1.0",
     "comparacao": "1.0",
+    "irregularidade": "1.0",  # JV-T212 (E1)
 }
 
 FAIXA_MINIMA_HZ = (200.0, 10_000.0)  # faixa que a análise do cruzamento precisa cobrir
@@ -228,3 +229,59 @@ def comparacao(previsto: dict, medido: RespostaFrequencia, faixa_hz: tuple[float
         "pontos": int(banda.sum()),
         "medido_na_grade_db": med.tolist(),
     }
+
+
+# @@T212 [FR-202] [INV-212] Irregularidade ponto a ponto σ̂ (ADR-202; spec E1)
+def irregularidade(r: RespostaFrequencia, suavizacao: str | None) -> dict:
+    """σ̂ = 1,4826 · MAD(Δ²L) / √6 entre 200 Hz e 10 kHz, com as condições de aplicação.
+
+    σ̂ é uma estimativa normalizada de irregularidade fina, **não** uma medição direta de ruído:
+    supõe ruído independente entre pontos e não enxerga ruído correlacionado ou removido por
+    suavização. Com qualquer condição falhando, o resultado é ``nao_estimavel``, que **não** é
+    qualidade aprovada (INV-212) e preserva as observações descritivas (E2).
+
+    ``suavizacao``: ``"nenhuma"``, o texto da suavização declarada, ou ``None`` (desconhecida).
+    """
+    tol = limiares.valor("irregularidade_tolerancia_grade")
+    ppo_min = limiares.valor("irregularidade_pontos_por_oitava_min")
+    f_min, f_max = limiares.valor("faixa_analise_min_hz"), limiares.valor("faixa_analise_max_hz")
+    f = r.freq_hz
+    razoes = f[1:] / f[:-1] if f.size > 1 else np.array([1.0])
+    razao = float(np.median(razoes))
+    grade_log = bool(razao > 1.0 and np.all(np.abs(razoes / razao - 1.0) <= tol))
+    ppo = float(1.0 / np.log2(razao)) if razao > 1.0 else 0.0
+    if suavizacao is None or not str(suavizacao).strip():
+        estado_suav = "desconhecida"
+    elif str(suavizacao).strip().lower() == "nenhuma":
+        estado_suav = "nenhuma"
+    else:
+        estado_suav = "declarada"
+    condicoes = {"grade_log_uniforme": grade_log, "pontos_por_oitava": round(ppo, 3),
+                 "densidade_suficiente": ppo >= ppo_min, "suavizacao": estado_suav}
+    aplicavel = grade_log and ppo >= ppo_min and estado_suav == "nenhuma"
+    faixa = (f >= f_min) & (f <= f_max)
+    snapshot = limiares.snapshot("irregularidade_aviso_db", "irregularidade_reprovada_db",
+                                 "irregularidade_pontos_por_oitava_min", "irregularidade_tolerancia_grade")
+    if not aplicavel or faixa.sum() < 3:
+        motivos = []
+        if not grade_log:
+            motivos.append("a grade de frequências não é logarítmica uniforme")
+        if ppo < ppo_min:
+            motivos.append(f"densidade de {ppo:.1f} pontos por oitava (mínimo {ppo_min})")
+        if estado_suav != "nenhuma":
+            motivos.append("suavização " + ("declarada" if estado_suav == "declarada" else "desconhecida"))
+        if aplicavel:
+            motivos.append("pontos insuficientes entre 200 Hz e 10 kHz")
+        return {"sigma_db": None, "aplicavel": False, "condicoes": condicoes,
+                "classificacao": "nao_estimavel", "motivos": motivos, "limiares": snapshot}
+    d2 = np.diff(r.nivel_db[faixa], n=2)
+    mad = float(np.median(np.abs(d2 - np.median(d2))))
+    sigma = 1.4826 * mad / np.sqrt(6.0)
+    if sigma > limiares.valor("irregularidade_reprovada_db"):
+        classe = "reprovada"
+    elif sigma >= limiares.valor("irregularidade_aviso_db"):
+        classe = "aviso"
+    else:
+        classe = "aprovada"
+    return {"sigma_db": float(sigma), "aplicavel": True, "condicoes": condicoes,
+            "classificacao": classe, "motivos": [], "limiares": snapshot}

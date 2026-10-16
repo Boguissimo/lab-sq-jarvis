@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from jarvis import calculos
+from jarvis import calculos, rew_texto
 from jarvis.referencia import ref001
 from jarvis.rew_texto import RespostaFrequencia
 
@@ -149,3 +149,82 @@ def test_referencia_vazia_e_sem_manifesto():
     ok = {**base, "referencia_temporal": {"tipo": "loopback", "id": "x"}}
     r = calculos.referencia_temporal([ok, ok])
     assert r == {"compativel": True, "declarada": True, "motivos": []}
+
+
+# --- JV-T212 (ADR-202; critério 3 do plano): irregularidade σ̂ ---
+
+from jarvis.referencia import modelo  # noqa: E402
+
+_F = modelo.grade_log()
+_BASE_A = {"filtros": [{"tipo": "lr4_pb", "fc_hz": 3000.0}]}
+_BASE_B = {"filtros": [{"tipo": "lr4_pa", "fc_hz": 3000.0}], "polaridade_fiacao": -1}
+
+
+def _cenarios_sem_ruido():
+    ha, hb = modelo.resposta_via(_BASE_A, _F), modelo.resposta_via(_BASE_B, _F)
+    yield "REF-001-A medio", ha
+    yield "REF-001-A tweeter", hb
+    yield "REF-001-A soma (cancelamento)", ha + hb
+    yield "REF-001-A soma corrigida", ha - hb
+    for g in (0.3, 0.6, 0.9):
+        yield f"reflexão g={g}", modelo.resposta_via({**_BASE_A, "reflexoes": [{"g": g, "tau_ms": 0.4}]}, _F)
+
+
+def test_irregularidade_sem_ruido_quase_zero():
+    for nome, h in _cenarios_sem_ruido():
+        r = calculos.irregularidade(modelo.adquirir(h, _F), "nenhuma")
+        assert r["aplicavel"] and r["sigma_db"] <= 0.05, (nome, r["sigma_db"])
+        assert r["classificacao"] == "aprovada"
+
+
+def test_ref001a_distribuido_aprovado():
+    for nome in ("medio.txt", "tweeter.txt", "soma-antes.txt", "soma-depois.txt"):
+        r = calculos.irregularidade(rew_texto.ler(ref001.PASTA_PADRAO / nome), "nenhuma")
+        assert r["sigma_db"] <= 0.05, nome
+
+
+@pytest.mark.parametrize("sigma", [0.3, 0.5, 1.0, 1.5, 2.0])
+def test_irregularidade_ruido_conhecido(sigma):
+    for semente, (nome, h) in enumerate(_cenarios_sem_ruido()):
+        r = calculos.irregularidade(modelo.adquirir(h, _F, {"ruido_sigma_db": sigma}, semente=100 + semente),
+                                    "nenhuma")
+        assert abs(r["sigma_db"] - sigma) <= 0.15 * sigma + 0.05, (nome, sigma, r["sigma_db"])
+
+
+def test_irregularidade_nao_confunde_vale():
+    """Vale estreito ou cancelamento profundo sem ruído não reprova; com ruído, σ̂ mede o ruído."""
+    vale = modelo.resposta_via({**_BASE_B, "reflexoes": [{"g": 0.9, "tau_ms": 0.125}]}, _F)
+    assert calculos.irregularidade(modelo.adquirir(vale, _F), "nenhuma")["classificacao"] == "aprovada"
+    r = calculos.irregularidade(modelo.adquirir(vale, _F, {"ruido_sigma_db": 0.3}, semente=5), "nenhuma")
+    assert r["classificacao"] == "aprovada"
+
+
+def test_classificacao_pelos_limiares():
+    h = modelo.resposta_via(_BASE_A, _F)
+    classes = {s: calculos.irregularidade(modelo.adquirir(h, _F, {"ruido_sigma_db": s}, semente=9), "nenhuma")
+               ["classificacao"] for s in (0.2, 1.0, 2.5)}
+    assert classes == {0.2: "aprovada", 1.0: "aviso", 2.5: "reprovada"}
+
+
+def test_condicoes_aplicacao():
+    h = modelo.resposta_via(_BASE_A, _F)
+    r = modelo.adquirir(h, _F)
+    assert calculos.irregularidade(r, "nenhuma")["condicoes"]["pontos_por_oitava"] == pytest.approx(48, abs=0.01)
+    # grade linear
+    f_lin = np.linspace(20, 20000, 1000)
+    lin = modelo.adquirir(modelo.resposta_via(_BASE_A, f_lin), f_lin)
+    assert not calculos.irregularidade(lin, "nenhuma")["condicoes"]["grade_log_uniforme"]
+    # menos de 24 pontos por oitava
+    f_12 = modelo.grade_log(pontos_por_oitava=12)
+    esparsa = modelo.adquirir(modelo.resposta_via(_BASE_A, f_12), f_12)
+    assert not calculos.irregularidade(esparsa, "nenhuma")["condicoes"]["densidade_suficiente"]
+    for res in (lin, esparsa):
+        assert calculos.irregularidade(res, "nenhuma")["classificacao"] == "nao_estimavel"
+
+
+@pytest.mark.parametrize("suavizacao", [None, "", "1/6 oitava", "psicoacústica"])
+def test_nao_estimavel_nao_aprova(suavizacao):
+    h = modelo.resposta_via(_BASE_A, _F)
+    r = calculos.irregularidade(modelo.adquirir(h, _F), suavizacao)
+    assert r["classificacao"] == "nao_estimavel" and r["sigma_db"] is None and not r["aplicavel"]
+    assert r["motivos"]
