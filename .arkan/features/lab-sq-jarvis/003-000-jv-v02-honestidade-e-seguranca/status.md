@@ -1,6 +1,6 @@
 ---
 status: em-desenvolvimento
-fase-atual: 04-architecture
+fase-atual: 06-planning
 projeto: lab-sq-jarvis
 atualizado-em: 2026-10-15
 peso: Code
