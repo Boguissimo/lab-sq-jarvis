@@ -20,7 +20,7 @@
   - File: `src/jarvis/limiares.py`
 - [x] JV-T202 — A04: portão básico obrigatório em `Servico.analisar`; amostras mínimas em `diferenca_fase` e `sobreposicao` (fase e atraso "não calculáveis", sem `RankWarning`) (depende de T201). Gate: G1. Evidência: `test_sessao.py::test_qualidade_basica_reprovada_bloqueia`, `test_calculos.py::test_sobreposicao_insuficiente`.
   - File: `src/jarvis/calculos.py`, `src/jarvis/sessao.py`
-- [ ] JV-T203 [P] — A02: `referencia_temporal` 1.1 exige `tipo` ≠ `nenhuma`, `id`, `taxa_amostragem`, `posicao_microfone`; devolve `{compativel, declarada: true, motivos}` (FR-205). Gate: G1. Evidência: `test_calculos.py::test_referencia_campos_ausentes`.
+- [x] JV-T203 [P] — A02: `referencia_temporal` 1.1 exige `tipo` ≠ `nenhuma`, `id`, `taxa_amostragem`, `posicao_microfone`; devolve `{compativel, declarada: true, motivos}` (FR-205). Gate: G1. Evidência: `test_calculos.py::test_referencia_campos_ausentes`.
   - File: `src/jarvis/calculos.py`
 - [ ] JV-T204 [P] — A06: cofre atômico (`.tmp/<uuid>`, hash, `os.replace`, `INSERT OR IGNORE` sempre) e varredura física em `integridade()`. Gate: G1. Evidência: `test_persistencia.py::test_falha_entre_copia_e_insert_reconcilia`, `::test_orfao_no_cofre_detectado`, `::test_tmp_residual_detectado`.
   - File: `src/jarvis/persistencia.py`

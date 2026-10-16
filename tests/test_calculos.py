@@ -121,3 +121,31 @@ def test_sobreposicao_suficiente_calcula():
     assert sob["pontos"] >= 8 and sob["largura_oitavas"] >= 1 / 3
     d = calculos.diferenca_fase(_resp(f, lp), _resp(f, hp), sob["indices"])
     assert d["calculavel"] is True
+
+
+# --- JV-T203 (ADR-212, A02): referência temporal declarada com campos obrigatórios ---
+
+@pytest.mark.parametrize("remover", ["tipo", "id", "taxa_amostragem", "posicao_microfone"])
+def test_referencia_campos_ausentes(remover):
+    base = {"referencia_temporal": {"tipo": "loopback", "id": "x"}, "taxa_amostragem": 48000,
+            "posicao_microfone": "P1"}
+    falho = {**base, "referencia_temporal": dict(base["referencia_temporal"])}
+    if remover in ("tipo", "id"):
+        del falho["referencia_temporal"][remover]
+    else:
+        del falho[remover]
+    for medicoes in ([base, falho], [falho, falho]):  # ausência igual em todas também não passa
+        r = calculos.referencia_temporal(medicoes)
+        assert r["compativel"] is False
+        assert r["declarada"] is True
+        assert r["motivos"]
+
+
+def test_referencia_vazia_e_sem_manifesto():
+    assert not calculos.referencia_temporal([{}, {}])["compativel"]
+    base = {"referencia_temporal": {"tipo": "loopback", "id": " "}, "taxa_amostragem": 48000,
+            "posicao_microfone": "P1"}
+    assert not calculos.referencia_temporal([base, base])["compativel"]
+    ok = {**base, "referencia_temporal": {"tipo": "loopback", "id": "x"}}
+    r = calculos.referencia_temporal([ok, ok])
+    assert r == {"compativel": True, "declarada": True, "motivos": []}

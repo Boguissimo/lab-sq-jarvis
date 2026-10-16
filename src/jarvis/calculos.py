@@ -18,7 +18,7 @@ from jarvis.rew_texto import RespostaFrequencia
 
 VERSOES = {
     "qualidade_basica": "1.0",
-    "referencia_temporal": "1.0",
+    "referencia_temporal": "1.1",  # JV-T203: campos obrigatórios, declarada (A02)
     "soma_complexa": "1.0",
     "soma_potencias": "1.0",
     "sobreposicao": "1.1",    # JV-T202: pontos e largura em oitavas
@@ -69,26 +69,40 @@ def qualidade_basica(r: RespostaFrequencia) -> dict:
     }
 
 
+# @@T203 [FR-205] Referência temporal declarada com campos obrigatórios (ADR-212, A02)
 def referencia_temporal(metadados: list[dict]) -> dict:
-    """Compatibilidade de referência temporal entre medições (JV-D023).
+    """Compatibilidade **declarada** de referência temporal entre medições (JV-D023; spec E3).
 
-    Compatível quando todas têm o mesmo tipo e identificador de referência (diferente de
-    “nenhuma”), a mesma taxa de amostragem e a mesma posição de microfone.
+    Compatível quando todas as medições têm ``referencia_temporal.tipo`` diferente de “nenhuma”,
+    ``referencia_temporal.id``, ``taxa_amostragem`` e ``posicao_microfone`` presentes, não vazios e
+    iguais entre si. Campo ausente ⇒ incompatível. É igualdade declarada no manifesto, não verificação
+    física: a interface diz “declarada compatível”, nunca “verificada”.
     """
+    def _vazio(v) -> bool:
+        return v is None or (isinstance(v, str) and not v.strip())
+
     motivos = []
+    if not metadados:
+        motivos.append("nenhuma medição informada")
     refs = [m.get("referencia_temporal") or {} for m in metadados]
-    tipos = {r.get("tipo", "nenhuma") for r in refs}
-    if "nenhuma" in tipos or not tipos:
-        motivos.append("há medição sem referência temporal")
-    if len(tipos) > 1:
+    tipos = [r.get("tipo") for r in refs]
+    if any(_vazio(t) or t == "nenhuma" for t in tipos):
+        motivos.append("há medição sem referência temporal declarada")
+    if any(_vazio(r.get("id")) for r in refs):
+        motivos.append("há medição sem identificador da referência temporal")
+    if any(_vazio(m.get("taxa_amostragem")) for m in metadados):
+        motivos.append("há medição sem taxa de amostragem declarada")
+    if any(_vazio(m.get("posicao_microfone")) for m in metadados):
+        motivos.append("há medição sem posição de microfone declarada")
+    if len({t for t in tipos if not _vazio(t) and t != "nenhuma"}) > 1:
         motivos.append("tipos de referência temporal diferentes")
-    if len({r.get("id") for r in refs}) > 1:
+    if len({r.get("id") for r in refs if not _vazio(r.get("id"))}) > 1:
         motivos.append("referências temporais de sessões de medição diferentes")
-    if len({m.get("taxa_amostragem") for m in metadados}) > 1:
+    if len({m.get("taxa_amostragem") for m in metadados if not _vazio(m.get("taxa_amostragem"))}) > 1:
         motivos.append("taxas de amostragem diferentes")
-    if len({m.get("posicao_microfone") for m in metadados}) > 1:
+    if len({m.get("posicao_microfone") for m in metadados if not _vazio(m.get("posicao_microfone"))}) > 1:
         motivos.append("posições de microfone diferentes")
-    return {"compativel": not motivos, "motivos": motivos}
+    return {"compativel": not motivos, "declarada": True, "motivos": motivos}
 
 
 def soma_complexa(a: RespostaFrequencia, b: RespostaFrequencia, inverter_b: bool = False) -> dict:
