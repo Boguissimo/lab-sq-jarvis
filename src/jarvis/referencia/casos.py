@@ -191,10 +191,10 @@ def _ref001b() -> dict:
 
 def _n1() -> dict:
     va = _medio()
-    vb = _tweeter(reflexoes=[{"g": 0.8, "tau_ms": 0.125}])  # vale estreito em 4 kHz só no tweeter
+    vb = _tweeter(reflexoes=[{"g": 0.8, "tau_ms": 0.5}])  # vales estreitos (≈ 5, 7 e 9 kHz) só no tweeter
     vias = {"via_a": va, "via_b": vb}
-    return _caso("REF-001-N1", "Polaridade correta; vale causado por reflexão presente na medição individual do "
-                 "tweeter (4 kHz). O vale não é de polaridade nem equalizável. Simulado.",
+    return _caso("REF-001-N1", "Polaridade correta; vales estreitos causados por reflexão (interferência), presentes na "
+                 "medição individual do tweeter (≈ 5, 7 e 9 kHz). Não são de polaridade nem equalizáveis. Simulado.",
                  vias, None, 0.0, 1200, configuracao=_config_base("Ajuste inicial do caso REF-001-N1 (declarado)"))
 
 

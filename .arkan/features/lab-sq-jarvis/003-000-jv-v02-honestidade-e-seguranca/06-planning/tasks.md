@@ -66,7 +66,7 @@
 **Goal**: N1–N5 e REF-001-B percorridos com conclusões honestas.
 **Independent Test**: `test_sessao.py::test_n1` a `::test_n5`, `::test_ref001b` (SC-201, SC-202).
 
-- [ ] JV-T214 [P] [US-02] — `vales_individuais` e `faixa_util` (FR-204). Gate: G1. Evidência: testes em `test_calculos.py`.
+- [x] JV-T214 [P] [US-02] — `vales_individuais` e `faixa_util` (FR-204). Gate: G1. Evidência: testes em `test_calculos.py`.
   - File: `src/jarvis/calculos.py`
 - [ ] JV-T215 [US-03] — `condicoes_comparaveis` (declarada) e `detector_mudanca_via` com três resultados (FR-207) (depende de T214). Gate: G1. Evidência: `test_calculos.py::test_detector_mudanca` (critério 7).
   - File: `src/jarvis/calculos.py`

@@ -228,3 +228,37 @@ def test_nao_estimavel_nao_aprova(suavizacao):
     r = calculos.irregularidade(modelo.adquirir(h, _F), suavizacao)
     assert r["classificacao"] == "nao_estimavel" and r["sigma_db"] is None and not r["aplicavel"]
     assert r["motivos"]
+
+
+# --- JV-T214 (FR-204, FR-207): vale individual e faixa útil ---
+
+def test_vale_individual_na_via_com_reflexao():
+    from jarvis.referencia import casos
+    tw = rew_texto.ler_texto(casos.conteudo("REF-001-N1")["tweeter.txt"].decode("utf-8"))
+    v = calculos.vales_individuais(tw)
+    assert v["existe"]
+    for vale in v["vales"]:
+        assert 200 <= vale["freq_hz"] <= 10000
+        assert vale["profundidade_db"] >= 10.0 and vale["largura_oitava"] <= 1 / 3
+
+
+@pytest.mark.parametrize("arquivo", ["medio.txt", "tweeter.txt", "soma-depois.txt"])
+def test_sem_vale_individual_nas_vias_limpas(arquivo):
+    assert not calculos.vales_individuais(rew_texto.ler(ref001.PASTA_PADRAO / arquivo))["existe"]
+
+
+def test_vale_largo_nao_e_individual():
+    """Um vale largo (reflexão curta, notch de mais de 1/3 de oitava) não conta como vale individual."""
+    h = modelo.resposta_via({**_BASE_B, "reflexoes": [{"g": 0.8, "tau_ms": 0.125}]}, _F)
+    assert not calculos.vales_individuais(modelo.adquirir(h, _F))["existe"]
+
+
+def test_faixa_util():
+    medio = rew_texto.ler(ref001.PASTA_PADRAO / "medio.txt")
+    idx = calculos.faixa_util(medio)
+    f = medio.freq_hz[idx]
+    assert f.min() >= 200 and f.max() <= 10000
+    teto = medio.nivel_db[(medio.freq_hz >= 200) & (medio.freq_hz <= 10000)].max()
+    assert np.all(medio.nivel_db[idx] >= teto - 20)
+    # o médio cai 24 dB/oitava acima de 3 kHz: a faixa útil termina antes de 10 kHz
+    assert f.max() < 10000

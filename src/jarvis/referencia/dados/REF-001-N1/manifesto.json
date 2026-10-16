@@ -1,7 +1,7 @@
 {
   "caso": "REF-001-N1",
   "simulado": true,
-  "descricao": "Polaridade correta; vale causado por reflexão presente na medição individual do tweeter (4 kHz). O vale não é de polaridade nem equalizável. Simulado.",
+  "descricao": "Polaridade correta; vales estreitos causados por reflexão (interferência), presentes na medição individual do tweeter (≈ 5, 7 e 9 kHz). Não são de polaridade nem equalizáveis. Simulado.",
   "versao_catalogo": "1.0",
   "tipo_sessao": "investigacao",
   "semente": 1200,
@@ -31,7 +31,7 @@
         "reflexoes": [
           {
             "g": 0.8,
-            "tau_ms": 0.125
+            "tau_ms": 0.5
           }
         ]
       }
@@ -59,7 +59,7 @@
         "reflexoes": [
           {
             "g": 0.8,
-            "tau_ms": 0.125
+            "tau_ms": 0.5
           }
         ]
       }

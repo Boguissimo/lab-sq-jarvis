@@ -26,6 +26,8 @@ VERSOES = {
     "vale_relativo": "1.0",
     "comparacao": "1.0",
     "irregularidade": "1.0",  # JV-T212 (E1)
+    "vales_individuais": "1.0",  # JV-T214
+    "faixa_util": "1.0",  # JV-T214
 }
 
 FAIXA_MINIMA_HZ = (200.0, 10_000.0)  # faixa que a análise do cruzamento precisa cobrir
@@ -285,3 +287,57 @@ def irregularidade(r: RespostaFrequencia, suavizacao: str | None) -> dict:
         classe = "aprovada"
     return {"sigma_db": float(sigma), "aplicavel": True, "condicoes": condicoes,
             "classificacao": classe, "motivos": [], "limiares": snapshot}
+
+
+def _janela_pontos(f: np.ndarray, oitavas: float) -> int:
+    """Número de pontos de uma janela de ``oitavas`` numa grade logarítmica (ímpar, ≥ 3)."""
+    razao = float(np.median(f[1:] / f[:-1]))
+    n = int(round(oitavas / np.log2(razao))) if razao > 1.0 else 3
+    return max(3, n | 1)
+
+
+# @@T214 [FR-204] Vale individual por via (spec, definição "Vale individual")
+def vales_individuais(r: RespostaFrequencia) -> dict:
+    """Vales estreitos de uma via entre 200 Hz e 10 kHz.
+
+    Vale individual: nível ≥ 10 dB abaixo da média móvel de 1/3 de oitava (em dB, centrada), com
+    largura ≤ 1/3 de oitava; a largura é a extensão contínua em que o nível fica ≥ 10 dB abaixo da média.
+    Um vale presente na via isolada não vem da soma entre as vias (I-3).
+    """
+    prof = limiares.valor("vale_individual_profundidade_db")
+    larg_max = limiares.valor("vale_individual_largura_max_oitava")
+    f_min, f_max = limiares.valor("faixa_analise_min_hz"), limiares.valor("faixa_analise_max_hz")
+    f, nivel = r.freq_hz, r.nivel_db
+    n = _janela_pontos(f, 1.0 / 3.0)
+    meio = n // 2
+    padded = np.pad(nivel, meio, mode="edge")
+    media = np.convolve(padded, np.ones(n) / n, mode="valid")
+    abaixo = (nivel - media <= -prof) & (f >= f_min) & (f <= f_max)
+    vales = []
+    i = 0
+    while i < f.size:
+        if not abaixo[i]:
+            i += 1
+            continue
+        j = i
+        while j + 1 < f.size and abaixo[j + 1]:
+            j += 1
+        k = i + int(np.argmin(nivel[i:j + 1] - media[i:j + 1]))
+        largura = float(np.log2(f[j] / f[i])) if j > i else float(np.log2(f[min(i + 1, f.size - 1)] / f[i]))
+        if largura <= larg_max + 1e-9:
+            vales.append({"freq_hz": float(f[k]), "profundidade_db": float(media[k] - nivel[k]),
+                          "largura_oitava": largura})
+        i = j + 1
+    return {"vales": vales, "existe": bool(vales),
+            "limiares": limiares.snapshot("vale_individual_profundidade_db", "vale_individual_largura_max_oitava")}
+
+
+# @@T214 [FR-207] Faixa útil da via (spec E1)
+def faixa_util(r: RespostaFrequencia) -> list[int]:
+    """Índices entre 200 Hz e 10 kHz em que o nível “antes” da via está a até 20 dB do seu máximo ali."""
+    f_min, f_max = limiares.valor("faixa_analise_min_hz"), limiares.valor("faixa_analise_max_hz")
+    dentro = (r.freq_hz >= f_min) & (r.freq_hz <= f_max)
+    if not dentro.any():
+        return []
+    teto = float(r.nivel_db[dentro].max())
+    return np.flatnonzero(dentro & (r.nivel_db >= teto - limiares.valor("faixa_util_abaixo_max_db"))).tolist()
