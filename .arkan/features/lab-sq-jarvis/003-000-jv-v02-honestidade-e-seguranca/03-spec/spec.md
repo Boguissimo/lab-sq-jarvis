@@ -1,6 +1,6 @@
 # Spec — 003-000-jv-v02-honestidade-e-seguranca (JV-V02)
 
-> **Status**: aprovada pelo desenvolvedor em 2026-10-15 · **Emenda E1** (revisão externa do plano): **aprovada pelo desenvolvedor em 2026-10-15 (nível B)** | **Data**: 2026-10-15
+> **Status**: aprovada pelo desenvolvedor em 2026-10-15 · **Emenda E1** (revisão externa do plano): **aprovada pelo desenvolvedor em 2026-10-15 (nível B)** · **Emenda E2** (decisões sobre os pontos de aprovação da R1): **aprovada pelo desenvolvedor em 2026-10-15 (nível B)** | **Data**: 2026-10-15
 > **Entrada**: [ideacao.md](../01-discovery/ideacao.md) (aprovada). Complementa a spec do JV-V01; o que não é dito aqui continua valendo como no V01.
 > **Emenda E1** (2026-10-15): origem `docs/revisoes/jv-v02-revisao-tecnica-do-plano.md`, itens 3, 4, 5, 7, 8, 11 e 12; decisões do desenvolvedor em Clarifications. Seções alteradas: Edge Cases, Definições normativas, FR-201, 202, 207, 208, 211, 217, 220, 221; INV-201, 203, 205; INV-211 e 212 novos; SC-203; SC-208 novo; Limites declarados. Datas: a aprovação registrada como "2026-10-16" vinha do relógio UTC dos commits; a data local é 2026-10-15.
 > Siglas: **REW** — Room EQ Wizard; **DSP** — processador digital de sinais; **SEG** — regra de segurança; **ATM** — alinhamento automático de atrasos da ferramenta do DSP; **T/S** — parâmetros Thiele-Small; **Fs** — frequência de ressonância; **G1/G2/G3** — gates.
@@ -24,6 +24,12 @@
 **US-04 — Ver a incerteza num caso realista (P1).** Como desenvolvedor, quero o REF-001-B (alto-falantes reais, pequena diferença de distância, ruído moderado) com veredito e incerteza declarada maior que a do REF-001-A.
 
 **US-05 — Saber o que é seguro e o que não é (P2).** Como desenvolvedor, quero que toda recomendação mostre o resultado de cada regra SEG (`aprovada`, `bloqueada`, `não verificável`), os valores provisórios como tal e as limitações, sem nunca chamar de seguro o que não foi verificado.
+
+**US-08 — Exercitar recomendações sensíveis (P2, E2).** Como desenvolvedor, quero casos sintéticos próprios em que o Jarvis avalia alterações sensíveis, para ver na prática a aprovação de nível B, o bloqueio pelas regras SEG e a apresentação correta de cada situação na interface.
+
+- Dado o REF-003-S1 (reforço de EQ, equipamento sintético confirmado, dentro dos limites), quando avalio, então a alteração é admitida como "sensível — risco crescente", só pode ser aplicada depois da aprovação de nível B, e a aprovação não muda o resultado das regras.
+- Dado o REF-003-S2 (o mesmo reforço com equipamento `planejado`), quando avalio, então vejo "alteração bloqueada — não recomendada", com o que falta, sem receita nem opção de aprovar.
+- Dado o REF-003-S3 (corte de EQ com regra sem dado confirmado), quando avalio, então a alteração é admitida como "sensível — risco decrescente", com a lista do que não foi verificado e o aviso de efeitos colaterais, e exige aprovação de nível B.
 
 **US-06 — Percorrer uma etapa de calibração simulada (P2).** Como desenvolvedor, quero registrar um conjunto de ajustes de atraso (tipo ATM) antes e depois, e ver se o objetivo foi atingido, sem que o Jarvis atribua a melhora a um ajuste isolado.
 
@@ -49,7 +55,7 @@
 | --- | --- | --- |
 | Irregularidade ponto a ponto estimada (σ̂) — *substitui "ruído estimado" (E1)* | em cada medição usada na análise, **inclusive as somas**: σ̂ = 1,4826 × MAD(Δ²L) / √6, onde Δ²L é a segunda diferença do nível em dB, na grade logarítmica uniforme, entre 200 Hz e 10 kHz, e MAD é a mediana dos desvios absolutos em torno da mediana. O fator converte a MAD em desvio padrão **sob a hipótese** de ruído aditivo gaussiano independente entre pontos. σ̂ é uma estimativa normalizada de irregularidade fina, **não** uma medição direta de ruído nem um indicador geral de qualidade acústica | método fixo (E1); limiares abaixo provisórios |
 | Condições de aplicação do estimador | (i) grade logarítmica uniforme: razão entre frequências vizinhas constante em ±0,5 %; (ii) densidade ≥ **24 pontos por oitava**; (iii) suavização declarada `nenhuma`. A suavização vem do manifesto (`suavizacao`). Ausente num caso do catálogo do Jarvis (`simulado: true`), vale `nenhuma`, porque o gerador não suaviza. Ausente em arquivo externo, é `desconhecida` | (ii) **provisório** |
-| Ruído não estimável | falha em qualquer condição de aplicação. **Não é qualidade aprovada**: a incerteza fica "não quantificada" e o veredito do teste fica limitado a `inconclusiva` (INV-212) | regra fixa |
+| Ruído não estimável | falha em qualquer condição de aplicação. **Não é qualidade aprovada** (INV-212). (E2) **Preserva** as observações descritivas admissíveis com os dados disponíveis: curvas, níveis, sobreposição, soma de potências, vales e indícios, marcados "qualidade não estimada". **Limita** só o que depende da estimativa de qualidade: a incerteza fica "não quantificada"; o veredito do teste fica no máximo `inconclusiva` e o resultado da etapa no máximo `inconclusivo`; as bandas do detector de mudança ficam inconclusivas; nenhuma hipótese é apresentada como confirmada | regra fixa |
 | Qualidade reprovada por irregularidade | σ̂ > **1,5 dB** em qualquer medição usada na análise | **provisório — limite candidato**, sujeito à validação (SC-208) |
 | Aviso de irregularidade | σ̂ entre **0,5 dB** e 1,5 dB: análise permitida, incerteza declarada maior | **provisório — limite candidato**, sujeito à validação (SC-208) |
 | Vale individual | numa via, entre 200 Hz e 10 kHz, nível ≥ **10 dB** abaixo da média móvel de 1/3 de oitava, com largura ≤ 1/3 de oitava | **provisório** |
@@ -96,6 +102,7 @@
 | FR-213 | Dados de equipamento `planejado` ou `informado` nunca alimentam regra como confirmados (SEG-12) | `test_seguranca.py` |
 | FR-214 | Mostrar os valores provisórios como provisórios na própria recomendação (ex.: "limite provisório de +1,5 dB") | `test_seguranca.py`, `test_interface.py` |
 | FR-215 | Mostrar a "Verificação de segurança" em toda recomendação exibida na interface, inclusive a de polaridade (SEG-08, 10, 11 e 12 aplicáveis; as demais, "não se aplica") | `test_interface.py` |
+| FR-223 | (E2) Gerar de forma determinística os casos de segurança: `REF-003-S1` (reforço de EQ, equipamento sintético confirmado, dentro dos limites ⇒ admissível, exige aprovação B); `REF-003-S2` (mesmo reforço, equipamento `planejado` ⇒ bloqueada); `REF-003-S3` (corte de EQ com regra sem dado confirmado ⇒ risco decrescente admitido com aviso, exige aprovação B). O manifesto traz o **equipamento sintético** (com `estado`) e a **alteração candidata**. O serviço submete a alteração à classificação, às regras SEG e à admissibilidade; registra a recomendação ou a alteração bloqueada; exige aprovação B antes de registrar a aplicação. Os casos são identificados como simulação, não alteram os casos de referência existentes e entram no roteiro G3 do bloco 2 | `test_casos.py`, `test_sessao.py::test_s1_s2_s3`, `test_interface.py::test_casos_seguranca` |
 | FR-216 | Aprovação de nível B registrada para recomendação sensível, sem alterar o resultado das regras (aprovação não verifica) | `test_seguranca.py` |
 
 ### Bloco 3 — Calibração simulada e configuração
@@ -122,6 +129,7 @@
 - INV-209: Core do Arkan intacto. **Teste:** `git diff` das pastas do Core contra a fundação, registrado no QA.
 - INV-210: o INV-001 a INV-006 do V01 continuam valendo. **Teste:** suíte do V01 passando sem alteração de asserções.
 - INV-211 (E1): a interpretação registrada não muda ao reabrir a sessão. Indícios, hipóteses, sugestão, controles de qualidade, resultados SEG, admissibilidade e vereditos são lidos do registro, que guarda a versão do algoritmo ou das regras, os limiares usados e os hashes das entradas; nada é recalculado silenciosamente com regras novas. Sessões legadas do V01 continuam abrindo e mostrando o que foi registrado, sem exigir metadados que não existiam; o que o V01 não gravou aparece reconstruído pelas regras **na versão com que a sessão foi feita** (1.0), identificado como tal. **Teste:** `test_sessao.py::test_reabrir_nao_recalcula`, `test_persistencia.py::test_sessao_v01_legivel`.
+- INV-213 (E2): os casos de referência existentes (REF-001-A e B, N1 a N5, variantes REF-002-A) não mudam por causa dos casos de segurança; o REF-001-A continua byte a byte. **Teste:** `test_casos.py::test_deterministico`, `::test_ref001a_intacto`.
 - INV-212 (E1): incerteza desconhecida nunca vira aprovação. "Ruído não estimável" não é qualidade aprovada; `verificação inconclusiva` e via "não verificada" não são "sem mudança"; `mudança não detectada` sempre declara a resolução. **Teste:** `test_calculos.py::test_nao_estimavel_nao_aprova`, `test_sessao.py::test_sem_dados_nao_e_sem_mudanca`.
 
 ## Critérios de Sucesso
@@ -133,6 +141,7 @@
 - **SC-205** — Reversão nos três desfechos (documentada por arquivo, documentada por receita, não documentada), sempre sem afirmar restauração física. **Instrumento:** `test_configuracao.py`. **Baseline:** N/A.
 - **SC-206** — O desenvolvedor percorre os casos pelo programa no Windows e reconhece a explicação de cada um (G3). **Instrumento:** roteiro `COMO-EXPERIMENTAR.md` atualizado. **Baseline:** JV-V01 no Windows aprovado.
 - **SC-207** — Suíte completa (V01 + V02) passando em Linux, sem alterar asserções do V01. **Instrumento:** `python -m pytest`. **Baseline:** 45 testes passando no JV-V01.
+- **SC-209** (E2) — Os três casos REF-003-S produzem admissão com aprovação B (S1), bloqueio (S2) e admissão de risco decrescente com aviso (S3), nos testes automatizados e no programa no Windows. **Instrumento:** `test_sessao.py::test_s1_s2_s3`, `test_interface.py::test_casos_seguranca`, roteiro G3 do bloco 2 em `COMO-EXPERIMENTAR.md`. **Baseline:** N/A.
 - **SC-208** (E1) — Validação dos limiares provisórios por varredura, com falsos positivos e falsos negativos registrados em `08-qa/validacao-limiares.md`. **(a) σ̂:**
   - Casos sem ruído (os quatro arquivos do REF-001-A, reflexões e cancelamentos): σ̂ ≤ 0,05 dB.
   - Ruído conhecido, isolado ou combinado com vales: \|σ̂ − σ injetado\| ≤ 15 % de σ + 0,05 dB.
@@ -195,3 +204,12 @@ Origem: `docs/revisoes/jv-v02-revisao-tecnica-do-plano.md`. A evidência numéri
   - Precedência explícita dos resultados.
   - Quatro variantes nomeadas e testadas.
   - Datas de aprovação corrigidas para a data local (2026-10-15).
+
+### Sessão 2026-10-15 — Emenda E2 (pontos para aprovação da R1)
+
+Decisões do desenvolvedor sobre os encaminhamentos listados no fim do plano R1, todos aceitos:
+
+- **Ruído não estimável.** Preservar as observações descritivas admissíveis; limitar só as conclusões que dependem da estimativa de qualidade (definição normativa revista).
+- **Fixture do banco V01.** Gerada pelo V01 original (`main@389e580`), só com dados sintéticos, versionada e mantida como teste de regressão permanente da migração (plano, ADR-207).
+- **Lacuna de segurança.** Acrescentar casos sintéticos específicos (REF-003-S1 a S3; US-08, FR-223, SC-209) que exercitam recomendação sensível com aprovação de nível B, bloqueio pelas regras SEG e apresentação na interface, nos testes automatizados e no roteiro G3 do Windows.
+- **Casos de referência existentes** permanecem inalterados (INV-213).

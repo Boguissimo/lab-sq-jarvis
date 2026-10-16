@@ -1,7 +1,7 @@
 # Plano de Implementação — 003-000-jv-v02-honestidade-e-seguranca (JV-V02)
 
-**Branch**: `lab-sq-jarvis/003-000-jv-v02-honestidade-e-seguranca` | **Data**: 2026-10-15 | **Spec**: `03-spec/spec.md` (com emenda E1)
-> **Status**: **revisão R1 aprovada** pelo desenvolvedor em 2026-10-15 (nível B), incluindo os pontos para aprovação listados no fim
+**Branch**: `lab-sq-jarvis/003-000-jv-v02-honestidade-e-seguranca` | **Data**: 2026-10-15 | **Spec**: `03-spec/spec.md` (com emendas E1 e E2)
+> **Status**: **revisão R1 aprovada** pelo desenvolvedor em 2026-10-15 (nível B), incluindo os pontos para aprovação listados no fim · **complemento R1.1** (emenda E2: casos REF-003-S, ruído não estimável descritivo, fixture permanente): **aprovado em 2026-10-15 (nível B)**
 > **R1** (2026-10-15) aplica a revisão externa (`docs/revisoes/jv-v02-revisao-tecnica-do-plano.md`, itens 1 a 12) e a emenda E1 da spec. Situação das ADRs:
 > - **Revistas:** ADR-202, 204, 205, 207 e 208.
 > - **Ajustadas:** ADR-201, 203, 206, 209 e 210.
@@ -156,7 +156,7 @@ ferramentas/gerar_banco_v01.py   [novo]  roda o percurso do V01 num checkout de 
   - resíduo × média móvel (mede o defeito, não o ruído);
   - coerência (exige repetições);
   - inferir suavização pela autocorrelação de Δ²: o teste mostrou que ela não separa os casos com segurança.
-- **Consequência:** σ̂ não enxerga ruído correlacionado nem de baixa frequência (limite declarado). Arquivo externo sem declaração de suavização dá `nao_estimavel`, e o veredito fica limitado a `inconclusiva` (INV-212). Os limiares 0,5 e 1,5 dB são candidatos e validados no SC-208.
+- **Consequência:** σ̂ não enxerga ruído correlacionado nem de baixa frequência (limite declarado). Arquivo externo sem declaração de suavização dá `nao_estimavel` (INV-212). **R1.1 (E2):** as observações descritivas continuam (curvas, níveis, sobreposição, soma de potências, vales, indícios marcados "qualidade não estimada"); só o que depende da qualidade fica limitado (incerteza não quantificada, veredito ≤ `inconclusiva`, etapa ≤ `inconclusivo`, bandas do detector inconclusivas, nenhuma hipótese confirmada). Os limiares 0,5 e 1,5 dB são candidatos e validados no SC-208.
 
 ### ADR-203 — Portão de qualidade devolve resultado *(ajustada)*
 - **Decisão:** `Servico.analisar` devolve `nao_da_para_concluir` (motivo, o que falta) em vez de lançar `ErroDoPercurso`.
@@ -178,7 +178,7 @@ ferramentas/gerar_banco_v01.py   [novo]  roda o percurso do V01 num checkout de 
   - aprovação como `decisao ← recomendacao` (exige emenda ao P1);
   - avaliar SEG só para exibição (permitiria recomendar algo bloqueado).
 - **Consequência:** a verificação se dá em três camadas: serviço, gatilho `BEFORE INSERT` (recomendação existente, mesma sessão, tipo certo) e rotina de integridade.
-  - Neste incremento os percursos dos casos só produzem recomendações **não sensíveis** (polaridade, atrasos). Bloqueio e aprovação são exercidos por testes de serviço com alterações sintéticas sensíveis e pelo teste de propriedade (SC-204).
+  - **R1.1 (E2, FR-223):** polaridade e atrasos não são sensíveis, então os casos de referência não exercitam aprovação nem bloqueio. Por isso entram os casos sintéticos `REF-003-S1` (reforço admissível com equipamento confirmado → aprovação B), `-S2` (mesmo reforço, equipamento `planejado` → bloqueada) e `-S3` (corte com regra sem dado → risco decrescente com aviso → aprovação B). O manifesto traz `equipamento` (sintético, com `estado`) e `alteracao_candidata`; o serviço ganha `avaliar_alteracao_candidata()`, que passa pela mesma classificação, regras e admissibilidade de qualquer recomendação. Exercitados em `test_sessao.py::test_s1_s2_s3`, `test_interface.py::test_casos_seguranca` e no G3 do bloco 2 (SC-209), além do SC-204.
 
 ### ADR-205 — Dois fluxos no serviço: teste de diagnóstico e etapa de calibração *(revista na R1, item 2)*
 - **Decisão:** reutilizar `recomendacao`, `experimento` e `conclusao` com `tipo_intervencao` ∈ {`teste de diagnóstico`, `etapa de calibração`}, sem tocar em `DERIVACOES_PERMITIDAS`.
@@ -230,7 +230,7 @@ ferramentas/gerar_banco_v01.py   [novo]  roda o percurso do V01 num checkout de 
   - `CREATE … IF NOT EXISTS` no V01 sem versão (não distingue um banco desconhecido);
   - recriar o banco;
   - migração manual.
-- **Consequência:** `test_migracao.py` usa uma **fixture produzida pelo V01 real**: `ferramentas/gerar_banco_v01.py` roda o percurso completo do REF-001-A num checkout de `main@389e580` e grava `tests/dados/banco-v01/`. No G3 do bloco 1, o desenvolvedor abre o próprio banco no Windows, com o backup gerado.
+- **Consequência:** `test_migracao.py` usa uma **fixture produzida pelo V01 real**: `ferramentas/gerar_banco_v01.py` roda o percurso completo do REF-001-A num checkout de `main@389e580` e grava `tests/dados/banco-v01/`. **R1.1 (E2):** a fixture contém só dados sintéticos (sessões do REF-001-A), é versionada, nunca é regenerada sem `JV-D` e fica permanente como teste de regressão da migração. Um teste confere que os originais do cofre da fixture são os arquivos do REF-001-A. No G3 do bloco 1, o desenvolvedor abre o próprio banco no Windows, com o backup gerado.
 
 ### ADR-208 — `comprometida`: verificação da variável única por via *(ampliada na R1, item 7; emenda E1)*
 - **Decisão:** a verificação tem duas partes.
@@ -337,21 +337,22 @@ ferramentas/gerar_banco_v01.py   [novo]  roda o percurso do V01 num checkout de 
 7. Validação por varredura de σ̂ e do detector (SC-208 a, b).
 8. Interface: seletor de caso e resultados (FR-209). **Ponto de teste G3 do bloco 1**, que inclui abrir o banco real do desenvolvedor (migração com backup).
 
-### Fase 2 — Bloco 2: segurança (US-05)
+### Fase 2 — Bloco 2: segurança (US-05, US-08)
 
 9. `seguranca.py` completo: SEG-01/03/04/05/06/08/10/11/12/13 e SEG-02/07/09 não verificáveis (FR-210 a FR-213); casos permitidos, limítrofes e proibidos; teste de propriedade (SC-204).
-10. Integração: `propor_teste` passa pela admissibilidade (FR-211); alteração bloqueada; aprovação de nível B com integridade (FR-216); `seguranca_view.py` (FR-214, FR-215); varredura dos limites SEG (SC-208 c). **Ponto de teste G3 do bloco 2.**
+10. Integração: `propor_teste` passa pela admissibilidade (FR-211); alteração bloqueada; aprovação de nível B com integridade (FR-216); `seguranca_view.py` (FR-214, FR-215); varredura dos limites SEG (SC-208 c).
+11. Casos de segurança `REF-003-S1` a `S3` no catálogo, `avaliar_alteracao_candidata()` e telas de admissão, bloqueio e aprovação (FR-223, SC-209). **Ponto de teste G3 do bloco 2**, que percorre os três casos no Windows.
 
 ### Fase 3 — Bloco 3: calibração, configuração e fluxo completo (US-06, US-07)
 
-11. `calibracao.py`, fluxo `etapa-simulada` no serviço (ADR-205), quatro variantes e casos-limite (FR-217, FR-218, SC-203).
-12. `configuracao.py`, arquivo opaco, última configuração entre sessões, reversão documentada, `configuracao_view.py` (FR-219 a FR-221, SC-205).
-13. Integridade estendida com inconsistências deliberadas (FR-222).
-14. Fluxo completo dos dois tipos de sessão: criar, executar, encerrar, Histórico, reabrir (sem recálculo). **Ponto de teste G3 do bloco 3.**
+12. `calibracao.py`, fluxo `etapa-simulada` no serviço (ADR-205), quatro variantes e casos-limite (FR-217, FR-218, SC-203).
+13. `configuracao.py`, arquivo opaco, última configuração entre sessões, reversão documentada, `configuracao_view.py` (FR-219 a FR-221, SC-205).
+14. Integridade estendida com inconsistências deliberadas (FR-222).
+15. Fluxo completo dos dois tipos de sessão: criar, executar, encerrar, Histórico, reabrir (sem recálculo). **Ponto de teste G3 do bloco 3.**
 
 ### Fase N — Polish
 
-15. `COMO-EXPERIMENTAR.md` atualizado, capturas de tela (`ferramentas/capturas.py`), `08-qa/validacao-limiares.md` consolidado, pacote, QA e registro de entregas.
+16. `COMO-EXPERIMENTAR.md` atualizado, capturas de tela (`ferramentas/capturas.py`), `08-qa/validacao-limiares.md` consolidado, pacote, QA e registro de entregas.
 
 ---
 
@@ -378,6 +379,7 @@ Legenda de módulos: `calc` = `calculos.py`, `seg` = `seguranca.py`, `cal` = `ca
 | FR-213 | `seg` | `test_seguranca.py::test_seg12_planejado_nao_confirma` | 204 | 2 |
 | FR-214 | `seg`, `UI/seguranca_view.py` | `test_seguranca.py::test_provisorios_rotulados`, `test_interface.py::test_provisorio_visivel` | 204, 209 | 2 |
 | FR-215 | `UI/seguranca_view.py` | `test_interface.py::test_verificacao_em_toda_recomendacao`, `::test_bloqueada_sem_aplicar` | 209 | 2 |
+| FR-223 | `referencia/casos.py` (REF-003-S), `seg`, `ses.avaliar_alteracao_candidata`, `ses.aprovar`, `UI/seguranca_view.py` | `test_casos.py::test_conteudo_esperado[REF-003-S*]`, `test_sessao.py::test_s1_s2_s3`, `test_interface.py::test_casos_seguranca` | 204 | 2 |
 | FR-216 | `pers` (`aprovacao`), `ses.aprovar` | `test_seguranca.py::test_aprovacao_nao_verifica`, `test_persistencia.py::test_aprovacao_integridade[*]` | 204 | 2 |
 | FR-217 | `cal`, `ses.propor_etapa`, `ses.concluir_etapa`, `calc.deficit_cruzamento` | `test_calibracao.py::test_variantes[atingido,parcial,nao-atingido,inconclusivo]`, `::test_casos_limite`, `::test_objetivo_ja_atendido` | 205 | 3 |
 | FR-218 | `cal`, `ses` | `test_calibracao.py::test_nao_verificado_lista_origem` | 205 | 3 |
@@ -401,7 +403,8 @@ Legenda de módulos: `calc` = `calculos.py`, `seg` = `seguranca.py`, `cal` = `ca
 | INV-209 | — | QA: `git diff` das pastas do Core contra a fundação |
 | INV-210 | todos | suíte do V01 sem alterar asserções; `test_migracao.py::test_v01_real_migra_preservando` |
 | INV-211 | `ses.estado`, `regras_v1_0`, `pers` | `test_sessao.py::test_reabrir_nao_recalcula`, `test_persistencia.py::test_sessao_v01_legivel` |
-| INV-212 | `calc`, `ses` | `test_calculos.py::test_nao_estimavel_nao_aprova`, `test_sessao.py::test_sem_dados_nao_e_sem_mudanca` |
+| INV-212 | `calc`, `ses` | `test_calculos.py::test_nao_estimavel_nao_aprova`, `::test_nao_estimavel_preserva_descritivo`, `test_sessao.py::test_sem_dados_nao_e_sem_mudanca` |
+| INV-213 | `referencia/casos.py`, `ref001.py` | `test_casos.py::test_deterministico`, `::test_ref001a_intacto` |
 
 ### Critérios de sucesso
 
@@ -415,6 +418,7 @@ Legenda de módulos: `calc` = `calculos.py`, `seg` = `seguranca.py`, `cal` = `ca
 | SC-206 | roteiro `COMO-EXPERIMENTAR.md` no Windows (G3 por bloco) | 1/2/3 |
 | SC-207 | `python -m pytest` em Linux (V01 + V02) | N |
 | SC-208 | `test_validacao_limiares.py` → `08-qa/validacao-limiares.md` | 1/2/3 |
+| SC-209 | `test_sessao.py::test_s1_s2_s3`, `test_interface.py::test_casos_seguranca`, G3 do bloco 2 | 2 |
 
 ---
 
@@ -442,4 +446,6 @@ Legenda de módulos: `calc` = `calculos.py`, `seg` = `seguranca.py`, `cal` = `ca
 1. **Emenda E1 da spec**, com o complemento do agente (suavização declarada; ruído não estimável ⇒ veredito no máximo `inconclusiva`).
 2. **Esta revisão R1 do plano** e do `data-model.md`: ADRs revistas, ADR-211 nova, matriz e critérios.
 3. **Fixture do banco V01**: gerar a partir de `main@389e580` com `ferramentas/gerar_banco_v01.py` e versionar o binário em `tests/dados/banco-v01/`.
-4. **Observação de cobertura**: nos percursos dos casos do V02 nenhuma recomendação é sensível (polaridade e atrasos não são). Bloqueio e aprovação de nível B ficam exercidos por testes de serviço com alterações sintéticas e pelo SC-204, não pelo roteiro do G3.
+4. **Observação de cobertura**: nos percursos dos casos do V02 nenhuma recomendação é sensível (polaridade e atrasos não são). Bloqueio e aprovação de nível B ficam exercidos por testes de serviço com alterações sintéticas e pelo SC-204, não pelo roteiro do G3. → **Resolvido na E2** com os casos REF-003-S (FR-223, SC-209).
+
+Decisões da E2 sobre esses pontos (2026-10-15): (1) ruído não estimável preserva o descritivo e limita o que depende da qualidade; (3) fixture gerada pelo V01 original, só sintética, permanente; (4) casos REF-003-S nos testes e no G3; casos de referência existentes inalterados (INV-213). Redação do complemento R1.1 aprovada em 2026-10-15 (nível B).

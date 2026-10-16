@@ -59,6 +59,7 @@
 
 - **Caso:** `semente`, `ruido_sigma_db`, `tipo_sessao` (`investigacao` | `etapa-simulada`), `modelo` (parâmetros físicos usados, para auditoria), `depois.configuracao_declarada`.
 - **Por medição:** `suavizacao` (`nenhuma` | texto da suavização declarada), `ganho_entrada_db`, `referencia_nivel`, `posicao_microfone` (já existe), `referencia_temporal` (já existe).
+- **Casos de segurança REF-003-S (E2, FR-223):** `equipamento` (sintético: `[{canal, alto_falante, estado: confirmado|planejado|informado, potencia_rms_w?, fs_hz?, passa_altas_min_hz?, inclinacao_min_db_oit?}]`, sempre com `simulado: true`) e `alteracao_candidata` (`{canal, parametro, de, para, tipo: reforco_eq|corte_eq|ganho|passa_altas, freq_hz?, q?}`). A alteração passa por `seguranca.classificar`/`avaliar`/`admissibilidade` e é registrada como `recomendacao` (admitida ou bloqueada), com as mesmas estruturas acima.
 - **Medições "depois":** `via_a` e `via_b` com `momento: "depois"`.
 
 Regra de ausência:
@@ -95,6 +96,10 @@ Além das verificações do V01, `integridade()` confere:
    - toda sessão `encerrada` tem evento de encerramento.
 
 Cada verificação tem um teste com inconsistência deliberada em `test_integridade.py`. A inconsistência é inserida por SQL direto, com gatilhos ou `foreign_keys` desligados só dentro do teste.
+
+## Fixture de regressão da migração (E2)
+
+`tests/dados/banco-v01/` (`jarvis.db` + `cofre/`) é gerada uma única vez pelo V01 original (`main@389e580`) com `ferramentas/gerar_banco_v01.py`, só com sessões sintéticas do REF-001-A, e versionada como teste de regressão permanente. Não é regenerada sem `JV-D`. Os testes trabalham sempre numa cópia temporária.
 
 ## Legado do V01 (INV-211)
 
