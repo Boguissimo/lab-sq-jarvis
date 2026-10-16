@@ -262,3 +262,67 @@ def test_faixa_util():
     assert np.all(medio.nivel_db[idx] >= teto - 20)
     # o médio cai 24 dB/oitava acima de 3 kHz: a faixa útil termina antes de 10 kHz
     assert f.max() < 10000
+
+
+# --- JV-T215 (FR-207; critério 7 do plano): comparabilidade e detector de mudança ---
+
+_META = {"posicao_microfone": "P1", "ganho_entrada_db": 0.0, "referencia_nivel": "94 dB"}
+
+
+def test_condicoes_comparaveis():
+    assert calculos.condicoes_comparaveis(_META, dict(_META))["ok"]
+    outra = calculos.condicoes_comparaveis(_META, {**_META, "posicao_microfone": "P2"})
+    assert not outra["ok"] and outra["diferencas"][0]["campo"] == "posicao_microfone"
+    sem = {k: v for k, v in _META.items() if k != "referencia_nivel"}
+    assert calculos.condicoes_comparaveis(_META, sem)["ausentes"] == ["referencia_nivel"]
+    assert calculos.condicoes_comparaveis(sem, sem, catalogo=True)["ok"]  # presunção só do catálogo
+    assert not calculos.condicoes_comparaveis(sem, sem)["ok"]
+
+
+def _via(ganho=0.0, filtros=(), fc=3000.0):
+    p = {"filtros": [{"tipo": "lr4_pa", "fc_hz": fc}, *filtros]}
+    if ganho:
+        p["filtros"].append({"tipo": "ganho", "ganho_db": ganho})
+    return modelo.resposta_via(p, _F)
+
+
+def _detectar(h_antes, h_depois, sigma=0.0, semente=0, comparaveis=None):
+    a = modelo.adquirir(h_antes, _F, {"ruido_sigma_db": sigma}, semente=semente if sigma else None)
+    d = modelo.adquirir(h_depois, _F, {"ruido_sigma_db": sigma}, semente=semente + 10_000 if sigma else None)
+    sa = calculos.irregularidade(a, "nenhuma")["sigma_db"]
+    sd = calculos.irregularidade(d, "nenhuma")["sigma_db"]
+    return calculos.detector_mudanca_via(a, d, sa, sd, calculos.faixa_util(a), comparaveis)
+
+
+def test_detector_mudanca():
+    base = _via()
+    for h in (_via(1.5), _via(-1.5), _via(fc=3500.0),
+              _via(filtros=[{"tipo": "peq", "f0_hz": 6000.0, "ganho_db": 3.0, "q": 4.0}])):
+        assert _detectar(base, h)["resultado"] == "mudanca_detectada"
+    r = _detectar(base, base)
+    assert r["resultado"] == "nao_detectada" and r["resolucao"]["media_db"] == 1.0
+    assert r["resolucao"]["bandas_db"] == 1.5 and r["parametro_identificado"] is False
+    nc = calculos.condicoes_comparaveis(_META, {**_META, "posicao_microfone": "P2"})
+    assert _detectar(base, _via(3.0), comparaveis=nc)["resultado"] == "inconclusiva"
+    a = modelo.adquirir(base, _F)
+    assert calculos.detector_mudanca_via(a, a, None, 0.1, calculos.faixa_util(a))["resultado"] == "inconclusiva"
+    d = modelo.adquirir(_via(3.0), _F)
+    assert calculos.detector_mudanca_via(a, d, None, None, calculos.faixa_util(a))["resultado"] == "mudanca_detectada"
+
+
+def test_detector_n3_detectado_200_sementes():
+    base, n3 = _via(), -_via(3.0)
+    assert all(_detectar(base, n3, 1.5, s)["resultado"] == "mudanca_detectada" for s in range(200))
+
+
+@pytest.mark.xfail(strict=True, reason="Divergência com o SC-208(b) em aberto: com a regra da spec (fator 3, "
+                   "bandas deslizantes), 'só polaridade' dá ~8,7 % de falsos positivos a σ = 1,5 dB "
+                   "(1 000 sementes). Aguarda decisão do desenvolvedor (JV-D); limiar não ajustado (P8).")
+def test_detector_validacao_200_sementes():
+    """Zero falsos positivos em "só polaridade" até σ = 1,5 dB; N3 (+3 dB) detectado em 100 %."""
+    base = _via()
+    so_polaridade = -base  # inverter a polaridade não muda a magnitude da via isolada
+    n3 = -_via(3.0)
+    for s in range(200):
+        assert _detectar(base, so_polaridade, 1.5, s)["resultado"] != "mudanca_detectada", s
+        assert _detectar(base, n3, 1.5, s)["resultado"] == "mudanca_detectada", s

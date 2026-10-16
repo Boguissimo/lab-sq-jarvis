@@ -28,6 +28,8 @@ VERSOES = {
     "irregularidade": "1.0",  # JV-T212 (E1)
     "vales_individuais": "1.0",  # JV-T214
     "faixa_util": "1.0",  # JV-T214
+    "condicoes_comparaveis": "1.0",  # JV-T215
+    "detector_mudanca_via": "1.0",  # JV-T215
 }
 
 FAIXA_MINIMA_HZ = (200.0, 10_000.0)  # faixa que a análise do cruzamento precisa cobrir
@@ -341,3 +343,86 @@ def faixa_util(r: RespostaFrequencia) -> list[int]:
         return []
     teto = float(r.nivel_db[dentro].max())
     return np.flatnonzero(dentro & (r.nivel_db >= teto - limiares.valor("faixa_util_abaixo_max_db"))).tolist()
+
+
+CAMPOS_AQUISICAO = ("posicao_microfone", "ganho_entrada_db", "referencia_nivel")
+
+
+def _vazio(v) -> bool:
+    return v is None or (isinstance(v, str) and not v.strip())
+
+
+# @@T215 [FR-207] [INV-214] Condições de aquisição comparáveis declaradas (spec E1/E3)
+def condicoes_comparaveis(meta_antes: dict, meta_depois: dict, catalogo: bool = False) -> dict:
+    """Igualdade **declarada** de posição, ganho de entrada e referência de nível.
+
+    Campo ausente ⇒ não comparáveis, exceto num caso do catálogo interno com proveniência verificada
+    (``catalogo=True``), em que o ausente vale "idêntico por construção". Não é verificação física.
+    """
+    diferencas, ausentes = [], []
+    for campo in CAMPOS_AQUISICAO:
+        a, d = meta_antes.get(campo), meta_depois.get(campo)
+        if _vazio(a) or _vazio(d):
+            if not catalogo:
+                ausentes.append(campo)
+            continue
+        if a != d:
+            diferencas.append({"campo": campo, "antes": a, "depois": d})
+    return {"ok": not diferencas and not ausentes, "declarada": True, "diferencas": diferencas,
+            "ausentes": ausentes, "presumido_catalogo": bool(catalogo)}
+
+
+# @@T215 [FR-207] Detector de mudança da via (spec E1; ADR-208)
+def detector_mudanca_via(antes: RespostaFrequencia, depois: RespostaFrequencia, sigma_antes: float | None,
+                         sigma_depois: float | None, faixa: list[int], comparaveis: dict | None = None) -> dict:
+    """Δ = depois − antes na faixa útil: mudança geral (|média| > 1,0 dB) ou localizada (banda de
+    1/3 de oitava com |média| > max(1,5 dB; 3·σΔ), σΔ = √(σ̂²antes + σ̂²depois)/√n).
+
+    Resultados: ``mudanca_detectada``; ``nao_detectada`` (com a resolução declarada); ``inconclusiva``
+    (condições não comparáveis, ou σ̂ não estimável sem mudança geral). Sem comparabilidade, nenhuma
+    diferença é atribuída ao DSP. O detector só prova ausência de mudança acima da resolução e nunca
+    identifica qual parâmetro mudou.
+    """
+    lim_media = limiares.valor("detector_media_db")
+    lim_banda = limiares.valor("detector_banda_db")
+    fator = limiares.valor("detector_fator_sigma")
+    snapshot = limiares.snapshot("detector_media_db", "detector_banda_db", "detector_fator_sigma",
+                                 "detector_largura_banda_oitava", "faixa_util_abaixo_max_db")
+    comparaveis = comparaveis or {"ok": True, "declarada": True, "diferencas": [], "ausentes": []}
+    idx = np.asarray(faixa, dtype=int)
+    faixa_hz = [float(antes.freq_hz[idx].min()), float(antes.freq_hz[idx].max())] if idx.size else None
+    base = {"condicoes_comparaveis": comparaveis, "limiares": snapshot, "parametro_identificado": False,
+            "faixa_util_hz": faixa_hz, "media_db": None, "pior_banda": None, "limiar_bandas_db": None,
+            "faixa_mudanca_hz": None, "resolucao": None}
+    if not comparaveis.get("ok"):
+        return {**base, "resultado": "inconclusiva",
+                "motivo": "condições de aquisição não comparáveis: nenhuma diferença é atribuída ao DSP"}
+    if idx.size < 3 or not mesma_grade(antes, depois):
+        return {**base, "resultado": "inconclusiva", "motivo": "faixa útil insuficiente ou grades diferentes"}
+    delta = depois.nivel_db[idx] - antes.nivel_db[idx]
+    media = float(delta.mean())
+    geral = abs(media) > lim_media
+    estimavel = sigma_antes is not None and sigma_depois is not None
+    pior, faixa_mudanca, limiar_ef, localizada = None, None, None, False
+    if estimavel:
+        n = min(_janela_pontos(antes.freq_hz, limiares.valor("detector_largura_banda_oitava")), idx.size)
+        sigma_d = float(np.sqrt(sigma_antes ** 2 + sigma_depois ** 2) / np.sqrt(n))
+        limiar_ef = max(lim_banda, fator * sigma_d)
+        medias = np.convolve(delta, np.ones(n) / n, mode="valid")
+        k = int(np.argmax(np.abs(medias)))
+        pior = {"freq_hz": float(antes.freq_hz[idx[k + n // 2]]), "delta_db": float(medias[k])}
+        acima = np.flatnonzero(np.abs(medias) > limiar_ef)
+        if acima.size:
+            localizada = True
+            faixa_mudanca = [float(antes.freq_hz[idx[acima.min()]]),
+                             float(antes.freq_hz[idx[acima.max() + n - 1]])]
+    if geral or localizada:
+        res, motivo = "mudanca_detectada", "mudança geral" if geral else "mudança localizada"
+        faixa_mudanca = faixa_mudanca or faixa_hz
+    elif estimavel:
+        res, motivo = "nao_detectada", "nenhuma mudança acima da resolução declarada"
+    else:
+        res, motivo = "inconclusiva", "irregularidade não estimável e sem mudança geral detectada"
+    return {**base, "resultado": res, "motivo": motivo, "media_db": media, "pior_banda": pior,
+            "limiar_bandas_db": limiar_ef, "faixa_mudanca_hz": faixa_mudanca,
+            "resolucao": {"media_db": lim_media, "bandas_db": limiar_ef}}

@@ -68,7 +68,7 @@
 
 - [x] JV-T214 [P] [US-02] — `vales_individuais` e `faixa_util` (FR-204). Gate: G1. Evidência: testes em `test_calculos.py`.
   - File: `src/jarvis/calculos.py`
-- [ ] JV-T215 [US-03] — `condicoes_comparaveis` (declarada) e `detector_mudanca_via` com três resultados (FR-207) (depende de T214). Gate: G1. Evidência: `test_calculos.py::test_detector_mudanca` (critério 7).
+- [x] JV-T215 [US-03] — `condicoes_comparaveis` (declarada) e `detector_mudanca_via` com três resultados (FR-207) (depende de T214). Gate: G1. Evidência: `test_calculos.py::test_detector_mudanca` (critério 7). **Divergência aberta (2026-10-15):** com a regra da spec, "só polaridade" dá ~8,7 % de falsos positivos a σ = 1,5 dB (1 000 sementes), contra "zero" no SC-208(b); teste marcado `xfail` estrito até decisão `JV-D`.
   - File: `src/jarvis/calculos.py`
 - [ ] JV-T216 [US-01] [US-02] — `regras` 1.1: I-3, reordenação, portão de qualidade (`reprovada`/`nao_estimavel`) (FR-203, FR-204) (depende de T209, T212, T214). Gate: G1. Evidência: `test_regras.py::test_i3_reordena_hipoteses`, `test_sessao.py::test_n1`, `::test_n2`, `::test_qualidade_limita_conclusao`.
   - File: `src/jarvis/regras.py`, `src/jarvis/sessao.py`
