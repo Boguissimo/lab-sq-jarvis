@@ -149,3 +149,39 @@ def test_qualidade_basica_reprovada_bloqueia(servico, pasta_caso, tmp_path, banc
     with pytest.raises(ErroDoPercurso, match="verificação básica de qualidade reprovou.*cobre 200 Hz a 10000 Hz"):
         servico.analisar()
     assert servico.estado()["analise"] is None
+
+
+# --- JV-T209 (ADR-210, INV-211): interpretação congelada ---
+
+def test_reabrir_nao_recalcula(servico, pasta_caso, banco, monkeypatch):
+    from jarvis import regras, regras_v1_0
+    _ate_analise(servico, pasta_caso)
+    antes = servico.estado()["analise"]
+    assert antes["interpretacao"] == "registrada (regras 1.0)"
+
+    def proibido(*a, **k):
+        raise AssertionError("estado() não pode reexecutar as regras")
+    monkeypatch.setattr(regras, "avaliar", proibido)
+    monkeypatch.setattr(regras_v1_0, "avaliar", proibido)
+    monkeypatch.setattr(regras, "VERSAO", "9.9")
+    monkeypatch.setitem(regras.LIMIARES, "cancelamento_min_db", 99.0)
+    reaberto = Servico(banco)
+    reaberto.sessao_id = servico.sessao_id
+    assert reaberto.estado()["analise"] == antes
+
+
+def test_calculos_gravam_entradas_sha256(servico, pasta_caso, banco):
+    _ate_analise(servico, pasta_caso)
+    calcs = banco.registros(servico.sessao_id, "calculo")
+    medicoes = {m["id"]: m for m in banco.registros(servico.sessao_id, "medicao")}
+    for c in calcs:
+        assert set(c["dados"]["entradas_sha256"]) == set(c["dados"]["entradas"]), c["id"]
+        assert "limiares" in c["dados"]
+        for eid, sha in c["dados"]["entradas_sha256"].items():
+            if eid in medicoes:
+                assert sha == medicoes[eid]["dados"]["sha256"]
+                assert banco.verificar_original(sha)
+    av = next(c for c in calcs if c["dados"]["nome"] == "avaliacao_regras")
+    assert av["dados"]["resultado"]["sugestao"] == "teste_polaridade"
+    assert av["dados"]["limiares"]["limiares"]["cancelamento_min_db"] == 6.0
+    assert banco.integridade() == []

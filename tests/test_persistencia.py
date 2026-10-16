@@ -113,3 +113,27 @@ def test_tmp_residual_detectado(banco):
 def test_guardar_nao_deixa_tmp(banco, pasta_caso):
     banco.guardar_original(pasta_caso / "soma-antes.txt", "texto")
     assert not any((banco.cofre / ".tmp").iterdir())
+
+
+def test_sessao_v01_legivel(tmp_path, monkeypatch):
+    """Sessão gravada pelo V01 abre com a análise reconstruída pelas regras 1.0 (INV-211)."""
+    import shutil
+    from pathlib import Path
+    from jarvis import regras
+    from jarvis.persistencia import Banco
+    from jarvis.sessao import Servico
+    pasta = tmp_path / "dados"
+    shutil.copytree(Path(__file__).parent / "dados" / "banco-v01", pasta)
+    for p in pasta.rglob("*"):
+        if p.is_file():
+            p.chmod(0o644)
+    monkeypatch.setattr(regras, "avaliar", lambda *a, **k: (_ for _ in ()).throw(AssertionError("regras atuais")))
+    b = Banco(pasta)
+    try:
+        s = Servico(b)
+        s.sessao_id = 1
+        analise = s.estado()["analise"]
+        assert analise["interpretacao"] == "reconstruída pelas regras 1.0"
+        assert analise["sugestao"] == "teste_polaridade"
+    finally:
+        b.fechar()

@@ -40,7 +40,7 @@
 
 - [x] JV-T208 [P] — `regras_v1_0.py`: cópia congelada das regras 1.0, só para leitura de sessões legadas. Gate: G1. Evidência: teste de equivalência com `regras.py` atual antes de qualquer mudança.
   - File: `src/jarvis/regras_v1_0.py`
-- [ ] JV-T209 — `entradas_sha256` em todo cálculo; cálculo `avaliacao_regras` gravado (versão, snapshot de limiares, portão, sugestão, ordem); `estado()` lê do registro e usa `regras_v1_0` para sessões V01 ("reconstruída pelas regras 1.0") (depende de T207, T208). Gate: G1. Evidência: `test_sessao.py::test_reabrir_nao_recalcula`, `test_persistencia.py::test_sessao_v01_legivel`.
+- [x] JV-T209 — `entradas_sha256` em todo cálculo; cálculo `avaliacao_regras` gravado (versão, snapshot de limiares, portão, sugestão, ordem); `estado()` lê do registro e usa `regras_v1_0` para sessões V01 ("reconstruída pelas regras 1.0") (depende de T207, T208). Gate: G1. Evidência: `test_sessao.py::test_reabrir_nao_recalcula`, `test_persistencia.py::test_sessao_v01_legivel`.
   - File: `src/jarvis/sessao.py`, `src/jarvis/persistencia.py`
 
 ### 0d. Modelo físico e catálogo (ADR-201)

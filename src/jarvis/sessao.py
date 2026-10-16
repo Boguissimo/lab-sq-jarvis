@@ -6,10 +6,11 @@ estes métodos e mostra o que eles devolvem; nenhum número é calculado fora de
 
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
-from jarvis import calculos, regras, rew_texto
+from jarvis import calculos, regras, regras_v1_0, rew_texto
 from jarvis.persistencia import Banco, agora
 
 CRITERIO_ACEITE = {  # provisório (spec do JV-V01, “Limites declarados”)
@@ -62,6 +63,9 @@ class Servico:
     def _calculo(self, nome: str) -> dict | None:
         return self._ultimo("calculo", lambda d: d.get("nome") == nome)
 
+    def _registro_calculo(self, cid: str) -> dict:
+        return next(r for r in self.b.registros(self.sessao_id, "calculo") if r["id"] == cid)
+
     def _medicao(self, papel: str, momento: str = "antes") -> dict | None:
         return self._ultimo("medicao", lambda d: d.get("papel") == papel and d.get("momento") == momento)
 
@@ -72,13 +76,25 @@ class Servico:
                                  "registrado. Ele pode ter sido alterado fora do programa.")
         return rew_texto.ler(self.b.caminho_original(sha))
 
+    # @@T209 [INV-211] Todo cálculo grava entradas_sha256 (ADR-210)
+    @staticmethod
+    def _sha_entrada(entrada: dict) -> str:
+        """Hash do arquivo, para medição; SHA-256 do JSON canônico de ``dados``, para os demais."""
+        dados = entrada["dados"]
+        if entrada["id"].startswith("M-") and dados.get("sha256"):
+            return dados["sha256"]
+        canonico = json.dumps(dados, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+        return hashlib.sha256(canonico.encode("utf-8")).hexdigest()
+
     def _registrar_calculo(self, nome: str, titulo: str, resultado: dict, entradas: list[dict],
-                           parametros: dict | None = None) -> str:
+                           parametros: dict | None = None, limiares: dict | None = None) -> str:
         dados = {
             "nome": nome,
             "versao": calculos.VERSOES.get(nome, regras.VERSAO),
             "parametros": parametros or {},
+            "limiares": limiares or {},
             "entradas": [e["id"] for e in entradas],
+            "entradas_sha256": {e["id"]: self._sha_entrada(e) for e in entradas},
             "resultado": resultado,
         }
         return self.b.novo_registro(self.sessao_id, "calculo", titulo, dados,
@@ -215,9 +231,23 @@ class Servico:
                                         "limiares_provisorios": regras.LIMIARES_PROVISORIOS},
                                        origens=[(c, "evidência") for c in ind["calculos"]])
             indicio_ids.append(iid)
-        for h in resultado["hipoteses"]:
-            self.b.novo_registro(sid, "hipotese", h["enunciado"], h,
-                                 origens=[(i, "apoio") for i in indicio_ids])
+        hipotese_ids = [self.b.novo_registro(sid, "hipotese", h["enunciado"], h,
+                                             origens=[(i, "apoio") for i in indicio_ids])
+                        for h in resultado["hipoteses"]]
+
+        # @@T209 [INV-211] Interpretação gravada: reabrir a sessão não reexecuta as regras (ADR-210)
+        usados = [self._registro_calculo(c) for c in ids.values()]
+        avaliacao = {
+            "versao_regras": regras.VERSAO,
+            "portao": {"classificacao": "qualidade básica aprovada", "conclui": True,
+                       "motivo": None, "falta": []},
+            "sugestao": resultado["sugestao"], "motivo": resultado["motivo"],
+            "hipoteses_ordem": hipotese_ids, "indicios": indicio_ids, "ids": ids,
+            "aviso_referencia": resultado.get("aviso_referencia"),
+        }
+        self._registrar_calculo("avaliacao_regras", "Avaliação das regras de diagnóstico", avaliacao, usados,
+                                limiares={"versao": regras.VERSAO, "provisorios": regras.LIMIARES_PROVISORIOS,
+                                          "limiares": dict(regras.LIMIARES)})
         self.b.atualizar_sessao(sid, passo_atual=3)
         self.b.diario(sid, "analise", f"Análise concluída: {len(indicio_ids)} indício(s), "
                                       f"{len(resultado['hipoteses'])} hipótese(s); sugestão {resultado['sugestao']}")
@@ -505,8 +535,15 @@ class Servico:
                                                    ("potencias", "soma_potencias"),
                                                    ("sobreposicao", "sobreposicao")]
                    if n in calcs and not (ids_sem_fase and n == "diferenca_fase")}
-            avaliacao = regras.avaliar(sob, vale["dados"]["resultado"] if vale else None,
-                                       fase["dados"]["resultado"] if fase else None, ids)
+            registrada = calcs.get("avaliacao_regras")
+            if registrada:
+                avaliacao = registrada["dados"]["resultado"]
+                ids = avaliacao["ids"]
+                origem_interpretacao = f"registrada (regras {avaliacao['versao_regras']})"
+            else:  # sessão do V01: reconstruída pelas regras 1.0 congeladas (INV-211)
+                avaliacao = regras_v1_0.avaliar(sob, vale["dados"]["resultado"] if vale else None,
+                                                fase["dados"]["resultado"] if fase else None, ids)
+                origem_interpretacao = "reconstruída pelas regras 1.0"
             ref = calcs["referencia_temporal"]["dados"]["resultado"]
             analise = {
                 "sugestao": avaliacao["sugestao"], "motivo": avaliacao["motivo"],
@@ -514,6 +551,7 @@ class Servico:
                 "vale": vale["dados"]["resultado"] if vale else None,
                 "fase": fase["dados"]["resultado"] if fase else None,
                 "ids": ids,
+                "interpretacao": origem_interpretacao,
             }
             if analise_fase_motivos:
                 analise["aviso_fase"] = ("Fase e atraso entre as vias não calculáveis: "
