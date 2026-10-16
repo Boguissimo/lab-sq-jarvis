@@ -1,5 +1,38 @@
 # Retomada — JV-V02 (atualizada em 2026-10-16)
 
+## ▶ Estado para troca de sessão (2026-10-16, fim da sessão) — LEIA PRIMEIRO
+
+**Papéis (JV-D045, redação aguardando aprovação):** Fabrício decide (único que aprova, Nível A/B e G3); Claude implementa/documenta; ChatGPT revisa de forma opcional. Revisão de IA colada por Fabrício não é decisão. Aviso de hook pedindo commit **não** é autorização.
+
+**Branches (nenhuma foi integrada à `main`; merge proibido sem ordem expressa):**
+| Branch | Conteúdo | Último commit |
+| --- | --- | --- |
+| `claude/busy-bohr-25s6e5` | V02 até o bloco 1 + E4/R1.3 + toda a investigação de desempenho | `2053e63` (mapa técnico) |
+| `claude/correcao-pontual-formato-rew` | correção dos 3 defeitos (milhar do REW, mensagem de recusa, borda de 24 ppo) + 6 testes; 217 passando + 1 xfail; **não integrada** | `e6f18d6` |
+| `lab-sq-jarvis/003-000-jv-v02-honestidade-e-seguranca` | base original do V02 | — |
+
+**NÃO COMMITADO (aguarda aprovação expressa da redação):** `.arkan/projects/lab-sq-jarvis/decisoes.md` (JV-D045) e `.../constitution.md` (patch 0.4.1). Ver o diff com `git diff -- .arkan/projects/lab-sq-jarvis/`. Não alteram o Arkan Core. **Não commitar sem "pode commitar" de Fabrício.**
+
+**Autorização permanente de Nível B (frente "investigação de desempenho")**, até revogação: scripts em `ferramentas/investigacao/`, experimentos exploratórios, relatórios em `docs/revisoes/investigacao-desempenho/`, commits/push na `claude/busy-bohr-25s6e5`. **Fora:** `src/`, spec, limiares, arquitetura, decisões normativas, constituições, código externo não verificado, redistribuição de datasets sem permissão, merge na `main`, declarar o V02 validado acusticamente.
+
+**Onde está a investigação** (`docs/revisoes/investigacao-desempenho/`): `triagem-casos-reais.md`; joeglondon (sala, sem licença, só manifesto de hashes): `protocolo-…`, `resultados-braco-a-…`, `resultados-bracos-bc-…`, `f5-significado-do-sigma-…`; ayukhno (carro, CC BY 4.0): `candidato-ayukhno-autosound.md`, `resultados-passat-ayukhno.md`; `proposta-correcao-pontual/`; `mapa-tecnico-evolucao-jarvis.md`. Pré-registros e harness: `ferramentas/investigacao/`. **Reprodução:** clonar as fontes (`github.com/joeglondon/speakers-2026-filters` @ `799af51`; `github.com/ayukhno/autosound-measurements` @ `7725d42`) fora do repositório, conferir os SHA-256 de `admissao-*.json` (o harness aborta se divergir) e rodar os scripts. Só `git clone` e `raw.githubusercontent.com` são alcançáveis do ambiente de nuvem.
+
+**Resultados-chave:** (1) defeito de leitura do milhar do REW confirmado com dado real (95 % dos pontos); (2) F-5: σ̂ mistura estrutura espectral com ruído e depende da grade; rejeitou 25/25 aquisições da sala, mas no carro (mids) ficou em 0,2–0,8 dB e a RTA espacial 11/11 aprovada; (3) no Passat com falhas injetadas, **0 acertos** (polaridade/atraso): a fase vê os 180°, a Regra 2 não dispara em drivers reais sem crossover; (4) sucesso nos casos sintéticos **não** valida o uso real; V02 **não** está validado acusticamente.
+
+**Decisões pendentes de Fabrício (consolidadas):**
+1. Aprovar a redação da JV-D045 e do patch 0.4.1 (e então commitar).
+2. Clarification do FR-002 (JV-V01) para o separador de milhar (texto proposto no relatório da sessão; nível B). Só então integrar a correção pontual.
+3. F-5: papel do σ̂ e do portão (alternativas 1–5 em `f5-significado-do-sigma-joeglondon.md`); nada foi alterado.
+4. Mapa técnico: faixa operacional por via como dado de entrada; promover `referencia/modelo.py` a motor de previsão; prioridade F-5 × faixa operacional; IR na aquisição (§8 do mapa).
+5. Buscar um caso real com defeito documentado e antes/depois (única validação que falta).
+
+**Pendência operacional:** G3 do bloco 1 (JV-T223) no Windows segue **parcial** (`COMO-EXPERIMENTAR.md`, `08-qa/g3-bloco1-parcial.md`); não invalida os testes aprovados.
+
+**Ambiente:** `.venv` na raiz; para a suíte: `PYTHONPATH=src QT_QPA_PLATFORM=offscreen .venv/bin/python -m pytest` (libs Qt: `apt-get install libegl1 libgl1 libxkbcommon0 libfontconfig1 libdbus-1-3`).
+
+---
+
+
 > **Correção de estado (2026-10-16, sessão de aplicação da revisão externa):** as seções 1 e 4 abaixo, escritas antes do `/arkan.tasks`, ficaram desatualizadas. Valem: fase `07-implementation`; `tasks.md` aprovado (JV-T201 a T242); T201 a T222 concluídas. As revisões externas (técnica e adversarial) **já foram aplicadas** nas emendas E1, E2 e E3 / R1, R1.1 e R1.2. O que restava antes do G3 do bloco 1 eram as duas divergências do SC-208, tratadas na **emenda E4 (abaixo)**.
 >
 > **Emenda E4 — decisões do desenvolvedor registradas em 2026-10-16; redação final aguarda conferência e aprovação expressa; NADA COMMITADO ainda.** Muda o **critério de aceite** do SC-208. **(a) σ̂:** viés médio, erro absoluto, dispersão, percentis e proporção fora da tolerância original; 22/1 400 preservados; tolerância de 15 % σ + 0,05 **não** ampliada; **sem limite numérico de dispersão** e sem tratar o resultado como aprovação da precisão individual. **(b) detector:** separa mudança **indicativa** de **confirmada** (aquisição independente identificada, condições comparáveis, mesmo sentido, concordância e **faixa de frequência compatível**); o SC distingue desempenho observado, critério de aceitação e **limitação não resolvida**. **Limitação conhecida (não validado):** em σ = 1,5 dB há falsos positivos confirmados — 87/1 000 indicativos, 12/1 000 confirmados, 10/1 000 com faixa compatível — porque as aquisições "depois" compartilham o mesmo "antes" e não dão confirmações estatisticamente independentes. A meta de zero **não** foi reduzida para σ ≤ 1,0 dB; nenhum limite de falsos positivos é adotado; redesenho do detector (p. ex. repetir o "antes") fica **fora do V02**, para validação posterior; um limite futuro exige justificativa e teste independentes. σ̂, fator 3 e limiares **não mudam**. **Implementadas (não commitadas):** JV-T222A (`calculos.repeticao_confirma`, `faixa_compativel` no detector) e JV-T222B ("mudança suspeita; repetir a medição", sem afirmar alteração do DSP). Ensaio complementar: `08-qa/validacao-limiares-e4.md` (`ferramentas/medir_e4.py`); `validacao-limiares.md` mantém os números originais (só o texto de enquadramento mudou). **Verificação:** suíte completa em Linux com as libs de Qt (instaladas por `apt`), interface incluída: **211 passando e 1 `xfail`** (208 anteriores + 3 testes da E4), em 2026-10-16; falta repetir no Windows. **Limitação técnica da confirmação de faixa:** só interseção não vazia (a "mudança geral" cruza com qualquer faixa) e só as duas primeiras detecções positivas por via; não demonstra que a diferença ocorreu na mesma região fisicamente relevante; algoritmo não redesenhado. **Teste `xfail` do SC-208(b) original:** `test_calculos.py::test_detector_validacao_200_sementes` codifica o critério original e continua `xfail` estrito (16/200 com as sementes dele; 20/200 com as da validação; 87/1 000 nos dois): mesma taxa, sementes e critério de contagem diferentes — não há divergência de algoritmo. **Vereditos (conferência):** a indicativa é "mudança suspeita" (no máximo `inconclusiva`); a reproduzida é "mudança acústica reproduzida"; `comprometida` por via medida significa que o teste não isola a variável; a interface diz "a medição não identifica a causa" e **não comprova alteração no DSP**. Uma alteração adicional só aparece como **declarada** pelo usuário (afirmação, não prova do estado físico). O G3 do bloco 1 (JV-T223) vem depois.
