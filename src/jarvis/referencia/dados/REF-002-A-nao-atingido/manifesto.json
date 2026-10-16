@@ -1,0 +1,237 @@
+{
+  "caso": "REF-002-A-nao-atingido",
+  "simulado": true,
+  "descricao": "Etapa de calibração simulada tipo ATM (alinhamento de atrasos), variante “nao-atingido”. O objetivo é “sem cancelamento acima de 3 dB em relação à soma de potências”. Simulado.",
+  "versao_catalogo": "1.0",
+  "tipo_sessao": "etapa-simulada",
+  "semente": 2020,
+  "ruido_sigma_db": 0.0,
+  "modelo": {
+    "versao": "1.0",
+    "antes": {
+      "via_a": {
+        "filtros": [
+          {
+            "tipo": "lr4_pb",
+            "fc_hz": 3000.0
+          }
+        ],
+        "distancia_m": 1.0,
+        "nivel_db": 85.0
+      },
+      "via_b": {
+        "filtros": [
+          {
+            "tipo": "lr4_pa",
+            "fc_hz": 3000.0
+          }
+        ],
+        "distancia_m": 1.0,
+        "nivel_db": 85.0,
+        "atraso_dsp_ms": 0.14
+      }
+    },
+    "depois": {
+      "via_a": {
+        "filtros": [
+          {
+            "tipo": "lr4_pb",
+            "fc_hz": 3000.0
+          }
+        ],
+        "distancia_m": 1.0,
+        "nivel_db": 85.0
+      },
+      "via_b": {
+        "filtros": [
+          {
+            "tipo": "lr4_pa",
+            "fc_hz": 3000.0
+          }
+        ],
+        "distancia_m": 1.0,
+        "nivel_db": 85.0,
+        "atraso_dsp_ms": 0.13
+      }
+    }
+  },
+  "configuracao_declarada": {
+    "nome": "Ajuste inicial do caso REF-002-A-nao-atingido (declarado)",
+    "parametros": [
+      {
+        "canal": "medio_esq",
+        "parametro": "polaridade",
+        "valor": "0°"
+      },
+      {
+        "canal": "tweeter_esq",
+        "parametro": "polaridade",
+        "valor": "0°"
+      },
+      {
+        "canal": "medio_esq",
+        "parametro": "passa-baixas",
+        "valor": "LR 24 dB/oit em 3000 Hz"
+      },
+      {
+        "canal": "tweeter_esq",
+        "parametro": "passa-altas",
+        "valor": "LR 24 dB/oit em 3000 Hz"
+      },
+      {
+        "canal": "tweeter_esq",
+        "parametro": "atraso",
+        "valor": "0.14 ms"
+      },
+      {
+        "canal": "medio_esq",
+        "parametro": "atraso",
+        "valor": "0,00 ms"
+      }
+    ]
+  },
+  "medicoes": [
+    {
+      "arquivo": "medio.txt",
+      "momento": "antes",
+      "papel": "via_a",
+      "canal": "medio_esq",
+      "descricao": "Médio esquerdo sozinho",
+      "referencia_temporal": {
+        "tipo": "loopback",
+        "id": "REF-002-A-nao-atingido-loopback-simulado"
+      },
+      "taxa_amostragem": 48000,
+      "posicao_microfone": "P1 — posição de escuta do motorista (simulada)",
+      "simulado": true,
+      "suavizacao": "nenhuma",
+      "ganho_entrada_db": 0.0,
+      "referencia_nivel": "calibrador 94 dB em 1 kHz (simulado)",
+      "aquisicao_id": "medio",
+      "ruido_sigma_db": 0.0,
+      "semente": null
+    },
+    {
+      "arquivo": "tweeter.txt",
+      "momento": "antes",
+      "papel": "via_b",
+      "canal": "tweeter_esq",
+      "descricao": "Tweeter esquerdo sozinho",
+      "referencia_temporal": {
+        "tipo": "loopback",
+        "id": "REF-002-A-nao-atingido-loopback-simulado"
+      },
+      "taxa_amostragem": 48000,
+      "posicao_microfone": "P1 — posição de escuta do motorista (simulada)",
+      "simulado": true,
+      "suavizacao": "nenhuma",
+      "ganho_entrada_db": 0.0,
+      "referencia_nivel": "calibrador 94 dB em 1 kHz (simulado)",
+      "aquisicao_id": "tweeter",
+      "ruido_sigma_db": 0.0,
+      "semente": null
+    },
+    {
+      "arquivo": "soma-antes.txt",
+      "momento": "antes",
+      "papel": "soma",
+      "canal": "medio_esq+tweeter_esq",
+      "descricao": "Médio e tweeter juntos",
+      "referencia_temporal": {
+        "tipo": "loopback",
+        "id": "REF-002-A-nao-atingido-loopback-simulado"
+      },
+      "taxa_amostragem": 48000,
+      "posicao_microfone": "P1 — posição de escuta do motorista (simulada)",
+      "simulado": true,
+      "suavizacao": "nenhuma",
+      "ganho_entrada_db": 0.0,
+      "referencia_nivel": "calibrador 94 dB em 1 kHz (simulado)",
+      "aquisicao_id": "soma-antes",
+      "ruido_sigma_db": 0.0,
+      "semente": null
+    },
+    {
+      "arquivo": "soma-depois.txt",
+      "momento": "depois",
+      "papel": "soma",
+      "canal": "medio_esq+tweeter_esq",
+      "descricao": "Médio e tweeter juntos, depois da alteração",
+      "referencia_temporal": {
+        "tipo": "loopback",
+        "id": "REF-002-A-nao-atingido-loopback-simulado"
+      },
+      "taxa_amostragem": 48000,
+      "posicao_microfone": "P1 — posição de escuta do motorista (simulada)",
+      "simulado": true,
+      "suavizacao": "nenhuma",
+      "ganho_entrada_db": 0.0,
+      "referencia_nivel": "calibrador 94 dB em 1 kHz (simulado)",
+      "aquisicao_id": "soma-depois",
+      "ruido_sigma_db": 0.0,
+      "semente": null
+    }
+  ],
+  "depois": {
+    "configuracao_declarada": {
+      "nome": "Depois da etapa REF-002-A-nao-atingido (declarado)",
+      "parametros": [
+        {
+          "canal": "medio_esq",
+          "parametro": "polaridade",
+          "valor": "0°"
+        },
+        {
+          "canal": "tweeter_esq",
+          "parametro": "polaridade",
+          "valor": "0°"
+        },
+        {
+          "canal": "medio_esq",
+          "parametro": "passa-baixas",
+          "valor": "LR 24 dB/oit em 3000 Hz"
+        },
+        {
+          "canal": "tweeter_esq",
+          "parametro": "passa-altas",
+          "valor": "LR 24 dB/oit em 3000 Hz"
+        },
+        {
+          "canal": "tweeter_esq",
+          "parametro": "atraso",
+          "valor": "0.13 ms"
+        },
+        {
+          "canal": "medio_esq",
+          "parametro": "atraso",
+          "valor": "0,00 ms"
+        }
+      ]
+    }
+  },
+  "etapa": {
+    "ferramenta": "ATM (simulada)",
+    "conjunto": [
+      {
+        "canal": "tweeter_esq",
+        "parametro": "atraso",
+        "de": "0.14 ms",
+        "para": "0.13 ms"
+      },
+      {
+        "canal": "medio_esq",
+        "parametro": "atraso",
+        "de": "0,00 ms",
+        "para": "0,00 ms"
+      }
+    ],
+    "limites_informados": [
+      {
+        "canal": "tweeter_esq",
+        "parametro": "atraso",
+        "limite": "0 a 1 ms",
+        "origem": "declarado"
+      }
+    ]
+  }
+}

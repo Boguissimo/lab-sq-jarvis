@@ -4,3 +4,8 @@
 *.bat text eol=crlf
 # Fixture do banco do V01 (JV-T205): bytes exatos, sem conversão de fim de linha
 tests/dados/** -text
+# Casos do catálogo do V02 (JV-T211): bytes exatos com LF em todas as plataformas (proveniência, INV-214).
+# O REF-001-A segue como no V01 (gerado por ref001.py com o fim de linha do sistema).
+src/jarvis/referencia/dados/REF-001-[BN]*/** -text
+src/jarvis/referencia/dados/REF-002-*/** -text
+src/jarvis/referencia/dados/REF-003-*/** -text

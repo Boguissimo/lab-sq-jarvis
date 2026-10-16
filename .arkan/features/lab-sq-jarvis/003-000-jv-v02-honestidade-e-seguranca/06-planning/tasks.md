@@ -47,7 +47,7 @@
 
 - [x] JV-T210 [P] — `modelo.py`: H(f) por via (alto-falante, LR4/PEQ, polaridade, atraso, reflexão) e camada de aquisição separada (ruído, posição, ganho, quantização). Gate: G1. Evidência: `test_casos.py::test_coerencia_fisica` (soma sem aquisição = soma complexa, erro < 1e-9).
   - File: `src/jarvis/referencia/modelo.py`
-- [ ] JV-T211 — `casos.py`: catálogo (REF-001-B, N1–N5, REF-002-A ×4, REF-003-S1–S3, variantes de teste) com hashes esperados para proveniência; geração dos dados (depende de T210). Gate: G1. Evidência: `test_casos.py::test_deterministico`, `::test_ruido_registrado`, `::test_ref001a_intacto`, `::test_proveniencia_catalogo`.
+- [x] JV-T211 — `casos.py`: catálogo (REF-001-B, N1–N5, REF-002-A ×4, REF-003-S1–S3, variantes de teste) com hashes esperados para proveniência; geração dos dados (depende de T210). Gate: G1. Evidência: `test_casos.py::test_deterministico`, `::test_ruido_registrado`, `::test_ref001a_intacto`, `::test_proveniencia_catalogo`.
   - File: `src/jarvis/referencia/casos.py`, `src/jarvis/referencia/dados/`
 
 ### 0e. Contratos de qualidade e segurança (ADR-202, 204, 211)

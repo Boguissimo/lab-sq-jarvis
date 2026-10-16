@@ -77,6 +77,11 @@ def ler(caminho: str | Path) -> RespostaFrequencia:
 
 
 def escrever(caminho: str | Path, resposta: RespostaFrequencia, cabecalho: list[str]) -> None:
+    Path(caminho).write_text(formatar(resposta, cabecalho), encoding="utf-8")
+
+
+def formatar(resposta: RespostaFrequencia, cabecalho: list[str]) -> str:
+    """Texto do arquivo com fim de linha LF (``escrever`` deixa o sistema convertê-lo, como no V01)."""
     linhas = [f"* {c}" for c in cabecalho]
     if resposta.tem_fase:
         linhas.append("* Freq(Hz) SPL(dB) Phase(degrees)")
@@ -86,4 +91,4 @@ def escrever(caminho: str | Path, resposta: RespostaFrequencia, cabecalho: list[
         linhas.append("* Freq(Hz) SPL(dB)")
         for f, n in zip(resposta.freq_hz, resposta.nivel_db):
             linhas.append(f"{f:.6f} {n:.4f}")
-    Path(caminho).write_text("\n".join(linhas) + "\n", encoding="utf-8")
+    return "\n".join(linhas) + "\n"

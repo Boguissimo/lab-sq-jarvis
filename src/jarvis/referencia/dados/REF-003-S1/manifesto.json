@@ -1,0 +1,195 @@
+{
+  "caso": "REF-003-S1",
+  "simulado": true,
+  "descricao": "Reforço de EQ de +1 dB no tweeter, equipamento sintético confirmado: bloqueado por SEG-07 (margem digital sem método). Caso de segurança sintético (simulado); não altera os casos de referência.",
+  "versao_catalogo": "1.0",
+  "tipo_sessao": "investigacao",
+  "semente": 3010,
+  "ruido_sigma_db": 0.0,
+  "modelo": {
+    "versao": "1.0",
+    "antes": {
+      "via_a": {
+        "filtros": [
+          {
+            "tipo": "lr4_pb",
+            "fc_hz": 3000.0
+          }
+        ],
+        "distancia_m": 1.0,
+        "nivel_db": 85.0
+      },
+      "via_b": {
+        "filtros": [
+          {
+            "tipo": "lr4_pa",
+            "fc_hz": 3000.0
+          }
+        ],
+        "distancia_m": 1.0,
+        "nivel_db": 85.0
+      }
+    },
+    "depois": {
+      "via_a": {
+        "filtros": [
+          {
+            "tipo": "lr4_pb",
+            "fc_hz": 3000.0
+          }
+        ],
+        "distancia_m": 1.0,
+        "nivel_db": 85.0
+      },
+      "via_b": {
+        "filtros": [
+          {
+            "tipo": "lr4_pa",
+            "fc_hz": 3000.0
+          }
+        ],
+        "distancia_m": 1.0,
+        "nivel_db": 85.0
+      }
+    }
+  },
+  "configuracao_declarada": {
+    "nome": "Ajuste inicial do caso REF-003-S1 (declarado)",
+    "parametros": [
+      {
+        "canal": "medio_esq",
+        "parametro": "polaridade",
+        "valor": "0°"
+      },
+      {
+        "canal": "tweeter_esq",
+        "parametro": "polaridade",
+        "valor": "0°"
+      },
+      {
+        "canal": "medio_esq",
+        "parametro": "passa-baixas",
+        "valor": "LR 24 dB/oit em 3000 Hz"
+      },
+      {
+        "canal": "tweeter_esq",
+        "parametro": "passa-altas",
+        "valor": "LR 24 dB/oit em 3000 Hz"
+      }
+    ]
+  },
+  "medicoes": [
+    {
+      "arquivo": "medio.txt",
+      "momento": "antes",
+      "papel": "via_a",
+      "canal": "medio_esq",
+      "descricao": "Médio esquerdo sozinho",
+      "referencia_temporal": {
+        "tipo": "loopback",
+        "id": "REF-003-S1-loopback-simulado"
+      },
+      "taxa_amostragem": 48000,
+      "posicao_microfone": "P1 — posição de escuta do motorista (simulada)",
+      "simulado": true,
+      "suavizacao": "nenhuma",
+      "ganho_entrada_db": 0.0,
+      "referencia_nivel": "calibrador 94 dB em 1 kHz (simulado)",
+      "aquisicao_id": "medio",
+      "ruido_sigma_db": 0.0,
+      "semente": null
+    },
+    {
+      "arquivo": "tweeter.txt",
+      "momento": "antes",
+      "papel": "via_b",
+      "canal": "tweeter_esq",
+      "descricao": "Tweeter esquerdo sozinho",
+      "referencia_temporal": {
+        "tipo": "loopback",
+        "id": "REF-003-S1-loopback-simulado"
+      },
+      "taxa_amostragem": 48000,
+      "posicao_microfone": "P1 — posição de escuta do motorista (simulada)",
+      "simulado": true,
+      "suavizacao": "nenhuma",
+      "ganho_entrada_db": 0.0,
+      "referencia_nivel": "calibrador 94 dB em 1 kHz (simulado)",
+      "aquisicao_id": "tweeter",
+      "ruido_sigma_db": 0.0,
+      "semente": null
+    },
+    {
+      "arquivo": "soma-antes.txt",
+      "momento": "antes",
+      "papel": "soma",
+      "canal": "medio_esq+tweeter_esq",
+      "descricao": "Médio e tweeter juntos",
+      "referencia_temporal": {
+        "tipo": "loopback",
+        "id": "REF-003-S1-loopback-simulado"
+      },
+      "taxa_amostragem": 48000,
+      "posicao_microfone": "P1 — posição de escuta do motorista (simulada)",
+      "simulado": true,
+      "suavizacao": "nenhuma",
+      "ganho_entrada_db": 0.0,
+      "referencia_nivel": "calibrador 94 dB em 1 kHz (simulado)",
+      "aquisicao_id": "soma-antes",
+      "ruido_sigma_db": 0.0,
+      "semente": null
+    },
+    {
+      "arquivo": "soma-depois.txt",
+      "momento": "depois",
+      "papel": "soma",
+      "canal": "medio_esq+tweeter_esq",
+      "descricao": "Médio e tweeter juntos, depois da alteração",
+      "referencia_temporal": {
+        "tipo": "loopback",
+        "id": "REF-003-S1-loopback-simulado"
+      },
+      "taxa_amostragem": 48000,
+      "posicao_microfone": "P1 — posição de escuta do motorista (simulada)",
+      "simulado": true,
+      "suavizacao": "nenhuma",
+      "ganho_entrada_db": 0.0,
+      "referencia_nivel": "calibrador 94 dB em 1 kHz (simulado)",
+      "aquisicao_id": "soma-depois",
+      "ruido_sigma_db": 0.0,
+      "semente": null
+    }
+  ],
+  "equipamento": [
+    {
+      "canal": "medio_esq",
+      "alto_falante": "médio sintético M-165",
+      "estado": "confirmado",
+      "potencia_rms_w": 60,
+      "fs_hz": 70.0,
+      "passa_altas_min_hz": 80.0,
+      "inclinacao_min_db_oit": 12,
+      "simulado": true
+    },
+    {
+      "canal": "tweeter_esq",
+      "alto_falante": "tweeter sintético T-25",
+      "estado": "confirmado",
+      "potencia_rms_w": 30,
+      "fs_hz": 900.0,
+      "passa_altas_min_hz": 2000.0,
+      "inclinacao_min_db_oit": 24,
+      "simulado": true
+    }
+  ],
+  "alteracao_candidata": {
+    "canal": "tweeter_esq",
+    "parametro": "EQ 8 kHz",
+    "de": "0 dB",
+    "para": "+1 dB",
+    "tipo": "reforco_eq",
+    "freq_hz": 8000.0,
+    "q": 1.0,
+    "ganho_db": 1.0
+  }
+}
