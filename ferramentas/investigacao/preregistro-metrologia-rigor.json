@@ -1,0 +1,52 @@
+{
+ "titulo": "Pré-registro — metrologia em cinco dimensões e experimento rigor × facilidade de uso (sala joeglondon, 5 repetições)",
+ "data": "2026-10-16",
+ "natureza": "exploratório; não altera src/, spec, limiares nem arquitetura; não valida o V02 acusticamente; dados de terceiros não redistribuídos",
+ "fonte": {"repo": "joeglondon/speakers-2026-filters", "commit": "799af5104e83d9b3af2e832e5bd1fb4db3dd352e", "conferencia": "SHA-256 contra admissao-joeglondon.json (o harness aborta se divergir)"},
+ "nao_refazer": "σ̂ por repetição, desvio entre repetições do bloco 30–150 Hz e a admissibilidade da soma já constam em repetibilidade-sigma-joeglondon.json e resultados-braco-a-joeglondon.*; aqui só entra o que é novo (decomposição, incerteza tipo A, admissibilidade por análise, custo × precisão)",
+ "bandas_hz": {"sub": [30, 150], "v02": [200, 10000]},
+ "vias": ["L", "R", "Sub Only", "L + Sub", "R + Sub"],
+ "parte_M_metrologia": {
+  "integridade": "pontos, finitude, monotonicidade da frequência, grade igual entre arquivos e repetições, cobertura das bandas",
+  "repetibilidade": "desvio-padrão por ponto entre as 5 repetições (nível dB; fase graus, circular), mediana e p90 por banda",
+  "decomposicao": "resíduo r_k = x_k − média; reamostrar a 48 ppo (média de potência na janela, fase da média complexa); parte suave = média móvel de 5 pontos; parte rápida = resíduo − suave; reportar RMS de cada uma (suave ≈ deriva de posição/condição; rápida ≈ ruído)",
+  "estrutura": "σ̂ do produto (calculos.irregularidade, 48 ppo pontual) da média complexa das 5 repetições ÷ σ̂ médio por repetição",
+  "incerteza_tipo_A": "u(n) = s/√n com s o desvio entre repetições (mediana por banda); n = 1, 3, 5; expandida k = 2; tipo B (calibração do microfone, posição) NÃO estimada",
+  "admissibilidade_por_analise": {
+   "regra": "uma análise é 'admissível' na banda se 2·u(n) ≤ metade do efeito que ela precisa resolver; 'marginal' se 2·u(n) ≤ o efeito inteiro; senão 'não admissível'",
+   "efeitos": {
+    "nivel_entre_vias_ou_balanco_LR_db": 1.0,
+    "tempo_relativo_ms": 0.25,
+    "polaridade_graus": 180.0
+   },
+   "conversao_tempo": "efeito de fase em graus = 360·f_central·Δt, com f_central média geométrica da banda; usa a incerteza de fase em graus",
+   "conversao_polaridade": "incerteza de fase 2·u ≤ 90° para admissível; ≤ 180° marginal"
+  }
+ },
+ "parte_E_experimento_rigor_usabilidade": {
+  "pergunta": "Quanto custa em varreduras (e o que se ganha em precisão da decisão) aquisição simplificada × repetida × adaptativa?",
+  "unidade_de_custo": "número de varreduras por via (todas as vias do conjunto na mesma repetição); NÃO é tempo nem experiência do usuário medidos",
+  "modos": {
+   "S": "1 repetição por via",
+   "R2": "média complexa de 2 repetições",
+   "R3": "média complexa de 3 repetições",
+   "A": "adaptativo: toma 2; se max entre as vias do conjunto da mediana |Δ nível| entre as 2 últimas repetições na banda sub > tau_db, toma outra, até 5; estimativa = média complexa das tomadas"
+  },
+  "tau_db": 0.3,
+  "ordens": "todas as 120 permutações das 5 repetições para o modo A; todos os subconjuntos de tamanho n para S, R2, R3",
+  "conjuntos": ["L", "R"],
+  "referencia": "média complexa das repetições NÃO usadas pelo modo (complemento); para S o complemento tem 4, R2 tem 3, R3 tem 2, A tem 5−n_usado (A que usa as 5 não tem referência e é contado à parte). O ruído da referência incha o erro: a avaliação é conservadora.",
+  "saidas_Q": {
+   "Q1_erro_mediano_nivel_da_soma_db": "calculos/erro da soma complexa (lado + Sub Only) × (lado + Sub) em 30–150 Hz, máscara −30 dB, como em admissibilidade.py",
+   "Q2_admissivel": "critério pré-registrado do braço A (mediana ≤ 1,0 dB; p95 ≤ 3,0 dB; fase mediana ≤ 10°)",
+   "Q3_melhor_atraso_sub_ms": "varredura −3…+3 ms, passo 0,01",
+   "Q4_ganho_previsto_da_inversao_db": "mediana erro nível com polaridade invertida − mediana erro nível base",
+   "Q5_balanco_LR_v02_db": "mediana de (nível L − nível R) em 200–10 000 Hz, modo S/R2/R3 sobre cada lado",
+   "Q6_sigma_hat_v02_db": "σ̂ do produto (48 ppo, pontual) do lado em 200–10 000 Hz"
+  },
+  "precisao_suficiente": "P95 de |Q_modo − Q_referencia| ≤ 0,5 × efeito (efeitos: Q1 1,0 dB; Q3 0,25 ms; Q4 1,0 dB; Q5 1,0 dB; Q6 0,5 dB). Q2 e a classe: concordância de decisão (modo = referência) em ≥ 95 % dos subconjuntos.",
+  "relatorio": "por modo: custo médio de varreduras; por Q: P50/P95 do erro, 'suficiente' sim/não; concordância de Q2; fração do modo A que foi a 3, 4 e 5 repetições"
+ },
+ "limites_declarados": "uma sala, um subwoofer + dois lados, 5 repetições de uma sessão com posição presumidamente fixa; 'verdade' é o complemento (não há instrumento independente); sem fator humano; Passat (3 capturas) fica para rodada posterior por custo de dados; sem generalização",
+ "desempate_e_regras_fixas_antes_do_resultado": "nenhuma regra é ajustada depois de ver os números; resultados contrários à expectativa são reportados como estão"
+}
