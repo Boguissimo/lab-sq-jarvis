@@ -1,0 +1,155 @@
+{
+ "preregistro_sha256": "21087a4f81b96a9caee97718805e528dfc56e317841fbf64d71fdc1e179a3f63",
+ "modos": {
+  "S": {
+   "avaliacoes": 10,
+   "varreduras_por_via_media": 1.0,
+   "Q1": {
+    "P50": 0.0289,
+    "P95": 0.0458,
+    "suficiente": true
+   },
+   "Q3": {
+    "P50": 0.01,
+    "P95": 0.0355,
+    "suficiente": true
+   },
+   "Q4": {
+    "P50": 0.0544,
+    "P95": 0.1801,
+    "suficiente": true
+   },
+   "Q5": {
+    "P50": 0.0292,
+    "P95": 0.0483,
+    "suficiente": true
+   },
+   "Q6": {
+    "P50": 0.0518,
+    "P95": 0.1125,
+    "suficiente": true
+   },
+   "Q2_concordancia": {
+    "fracao": 1.0,
+    "suficiente": true
+   }
+  },
+  "R2": {
+   "avaliacoes": 20,
+   "varreduras_por_via_media": 2.0,
+   "Q1": {
+    "P50": 0.0116,
+    "P95": 0.0282,
+    "suficiente": true
+   },
+   "Q3": {
+    "P50": 0.015,
+    "P95": 0.0415,
+    "suficiente": true
+   },
+   "Q4": {
+    "P50": 0.0411,
+    "P95": 0.0986,
+    "suficiente": true
+   },
+   "Q5": {
+    "P50": 0.0093,
+    "P95": 0.0403,
+    "suficiente": true
+   },
+   "Q6": {
+    "P50": 0.0333,
+    "P95": 0.1032,
+    "suficiente": true
+   },
+   "Q2_concordancia": {
+    "fracao": 1.0,
+    "suficiente": true
+   }
+  },
+  "R3": {
+   "avaliacoes": 20,
+   "varreduras_por_via_media": 3.0,
+   "Q1": {
+    "P50": 0.0116,
+    "P95": 0.0282,
+    "suficiente": true
+   },
+   "Q3": {
+    "P50": 0.015,
+    "P95": 0.0415,
+    "suficiente": true
+   },
+   "Q4": {
+    "P50": 0.0411,
+    "P95": 0.0986,
+    "suficiente": true
+   },
+   "Q5": {
+    "P50": 0.0093,
+    "P95": 0.0403,
+    "suficiente": true
+   },
+   "Q6": {
+    "P50": 0.0333,
+    "P95": 0.1032,
+    "suficiente": true
+   },
+   "Q2_concordancia": {
+    "fracao": 1.0,
+    "suficiente": true
+   }
+  },
+  "A": {
+   "avaliacoes": 240,
+   "varreduras_por_via_media": 2.0,
+   "Q1": {
+    "P50": 0.0116,
+    "P95": 0.0282,
+    "suficiente": true
+   },
+   "Q3": {
+    "P50": 0.015,
+    "P95": 0.0415,
+    "suficiente": true
+   },
+   "Q4": {
+    "P50": 0.0411,
+    "P95": 0.0986,
+    "suficiente": true
+   },
+   "Q5": {
+    "P50": 0.0093,
+    "P95": 0.0403,
+    "suficiente": true
+   },
+   "Q6": {
+    "P50": 0.0333,
+    "P95": 0.1032,
+    "suficiente": true
+   },
+   "Q2_concordancia": {
+    "fracao": 1.0,
+    "suficiente": true
+   }
+  }
+ },
+ "adaptativo_usos": {
+  "L": {
+   "2": 120,
+   "3": 0,
+   "4": 0,
+   "5": 0
+  },
+  "R": {
+   "2": 120,
+   "3": 0,
+   "4": 0,
+   "5": 0
+  }
+ },
+ "modo_A_sem_referencia_usou_5": {
+  "L": 0,
+  "R": 0
+ }
+}
