@@ -80,7 +80,7 @@
   - File: `src/jarvis/sessao.py`
 - [x] JV-T220 [US-04] — REF-001-B: incerteza de σ̂ no veredito, aquisição comparável exigida para `confirmada` (FR-208) (depende de T219). Gate: G1. Evidência: `test_sessao.py::test_ref001b`, `::test_nao_estimavel_limita_veredito`, `::test_depois_outra_posicao_nao_confirma`.
   - File: `src/jarvis/sessao.py`
-- [ ] JV-T221 [P] — Varredura SC-208 (a, b): σ̂ e detector; oráculos analíticos e testes metamórficos; relatório marcado "domínio simulado" (depende de T212, T215). Gate: G1/G2. Evidência: `tests/test_validacao_limiares.py`, `tests/test_oraculos.py`, `tests/test_metamorficos.py` → `08-qa/validacao-limiares.md` (parcial).
+- [x] JV-T221 [P] — Varredura SC-208 (a, b): σ̂ e detector; oráculos analíticos e testes metamórficos; relatório marcado "domínio simulado" (depende de T212, T215). Gate: G1/G2. Evidência: `tests/test_validacao_limiares.py`, `tests/test_oraculos.py`, `tests/test_metamorficos.py` → `08-qa/validacao-limiares.md` (parcial).
   - File: `tests/test_validacao_limiares.py`, `tests/test_oraculos.py`, `tests/test_metamorficos.py`
 - [ ] JV-T222 [US-01..04] — Interface: seletor de caso, resultados novos (qualidade, detector com resolução, "ruído não estimável", "declarada compatível"), modo da sessão no Histórico (FR-209) (depende de T217, T220). Gate: G1. Evidência: `test_interface.py::test_seletor_casos`, `::test_textos_resultados`.
   - File: `src/jarvis/interface/janela.py`
