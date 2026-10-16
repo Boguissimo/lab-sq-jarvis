@@ -30,6 +30,26 @@
 
 **Ambiente:** `.venv` na raiz; para a suíte: `PYTHONPATH=src QT_QPA_PLATFORM=offscreen .venv/bin/python -m pytest` (libs Qt: `apt-get install libegl1 libgl1 libxkbcommon0 libfontconfig1 libdbus-1-3`).
 
+### Complemento de fechamento da sessão (2026-10-16) — decisões e backup
+
+**Backup do rascunho normativo:** `docs/revisoes/RASCUNHO-NORMATIVO-NAO-APROVADO-jv-d045-constituicao-0.4.1.patch` (verificado: `git apply` num checkout limpo de `03aa6a5` reproduz exatamente os dois arquivos). **É rascunho, não aprovação.** Os arquivos `decisoes.md` e `constitution.md` seguem fora do commit; recuperá-los com `git apply` se o working tree for perdido. Não commitar sem aprovação expressa da redação.
+
+**Decisões de Fabrício a registrar (2026-10-16):**
+- O **ChatGPT exerce também a gerência do projeto** (coordenação de prioridades, pendências, integração das frentes, revisão crítica). **Fabrício mantém exclusivamente a autoridade humana decisória.** A JV-D045 precisa **incorporar esse papel antes da aprovação definitiva** (o rascunho atual ainda descreve o ChatGPT só como revisor opcional e sem gate).
+- Clarification do FR-002 (milhar REW): redação proposta no relatório da sessão (acréscimo ao FR-002: números en-US com milhar e decimal são um só valor; demais separadores como antes; vírgula decimal separada por espaço não coberta), **pendente de formalização** (nível B). Só depois integrar a correção pontual.
+- O diagnóstico deve **evoluir para previsão e comparação física**, sem depender só de assinaturas de fase constante.
+- A avaliação metrológica distingue **integridade, repetibilidade, estrutura acústica, incerteza e admissibilidade por análise**.
+- O experimento **rigor × facilidade de uso** (aquisição simplificada × repetida × adaptativa) continua entre as próximas entregas.
+- **Faixa operacional por via**, avaliação de `referencia/modelo.py` como motor de previsão e **IR como dado de primeira classe no V04** são **diretrizes de evolução, não implementações autorizadas**.
+- O domínio atual dos algoritmos não pode limitar a futura análise do sistema automotivo completo. Calibração automatizada fica para depois, mas seus modelos físicos e dependências são considerados desde já.
+- G3 Windows (JV-T223) segue **parcialmente concluído**.
+
+**Estado técnico a preservar (sem extrapolar):** correção pontual em `claude/correcao-pontual-formato-rew` @ `e6f18d6` (217 passando + 1 xfail, sem merge); joeglondon e Passat com relatórios e limitações documentadas; **Passat: 0/80 detecções corretas nas falhas injetadas — resultado limitado a esse ensaio, sem extrapolar para desempenho geral**; F-5: σ̂ **não** é estimativa confiável de ruído da aquisição quando tomado isoladamente; mapa técnico concluído.
+
+**Hashes remotos conferidos no fechamento** (`git ls-remote`, antes do commit deste complemento): `claude/busy-bohr-25s6e5` = `03aa6a5d5e0d2d94c83a668d29b220225bf37ef9`; `claude/correcao-pontual-formato-rew` = `e6f18d6054423ff21cbd275c8b3883515fa7e486`; base do V02 `lab-sq-jarvis/003-…` = `d56e0ad1f75a03f53936a70a60490e85d8a6d8d8`; `main` = `389e58083c0a74492e4111b7b19f72ea71839633` (intacta). O hash do commit deste complemento é informado na entrega da sessão (um arquivo não pode conter o próprio hash).
+
+**Próxima sessão — frentes (continuidade operacional, sem reiniciar o planejamento):** (1) fechar pendências normativas (JV-D045 com o papel de gerência; patch 0.4.1; Clarification FR-002); (2) correções pontuais e integração controlada (só após a Clarification e ordem expressa); (3) investigação metrológica e experimento rigor × usabilidade; (4) evolução dos métodos de diagnóstico e previsão; (5) conclusão posterior do G3. Não abrir frentes adicionais sem necessidade. Fonte canônica: este arquivo (seção "LEIA PRIMEIRO"), `decisoes.md`, `.arkan/projects/lab-sq-jarvis/constitution.md` e `docs/revisoes/investigacao-desempenho/`.
+
 ---
 
 
