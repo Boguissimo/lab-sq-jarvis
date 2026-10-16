@@ -1,7 +1,7 @@
 # Tasks — 003-000-jv-v02-honestidade-e-seguranca (JV-V02)
 
 **Input**: [spec.md](../03-spec/spec.md) (E1–E3) | [plan.md](../04-architecture/plan.md) (R1–R1.2) | [data-model.md](../04-architecture/data-model.md) | [quickstart.md](../04-architecture/quickstart.md)
-**Status**: aprovado pelo desenvolvedor em 2026-10-15 (Princípio VIII).
+**Status**: aprovado pelo desenvolvedor em 2026-10-15 (Princípio VIII). **JV-T222A e JV-T222B** (emenda E4): implementação aprovada pelo desenvolvedor em 2026-10-16; commit aguarda a conferência da redação final. JV-T223 (G3 do bloco 1) vem depois delas.
 
 > Formato: `JV-T2NN [P?] [US?] — descrição`. Gate de cada task: G1 = teste automatizado; G2 = revisão técnica; G3 = desenvolvedor no Windows.
 > `[P]` = pode rodar em paralelo com outras `[P]` da mesma fase (arquivos diferentes, sem estado compartilhado).
@@ -84,6 +84,10 @@
   - File: `tests/test_validacao_limiares.py`, `tests/test_oraculos.py`, `tests/test_metamorficos.py`
 - [x] JV-T222 [US-01..04] — Interface: seletor de caso, resultados novos (qualidade, detector com resolução, "ruído não estimável", "declarada compatível"), modo da sessão no Histórico (FR-209) (depende de T217, T220). Gate: G1. Evidência: `test_interface.py::test_seletor_casos`, `::test_textos_resultados`.
   - File: `src/jarvis/interface/janela.py`
+- [x] JV-T222A [US-03] — **(E4)** Confirmação de mudança exige faixa de frequência compatível entre as duas aquisições (`calculos.repeticao_confirma`; `faixa_compativel` em `detector_mudanca`); cópia, reimportação ou nova análise dos mesmos dados nunca confirmam (depende de T219). Gate: G1. Evidência: `test_calculos.py::test_repeticao_exige_faixa_compativel_calculo`, `test_sessao.py::test_repeticao_exige_faixa_compativel`, `::test_copia_nao_e_repeticao` (INV-215). Sem mudar limiares. Limitação registrada: só interseção não vazia de faixas e só as duas primeiras detecções positivas por via; algoritmo não redesenhado.
+
+- [x] JV-T222B [US-03] — **(E4)** Texto da indicativa "mudança suspeita; repetir a medição", sem afirmar alteração do DSP (`janela.py`, `sessao.py`, FR-209); framing de `tests/test_validacao_limiares.py` atualizado sem alterar números nem tabelas; ensaio complementar em `ferramentas/medir_e4.py` (depende de T222A). Gate: G1. Evidência: `test_interface.py::test_mudanca_suspeita_sem_afirmar_dsp` (passando; suíte completa em 2026-10-16: 211 passando e 1 `xfail`, com interface, em Linux com as libs), `08-qa/validacao-limiares.md` e `-e4.md`.
+
 - [ ] JV-T223 — **G3 do bloco 1**: roteiro no Windows, incluindo abrir o banco real (migração com backup) e reabrir as sessões (SC-206). Gate: G2 (roteiro) e G3. Evidência: seção do bloco 1 em `COMO-EXPERIMENTAR.md` e registro do desenvolvedor.
   - File: `COMO-EXPERIMENTAR.md`
 

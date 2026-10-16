@@ -594,14 +594,10 @@ class Servico:
                 dets.append({"medicao": md["id"],
                              **calculos.detector_mudanca_via(ra, rd, sa, sd, faixa, comparaveis)})
             detectadas = [d for d in dets if d["resultado"] == "mudanca_detectada"]
-            reproduzida = False
+            reproduzida, rep = False, None
             if len(detectadas) >= 2:
-                d1, d2 = detectadas[0], detectadas[1]
-                x1 = d1["pior_banda"]["delta_db"] if d1["pior_banda"] else d1["media_db"]
-                x2 = d2["pior_banda"]["delta_db"] if d2["pior_banda"] else d2["media_db"]
-                tol = max(d1["limiar_bandas_db"] or 0.0, d2["limiar_bandas_db"] or 0.0,
-                          limiares.valor("detector_banda_db"))
-                reproduzida = (x1 * x2 > 0) and abs(x1 - x2) <= tol
+                rep = calculos.repeticao_confirma(detectadas[0], detectadas[1])  # E4: sentido, nível e faixa
+                reproduzida = rep["reproduzida"]
             if any(d["resultado"] == "inconclusiva" for d in dets):
                 resultado = "verificacao_inconclusiva"
             elif reproduzida:
@@ -612,8 +608,9 @@ class Servico:
                 resultado = "mudanca_nao_detectada"
             faixa_mud = next((d["faixa_mudanca_hz"] for d in detectadas if d.get("faixa_mudanca_hz")), None)
             dados_det = {"via": via, "depois": [d["medicao"] for d in dets], "deteccoes": dets,
-                         "reproduzida": reproduzida, "parametro_identificado": False, "resultado": resultado,
-                         "faixa_mudanca_hz": faixa_mud}
+                         "reproduzida": reproduzida, "confirmacao": rep,
+                         "faixa_compativel": rep["faixa_compativel"] if rep else None,
+                         "parametro_identificado": False, "resultado": resultado, "faixa_mudanca_hz": faixa_mud}
             cid = self._registrar_calculo("detector_mudanca", f"Detector de mudança da via ({via})", dados_det,
                                           [antes, *depois], limiares=dets[0]["limiares"])
             calcs.append(cid)
@@ -681,12 +678,13 @@ class Servico:
             v = reproduzidas[0]
             fx = verif["vias"][v].get("faixa_mudanca_hz")
             faixa = f"{_fmt(fx[0], 0)} Hz a {_fmt(fx[1], 0)} Hz" if fx else "faixa útil"
-            return ("comprometida", f"Mudança reproduzida no {rotulos[v]}, na faixa {faixa}; o parâmetro alterado "
-                    "não é identificado pela medição. A variável testada não muda a magnitude da via isolada, "
-                    "então houve outra alteração: refaça o teste mudando só uma variável.", 3)
+            return ("comprometida", f"Mudança reproduzida no {rotulos[v]}, na faixa {faixa}; a medição não identifica "
+                    "a causa e não comprova alteração no DSP (a causa pode ser acústica ou de aquisição). A variável testada não muda a magnitude da via isolada, então ela "
+                    "não explica a mudança, e o teste não isola a variável: refaça o teste mudando só uma variável.", 3)
         if any(d["resultado"] == "mudanca_detectada_indicativa" for d in verif["vias"].values()):
-            return teto("Possível alteração além da variável testada; repita a medição individual “depois” "
-                        "(retire e recoloque o microfone na mesma posição).", 3)
+            return teto("Mudança suspeita numa só aquisição “depois” (pode ser reposicionamento ou ruído; nenhuma alteração do DSP "
+                        "é afirmada); repita a medição individual “depois” (retire e recoloque o microfone na mesma "
+                        "posição).", 3)
         if not verif.get("somas_comparaveis", {}).get("ok", True):
             return teto("Melhora observada, sem confirmação causal: as somas “antes” e “depois” não têm "
                         "condições de aquisição comparáveis declaradas (posição, ganho de entrada, referência de nível).", 3)

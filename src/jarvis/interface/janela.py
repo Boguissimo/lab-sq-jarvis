@@ -654,9 +654,12 @@ class JanelaPrincipal(QMainWindow):
             else:
                 fx = r.get("faixa_mudanca_hz")
                 faixa = f" entre {_fmt(fx[0], 0)} Hz e {_fmt(fx[1], 0)} Hz" if fx else ""
-                txt = ("mudança detectada e reproduzida" if res == "mudanca_detectada_reproduzida"
-                       else "mudança detectada só numa aquisição (indicativa: repita a medição)") + faixa
-                txt += "; o parâmetro alterado não é identificado pela medição"
+                if res == "mudanca_detectada_reproduzida":
+                    txt = ("mudança detectada e reproduzida" + faixa
+                           + "; a medição não identifica a causa e não comprova alteração no DSP")
+                else:  # indicativa (E4): suspeita, sem afirmar alteração do DSP
+                    txt = ("mudança suspeita; repetir a medição (indicativa, ainda não confirmada)" + faixa
+                           + "; pode ser reposicionamento ou ruído, e nenhuma alteração do DSP é afirmada")
             itens.append(f"<li>{nomes.get(via, via)}: {html.escape(txt)}</li>")
         conf = {"igual": "igual à proposta", "diferente": "diferente da proposta",
                 "nao_declarada": "não declarada"}[v["configuracao"]]

@@ -35,7 +35,7 @@
 | cancelamento | 1.60 | 1.620 | 0.321 | 2/50 | 0/7/43 |
 | cancelamento | 2.00 | 2.024 | 0.396 | 2/50 | 0/0/50 |
 
-- **Critério por realização** (|σ̂ − σ| ≤ 15 % de σ + 0,05 dB): 22 de 1400 realizações fora. A média fica dentro em todos os cenários; a dispersão de uma realização isolada pode passar do critério com σ alto. Registrado para decisão (o SC-208 não diz se o critério é por realização ou típico).
+- **Critério por realização** (|σ̂ − σ| ≤ 15 % de σ + 0,05 dB): 22 de 1400 realizações fora. A média fica dentro em todos os cenários; a dispersão de uma realização isolada pode passar do critério com σ alto. Critério revisto pela E4 (viés médio + dispersão declarada, sem ampliar a tolerância); as realizações fora ficam registradas aqui e analisadas em `validacao-limiares-e4.md`.
 - Fora do domínio: ruído correlacionado (janela de 8 pontos, σ = 1,0 dB) dá σ̂ médio **0.290 dB** — o estimador subestima ruído correlacionado (limite declarado E1).
 - Suavização declarada: `nao_estimavel`, nunca aprovada.
 
@@ -55,5 +55,5 @@
 | corte 3,0 → 3,5 kHz | 0.5 | 200 | 0 | 0 |
 
 - Posição de microfone diferente: `inconclusiva` (nenhuma diferença atribuída ao DSP).
-- **Falsos positivos em “só polaridade”**: σ 0,5 → 0/200; σ 1,0 → 0/200; σ 1,5 → 20/200. O SC-208(b) pede zero até σ = 1,5 dB: **divergência aberta**, aguardando decisão `JV-D` (limiar não ajustado, P8).
+- **Falsos positivos em “só polaridade”**: σ 0,5 → 0/200; σ 1,0 → 0/200; σ 1,5 → 20/200. O critério original do SC-208(b) (zero até σ = 1,5 dB) **não é atendido**: limitação conhecida, registrada pela E4 (indicativa × confirmada; ensaio ampliado em `validacao-limiares-e4.md`). Limiar não ajustado (P8).
 - Limiares usados: média 1.0 dB; bandas max(1.5 dB; 3.0·σΔ).

@@ -70,8 +70,9 @@ def test_a_sigma():
     assert suav["classificacao"] == "nao_estimavel"
     linhas += ["", f"- **Critério por realização** (|σ̂ − σ| ≤ 15 % de σ + 0,05 dB): {total_fora} de "
                    f"{len(cenarios) * 7 * 50} realizações fora. A média fica dentro em todos os cenários; a "
-                   "dispersão de uma realização isolada pode passar do critério com σ alto. Registrado para decisão "
-                   "(o SC-208 não diz se o critério é por realização ou típico).",
+                   "dispersão de uma realização isolada pode passar do critério com σ alto. Critério revisto pela E4 "
+                   "(viés médio + dispersão declarada, sem ampliar a tolerância); as realizações fora ficam registradas "
+                   "aqui e analisadas em `validacao-limiares-e4.md`.",
                f"- Fora do domínio: ruído correlacionado (janela de 8 pontos, σ = 1,0 dB) dá σ̂ médio "
                    f"**{corr:.3f} dB** — o estimador subestima ruído correlacionado (limite declarado E1).",
                "- Suavização declarada: `nao_estimavel`, nunca aprovada."]
@@ -117,8 +118,9 @@ def test_b_detector():
     assert _det(base, -base, 0.5, 1, nc) == "inconclusiva"
     linhas += ["", "- Posição de microfone diferente: `inconclusiva` (nenhuma diferença atribuída ao DSP).",
                f"- **Falsos positivos em “só polaridade”**: σ 0,5 → {fp[0.5]}/{SEMENTES}; σ 1,0 → {fp[1.0]}/{SEMENTES}; "
-               f"σ 1,5 → {fp[1.5]}/{SEMENTES}. O SC-208(b) pede zero até σ = 1,5 dB: **divergência aberta**, "
-               "aguardando decisão `JV-D` (limiar não ajustado, P8).",
+               f"σ 1,5 → {fp[1.5]}/{SEMENTES}. O critério original do SC-208(b) (zero até σ = 1,5 dB) **não é atendido**: "
+               "limitação conhecida, registrada pela E4 (indicativa × confirmada; ensaio ampliado em "
+               "`validacao-limiares-e4.md`). Limiar não ajustado (P8).",
                f"- Limiares usados: média {limiares.valor('detector_media_db')} dB; bandas max("
                f"{limiares.valor('detector_banda_db')} dB; {limiares.valor('detector_fator_sigma')}·σΔ)."]
     _registrar("(b) Detector de mudança", linhas)

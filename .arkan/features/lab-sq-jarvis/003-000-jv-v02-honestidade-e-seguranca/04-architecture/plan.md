@@ -1,7 +1,7 @@
 # Plano de Implementação — 003-000-jv-v02-honestidade-e-seguranca (JV-V02)
 
 **Branch**: `lab-sq-jarvis/003-000-jv-v02-honestidade-e-seguranca` | **Data**: 2026-10-15 | **Spec**: `03-spec/spec.md` (com emendas E1 e E2)
-> **Status**: **revisão R1 aprovada** pelo desenvolvedor em 2026-10-15 (nível B), incluindo os pontos para aprovação listados no fim · **complemento R1.1** (emenda E2: casos REF-003-S, ruído não estimável descritivo, fixture permanente): **aprovado em 2026-10-15 (nível B)** · **complemento R1.2** (emenda E3, revisão adversarial A01–A09; ADR-212 nova): **aprovado em 2026-10-15 (nível B)**
+> **Status**: **revisão R1 aprovada** pelo desenvolvedor em 2026-10-15 (nível B), incluindo os pontos para aprovação listados no fim · **complemento R1.1** (emenda E2: casos REF-003-S, ruído não estimável descritivo, fixture permanente): **aprovado em 2026-10-15 (nível B)** · **complemento R1.2** (emenda E3, revisão adversarial A01–A09; ADR-212 nova): **aprovado em 2026-10-15 (nível B)** · **complemento R1.3** (emenda E4: critério de aceite do SC-208 e confirmação de mudança): **decisões do desenvolvedor registradas em 2026-10-16; redação final aguarda conferência e aprovação expressa**
 > **R1** (2026-10-15) aplica a revisão externa (`docs/revisoes/jv-v02-revisao-tecnica-do-plano.md`, itens 1 a 12) e a emenda E1 da spec. Situação das ADRs:
 > - **Revistas:** ADR-202, 204, 205, 207 e 208.
 > - **Ajustadas:** ADR-201, 203, 206, 209 e 210.
@@ -44,7 +44,7 @@ A R1 acrescenta três frentes que a revisão mostrou necessárias:
 
 | Princípio | Verificação |
 | --- | --- |
-| I. Spec Governa Código | PASS — cada módulo e teste cita FR/INV/SC da spec; a matriz de rastreabilidade abaixo fecha FR-201 a FR-223, INV-201 a INV-214 e SC-201 a SC-209 (conferido por script a cada emenda) |
+| I. Spec Governa Código | PASS — cada módulo e teste cita FR/INV/SC da spec; a matriz de rastreabilidade abaixo fecha FR-201 a FR-223, INV-201 a INV-215 (INV-215 da E4) e SC-201 a SC-209 (conferido por script a cada emenda) |
 | II. Gate Obrigatório | PASS — `check-prerequisites` roda antes de cada fase; este plano só segue com PASS |
 | III. Conclusividade | PASS — nenhum `[NEEDS CLARIFICATION]` aberto; limiares provisórios estão declarados, não pendentes |
 | IV. Modo Declarado | PASS — feature de peso Code, pipeline completo |
@@ -242,7 +242,7 @@ ferramentas/gerar_banco_v01.py   [novo]  roda o percurso do V01 num checkout de 
     - resultado `mudança detectada` | `mudança não detectada (resolução …)` | `verificação inconclusiva`. Sem dado, a via fica "não verificada".
 
   O veredito segue a **precedência E1**, e tudo fica gravado em `conclusao.dados.verificacao_variavel_unica`. O manifesto aceita `via_a` e `via_b` com `momento: "depois"`.
-- **Motivo:** a média entre 1 e 10 kHz não detectou EQ estreita (0 %). O detector híbrido detectou o N3 em 100 % dos casos, sem falso positivo em "só polaridade" até σ = 1,5 (evidência na Clarification E1).
+- **Motivo:** a média entre 1 e 10 kHz não detectou EQ estreita (0 %). O detector híbrido detectou o N3 em 100 % dos casos, sem falso positivo em "só polaridade" até σ = 1,5 (evidência na Clarification E1). *(E4: a medição ampliada em `08-qa/validacao-limiares-e4.md` mostrou 87/1 000 alarmes indicativos e 12/1 000 confirmados em σ = 1,5 dB; a frase de 'sem falso positivo até σ = 1,5' não vale e fica como limitação conhecida. Texto original preservado.)*
 - **Alternativas descartadas:** só (a); máximo pontual sem suavização (falsos positivos com ruído); limiar único sem margem de ruído.
 - **Consequência:**
   - Sem medições individuais "depois", vale só (a), com o aviso. O REF-001-A continua `confirmada` (INV-210).
@@ -252,6 +252,7 @@ ferramentas/gerar_banco_v01.py   [novo]  roda o percurso do V01 num checkout de 
     - `test_reposicionamento_nao_compromete` (o gerador desloca um nulo estreito sem mexer no DSP);
     - `test_depois_outra_posicao_nao_confirma`;
     - `test_copia_nao_e_repeticao`, `test_mudanca_reproduzida_nao_nomeia_parametro`;
+    - (E4) `test_repeticao_exige_faixa_compativel`: duas aquisições com mudança no mesmo sentido mas em faixas disjuntas ⇒ indicativa, não confirmada;
     - `test_casos.py::test_proveniencia_catalogo` (arquivo do catálogo alterado em 1 byte perde as presunções), `test_sessao.py::test_simulado_declarado_nao_presume`.
 
 ### ADR-212 — Correções do V01 na fundação *(nova na R1.2; revisão adversarial A02, A04, A06)*
@@ -392,9 +393,9 @@ Legenda de módulos: `calc` = `calculos.py`, `seg` = `seguranca.py`, `cal` = `ca
 | FR-204 | `calc.vales_individuais`, `regras` (I-3) | `test_regras.py::test_i3_reordena_hipoteses`, `test_sessao.py::test_n1` | 210 | 1 |
 | FR-205 | `calc.referencia_temporal` (1.1, declarada), `ses.analisar` | `test_sessao.py::test_n4`, `test_calculos.py::test_referencia_campos_ausentes` | 212 | F/1 |
 | FR-206 | `regras`, `ses.decidir_sem_intervencao` | `test_sessao.py::test_n5` | — | 1 |
-| FR-207 | `calc.faixa_util`, `calc.condicoes_comparaveis`, `calc.detector_mudanca_via`, `ses.importar_depois`, `ses.concluir` | `test_calculos.py::test_detector_mudanca`, `test_sessao.py::test_n3`, `::test_n3_so_declarada`, `::test_n3_so_medida`, `::test_n3_posicao_diferente_inconclusiva`, `::test_n3_sem_repeticao_inconclusiva`, `::test_reposicionamento_nao_compromete`, `::test_sem_dados_nao_e_sem_mudanca` | 208 | 1 |
+| FR-207 | `calc.faixa_util`, `calc.condicoes_comparaveis`, `calc.detector_mudanca_via`, `ses.importar_depois`, `ses.concluir` | `test_calculos.py::test_detector_mudanca`, `test_sessao.py::test_n3`, `::test_n3_so_declarada`, `::test_n3_so_medida`, `::test_n3_posicao_diferente_inconclusiva`, `::test_n3_sem_repeticao_inconclusiva`, `::test_reposicionamento_nao_compromete`, `::test_repeticao_exige_faixa_compativel`, `::test_sem_dados_nao_e_sem_mudanca` | 208 | 1 |
 | FR-208 | `ses.concluir` (incerteza de σ̂; aquisição comparável declarada) | `test_sessao.py::test_ref001b`, `::test_nao_estimavel_limita_veredito`, `::test_depois_outra_posicao_nao_confirma` | 202, 203, 208 | 1 |
-| FR-209 | `UI/janela.py` | `test_interface.py::test_seletor_casos`, `::test_textos_resultados` | 209 | 1 |
+| FR-209 | `UI/janela.py` | `test_interface.py::test_seletor_casos`, `::test_textos_resultados`, `::test_mudanca_suspeita_sem_afirmar_dsp` | 209 | 1 |
 | FR-210 | `seg.classificar` | `test_seguranca.py::test_classificacao` | 204 | 2 |
 | FR-211 | `seg.avaliar`, `seg.admissibilidade`, `ses.propor_teste` | `test_seguranca.py::test_seg01` … `::test_seg13` (permitido/limítrofe/proibido), `::test_admissibilidade`, `test_sessao.py::test_polaridade_passa_por_seguranca` | 204 | F/2 |
 | FR-212 | `seg` | `test_seguranca.py::test_seg02_07_09_nao_verificaveis` | 204 | 2 |
@@ -427,6 +428,7 @@ Legenda de módulos: `calc` = `calculos.py`, `seg` = `seguranca.py`, `cal` = `ca
 | INV-211 | `ses.estado`, `regras_v1_0`, `pers` | `test_sessao.py::test_reabrir_nao_recalcula`, `test_persistencia.py::test_sessao_v01_legivel` |
 | INV-212 | `calc`, `ses` | `test_calculos.py::test_nao_estimavel_nao_aprova`, `::test_nao_estimavel_preserva_descritivo`, `test_sessao.py::test_sem_dados_nao_e_sem_mudanca` |
 | INV-213 | `referencia/casos.py`, `ref001.py` | `test_casos.py::test_deterministico`, `::test_ref001a_intacto` |
+| INV-215 (E4) | `ses._verificacao_variavel_unica` (confirmação), `calc.detector_mudanca_via` | `test_sessao.py::test_repeticao_exige_faixa_compativel`, `::test_copia_nao_e_repeticao` |
 | INV-214 | `referencia/casos.py` (hashes esperados), `ses._importar_medicao` (proveniência), `calc.irregularidade`, `calc.condicoes_comparaveis` | `test_casos.py::test_proveniencia_catalogo`, `test_sessao.py::test_simulado_declarado_nao_presume` |
 
 ### Critérios de sucesso
@@ -440,7 +442,7 @@ Legenda de módulos: `calc` = `calculos.py`, `seg` = `seguranca.py`, `cal` = `ca
 | SC-205 | `test_configuracao.py::test_reversao_tres_desfechos` | 3 |
 | SC-206 | roteiro `COMO-EXPERIMENTAR.md` no Windows (G3 por bloco) | 1/2/3 |
 | SC-207 | `python -m pytest` em Linux (V01 + V02) | N |
-| SC-208 | `test_validacao_limiares.py` → `08-qa/validacao-limiares.md`; `test_oraculos.py` (vetores analíticos: quadratura, LR4, atraso puro), `test_metamorficos.py` (ganho global, troca de vias); domínio declarado: só simulado (E3) | 1/2/3 |
+| SC-208 | (E4: critério revisto) `test_validacao_limiares.py` → `08-qa/validacao-limiares.md` (preservado) e `ferramentas/medir_e4.py` → `08-qa/validacao-limiares-e4.md`; `test_oraculos.py` (vetores analíticos: quadratura, LR4, atraso puro), `test_metamorficos.py` (ganho global, troca de vias); domínio declarado: só simulado (E3) | 1/2/3 |
 | SC-209 | `test_sessao.py::test_s1_s2_s3`, `test_interface.py::test_casos_seguranca`, G3 do bloco 2 | 2 |
 
 ---
@@ -489,3 +491,23 @@ Decisões da E2 sobre esses pontos (2026-10-15): (1) ruído não estimável pres
 | A09 | Constitution Check (I e VIII) corrigido | matriz conferida por script; duas avaliações separadas. **(i) G3 do bloco 3 do V02:** comparação de **esforço operacional** com dados sintéticos (tempo e passos de 2 ou 3 tarefas, Jarvis contra REW + planilha), registrada no QA como custo de fluxo. **(ii) VP-10 (utilidade real):** fica para incremento com medições reais. Nenhuma conclusão sobre vantagem na calibração do carro sai do V02 |
 
 **Aprovado (nível B) em 2026-10-15:** redação da emenda E3 na spec e deste complemento R1.2 (ADR-212 nova; ADR-204, 208, 211 e Fase 0 ajustadas; matriz e data-model).
+
+### Complemento R1.3 — emenda E4 (divergências do SC-208) — *decisões registradas; redação final aguarda conferência*
+
+Origem: spec, Clarifications da Sessão 2026-10-16. Não muda arquitetura, ADRs nem limiares; muda o **critério de aceite** do SC-208 e a confirmação de mudança.
+
+| Item | Onde fica | Critério de teste / evidência |
+| --- | --- | --- |
+| SC-208(a): viés e dispersão no lugar do critério por realização; sem limite de dispersão novo | spec SC-208(a); ADR-211 | `test_validacao_limiares.py` mantém a asserção de viés médio; `ferramentas/medir_e4.py` registra EAM, dp, percentis, proporção fora da tolerância original (22/1 400 preservados), falsas aprovações/reprovações perto de 0,5 e 1,5 dB |
+| SC-208(b): desempenho observado, critério de aceitação e limitação não resolvida | spec SC-208(b); ADR-208 | taxas de indicativas, confirmadas e falsos negativos por σ, com N; **sem meta de taxa de falsos positivos**; detector **não validado** em σ = 1,5 dB |
+| Confirmação exige faixa de frequência compatível | spec definição "Mudança indicativa e confirmada", FR-207, INV-215; ADR-208 | `test_calculos.py::test_repeticao_exige_faixa_compativel_calculo`, `test_sessao.py::test_repeticao_exige_faixa_compativel` (JV-T222A, implementada) |
+| Texto "mudança suspeita; repetir a medição", sem afirmar alteração do DSP | FR-209; ADR-209 | `test_interface.py::test_mudanca_suspeita_sem_afirmar_dsp` (JV-T222B; passando) |
+| Custo operacional (repetições pedidas) | spec SC-208(b); roteiro G3 | contagem registrada no G3 e no uso real; sem limiar |
+
+**Limitação conhecida que a E4 declara:** em σ = 1,5 dB há falsos positivos confirmados (12/1 000; 10/1 000 com faixa compatível), porque as duas comparações "depois × antes" compartilham o mesmo "antes". Redesenho do detector (por exemplo, repetir também o "antes") fica fora do V02, para validação posterior; um limite admissível de falsos positivos exige justificativa e teste independentes.
+
+**Limitação técnica da confirmação de faixa (registrada; algoritmo não redesenhado):** `calculos.repeticao_confirma` exige só **interseção não vazia** das faixas de mudança (uma "mudança geral" usa a faixa útil inteira e cruza com qualquer outra) e `Servico._verificacao_variavel_unica` avalia **apenas as duas primeiras detecções positivas** da via, na ordem de importação. Isso não demonstra que a diferença ocorreu na mesma região fisicamente relevante. Investigação posterior (junto com a independência do "antes").
+
+**Linguagem (conferência final):** nenhum texto afirma alteração no DSP. "A medição não identifica a causa" substitui "o parâmetro alterado não é identificado pela medição"; uma alteração adicional só aparece como **declarada** pelo usuário, nunca como comprovada.
+
+**Pontos para a conferência final (nível B):** (1) redação da E4 na spec; (2) este complemento R1.3; (3) as tasks JV-T222A/B, já implementadas aguardando commit; (4) `pytest` completo em Linux com as libs de Qt (2026-10-16): 211 passando e 1 `xfail`; falta a execução no Windows (G3).

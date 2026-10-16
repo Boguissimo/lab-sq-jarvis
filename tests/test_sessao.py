@@ -363,6 +363,7 @@ def test_n3(servico, banco):
     c = _percurso_ate_veredito(servico, _casos.PASTA_DADOS / "REF-001-N3")
     assert c["veredito"] == "comprometida" and c["precedencia_aplicada"] == 3
     assert "Mudança reproduzida no tweeter" in c["motivo"]
+    assert "não comprova alteração no DSP" in c["motivo"]  # E4: comprometida não é prova de alteração do DSP
     assert c["verificacao_variavel_unica"]["vias"]["via_b"]["resultado"] == "mudanca_detectada_reproduzida"
     assert c["verificacao_variavel_unica"]["vias"]["via_a"]["resultado"] == "nao_verificada"
     assert banco.integridade() == []
@@ -370,11 +371,35 @@ def test_n3(servico, banco):
 
 def test_mudanca_reproduzida_nao_nomeia_parametro(servico, banco):
     c = _percurso_ate_veredito(servico, _casos.PASTA_DADOS / "REF-001-N3")
-    assert "o parâmetro alterado não é identificado pela medição" in c["motivo"]
+    assert "a medição não identifica a causa" in c["motivo"]
     assert "ganho" not in c["motivo"].lower()
     det = next(x for x in banco.registros(servico.sessao_id, "calculo") if x["dados"]["nome"] == "detector_mudanca")
     assert det["dados"]["resultado"]["parametro_identificado"] is False
     assert len(det["dados"]["resultado"]["depois"]) == 2
+
+
+def test_repeticao_exige_faixa_compativel(servico, banco, monkeypatch):
+    """E4/INV-215: duas aquisições com mudança no mesmo sentido, mas em faixas disjuntas, não confirmam."""
+    from jarvis import calculos
+    real = calculos.detector_mudanca_via
+    chamadas = {"n": 0}
+
+    def disjunto(*a, **k):
+        r = real(*a, **k)
+        chamadas["n"] += 1
+        if r["resultado"] == "mudanca_detectada":  # alterna faixas sem tocar em nível nem sentido
+            r = {**r, "faixa_mudanca_hz": [2000.0, 3000.0] if chamadas["n"] % 2 else [6000.0, 7000.0]}
+        return r
+
+    monkeypatch.setattr(calculos, "detector_mudanca_via", disjunto)
+    c = _percurso_ate_veredito(servico, _casos.PASTA_DADOS / "REF-001-N3")
+    assert c["veredito"] == "inconclusiva" and c["veredito"] != "comprometida"
+    assert c["verificacao_variavel_unica"]["vias"]["via_b"]["resultado"] == "mudanca_detectada_indicativa"
+    assert "Mudança suspeita" in c["motivo"] and "nenhuma alteração do DSP é afirmada" in c["motivo"]
+    det = next(x for x in banco.registros(servico.sessao_id, "calculo")
+               if x["dados"]["nome"] == "detector_mudanca" and x["dados"]["resultado"]["via"] == "via_b")
+    assert det["dados"]["resultado"]["faixa_compativel"] is False
+    assert det["dados"]["resultado"]["reproduzida"] is False
 
 
 def test_comprometida_nao_refuta(servico, banco):

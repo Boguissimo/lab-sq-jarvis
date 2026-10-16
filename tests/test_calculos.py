@@ -315,9 +315,11 @@ def test_detector_n3_detectado_200_sementes():
     assert all(_detectar(base, n3, 1.5, s)["resultado"] == "mudanca_detectada" for s in range(200))
 
 
-@pytest.mark.xfail(strict=True, reason="Divergência com o SC-208(b) em aberto: com a regra da spec (fator 3, "
-                   "bandas deslizantes), 'só polaridade' dá ~8,7 % de falsos positivos a σ = 1,5 dB "
-                   "(1 000 sementes). Aguarda decisão do desenvolvedor (JV-D); limiar não ajustado (P8).")
+@pytest.mark.xfail(strict=True, reason="Critério ORIGINAL do SC-208(b) (zero falsos positivos até σ = 1,5 dB), "
+                   "não atendido: 'só polaridade' dá ~8,7 % de indicativas a σ = 1,5 dB (87/1 000; 16/200 com as "
+                   "sementes deste teste, 20/200 com as de test_validacao_limiares). Limitação conhecida registrada pela "
+                   "E4 (detector não validado nesse ponto); asserção e limiar mantidos (P8). xfail estrito: se passar, "
+                   "alguém mudou o detector e a validação precisa ser refeita.")
 def test_detector_validacao_200_sementes():
     """Zero falsos positivos em "só polaridade" até σ = 1,5 dB; N3 (+3 dB) detectado em 100 %."""
     base = _via()
@@ -326,3 +328,22 @@ def test_detector_validacao_200_sementes():
     for s in range(200):
         assert _detectar(base, so_polaridade, 1.5, s)["resultado"] != "mudanca_detectada", s
         assert _detectar(base, n3, 1.5, s)["resultado"] == "mudanca_detectada", s
+
+
+# --- JV-T222A (FR-207, INV-215; E4): a confirmação exige sentido, nível e faixa de frequência compatíveis ---
+
+def _det(delta, faixa, lim=1.5):
+    return {"pior_banda": {"freq_hz": 5000.0, "delta_db": delta}, "media_db": delta, "limiar_bandas_db": lim,
+            "faixa_mudanca_hz": faixa}
+
+
+def test_repeticao_exige_faixa_compativel_calculo():
+    ok = calculos.repeticao_confirma(_det(3.0, [3000.0, 8000.0]), _det(3.2, [5000.0, 9000.0]))
+    assert ok["reproduzida"] and ok["faixa_compativel"]
+    disjuntas = calculos.repeticao_confirma(_det(3.0, [3000.0, 4000.0]), _det(3.2, [6000.0, 7000.0]))
+    assert not disjuntas["reproduzida"] and disjuntas["mesmo_sentido"] and disjuntas["concordam"]
+    assert not disjuntas["faixa_compativel"]
+    assert not calculos.repeticao_confirma(_det(3.0, [3000.0, 8000.0]), _det(-3.0, [3000.0, 8000.0]))["reproduzida"]
+    assert not calculos.repeticao_confirma(_det(3.0, [3000.0, 8000.0]), _det(8.0, [3000.0, 8000.0]))["reproduzida"]
+    assert not calculos.repeticao_confirma(_det(3.0, None), _det(3.0, [3000.0, 8000.0]))["faixa_compativel"]
+

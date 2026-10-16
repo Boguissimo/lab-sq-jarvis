@@ -426,3 +426,20 @@ def detector_mudanca_via(antes: RespostaFrequencia, depois: RespostaFrequencia, 
     return {**base, "resultado": res, "motivo": motivo, "media_db": media, "pior_banda": pior,
             "limiar_bandas_db": limiar_ef, "faixa_mudanca_hz": faixa_mudanca,
             "resolucao": {"media_db": lim_media, "bandas_db": limiar_ef}}
+
+
+# @@T222A [FR-207, INV-215] Confirmação de mudança por repetição (E4)
+def repeticao_confirma(d1: dict, d2: dict) -> dict:
+    """Duas detecções ``mudanca_detectada`` de aquisições "depois" independentes confirmam a mudança só se
+    (1) vão no mesmo sentido, (2) concordam dentro do limiar das bandas e (3) têm faixas de frequência da
+    mudança com interseção não vazia (E4). Reanálise dos mesmos dados nunca chega aqui: a cópia é recusada
+    na importação. Não identifica a causa nem o parâmetro alterado; confere só a interseção das faixas (limitação E4)."""
+    x1 = d1["pior_banda"]["delta_db"] if d1["pior_banda"] else d1["media_db"]
+    x2 = d2["pior_banda"]["delta_db"] if d2["pior_banda"] else d2["media_db"]
+    tol = max(d1["limiar_bandas_db"] or 0.0, d2["limiar_bandas_db"] or 0.0, limiares.valor("detector_banda_db"))
+    mesmo_sentido = x1 * x2 > 0
+    concordam = abs(x1 - x2) <= tol
+    f1, f2 = d1.get("faixa_mudanca_hz"), d2.get("faixa_mudanca_hz")
+    faixa_compativel = bool(f1 and f2 and max(f1[0], f2[0]) <= min(f1[1], f2[1]))
+    return {"reproduzida": bool(mesmo_sentido and concordam and faixa_compativel), "mesmo_sentido": bool(mesmo_sentido),
+            "concordam": bool(concordam), "faixa_compativel": faixa_compativel}

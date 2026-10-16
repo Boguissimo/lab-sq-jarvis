@@ -1,5 +1,9 @@
 # Retomada — JV-V02 (atualizada em 2026-10-16)
 
+> **Correção de estado (2026-10-16, sessão de aplicação da revisão externa):** as seções 1 e 4 abaixo, escritas antes do `/arkan.tasks`, ficaram desatualizadas. Valem: fase `07-implementation`; `tasks.md` aprovado (JV-T201 a T242); T201 a T222 concluídas. As revisões externas (técnica e adversarial) **já foram aplicadas** nas emendas E1, E2 e E3 / R1, R1.1 e R1.2. O que restava antes do G3 do bloco 1 eram as duas divergências do SC-208, tratadas na **emenda E4 (abaixo)**.
+>
+> **Emenda E4 — decisões do desenvolvedor registradas em 2026-10-16; redação final aguarda conferência e aprovação expressa; NADA COMMITADO ainda.** Muda o **critério de aceite** do SC-208. **(a) σ̂:** viés médio, erro absoluto, dispersão, percentis e proporção fora da tolerância original; 22/1 400 preservados; tolerância de 15 % σ + 0,05 **não** ampliada; **sem limite numérico de dispersão** e sem tratar o resultado como aprovação da precisão individual. **(b) detector:** separa mudança **indicativa** de **confirmada** (aquisição independente identificada, condições comparáveis, mesmo sentido, concordância e **faixa de frequência compatível**); o SC distingue desempenho observado, critério de aceitação e **limitação não resolvida**. **Limitação conhecida (não validado):** em σ = 1,5 dB há falsos positivos confirmados — 87/1 000 indicativos, 12/1 000 confirmados, 10/1 000 com faixa compatível — porque as aquisições "depois" compartilham o mesmo "antes" e não dão confirmações estatisticamente independentes. A meta de zero **não** foi reduzida para σ ≤ 1,0 dB; nenhum limite de falsos positivos é adotado; redesenho do detector (p. ex. repetir o "antes") fica **fora do V02**, para validação posterior; um limite futuro exige justificativa e teste independentes. σ̂, fator 3 e limiares **não mudam**. **Implementadas (não commitadas):** JV-T222A (`calculos.repeticao_confirma`, `faixa_compativel` no detector) e JV-T222B ("mudança suspeita; repetir a medição", sem afirmar alteração do DSP). Ensaio complementar: `08-qa/validacao-limiares-e4.md` (`ferramentas/medir_e4.py`); `validacao-limiares.md` mantém os números originais (só o texto de enquadramento mudou). **Verificação:** suíte completa em Linux com as libs de Qt (instaladas por `apt`), interface incluída: **211 passando e 1 `xfail`** (208 anteriores + 3 testes da E4), em 2026-10-16; falta repetir no Windows. **Limitação técnica da confirmação de faixa:** só interseção não vazia (a "mudança geral" cruza com qualquer faixa) e só as duas primeiras detecções positivas por via; não demonstra que a diferença ocorreu na mesma região fisicamente relevante; algoritmo não redesenhado. **Teste `xfail` do SC-208(b) original:** `test_calculos.py::test_detector_validacao_200_sementes` codifica o critério original e continua `xfail` estrito (16/200 com as sementes dele; 20/200 com as da validação; 87/1 000 nos dois): mesma taxa, sementes e critério de contagem diferentes — não há divergência de algoritmo. **Vereditos (conferência):** a indicativa é "mudança suspeita" (no máximo `inconclusiva`); a reproduzida é "mudança acústica reproduzida"; `comprometida` por via medida significa que o teste não isola a variável; a interface diz "a medição não identifica a causa" e **não comprova alteração no DSP**. Uma alteração adicional só aparece como **declarada** pelo usuário (afirmação, não prova do estado físico). O G3 do bloco 1 (JV-T223) vem depois.
+
 > **Estado em 2026-10-16:** fase `07-implementation`. Tasks JV-T201 a T222 concluídas (fase 0 e bloco 1);
 > suíte com 208 testes passando e 1 `xfail` estrito. Roteiro do G3 do bloco 1 pronto em `COMO-EXPERIMENTAR.md`
 > (JV-T223 aguarda o desenvolvedor). **Antes do G3**, decidir duas divergências registradas em
@@ -19,10 +23,10 @@ Branch: `lab-sq-jarvis/003-000-jv-v02-honestidade-e-seguranca` · feature Arkan 
 | --- | --- | --- |
 | 01 Ideação | `01-discovery/ideacao.md` | aprovada (peso Code; superfície crítica: sim) |
 | 03 Spec | `03-spec/spec.md` (FR-201 a FR-223, INV-201 a INV-214, SC-201 a SC-209) | aprovada em 2026-10-15, com as emendas **E1**, **E2** e **E3**, todas aprovadas em nível B; decisões nas Clarifications |
-| 04 Plano | `04-architecture/plan.md` (ADR-201 a ADR-212), `data-model.md`, `quickstart.md` | revisão **R1** e complementos **R1.1** e **R1.2** aprovados em nível B; inclui a matriz de rastreabilidade (46 IDs, conferida por script) e os critérios de teste |
-| 06 Tasks | — | **próximo passo** |
+| 04 Plano | `04-architecture/plan.md` (ADR-201 a ADR-212), `data-model.md`, `quickstart.md` | revisão **R1** e complementos **R1.1** e **R1.2** aprovados em nível B; inclui a matriz de rastreabilidade (46 IDs; 47 com o INV-215 da E4, conferida por script) e os critérios de teste |
+| 06 Tasks | `06-planning/tasks.md` (JV-T201 a T242) | aprovado em 2026-10-15; T201–T222 concluídas; T222A/B implementadas (E4), não commitadas |
 
-Nenhum código do V02 foi escrito. Testes do V01: 45 passando.
+~~Nenhum código do V02 foi escrito.~~ *(Desatualizado: ver a correção de estado no topo; 208 testes passando e 1 `xfail` estrito até a JV-T222.)* Testes do V01: 45 passando.
 
 Commits: `2f0e8f1` (E1/R1), `1f6b62d` (E2/R1.1), `45f6401` (E3/R1.2 + revisão adversarial).
 
@@ -54,9 +58,12 @@ Commits: `2f0e8f1` (E1/R1), `1f6b62d` (E2/R1.1), `45f6401` (E3/R1.2 + revisão a
 ## 3. Pendências fora do V02
 - **Diretriz REW** (`docs/revisoes/diretriz-fontes-de-medicao-e-rew.md`): registrar no planejamento evolutivo (proposta `JV-D043` e nota no feature map para F004/F013/F018) **com aprovação do desenvolvedor**.
 - **VP-10 (utilidade real):** avaliar em incremento com medições reais.
+- **Diretrizes estratégicas de produto** (`docs/revisoes/diretriz-estrategica-usuario-e-produto.md`; **`JV-D044` aprovada em 2026-10-16**, registrada em `decisoes.md`, com complemento de benchmark de mercado — três dimensões separadas, segurança não relativizada): usuário de referência (entusiasta que quer autonomia e aprender), públicos entusiasta e instalador (hipóteses comerciais **não demonstradas**), níveis de instrumentação (sem microfone, celular, USB calibrado, microfone com interface) a preservar arquiteturalmente, F009 com engines de IA por adaptadores e separação núcleo determinístico / IA / usuário, e sequência de validação (Focus → entusiastas → profissionais → comercialização). **Não amplia o JV-V02**: nenhuma feature, requisito ou task nova; reflexo apenas em nota no `feature-map.md` (F009, F013, F017). A `JV-D043` (diretriz do REW) continua pendente de decisão própria. Teste sintético não valida utilidade nem eficácia acústica em campo.
 
 ## 4. Próximos passos
-1. `/arkan.tasks`: tasks `JV-T201…`, nos três blocos com ponto G3 por bloco, mais a fase 0. A fase 0 traz as correções do V01 (ADR-212), a migração (ADR-207), a interpretação congelada, o modelo físico e o catálogo, e os contratos de qualidade e segurança.
+> *(Atualizado em 2026-10-16: itens 1 e 2 já foram feitos até a JV-T222. Próximo: conferir a redação final da E4 e rodar a suíte completa → commit aprovado → G3 do bloco 1 (JV-T223) → bloco 2 (JV-T224…).)*
+
+1. *(feito)* `/arkan.tasks`: tasks `JV-T201…`, nos três blocos com ponto G3 por bloco, mais a fase 0. A fase 0 traz as correções do V01 (ADR-212), a migração (ADR-207), a interpretação congelada, o modelo físico e o catálogo, e os contratos de qualidade e segurança.
 2. `/arkan.analyze`, implementação, QA.
 
 ## 5. Como retomar (nova sessão)

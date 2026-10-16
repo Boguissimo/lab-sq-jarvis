@@ -51,6 +51,7 @@
 | JV-D040 | Reversão só com valores anteriores registrados; conjunto exige arquivo “antes” ou todos os parâmetros; senão, “reversão não garantida” | Técnica | aprovada (pedido, 2026-10-15); emenda P2 | 2026-10-15 |
 | JV-D041 | Execução por incrementos: dependências para concluir feature, não para entrega parcial; status `parcial (JV-Vxx)`; registro de entregas | Método | aprovada (pedido, 2026-10-15) | 2026-10-15 |
 | JV-D042 | Ratificação do conjunto e autorização da fundação e do JV-V01 | Método | **aprovada** (G3, 2026-10-15) | 2026-10-15 |
+| JV-D044 | Diretrizes estratégicas de produto (orientação futura, sem ampliar o JV-V02) | Escopo | **aprovada** (2026-10-16) | 2026-10-16 |
 
 ---
 
@@ -408,3 +409,18 @@ faltar informação, o Jarvis diz que a reversão não está garantida e o que f
 Dependências entre features valem para concluí-las, não para entregar partes. Uma feature fica
 `parcial (JV-Vxx)` quando a parte prevista no incremento é entregue e testada. O feature map mantém
 um registro de entregas que aponta para a evidência de teste de cada incremento.
+
+## Diretrizes estratégicas — 2026-10-16
+
+### JV-D044 — Diretrizes estratégicas de produto
+
+Orientação para a arquitetura futura, **sem ampliar o JV-V02** e sem criar feature, requisito obrigatório
+ou task. Texto integral em `docs/revisoes/diretriz-estrategica-usuario-e-produto.md`.
+
+- **Usuário de referência:** o próprio desenvolvedor, entusiasta de áudio automotivo com conhecimento técnico geral, sem domínio profissional de calibração acústica; quer aprender e ter autonomia. O Jarvis ensina enquanto ajuda a resolver problemas reais.
+- **Hipóteses comerciais (não demonstradas):** públicos entusiasta e profissional (primeiro, o instalador que domina equipamentos e instalação, mas depende de conhecimento especializado para calibrar); diferencial = investigação causal assistida, experimentos controlados, verificação de evidências e memória técnica por veículo, sem substituir REW, PC-Tool nem o ajustador experiente.
+- **Níveis de instrumentação (preservar a possibilidade arquitetural; não implementar agora):** sem microfone (orientação declarada, sem inventar diagnóstico), celular (experimental, não calibrado), microfone USB calibrado, microfone com interface de áudio (referência temporal por loopback). A ausência de instrumento não impede o uso, mas impede conclusão não sustentada pelos dados.
+- **IA (F009/JV-V03):** independência de provedores por adaptadores; núcleo determinístico (cálculo, critérios, segurança, integridade, admissibilidade) / IA (interpretação, explicação, hipóteses, pedidos de cálculo ou dados) / usuário (aprovação e execução física). A IA não altera critérios, não contorna bloqueios SEG e não escreve no DSP. Vários modelos numa investigação: avaliação posterior.
+- **Sequência de validação:** funcionar tecnicamente → uso no Focus com medições reais → verificar ganho nas decisões → outros entusiastas → instaladores e ajustadores → avaliar comercialização. Teste sintético não valida utilidade nem eficácia acústica em campo. O potencial comercial é consequência de resultados demonstrados, não premissa.
+- **Complemento de fundamentação (2026-10-16, sem decisão nova):** a aceitabilidade da imprecisão será avaliada também por **benchmark de mercado** (REW, Flat Liner, Tuning Labs, ajustadores experientes, REW + planilha), em três dimensões separadas — precisão da medição, precisão do diagnóstico, eficácia do ajuste —, com condições equivalentes, mesmos dados e verdade de referência independente; alegações comerciais não valem como prova; **segurança não é relativizada pelo benchmark**. Validação futura, sem requisito no V02. Detalhe em `docs/revisoes/diretriz-estrategica-usuario-e-produto.md`.
+- A JV-D043 (diretriz de fontes de medição e REW) **permanece pendente** de decisão própria.

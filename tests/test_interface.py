@@ -150,10 +150,31 @@ def test_textos_resultados(qtbot, tmp_path):
     j.botao_concluir.click()
     t = _textos(j, 4)
     assert "comprometida" in t and "mudança detectada e reproduzida" in t
-    assert "o parâmetro alterado não é identificado pela medição" in t
+    assert "a medição não identifica a causa" in t
+    assert "não comprova alteração no DSP" in t
     assert "Médio: não verificada" in t
     assert erros == []
     j._montar_historico()
     cab = [j.tabela_hist.horizontalHeaderItem(i).text() for i in range(j.tabela_hist.columnCount())]
     assert "Modo" in cab
     j.servico.b.fechar()
+
+
+def test_mudanca_suspeita_sem_afirmar_dsp(qtbot, tmp_path, monkeypatch):
+    """E4/FR-209: a mudança indicativa aparece como suspeita, pede repetição e não afirma alteração do DSP."""
+    from jarvis import calculos
+    real = calculos.repeticao_confirma
+    monkeypatch.setattr(calculos, "repeticao_confirma", lambda d1, d2: {**real(d1, d2), "reproduzida": False,
+                                                                        "faixa_compativel": False})
+    j, erros = _analisar_pela_interface(qtbot, tmp_path, "REF-001-N3")
+    j.botao_propor.click()
+    j.botao_aplicar.click()
+    j.botao_depois.click()
+    j.botao_concluir.click()
+    t = _textos(j, 4)
+    assert "mudança suspeita; repetir a medição" in t
+    assert "nenhuma alteração do DSP é afirmada" in t
+    assert "mudança detectada e reproduzida" not in t
+    assert erros == []
+    j.servico.b.fechar()
+

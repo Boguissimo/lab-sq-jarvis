@@ -210,6 +210,17 @@ IA disponível para F009.
 
 ---
 
+## Diretrizes estratégicas futuras (não são requisitos) — JV-D044, aprovada em 2026-10-16
+
+Registro de orientação de 2026-10-16 (JV-D044; texto integral em `docs/revisoes/diretriz-estrategica-usuario-e-produto.md`). **Não cria feature, requisito obrigatório nem task**, e não amplia o JV-V02.
+
+- **F009 (assistente-ia):** manter a separação núcleo determinístico (cálculo, critérios, SEG, integridade, admissibilidade) / IA (interpretação, explicação, hipóteses, pedidos de cálculo ou dados) / usuário (aprovação e execução física). Considerar no desenho: contexto estruturado da sessão, ferramentas com permissões, validação das respostas, identificação de modelo e provedor, controle de dados enviados, credenciais seguras, histórico independente da engine. Provedores por adaptadores (GPT, Claude, Gemini, modelos locais); várias IAs na mesma investigação fica para avaliação posterior.
+- **F013 (medicoes-reais) e F012 (protocolo):** preservar, sem implementar, níveis de instrumentação — sem microfone (orientação declarada, sem inventar diagnóstico), celular (experimental, não calibrado), microfone USB calibrado, microfone com interface (referência temporal por loopback). Ausência de instrumento não impede o uso, mas impede conclusão não sustentada pelos dados.
+- **F017 (validacao-pessoal):** sequência: funcionar tecnicamente → uso no Focus com medições reais → verificar ganho nas decisões → outros entusiastas → instaladores/ajustadores → avaliar comercialização. Com profissionais, observar tempo de diagnóstico, número de intervenções, qualidade, facilidade de compreensão e recuperação do histórico. Teste sintético não valida utilidade nem eficácia acústica em campo. A imprecisão será avaliada também por benchmark de mercado (REW, Flat Liner, Tuning Labs, ajustadores experientes, REW + planilha), separando precisão da medição, do diagnóstico e eficácia do ajuste; segurança não é relativizada.
+- **Premissas de produto (hipóteses não demonstradas):** usuário de referência = entusiasta que quer autonomia e aprender; públicos entusiasta e profissional (instalador); diferencial = investigação causal assistida, experimentos controlados, verificação de evidências e memória técnica por veículo. O potencial comercial é consequência de resultados demonstrados, não premissa.
+
+---
+
 ## Histórico de Revisões
 
 | Data | Mudança | Justificativa |
@@ -219,3 +230,4 @@ IA disponível para F009.
 | 2026-10-15 | v3: incrementos executáveis JV-V01 a JV-V06 (JV-D037); F003, F007, F008, F015 e F017 ajustadas às decisões JV-D030 a JV-D036; PT-11; sem features novas | Revisão 3 do desenvolvedor |
 | 2026-10-15 | v4: aprovado (JV-D042); dependências compatíveis com entregas parciais; status `parcial (JV-Vxx)`; registro de entregas por incremento (JV-D041) | Autorização de construção do desenvolvedor |
 | 2026-10-15 | JV-V01 entregue e testado (QA com ressalvas); F002–F008 passam a `parcial (JV-V01)` | JV-D041 |
+| 2026-10-16 | Nota não normativa de diretrizes estratégicas (F009, F013, F017); sem features novas e sem ampliar o JV-V02 | JV-D044 |
