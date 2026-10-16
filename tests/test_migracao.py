@@ -137,3 +137,36 @@ def test_gatilhos_v2(tmp_path):
                         "VALUES (1, 'R-0001', 'B', '{}', 'x')")
     finally:
         con.close()
+
+
+# --- JV-T207: Banco.__init__ usa a detecção de versão ---
+
+def test_banco_abre_fixture_migrando(banco_v01):
+    from jarvis.persistencia import Banco
+    from jarvis.sessao import Servico
+    b = Banco(banco_v01.parent)
+    try:
+        assert b.backup_migracao is not None and b.backup_migracao.exists()
+        assert [s["id"] for s in b.con.execute("SELECT id FROM sessao ORDER BY id")] == [1, 2]
+        assert b.integridade() == []
+        srv = Servico(b)
+        srv.sessao_id = 1
+        assert srv.estado()["conclusao"]["dados"]["veredito"] == "confirmada"
+    finally:
+        b.fechar()
+    b2 = Banco(banco_v01.parent)  # segunda abertura: nada a migrar
+    try:
+        assert b2.backup_migracao is None
+    finally:
+        b2.fechar()
+
+
+def test_banco_recusa_desconhecido_sem_alterar(banco_v01):
+    from jarvis.persistencia import Banco, ErroVersaoBanco
+    con = sqlite3.connect(banco_v01)
+    con.execute("PRAGMA user_version = 1")
+    con.close()
+    sha = sha256_de(banco_v01)
+    with pytest.raises(ErroVersaoBanco):
+        Banco(banco_v01.parent)
+    assert sha256_de(banco_v01) == sha

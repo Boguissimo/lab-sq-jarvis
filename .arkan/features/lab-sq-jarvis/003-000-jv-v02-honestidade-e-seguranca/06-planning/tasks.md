@@ -33,7 +33,7 @@
   - File: `ferramentas/gerar_banco_v01.py`, `tests/dados/banco-v01/`
 - [x] JV-T206 — `migracao.py`: impressão digital do esquema, `detectar()`, backup por `Connection.backup` + `integrity_check` + contagem, migração 0 → 2 transacional sem `executescript` (depende de T204). Gate: G1. Evidência: parte de `tests/test_migracao.py`.
   - File: `src/jarvis/migracao.py`
-- [ ] JV-T207 — `Banco.__init__` reorganizado (nada antes da detecção; abertura `mode=ro`); esquema 2 com `aprovacao`, gatilho `BEFORE INSERT` e gatilhos de só inserção em `configuracao`; `ErroVersaoBanco` (depende de T205, T206). Gate: G1. Evidência: `test_migracao.py` completo (critério 1 do plano: 4 casos normais + 3 recusas/falhas).
+- [x] JV-T207 — `Banco.__init__` reorganizado (nada antes da detecção; abertura `mode=ro`); esquema 2 com `aprovacao`, gatilho `BEFORE INSERT` e gatilhos de só inserção em `configuracao`; `ErroVersaoBanco` (depende de T205, T206). Gate: G1. Evidência: `test_migracao.py` completo (critério 1 do plano: 4 casos normais + 3 recusas/falhas).
   - File: `src/jarvis/persistencia.py`, `tests/test_migracao.py`
 
 ### 0c. Interpretação congelada (ADR-210, INV-211)

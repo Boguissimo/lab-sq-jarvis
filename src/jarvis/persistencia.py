@@ -19,6 +19,8 @@ import uuid
 from datetime import datetime
 from pathlib import Path
 
+from jarvis import migracao
+
 PREFIXOS = {
     "medicao": "M", "calculo": "C", "indicio": "I", "hipotese": "H", "recomendacao": "R",
     "experimento": "X", "conclusao": "A", "decisao": "D", "percepcao": "P", "estimativa": "E",
@@ -35,39 +37,9 @@ DERIVACOES_PERMITIDAS = {
     "decisao": {"conclusao", "experimento", "calculo", "indicio", "hipotese"},
 }
 
-ESQUEMA = """
-CREATE TABLE IF NOT EXISTS arquivo_original (
-    sha256 TEXT PRIMARY KEY, nome TEXT NOT NULL, tipo TEXT NOT NULL,
-    tamanho INTEGER NOT NULL, importado_em TEXT NOT NULL);
-CREATE TABLE IF NOT EXISTS sessao (
-    id INTEGER PRIMARY KEY AUTOINCREMENT, modo TEXT NOT NULL, caso TEXT,
-    criada_em TEXT NOT NULL, estado TEXT NOT NULL DEFAULT 'aberta',
-    passo_atual INTEGER NOT NULL DEFAULT 1, encerramento TEXT, resumo TEXT);
-CREATE TABLE IF NOT EXISTS configuracao (
-    id INTEGER PRIMARY KEY AUTOINCREMENT, sessao INTEGER NOT NULL REFERENCES sessao(id),
-    nome TEXT NOT NULL, nivel TEXT NOT NULL, criada_em TEXT NOT NULL,
-    anterior INTEGER REFERENCES configuracao(id), arquivo_sha256 TEXT);
-CREATE TABLE IF NOT EXISTS parametro_config (
-    configuracao INTEGER NOT NULL REFERENCES configuracao(id), canal TEXT NOT NULL,
-    parametro TEXT NOT NULL, valor TEXT NOT NULL, origem TEXT NOT NULL);
-CREATE TABLE IF NOT EXISTS registro (
-    id TEXT PRIMARY KEY, sessao INTEGER NOT NULL REFERENCES sessao(id), tipo TEXT NOT NULL,
-    autor TEXT NOT NULL, criado_em TEXT NOT NULL, titulo TEXT NOT NULL, dados TEXT NOT NULL);
-CREATE TABLE IF NOT EXISTS derivacao (
-    origem TEXT NOT NULL REFERENCES registro(id), destino TEXT NOT NULL REFERENCES registro(id),
-    papel TEXT NOT NULL);
-CREATE TABLE IF NOT EXISTS diario (
-    id INTEGER PRIMARY KEY AUTOINCREMENT, momento TEXT NOT NULL, sessao INTEGER,
-    evento TEXT NOT NULL, descricao TEXT NOT NULL);
-"""
-
-GATILHOS = [
-    ("arquivo_original", "Arquivo original não pode ser alterado nem apagado"),
-    ("registro", "Registro da cadeia não pode ser alterado nem apagado"),
-    ("derivacao", "Derivação da cadeia não pode ser alterada nem apagada"),
-    ("diario", "O diário só aceita novos eventos"),
-    ("parametro_config", "Parâmetros de configuração registrados não podem ser alterados"),
-]
+# O esquema (V01 + acréscimos do V02) e a migração ficam em ``migracao.py`` (ADR-207).
+ErroVersaoBanco = migracao.ErroVersaoBanco
+ErroMigracao = migracao.ErroMigracao
 
 
 class OriginalImutavel(Exception):
@@ -98,16 +70,11 @@ class Banco:
         self.pasta = Path(pasta) if pasta else pasta_de_dados()
         self.cofre = self.pasta / "cofre"
         self.cofre.mkdir(parents=True, exist_ok=True)
+        # @@T207 [INV-210] Nada roda no banco antes da detecção de versão (ADR-207)
+        self.backup_migracao = migracao.preparar(self.pasta / "jarvis.db")
         self.con = sqlite3.connect(self.pasta / "jarvis.db")
         self.con.row_factory = sqlite3.Row
         self.con.execute("PRAGMA foreign_keys = ON")
-        self.con.executescript(ESQUEMA)
-        for tabela, mensagem in GATILHOS:
-            for operacao in ("UPDATE", "DELETE"):
-                self.con.execute(
-                    f"CREATE TRIGGER IF NOT EXISTS so_insercao_{tabela}_{operacao.lower()} "
-                    f"BEFORE {operacao} ON {tabela} BEGIN SELECT RAISE(ABORT, '{mensagem}'); END")
-        self.con.commit()
 
     def fechar(self) -> None:
         self.con.close()
