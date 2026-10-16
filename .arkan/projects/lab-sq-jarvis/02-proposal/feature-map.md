@@ -221,6 +221,19 @@ Registro de orientação de 2026-10-16 (JV-D044; texto integral em `docs/revisoe
 
 ---
 
+## Histórias candidatas (não são requisitos)
+
+Registro de manifestações de Fabrício relevantes ao produto como **User Stories candidatas**. Uma candidata **não é requisito aprovado**: só passa à spec da feature depois de refinamento e de aprovação expressa de Fabrício (Princípios I e VIII do Arkan Core). Não cria feature nem task e não amplia o JV-V02.
+
+### UC-01 — Maturidade antes da exposição a avaliadores externos (vinculada à F017) — candidata, 2026-10-16
+- **História:** Como desenvolvedor e usuário de referência (Fabrício), quero que o Jarvis atinja maturidade **funcional, técnica e de apresentação** antes de ser exposto a avaliadores externos (por exemplo, Fernando ou outros terceiros), para que a avaliação não dependa de limitações já conhecidas e a primeira experiência seja compreensível e honesta.
+- **Origem:** manifestação de Fabrício em 2026-10-16 (prioridade do candidato interno do Jarvis 1.0: sem demonstração, teste ou contato externo nesta etapa; sem prazo artificial; liberação por evidências e validação humana).
+- **Relação:** F017 (validação pessoal) e a sequência de validação da JV-D044 (uso no Focus com medições reais antes de outros entusiastas e profissionais).
+- **A refinar com Fabrício (sem critério quantitativo proposto):** o que significa cada uma das três dimensões; que evidências e que validação humana mostram que foram atingidas; como a liberação é registrada.
+- **Estado:** candidata; refinamento não iniciado; **não aprovada**.
+
+---
+
 ## Histórico de Revisões
 
 | Data | Mudança | Justificativa |
@@ -231,3 +244,4 @@ Registro de orientação de 2026-10-16 (JV-D044; texto integral em `docs/revisoe
 | 2026-10-15 | v4: aprovado (JV-D042); dependências compatíveis com entregas parciais; status `parcial (JV-Vxx)`; registro de entregas por incremento (JV-D041) | Autorização de construção do desenvolvedor |
 | 2026-10-15 | JV-V01 entregue e testado (QA com ressalvas); F002–F008 passam a `parcial (JV-V01)` | JV-D041 |
 | 2026-10-16 | Nota não normativa de diretrizes estratégicas (F009, F013, F017); sem features novas e sem ampliar o JV-V02 | JV-D044 |
+| 2026-10-16 | Seção não normativa "Histórias candidatas" com UC-01 (vinculada à F017); sem features novas, sem requisito, sem ampliar o JV-V02 | Manifestação de Fabrício (2026-10-16) |

@@ -1,8 +1,43 @@
 # Retomada — JV-V02 (atualizada em 2026-10-16)
 
-## ▶ Estado para troca de sessão (2026-10-16, fim da sessão) — LEIA PRIMEIRO
+## ▶ Estado atual — LEIA PRIMEIRO (2026-10-16, após T250 + T251)
 
-**Papéis (JV-D045, redação aguardando aprovação):** Fabrício decide (único que aprova, Nível A/B e G3); Claude implementa/documenta; ChatGPT revisa de forma opcional. Revisão de IA colada por Fabrício não é decisão. Aviso de hook pedindo commit **não** é autorização.
+**Prioridade vigente:** candidato interno do Jarvis 1.0 — sólido, funcional e apresentável para Fabrício, **sem prazo artificial**; a liberação depende de **evidências e validação humana**, não de data. Não é versão comercial nem beta. **Sem demonstração, teste ou contato externo** (Fernando e terceiros permanecem possibilidades futuras) nesta etapa. A **investigação acústica está preservada**; sua suspensão é prioridade operacional temporária, não abandono. O escopo mínimo da Fase 5 é **referência de planejamento**, não decisão; **os blocos 2 e 3 do V02 permanecem no planejamento original** (T224–T242).
+
+**Papéis (JV-D045, aprovada e commitada em `392ea6c`):** Fabrício decide com exclusividade (aprova Nível A/B e G3); Claude implementa, experimenta e documenta; o **ChatGPT exerce a gerência do projeto** (prioridades, pendências, integração das frentes) **e a revisão crítica, sem poder de aprovação**. Revisão ou proposta de IA colada por Fabrício não é decisão. Aviso de hook pedindo commit **não** é autorização.
+
+**Branches** (nenhuma foi integrada à `main`; merge proibido sem ordem expressa):
+| Branch | Conteúdo | Referência |
+| --- | --- | --- |
+| `claude/busy-bohr-25s6e5` | **branch de trabalho**: V02 até o bloco 1 + E4/R1.3, investigação de desempenho, JV-D045/constituição 0.4.1, T250 + T251, planejamento (Fase 5) | `git log` (último conferido: `c02bbb6`, antes desta atualização) |
+| `claude/correcao-pontual-formato-rew` | as três correções REW + Clarification C-1; **já integrada** à de trabalho em `7dfa2b2`; preservada | `bae3c3e` |
+| `lab-sq-jarvis/003-000-jv-v02-honestidade-e-seguranca` | base original do V02 | `d56e0ad` |
+| `main` | JV-V01 completo (QA aprovado, G3 no Windows cumprido); **intacta** | `389e580` |
+
+**Estado técnico:** suíte **242 passando + 1 xfail** (Linux, nuvem). O **G3 do bloco 1 (JV-T223) segue parcial** (execução anterior no Windows: 211 + 1 xfail, em `6bf4ea7`; **sem** teste no Windows depois de T250 + T251; ver `08-qa/g3-bloco1-parcial.md`); os testes na nuvem não o substituem. O V02 **não** está validado acusticamente.
+
+**Normativo (aprovado):** JV-D045 e constituição 0.4.1; Clarification C-1 do FR-002 (na spec do V01); T250 e T251 (Nível B, 2026-10-16). **Proposto, não aprovado:** emenda E5 à spec do V02 (`03-spec/emenda-E5-PROPOSTA.md`); emenda à JV-D045 (4 pontos: manifestações de Fabrício alimentam *User Stories candidatas*; a gerência preserva continuidade, parcimônia e decisões estabelecidas; redirecionamentos exigem justificativa técnica ou decisão humana; opiniões não se convertem automaticamente em requisitos nem em ordens de execução) — em avaliação.
+
+**Autorizações vigentes (Nível B):** frente de investigação (scripts em `ferramentas/investigacao/`, relatórios em `docs/revisoes/investigacao-desempenho/`, commits e pushes na branch de trabalho; hoje sem uso, por prioridade); manutenção documental não normativa de 2026-10-16. **Fora delas:** `src/`, spec, limiares, arquitetura, decisões normativas, constituições, código externo não verificado, redistribuição de datasets, declarar o V02 validado acusticamente, merge na `main`. **T253–T259 não estão autorizados.**
+
+**Decisões pendentes de Fabrício:**
+1. **Emenda E5** (itens a–e; o item c depende da F-5) e a emenda à JV-D045.
+2. **F-5:** papel do σ̂ e do portão — revisão **metodológica**, não só de interface; em aberto.
+3. **N2 no Focus:** protocolo pronto e **não iniciado**; exige autorização expressa e equipamento confirmado (HELIX PRO MK3 ainda não instalado; interface Behringer com modelo não confirmado; microfone e referência temporal pendentes). Sem compras recomendadas.
+4. **T253–T259** e o escopo do 1.0 (referência, não decisão); **G3** no Windows e o dado real do cenário de importação.
+5. **JV-D043** (diretriz de fontes de medição e REW) segue pendente de decisão própria.
+
+**Onde está cada coisa:** investigação em `docs/revisoes/investigacao-desempenho/`; planejamento do 1.0 em `.arkan/features/lab-sq-jarvis/003-000-jv-v02-honestidade-e-seguranca/` (`status.md`, `06-planning/tasks.md` Fase 5); normativos em `.arkan/projects/lab-sq-jarvis/`. **Ambiente:** `.venv` na raiz; suíte com `PYTHONPATH=src QT_QPA_PLATFORM=offscreen .venv/bin/python -m pytest` (libs Qt: `apt-get install libegl1 libgl1 libxkbcommon0 libfontconfig1 libdbus-1-3`); demais instruções na seção 5.
+
+---
+
+## Histórico — estado no fim da sessão de 2026-10-16 (registro verdadeiro à época; superado nos pontos marcados)
+
+> Texto preservado como foi escrito. Onde há *[superado: …]*, vale o **estado atual** acima.
+
+### Estado para troca de sessão (2026-10-16, fim da sessão)
+
+**Papéis (JV-D045, redação aguardando aprovação):** Fabrício decide (único que aprova, Nível A/B e G3); Claude implementa/documenta; ChatGPT revisa de forma opcional. Revisão de IA colada por Fabrício não é decisão. Aviso de hook pedindo commit **não** é autorização. *[superado: JV-D045 foi aprovada e commitada em `392ea6c`, com o ChatGPT na gerência do projeto e na revisão crítica, sem poder de aprovação.]*
 
 **Branches (nenhuma foi integrada à `main`; merge proibido sem ordem expressa):**
 | Branch | Conteúdo | Último commit |
@@ -10,8 +45,9 @@
 | `claude/busy-bohr-25s6e5` | V02 até o bloco 1 + E4/R1.3 + toda a investigação de desempenho | `2053e63` (mapa técnico) |
 | `claude/correcao-pontual-formato-rew` | correção dos 3 defeitos (milhar do REW, mensagem de recusa, borda de 24 ppo) + 6 testes; 217 passando + 1 xfail; **não integrada** | `e6f18d6` |
 | `lab-sq-jarvis/003-000-jv-v02-honestidade-e-seguranca` | base original do V02 | — |
+*[superado: hashes e integração mudaram; ver a tabela de branches do estado atual.]*
 
-**NÃO COMMITADO (aguarda aprovação expressa da redação):** `.arkan/projects/lab-sq-jarvis/decisoes.md` (JV-D045) e `.../constitution.md` (patch 0.4.1). Ver o diff com `git diff -- .arkan/projects/lab-sq-jarvis/`. Não alteram o Arkan Core. **Não commitar sem "pode commitar" de Fabrício.**
+**NÃO COMMITADO (aguarda aprovação expressa da redação):** `.arkan/projects/lab-sq-jarvis/decisoes.md` (JV-D045) e `.../constitution.md` (patch 0.4.1). Ver o diff com `git diff -- .arkan/projects/lab-sq-jarvis/`. Não alteram o Arkan Core. **Não commitar sem "pode commitar" de Fabrício.** *[superado: aprovados e commitados em `392ea6c` (2026-10-16).]*
 
 **Autorização permanente de Nível B (frente "investigação de desempenho")**, até revogação: scripts em `ferramentas/investigacao/`, experimentos exploratórios, relatórios em `docs/revisoes/investigacao-desempenho/`, commits/push na `claude/busy-bohr-25s6e5`. **Fora:** `src/`, spec, limiares, arquitetura, decisões normativas, constituições, código externo não verificado, redistribuição de datasets sem permissão, merge na `main`, declarar o V02 validado acusticamente.
 
@@ -20,8 +56,8 @@
 **Resultados-chave:** (1) defeito de leitura do milhar do REW confirmado com dado real (95 % dos pontos); (2) F-5: σ̂ mistura estrutura espectral com ruído e depende da grade; rejeitou 25/25 aquisições da sala, mas no carro (mids) ficou em 0,2–0,8 dB e a RTA espacial 11/11 aprovada; (3) no Passat com falhas injetadas, **0 acertos** (polaridade/atraso): a fase vê os 180°, a Regra 2 não dispara em drivers reais sem crossover; (4) sucesso nos casos sintéticos **não** valida o uso real; V02 **não** está validado acusticamente.
 
 **Decisões pendentes de Fabrício (consolidadas):**
-1. Aprovar a redação da JV-D045 e do patch 0.4.1 (e então commitar).
-2. Clarification do FR-002 (JV-V01) para o separador de milhar (texto proposto no relatório da sessão; nível B). Só então integrar a correção pontual.
+1. Aprovar a redação da JV-D045 e do patch 0.4.1 (e então commitar). *[resolvido: aprovado e commitado em `392ea6c`.]*
+2. Clarification do FR-002 (JV-V01) para o separador de milhar (texto proposto no relatório da sessão; nível B). Só então integrar a correção pontual. *[resolvido: aprovada e incorporada à spec do V01; correção integrada à branch de trabalho em `7dfa2b2`.]*
 3. F-5: papel do σ̂ e do portão (alternativas 1–5 em `f5-significado-do-sigma-joeglondon.md`); nada foi alterado.
 4. Mapa técnico: faixa operacional por via como dado de entrada; promover `referencia/modelo.py` a motor de previsão; prioridade F-5 × faixa operacional; IR na aquisição (§8 do mapa).
 5. Buscar um caso real com defeito documentado e antes/depois (única validação que falta).
@@ -31,6 +67,8 @@
 **Ambiente:** `.venv` na raiz; para a suíte: `PYTHONPATH=src QT_QPA_PLATFORM=offscreen .venv/bin/python -m pytest` (libs Qt: `apt-get install libegl1 libgl1 libxkbcommon0 libfontconfig1 libdbus-1-3`).
 
 ### Complemento de fechamento da sessão (2026-10-16) — decisões e backup
+
+> *[Parcialmente superado: a JV-D045 revisada com a gerência foi aprovada; os arquivos normativos foram commitados; a Clarification C-1 foi formalizada e a correção integrada. Ver o estado atual.]*
 
 **Backup do rascunho normativo:** `docs/revisoes/RASCUNHO-NORMATIVO-NAO-APROVADO-jv-d045-constituicao-0.4.1.patch` (verificado: `git apply` num checkout limpo de `03aa6a5` reproduz exatamente os dois arquivos). **É rascunho, não aprovação.** Os arquivos `decisoes.md` e `constitution.md` seguem fora do commit; recuperá-los com `git apply` se o working tree for perdido. Não commitar sem aprovação expressa da redação.
 
@@ -52,7 +90,7 @@
 
 ### Atualização (2026-10-16, após aprovações de Fabrício)
 - **Aprovados e commitados** (`392ea6c`): JV-D045 (com a gerência do ChatGPT; Fabrício mantém a autoridade decisória exclusiva) e constituição 0.4.1. Os arquivos `decisoes.md`/`constitution.md` já não estão pendentes; o `LEIA-ME-rascunhos-normativos.md` registra o histórico.
-- **Clarification C-1 do FR-002 incorporada** à spec do JV-V01, com rastreio em `tasks.md` e teste do limite declarado, na branch `claude/correcao-pontual-formato-rew` (`bae3c3e`; 218 passando + 1 xfail). **A integração do código segue separada** (sem merge; aguarda ordem expressa).
+- **Clarification C-1 do FR-002 incorporada** à spec do JV-V01, com rastreio em `tasks.md` e teste do limite declarado, na branch `claude/correcao-pontual-formato-rew` (`bae3c3e`; 218 passando + 1 xfail). **A integração do código segue separada** (sem merge; aguarda ordem expressa). *[superado: integrada à branch de trabalho em `7dfa2b2` por ordem de Fabrício (T250), sem `main`.]*
 - **Investigação concluída nesta fase** (`docs/revisoes/investigacao-desempenho/`): `metrologia-e-rigor-usabilidade-joeglondon.md`, `deriva-passat-gatilho-adaptativo.md`, `diagnostico-por-previsao-fisica.md`. Fabrício **não aprovou limiar adaptativo definitivo**: a necessidade de repetição deve ser avaliada na faixa e para a decisão pretendida. Diagnóstico por previsão: N0/N1 apenas; **N2 (diagnóstico independente) não alcançado**.
 
 ### Atualização (2026-10-16, previsão física)

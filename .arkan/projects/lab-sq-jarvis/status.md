@@ -2,14 +2,20 @@
 status: features-definidas
 fase-atual: 02-proposal
 projeto: lab-sq-jarvis
-atualizado-em: 2026-10-15
+atualizado-em: 2026-10-16
 ---
 
 # Projeto: Lab SQ Jarvis
 
 Assistente inteligente de calibração de áudio automotivo SQ/SQPL: diagnóstico, hipóteses, experimentos controlados e registro rastreável, integrado ao REW e ao HELIX DSP PC-Tool.
 
-## Estado corrente — 2026-10-15, revisão 3
+## Estado corrente — 2026-10-16 (nota não normativa)
+
+- **Jarvis 1.0: sem prazo artificial.** A liberação depende de **evidências** e de **validação humana** (Fabrício), não de data. Primeiro um candidato interno; nenhuma demonstração ou teste externo antes de maturidade funcional, técnica e de apresentação (candidata UC-01 no `02-proposal/feature-map.md`, vinculada à F017; ainda **não** é requisito).
+- **Estado operacional detalhado** (branches, testes, pendências, autorizações): `docs/RETOMADA-JV-V02.md` (seção "Estado atual") e o `status.md` da feature `003-000-jv-v02-honestidade-e-seguranca`.
+- As seções abaixo são **histórico do planejamento** (2026-10-15). Onde dizem "nenhuma implementação autorizada" ou "aguardando aprovação", o registro é **daquela data**: o JV-V01 está concluído e em `main`, e o JV-V02 está em implementação.
+
+## Histórico preservado — estado em 2026-10-15, revisão 3
 
 - Revisão 3 do desenvolvedor: sete pontos específicos, sem reabrir o planejamento. Decisões JV-D030
   a JV-D037; revisões marcadas em `decisoes.md` (JV-D018 → JV-D036; JV-D024 restrita por JV-D031;
