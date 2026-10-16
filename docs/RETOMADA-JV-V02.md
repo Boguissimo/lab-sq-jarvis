@@ -50,6 +50,11 @@
 
 **Próxima sessão — frentes (continuidade operacional, sem reiniciar o planejamento):** (1) fechar pendências normativas (JV-D045 com o papel de gerência; patch 0.4.1; Clarification FR-002); (2) correções pontuais e integração controlada (só após a Clarification e ordem expressa); (3) investigação metrológica e experimento rigor × usabilidade; (4) evolução dos métodos de diagnóstico e previsão; (5) conclusão posterior do G3. Não abrir frentes adicionais sem necessidade. Fonte canônica: este arquivo (seção "LEIA PRIMEIRO"), `decisoes.md`, `.arkan/projects/lab-sq-jarvis/constitution.md` e `docs/revisoes/investigacao-desempenho/`.
 
+### Atualização (2026-10-16, após aprovações de Fabrício)
+- **Aprovados e commitados** (`392ea6c`): JV-D045 (com a gerência do ChatGPT; Fabrício mantém a autoridade decisória exclusiva) e constituição 0.4.1. Os arquivos `decisoes.md`/`constitution.md` já não estão pendentes; o `LEIA-ME-rascunhos-normativos.md` registra o histórico.
+- **Clarification C-1 do FR-002 incorporada** à spec do JV-V01, com rastreio em `tasks.md` e teste do limite declarado, na branch `claude/correcao-pontual-formato-rew` (`bae3c3e`; 218 passando + 1 xfail). **A integração do código segue separada** (sem merge; aguarda ordem expressa).
+- **Investigação concluída nesta fase** (`docs/revisoes/investigacao-desempenho/`): `metrologia-e-rigor-usabilidade-joeglondon.md`, `deriva-passat-gatilho-adaptativo.md`, `diagnostico-por-previsao-fisica.md`. Fabrício **não aprovou limiar adaptativo definitivo**: a necessidade de repetição deve ser avaliada na faixa e para a decisão pretendida. Diagnóstico por previsão: N0/N1 apenas; **N2 (diagnóstico independente) não alcançado**.
+
 ---
 
 

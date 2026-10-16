@@ -28,11 +28,11 @@ Protótipo com 3 hipóteses sobre a via B: **normal** (hA + hB), **polaridade in
 | Atraso 1,00 ms | 10 / 0 / 0 | 10 / 0 / 0 | 3 / 2 / 0 | 2 / 0 / 0 |
 | Ganho +3 dB (fora do espaço → nao_conclui) | 10 / 0 / 0 | 10 / 0 / 0 | 5 / 0 / 0 | 2 / 0 / 0 |
 **Falsa confiança (banda operacional): 0.** Nenhum controle foi acusado de falha e nenhuma falha fora do espaço recebeu hipótese.
-Contraste com o baseline: a Regra 2 do produto acertou **0 de 48** polaridades no Passat; o protótipo conclui polaridade corretamente em todos os casos em que conclui, nos dois conjuntos.
+Contraste com o baseline: a Regra 2 do produto acertou **0 de 20** polaridades invertidas (e 0 de 60 atrasos) no Passat; o protótipo conclui polaridade corretamente em todos os casos em que conclui, nos dois conjuntos.
 
 ### Leitura honesta
 1. **Polaridade e atrasos ≥ 0,25 ms são identificáveis** com a banda operacional do par, nos dois conjuntos. N0 ≈ N1 na sala: a repetibilidade da sala é tão alta que a variação de captura quase não pesa; **boa parte do resultado da sala é consistência matemática**, e deve ser lida assim.
-2. **O limite de detecção de atraso é imposto pela MARGEM, não pelo dado.** Na sala, 0,05 ms não é detectado (0/10) e 0,10 ms é detectado em 4/10; a incerteza de fase da sala (≈ 0,3–0,6°) permitiria resolver ~0,02–0,05 ms. Sensibilidade (post hoc, rotulada): acertos de tipo da decisão em 162 casos dentro do espaço — MARGEM 0,1: 130; 0,2: 120; 0,5: 104; 1,0: 87. **Nada foi escolhido com base nisso.**
+2. **O limite de detecção de atraso é imposto pela MARGEM, não pelo dado.** Na sala, 0,05 ms não é detectado (0/10) e 0,10 ms é detectado em 4/10; a incerteza de fase da sala (≈ 0,3–0,6°) permitiria resolver ~0,02–0,05 ms. Sensibilidade (post hoc, rotulada): acertos de tipo da decisão em 162 casos (falhas dentro do espaço + controles) — MARGEM 0,1: 130; 0,2: 120; 0,5: 104; 1,0: 87. **Nada foi escolhido com base nisso.**
 3. **No carro, a previsão é pouco confiável em alta frequência e o protótipo abstém-se (certo).** Em P2 (médio + tweeter, 2–10 kHz) a soma formada com capturas derivadas (`m_L-ctl1/ctl3`) já dá custo 1,46 no **controle** (> 1,0): a deriva de 0,3–0,6 amostra (≈ 12° a 5 kHz) invalida a previsão, e o protótipo responde `nao_conclui` em vez de errar. É o comportamento seguro, mas significa **sem diagnóstico** onde a deriva domina.
 4. **A banda operacional é essencial.** Ablação (pré-registrada), banda cheia 20 Hz–20 kHz: 2 controles acusados de falha (falsa confiança 2), mais abstenções no carro (3 de 5 em vez de 2), embora ajude a detectar 0,10 ms na sala (9/10). Banda por via **como dado declarado** muda o resultado — sustenta a diretriz de faixa operacional por via do mapa técnico.
 
