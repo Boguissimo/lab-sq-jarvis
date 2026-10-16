@@ -195,6 +195,18 @@ class Servico:
                 "qualidade": qualidade, "qualidade_id": cid}
 
     # ------------------------------------------------------------ passo 3
+    @staticmethod
+    def _conselho_do_portao(itens_falhos: set[str]) -> str:
+        """O conselho depende da causa: frequências fora de ordem apontam leitura ruim do arquivo, não medição ruim."""
+        if "frequências em ordem crescente" in itens_falhos:
+            return (" As frequências do arquivo estão fora de ordem. Isso costuma indicar um arquivo que o Jarvis não "
+                    "conseguiu ler direito (ou que está corrompido), e não uma medição ruim: confira se foi exportado "
+                    "do REW como texto (frequência, nível e fase) e guarde o arquivo para análise.")
+        if "valores numéricos válidos" in itens_falhos:
+            return " O arquivo tem valores que não são números válidos; exporte-o de novo do REW como texto."
+        return (f" Refaça a medição cobrindo {calculos.FAIXA_MINIMA_HZ[0]:.0f} Hz a "
+                f"{calculos.FAIXA_MINIMA_HZ[1]:.0f} Hz com valores válidos.")
+
     def analisar(self) -> dict:
         sid = self._exigir_sessao()
         if self._calculo("referencia_temporal"):
@@ -204,17 +216,16 @@ class Servico:
             raise ErroDoPercurso("Faltam medições: são necessárias as duas vias e a soma.")
         a, bb, s = self._resposta(ma), self._resposta(mb), self._resposta(ms)
         # @@T202 [FR-203] Portão básico obrigatório (ADR-212, A04)
-        reprovadas = []
+        reprovadas, itens_falhos = [], set()
         for m, r in ((ma, a), (mb, bb), (ms, s)):
             q = calculos.qualidade_basica(r)
             if not q["aprovada"]:
-                falhas = ", ".join(i["item"] for i in q["itens"] if not i["ok"] and i["item"] != "contém fase")
-                reprovadas.append(f"{m['dados'].get('descricao', m['id'])} ({m['id']}): falhou em {falhas}")
+                falhos = [i["item"] for i in q["itens"] if not i["ok"] and i["item"] != "contém fase"]
+                itens_falhos.update(falhos)
+                reprovadas.append(f"{m['dados'].get('descricao', m['id'])} ({m['id']}): falhou em {', '.join(falhos)}")
         if reprovadas:
             raise ErroDoPercurso("Não dá para analisar: a verificação básica de qualidade reprovou "
-                                 + "; ".join(reprovadas) + ". Refaça a medição cobrindo "
-                                 f"{calculos.FAIXA_MINIMA_HZ[0]:.0f} Hz a {calculos.FAIXA_MINIMA_HZ[1]:.0f} Hz "
-                                 "com valores válidos.")
+                                 + "; ".join(reprovadas) + "." + self._conselho_do_portao(itens_falhos))
         if not (calculos.mesma_grade(a, bb) and calculos.mesma_grade(a, s)):
             raise ErroDoPercurso("As medições não usam a mesma grade de frequências; "
                                  "exporte-as do REW com a mesma resolução.")

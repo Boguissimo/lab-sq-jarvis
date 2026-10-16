@@ -32,9 +32,17 @@ class RespostaFrequencia:
         return self.fase_graus is not None
 
 
+# Número en-US com separador de milhar e parte decimal, como o REW exporta ("1,000.1222"). A forma exige o ponto
+# decimal para não confundir com vírgula decimal ("1,000" lido como 1,0), que continua tratada como antes.
+_MILHAR_EN_US = re.compile(r"[+-]?\d{1,3}(?:,\d{3})+\.\d+")
+
+
 def _campos(linha: str) -> list[str]:
     if ";" in linha:
         return [c.strip().replace(",", ".") for c in linha.split(";") if c.strip()]
+    tokens = linha.split()
+    if any(_MILHAR_EN_US.fullmatch(t) for t in tokens):
+        return [t.replace(",", "") for t in tokens]  # vírgula dentro do número = milhar (REW, en-US)
     return [c for c in re.split(r"[\s,]+", linha.strip()) if c]
 
 

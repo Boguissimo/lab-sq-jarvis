@@ -35,7 +35,7 @@ sessão no histórico com tudo o que foi feito.
 | ID | Requisito | Teste |
 | --- | --- | --- |
 | FR-001 | Gerar o caso REF-001-A de forma determinística: LR4 em 3 000 Hz, alto-falantes ideais, 1,00 m, tweeter com polaridade invertida na fiação, grade de 1/48 de oitava de 20 Hz a 20 kHz; arquivos `medio`, `tweeter`, `soma-antes`, `soma-depois` e manifesto | `test_ref001.py` |
-| FR-002 | Importar texto de resposta em frequência (frequência, nível em dB, fase em graus), tolerando comentários com `*` e separadores espaço, tabulação, vírgula ou ponto e vírgula; recusar arquivo sem dados válidos com mensagem simples | `test_rew_texto.py` |
+| FR-002 | Importar texto de resposta em frequência (frequência, nível em dB, fase em graus), tolerando comentários com `*` e separadores espaço, tabulação, vírgula ou ponto e vírgula; recusar arquivo sem dados válidos com mensagem simples. **Clarification C-1 (2026-10-16):** números no formato en-US com separador de milhar e parte decimal (por exemplo `1,000.5`) são lidos como um único valor, e não como dois campos separados por vírgula; os demais separadores seguem como antes | `test_rew_texto.py`, `test_regressao_formato_rew.py` |
 | FR-003 | Guardar cada arquivo importado no cofre pelo hash SHA-256, sem alterar nem substituir | `test_persistencia.py` |
 | FR-004 | Verificar qualidade básica (frequências crescentes, faixa coberta, valores finitos, mesma grade) e compatibilidade de referência temporal pelo manifesto; sem referência compatível, recusar fase, atraso e soma prevista | `test_calculos.py`, `test_sessao.py` |
 | FR-005 | Calcular: resposta complexa, soma complexa prevista, soma de potências, região de sobreposição, diferença de fase (média e dispersão circulares), atraso equivalente, comparação previsto × medido; cada cálculo registrado com algoritmo, versão, parâmetros e entradas por hash | `test_calculos.py` |
@@ -73,3 +73,9 @@ sessão no histórico com tudo o que foi feito.
   circular ≥ 160° e dispersão ≤ 15°), sobreposição (vias a até 6 dB uma da outra), critério de aceite
   (RMS previsto × medido ≤ 1 dB e máximo ≤ 2 dB entre 1 e 10 kHz; nível no vale sobe ≥ 10 dB).
 - Formato de texto do REW: estrutura de fontes secundárias, a confirmar com arquivo real (JV-V04).
+
+## Clarificações
+
+| ID | Data | Requisito | Texto | Origem e evidência | Aprovação |
+| --- | --- | --- | --- | --- | --- |
+| C-1 | 2026-10-16 | FR-002 | Números no formato en-US com separador de milhar e parte decimal (por exemplo `1,000.5`) são lidos como um único valor, e não como dois campos separados por vírgula. Os demais separadores (espaço, tabulação, vírgula e ponto e vírgula) continuam tratados como antes. A vírgula decimal separada por espaço **não** é coberta por esta clarificação. O requisito não muda de intenção: explicita a leitura da exportação em texto do REW (en-US). | Defeito achado com medição real (REW 5.31.3, `joeglondon/speakers-2026-filters`): 95 % dos pontos de cada exportação eram lidos errado (`docs/revisoes/investigacao-desempenho/resultados-braco-a-joeglondon.md`, `proposta-correcao-pontual/proposta.md` D-1). Testes: `tests/test_regressao_formato_rew.py` (milhar, exportação linear completa, separadores antigos, limite não coberto). | Fabrício, 2026-10-16 (nível B); a integração do código é separada e depende de ordem expressa |
