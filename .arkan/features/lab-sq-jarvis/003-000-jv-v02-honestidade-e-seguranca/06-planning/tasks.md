@@ -74,7 +74,7 @@
   - File: `src/jarvis/regras.py`, `src/jarvis/sessao.py`
 - [x] JV-T217 [US-01] — N4 (fase recusada sem referência declarada) e N5 (nada a alterar) no serviço (FR-205, FR-206) (depende de T203, T216). Gate: G1. Evidência: `test_sessao.py::test_n4`, `::test_n5`.
   - File: `src/jarvis/sessao.py`
-- [ ] JV-T218 [US-03] — `_medicoes()` e `importar_depois` com várias medições por via; recusa de cópia (hash/`aquisicao_id`); presunções só com proveniência verificada (INV-214) (depende de T211). Gate: G1. Evidência: `test_sessao.py::test_copia_nao_e_repeticao`, `::test_simulado_declarado_nao_presume`.
+- [x] JV-T218 [US-03] — `_medicoes()` e `importar_depois` com várias medições por via; recusa de cópia (hash/`aquisicao_id`); presunções só com proveniência verificada (INV-214) (depende de T211). Gate: G1. Evidência: `test_sessao.py::test_copia_nao_e_repeticao`, `::test_simulado_declarado_nao_presume`.
   - File: `src/jarvis/sessao.py`
 - [ ] JV-T219 [US-03] — `comprometida` com precedência E1 e repetição por aquisições independentes; `verificacao_variavel_unica` gravada (FR-207) (depende de T215, T218). Gate: G1. Evidência: `test_sessao.py::test_n3`, `::test_n3_so_declarada`, `::test_n3_so_medida`, `::test_n3_posicao_diferente_inconclusiva`, `::test_n3_sem_repeticao_inconclusiva`, `::test_reposicionamento_nao_compromete`, `::test_mudanca_reproduzida_nao_nomeia_parametro`, `::test_sem_dados_nao_e_sem_mudanca`, `::test_comprometida_nao_refuta`.
   - File: `src/jarvis/sessao.py`

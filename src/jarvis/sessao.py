@@ -71,6 +71,11 @@ class Servico:
     def _calculo(self, nome: str) -> dict | None:
         return self._ultimo("calculo", lambda d: d.get("nome") == nome)
 
+    # @@T218 [FR-207] Todas as medições de um papel e momento, não só a última (E3)
+    def _medicoes(self, papel: str, momento: str = "antes") -> list[dict]:
+        return [m for m in self.b.registros(self.sessao_id, "medicao")
+                if m["dados"].get("papel") == papel and m["dados"].get("momento") == momento]
+
     def _registro_calculo(self, cid: str) -> dict:
         return next(r for r in self.b.registros(self.sessao_id, "calculo") if r["id"] == cid)
 
@@ -421,7 +426,20 @@ class Servico:
             meta = {"momento": "depois", "papel": "soma", "canal": ms["dados"].get("canal"),
                     "descricao": f"Soma depois do teste ({caminho.name})",
                     "referencia_temporal": {"tipo": "nenhuma"}}
-        info = self._importar_medicao(caminho, meta, str(caminho.parent))
+        prov_antes = ms["dados"].get("proveniencia") or {"catalogo": False}
+        mesma_pasta = caminho.parent.resolve() == pasta.resolve()
+        info = self._importar_medicao(caminho, {**meta, "proveniencia": prov_antes if mesma_pasta else
+                                                {"catalogo": False, "motivo": "arquivo fora da pasta do caso"}},
+                                      str(caminho.parent))
+        recusadas = []
+        if meta.get("arquivo") and mesma_pasta:  # vias individuais "depois" declaradas no manifesto
+            manifesto = json.loads((pasta / "manifesto.json").read_text(encoding="utf-8"))
+            for mv in manifesto["medicoes"]:
+                if mv["momento"] == "depois" and mv.get("papel") in ("via_a", "via_b"):
+                    try:
+                        self.importar_via_depois(pasta / mv["arquivo"], mv)
+                    except ErroDoPercurso as erro:
+                        recusadas.append({"arquivo": mv["arquivo"], "motivo": str(erro)})
         md = self._medicao("soma", "depois")
         depois = self._resposta(md)
         prev = self.b.registros(sid, "calculo")
@@ -437,7 +455,47 @@ class Servico:
         cid = self._registrar_calculo("comparacao", "Comparação previsto × medido depois", comp,
                                       [prev, md, ms], {"faixa_hz": CRITERIO_ACEITE["faixa_hz"]})
         self.b.diario(sid, "medicao", f"Medição depois importada ({md['id']}); comparação {cid}")
-        return self.estado()["comparacao"]
+        resultado = self.estado()["comparacao"]
+        if recusadas:
+            resultado = {**resultado, "recusadas": recusadas}
+        return resultado
+
+    # @@T218 [FR-207] Aquisição individual "depois" de uma via; cópia não é repetição (E3)
+    def importar_via_depois(self, caminho: str | Path, meta: dict | None = None) -> dict:
+        """Importa uma aquisição individual “depois” de uma via (``meta['papel']`` = via_a ou via_b).
+
+        Cada aquisição é uma medição própria. Uma cópia do mesmo arquivo (mesmo SHA-256) ou com o mesmo
+        ``aquisicao_id`` de outra já importada é recusada: não conta como repetição.
+        """
+        from jarvis.persistencia import sha256_de
+        sid = self._exigir_sessao()
+        rec = self._ultimo("recomendacao")
+        if self._ultimo("experimento") is None or rec is None or not rec["dados"].get("previsao_registrada_em"):
+            raise ErroDoPercurso("As medições “depois” só podem entrar depois de o teste estar registrado.")
+        caminho = Path(caminho)
+        meta = dict(meta or {})
+        papel = meta.get("papel")
+        if papel not in ("via_a", "via_b"):
+            raise ErroDoPercurso("Informe a via da medição “depois” (via_a ou via_b).")
+        meta["momento"] = "depois"
+        sha = sha256_de(caminho)
+        anteriores = self._medicoes(papel, "depois")
+        if any(m["dados"]["sha256"] == sha for m in anteriores):
+            raise ErroDoPercurso(f"{caminho.name} é cópia de uma medição “depois” já importada desta via: "
+                                 "cópia não conta como repetição.")
+        aq = meta.get("aquisicao_id")
+        if aq and any(m["dados"].get("aquisicao_id") == aq for m in anteriores):
+            raise ErroDoPercurso(f"A aquisição “{aq}” já foi importada para esta via: a repetição exige "
+                                 "outra aquisição, com o microfone retirado e recolocado.")
+        meta.setdefault("repeticao", len(anteriores) + 1)
+        ms = self._medicao("soma")
+        pasta = Path(ms["dados"]["pasta_origem"])
+        mesma_pasta = caminho.parent.resolve() == pasta.resolve()
+        meta["proveniencia"] = (ms["dados"].get("proveniencia") or {"catalogo": False}) if mesma_pasta else             {"catalogo": False, "motivo": "arquivo fora da pasta do caso"}
+        info = self._importar_medicao(caminho, meta, str(caminho.parent))
+        self.b.diario(sid, "medicao", f"Medição individual depois importada ({info['id']}, {papel}, "
+                                      f"aquisição {meta['repeticao']})")
+        return info
 
     def concluir(self) -> dict:
         sid = self._exigir_sessao()

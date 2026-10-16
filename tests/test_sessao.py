@@ -280,3 +280,61 @@ def test_n5(servico, banco):
     assert d["fundamentacao"] == editada
     assert servico.estado()["sessao"]["estado"] == "encerrada"
     assert banco.integridade() == []
+
+
+# --- JV-T218 (FR-207, INV-214): várias aquisições "depois" por via; cópia não é repetição ---
+
+def _ate_depois(servico, nome):
+    _analisar_caso(servico, nome)
+    servico.propor_teste()
+    servico.registrar_aplicacao()
+    return servico.importar_depois()
+
+
+def test_n3_importa_todas_as_aquisicoes_depois(servico):
+    _ate_depois(servico, "REF-001-N3")
+    tw = servico._medicoes("via_b", "depois")
+    assert [m["dados"]["repeticao"] for m in tw] == [1, 2]
+    assert len({m["dados"]["aquisicao_id"] for m in tw}) == 2
+    assert all(m["dados"]["proveniencia"]["catalogo"] for m in tw)
+
+
+def test_copia_nao_e_repeticao(servico, tmp_path):
+    _ate_depois(servico, "REF-001-N3")
+    pasta = _casos.PASTA_DADOS / "REF-001-N3"
+    copia = tmp_path / "tweeter-depois-3.txt"
+    shutil.copyfile(pasta / "tweeter-depois-1.txt", copia)
+    with pytest.raises(ErroDoPercurso, match="cópia"):
+        servico.importar_via_depois(copia, {"papel": "via_b", "aquisicao_id": "outra"})
+    # bytes diferentes, mesmo aquisicao_id: também não é repetição
+    texto = copia.read_text(encoding="utf-8").replace("* Medição simulada", "* Medição simulada (editada)")
+    copia.write_text(texto, encoding="utf-8")
+    with pytest.raises(ErroDoPercurso, match="já foi importada"):
+        servico.importar_via_depois(copia, {"papel": "via_b", "aquisicao_id": "N3-tweeter-depois-aq1"})
+    assert len(servico._medicoes("via_b", "depois")) == 2
+
+
+def test_via_depois_fora_da_pasta_nao_tem_proveniencia(servico, tmp_path):
+    _ate_depois(servico, "REF-001-N3")
+    origem = _casos.PASTA_DADOS / "REF-001-N3" / "tweeter-depois-2.txt"
+    nova = tmp_path / "tweeter-depois-extra.txt"
+    nova.write_text(origem.read_text(encoding="utf-8") + "\n", encoding="utf-8")
+    info = servico.importar_via_depois(nova, {"papel": "via_b", "aquisicao_id": "aq-extra"})
+    m = next(x for x in servico._medicoes("via_b", "depois") if x["id"] == info["id"])
+    assert m["dados"]["proveniencia"]["catalogo"] is False and m["dados"]["repeticao"] == 3
+
+
+def test_simulado_declarado_nao_presume(servico, tmp_path):
+    """`simulado: true` sem proveniência de catálogo não concede presunção de suavização (INV-214)."""
+    copia = tmp_path / "caso"
+    shutil.copytree(_casos.ref001.PASTA_PADRAO, copia)
+    m = json.loads((copia / "manifesto.json").read_text(encoding="utf-8"))
+    assert m["simulado"] is True and "suavizacao" not in m["medicoes"][0]
+    m["caso"] = "REF-001-A"  # nome do catálogo, mas bytes diferentes
+    m["descricao"] += " "
+    (copia / "manifesto.json").write_text(json.dumps(m, ensure_ascii=False), encoding="utf-8")
+    servico.nova_sessao("investigacao")
+    servico.importar_caso(copia)
+    meds = servico.b.registros(servico.sessao_id, "medicao")
+    assert all(md["dados"]["proveniencia"]["catalogo"] is False for md in meds)
+    assert servico.analisar()["portao"]["classificacao"] == "nao_estimavel"
