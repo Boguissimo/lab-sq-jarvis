@@ -1,6 +1,6 @@
 # Constituição do Projeto — lab-sq-jarvis (Lab SQ Jarvis)
 
-> **Versão**: 0.4.0 | **Projeto**: lab-sq-jarvis | **Namespace**: `JV` | **Data**: 2026-10-15
+> **Versão**: 0.4.1 | **Projeto**: lab-sq-jarvis | **Namespace**: `JV` | **Data**: 2026-10-16
 > **Estado**: **ratificada pelo desenvolvedor (G3) em 2026-10-15** — “a revisão 3 está alinhada com o
 > que quero. Podemos sair do planejamento geral e começar a construir”, com os ajustes JV-D038 a
 > JV-D041 incorporados nesta versão (JV-D042).
@@ -242,6 +242,7 @@ múltiplos usuários, oficinas ou nuvem obrigatória (JV-D017).
 | Estratégia de testes | testes de cálculo com resposta conhecida escritos antes ou junto da implementação; casos acústicos de referência com verdade construída |
 | Política de publicação | branch de trabalho `lab-sq-jarvis/<feature>`; integração em `main` só com aprovação do desenvolvedor |
 | Dados sensíveis | nenhum dado pessoal relevante; chaves de API de IA guardadas no cofre de credenciais do Windows, nunca no repositório |
+| Papéis e revisão | Fabrício é o desenvolvedor (decisão humana e G3); Claude implementa e documenta; ChatGPT exerce a gerência do projeto e a revisão crítica, sem poder de aprovação; só Fabrício decide; nenhuma revisão ou gerência de IA é aprovação — ver JV-D045 em `decisoes.md` |
 | Superfície(s) crítica(s) | **segurança do equipamento** (potência, excursão, frequência de corte, ganho) e **integridade da cadeia de conhecimento** (medição original, cálculo, recomendação) |
 
 ---
@@ -268,3 +269,4 @@ identificadores próprios, definidos no modelo de dados — não se confundem co
 | 0.2.0 | 2026-10-15 | Minor | Revisão 2: propósito pessoal (JV-D017); percepção na cadeia (JV-D021); P3 com conferência de grandeza, unidade e canal (JV-D026); P4 como redução de risco, sem garantia (JV-D022); P6 com veredito `comprometida` (JV-D024); P7 com referência temporal e limite de generalização (JV-D023, JV-D025); P13 reescrito como sessão guiada (JV-D020); P14 novo. Aguardando ratificação |
 | 0.3.0 | 2026-10-15 | Minor | Revisão 3: P3 com origens legítimas de números além de cálculo (JV-D033); P4 — aprovação não verifica (JV-D032); P6 distingue teste de diagnóstico e etapa de calibração (JV-D031). Aguardando ratificação |
 | 0.4.0 | 2026-10-15 | Minor | Ratificação (JV-D042) com ajustes: P1 admite decisão sem intervenção, distinta de conclusão experimental (JV-D038); P2 deixa de prometer que configurações nunca se perdem e declara reversão não garantida quando faltam dados (JV-D040) |
+| 0.4.1 | 2026-10-16 | Patch | Linha "Papéis e revisão" na tabela de decisões de contexto (Fabrício decide; Claude implementa; ChatGPT gerencia e revisa, sem aprovação), apontando para a JV-D045. Nenhum princípio alterado; Arkan Core intacto |
