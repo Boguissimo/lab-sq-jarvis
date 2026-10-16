@@ -1,0 +1,1325 @@
+{
+ "c0159": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P1 w_L+m_L (soma com m_L-ctl1)",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0140": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=3",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0033": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P1 w_L+m_L (soma com m_L-ctl1)",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0070": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=5",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0121": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=3",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0005": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=4",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0133": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=5",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0115": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=2",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0013": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P3 w_R+m_R (soma com w_R-retake)",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0163": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=2",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0119": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=2",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0123": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P1 w_L+m_L (soma com m_L-ctl3)",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0086": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=2",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0114": {
+  "conjunto": "carro",
+  "nivel": "N0-carro",
+  "par": "P4 m_R+tw_R",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0171": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=3",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0085": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=5",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0017": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=4",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0040": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=4",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0039": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=1",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0002": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P1 w_L+m_L (soma com m_L-ctl1)",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0143": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=4",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0014": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=1",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0113": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=4",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0019": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=3",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0126": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=5",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0056": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P2 m_L+tw_L (soma com m_L-ctl1)",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0043": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=3",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0015": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=2",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0079": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=2",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0134": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=1",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0180": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=3",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0055": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=3",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0147": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=3",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0165": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=2",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0102": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=4",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0174": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=1",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0183": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=2",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0111": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P1 w_L+m_L (soma com m_L-ctl1)",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0061": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=1",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0184": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=3",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0059": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=5",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0081": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=4",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0038": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=1",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0006": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=1",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0112": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=4",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0036": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=4",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0074": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=1",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0152": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=1",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0188": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=5",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0170": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=4",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0167": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P2 m_L+tw_L (soma com m_L-ctl3)",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0031": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P2 m_L+tw_L (soma com m_L-ctl1)",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0078": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=4",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0186": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=5",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0072": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P2 m_L+tw_L (soma com m_L-ctl3)",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0164": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P3 w_R+m_R (soma com w_R-retake)",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0166": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=3",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0052": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=3",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0096": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=1",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0025": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=2",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0145": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=1",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0116": {
+  "conjunto": "carro",
+  "nivel": "N0-carro",
+  "par": "P4 m_R+tw_R",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0101": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P2 m_L+tw_L (soma com m_L-ctl1)",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0027": {
+  "conjunto": "carro",
+  "nivel": "N0-carro",
+  "par": "P5 sw+w_L",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0173": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=5",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0139": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P1 w_L+m_L (soma com m_L-ctl3)",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0144": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=2",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0021": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P1 w_L+m_L (soma com m_L-ctl1)",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0088": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P2 m_L+tw_L (soma com m_L-ctl1)",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0185": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=5",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0009": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P2 m_L+tw_L (soma com m_L-ctl3)",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0083": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=4",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0076": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=2",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0128": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P3 w_R+m_R (soma com w_R-retake)",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0041": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=2",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0029": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=2",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0075": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=4",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0154": {
+  "conjunto": "carro",
+  "nivel": "N0-carro",
+  "par": "P4 m_R+tw_R",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0082": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=5",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0092": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=3",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0023": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P1 w_L+m_L (soma com m_L-ctl3)",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0181": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=4",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0187": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=5",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0182": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=5",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0095": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=5",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0097": {
+  "conjunto": "carro",
+  "nivel": "N0-carro",
+  "par": "P5 sw+w_L",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0035": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=1",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0058": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=2",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0060": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=3",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0104": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=5",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0049": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=4",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0158": {
+  "conjunto": "carro",
+  "nivel": "N0-carro",
+  "par": "P4 m_R+tw_R",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0069": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=4",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0100": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=5",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0001": {
+  "conjunto": "carro",
+  "nivel": "N0-carro",
+  "par": "P5 sw+w_L",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0137": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=3",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0062": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=5",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0011": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=4",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0122": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P3 w_R+m_R (soma com w_R-retake)",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0172": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P2 m_L+tw_L (soma com m_L-ctl1)",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0077": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=1",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0091": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=2",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0117": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=1",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0136": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=5",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0142": {
+  "conjunto": "carro",
+  "nivel": "N0-carro",
+  "par": "P5 sw+w_L",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0026": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=1",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0024": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=3",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0093": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=4",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0177": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=3",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0179": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=1",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0087": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=4",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0047": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P1 w_L+m_L (soma com m_L-ctl3)",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0106": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=3",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0109": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=5",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0030": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=2",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0034": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=3",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0120": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P2 m_L+tw_L (soma com m_L-ctl1)",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0125": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=4",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0037": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=4",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0028": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=3",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0151": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P1 w_L+m_L (soma com m_L-ctl1)",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0175": {
+  "conjunto": "carro",
+  "nivel": "N0-carro",
+  "par": "P5 sw+w_L",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0067": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=2",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0022": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P2 m_L+tw_L (soma com m_L-ctl3)",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0010": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=5",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0094": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=5",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0051": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=2",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0042": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=1",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0099": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=5",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0162": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=5",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0146": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=1",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0135": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=2",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0050": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=3",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0004": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=1",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0063": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=4",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0157": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P3 w_R+m_R (soma com w_R-retake)",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0176": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P2 m_L+tw_L (soma com m_L-ctl3)",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0150": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=3",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0044": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=4",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0073": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=5",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0064": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P2 m_L+tw_L (soma com m_L-ctl3)",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0127": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=1",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0080": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=2",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0053": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=4",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0107": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=3",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0003": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=1",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0131": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=2",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0178": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P1 w_L+m_L (soma com m_L-ctl3)",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0141": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=1",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0160": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=4",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0153": {
+  "conjunto": "carro",
+  "nivel": "N0-carro",
+  "par": "P4 m_R+tw_R",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0065": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=2",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0105": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=5",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0048": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=3",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0089": {
+  "conjunto": "carro",
+  "nivel": "N0-carro",
+  "par": "P4 m_R+tw_R",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0108": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=2",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0138": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=1",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0118": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=2",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0000": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=5",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0008": {
+  "conjunto": "carro",
+  "nivel": "N0-carro",
+  "par": "P5 sw+w_L",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0020": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P3 w_R+m_R (soma com w_R-retake)",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0057": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=4",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0168": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=2",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0110": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=1",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0016": {
+  "conjunto": "carro",
+  "nivel": "N0-carro",
+  "par": "P4 m_R+tw_R",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0066": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=3",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0071": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=4",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0054": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P1 w_L+m_L (soma com m_L-ctl1)",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0169": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=2",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0132": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P3 w_R+m_R (soma com w_R-retake)",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0046": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=3",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0148": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=1",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0012": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=3",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0156": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P1 w_L+m_L (soma com m_L-ctl3)",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0007": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=3",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0155": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P1 w_L+m_L (soma com m_L-ctl3)",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0032": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=2",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0130": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P2 m_L+tw_L (soma com m_L-ctl1)",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0098": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=1",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0129": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "L+Sub k=5",
+  "falha": "atraso_0.25_ms",
+  "tau_ms": 0.25
+ },
+ "c0103": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=5",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0124": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=1",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0018": {
+  "conjunto": "sala",
+  "nivel": "N0-sala",
+  "par": "R+Sub k=4",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ },
+ "c0045": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=5",
+  "falha": "ganho_+3dB_fora_do_espaco",
+  "tau_ms": null
+ },
+ "c0161": {
+  "conjunto": "carro",
+  "nivel": "N0-carro",
+  "par": "P5 sw+w_L",
+  "falha": "atraso_0.05_ms",
+  "tau_ms": 0.05
+ },
+ "c0068": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "L+Sub k=2",
+  "falha": "controle",
+  "tau_ms": null
+ },
+ "c0090": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=3",
+  "falha": "atraso_0.10_ms",
+  "tau_ms": 0.1
+ },
+ "c0149": {
+  "conjunto": "sala",
+  "nivel": "N1-sala",
+  "par": "R+Sub k=1",
+  "falha": "polaridade",
+  "tau_ms": null
+ },
+ "c0084": {
+  "conjunto": "carro",
+  "nivel": "N1-carro",
+  "par": "P2 m_L+tw_L (soma com m_L-ctl3)",
+  "falha": "atraso_1.00_ms",
+  "tau_ms": 1.0
+ }
+}

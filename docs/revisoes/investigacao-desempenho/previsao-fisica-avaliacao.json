@@ -1,0 +1,656 @@
+{
+ "previsoes_sha256": "8fec50f8b6f0628c487ded1a7f133f732c81110e540cb90b3948b130b29627b3",
+ "casos": 189,
+ "banda_operacional": {
+  "N1-carro": {
+   "atraso_0.05_ms": {
+    "acerto": 3,
+    "abstencao": 2,
+    "erro": 0,
+    "n": 5,
+    "acerto_wilson95": [
+     0.231,
+     0.882
+    ]
+   },
+   "atraso_0.25_ms": {
+    "acerto": 3,
+    "abstencao": 2,
+    "erro": 0,
+    "n": 5,
+    "acerto_wilson95": [
+     0.231,
+     0.882
+    ]
+   },
+   "ganho_+3dB_fora_do_espaco": {
+    "acerto": 5,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 5,
+    "acerto_wilson95": [
+     0.566,
+     1.0
+    ]
+   },
+   "atraso_0.10_ms": {
+    "acerto": 3,
+    "abstencao": 2,
+    "erro": 0,
+    "n": 5,
+    "acerto_wilson95": [
+     0.231,
+     0.882
+    ]
+   },
+   "atraso_1.00_ms": {
+    "acerto": 3,
+    "abstencao": 2,
+    "erro": 0,
+    "n": 5,
+    "acerto_wilson95": [
+     0.231,
+     0.882
+    ]
+   },
+   "controle": {
+    "acerto": 3,
+    "abstencao": 2,
+    "erro": 0,
+    "n": 5,
+    "acerto_wilson95": [
+     0.231,
+     0.882
+    ]
+   },
+   "polaridade": {
+    "acerto": 3,
+    "abstencao": 2,
+    "erro": 0,
+    "n": 5,
+    "acerto_wilson95": [
+     0.231,
+     0.882
+    ]
+   }
+  },
+  "N0-sala": {
+   "atraso_0.10_ms": {
+    "acerto": 3,
+    "abstencao": 0,
+    "erro": 7,
+    "n": 10,
+    "acerto_wilson95": [
+     0.108,
+     0.603
+    ]
+   },
+   "atraso_1.00_ms": {
+    "acerto": 10,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 10,
+    "acerto_wilson95": [
+     0.722,
+     1.0
+    ]
+   },
+   "controle": {
+    "acerto": 10,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 10,
+    "acerto_wilson95": [
+     0.722,
+     1.0
+    ]
+   },
+   "atraso_0.25_ms": {
+    "acerto": 9,
+    "abstencao": 0,
+    "erro": 1,
+    "n": 10,
+    "acerto_wilson95": [
+     0.596,
+     0.982
+    ]
+   },
+   "atraso_0.05_ms": {
+    "acerto": 0,
+    "abstencao": 0,
+    "erro": 10,
+    "n": 10,
+    "acerto_wilson95": [
+     0.0,
+     0.278
+    ]
+   },
+   "polaridade": {
+    "acerto": 10,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 10,
+    "acerto_wilson95": [
+     0.722,
+     1.0
+    ]
+   },
+   "ganho_+3dB_fora_do_espaco": {
+    "acerto": 10,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 10,
+    "acerto_wilson95": [
+     0.722,
+     1.0
+    ]
+   }
+  },
+  "N1-sala": {
+   "atraso_0.25_ms": {
+    "acerto": 9,
+    "abstencao": 0,
+    "erro": 1,
+    "n": 10,
+    "acerto_wilson95": [
+     0.596,
+     0.982
+    ]
+   },
+   "controle": {
+    "acerto": 10,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 10,
+    "acerto_wilson95": [
+     0.722,
+     1.0
+    ]
+   },
+   "atraso_1.00_ms": {
+    "acerto": 10,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 10,
+    "acerto_wilson95": [
+     0.722,
+     1.0
+    ]
+   },
+   "atraso_0.10_ms": {
+    "acerto": 4,
+    "abstencao": 0,
+    "erro": 6,
+    "n": 10,
+    "acerto_wilson95": [
+     0.168,
+     0.687
+    ]
+   },
+   "ganho_+3dB_fora_do_espaco": {
+    "acerto": 10,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 10,
+    "acerto_wilson95": [
+     0.722,
+     1.0
+    ]
+   },
+   "polaridade": {
+    "acerto": 10,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 10,
+    "acerto_wilson95": [
+     0.722,
+     1.0
+    ]
+   },
+   "atraso_0.05_ms": {
+    "acerto": 0,
+    "abstencao": 0,
+    "erro": 10,
+    "n": 10,
+    "acerto_wilson95": [
+     0.0,
+     0.278
+    ]
+   }
+  },
+  "N0-carro": {
+   "atraso_0.25_ms": {
+    "acerto": 2,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 2,
+    "acerto_wilson95": [
+     0.342,
+     1.0
+    ]
+   },
+   "polaridade": {
+    "acerto": 2,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 2,
+    "acerto_wilson95": [
+     0.342,
+     1.0
+    ]
+   },
+   "ganho_+3dB_fora_do_espaco": {
+    "acerto": 2,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 2,
+    "acerto_wilson95": [
+     0.342,
+     1.0
+    ]
+   },
+   "controle": {
+    "acerto": 2,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 2,
+    "acerto_wilson95": [
+     0.342,
+     1.0
+    ]
+   },
+   "atraso_1.00_ms": {
+    "acerto": 2,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 2,
+    "acerto_wilson95": [
+     0.342,
+     1.0
+    ]
+   },
+   "atraso_0.10_ms": {
+    "acerto": 2,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 2,
+    "acerto_wilson95": [
+     0.342,
+     1.0
+    ]
+   },
+   "atraso_0.05_ms": {
+    "acerto": 2,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 2,
+    "acerto_wilson95": [
+     0.342,
+     1.0
+    ]
+   }
+  }
+ },
+ "banda_operacional_falsa_confianca": 0,
+ "banda_operacional_deteccao_atraso_fracao_acerto": {
+  "N1-carro": {
+   "atraso_0.05_ms": 0.6,
+   "atraso_0.25_ms": 0.6,
+   "atraso_0.10_ms": 0.6,
+   "atraso_1.00_ms": 0.6
+  },
+  "N0-sala": {
+   "atraso_0.10_ms": 0.3,
+   "atraso_1.00_ms": 1.0,
+   "atraso_0.25_ms": 0.9,
+   "atraso_0.05_ms": 0.0
+  },
+  "N1-sala": {
+   "atraso_0.25_ms": 0.9,
+   "atraso_1.00_ms": 1.0,
+   "atraso_0.10_ms": 0.4,
+   "atraso_0.05_ms": 0.0
+  },
+  "N0-carro": {
+   "atraso_0.25_ms": 1.0,
+   "atraso_1.00_ms": 1.0,
+   "atraso_0.10_ms": 1.0,
+   "atraso_0.05_ms": 1.0
+  }
+ },
+ "banda_cheia": {
+  "N1-carro": {
+   "atraso_0.05_ms": {
+    "acerto": 2,
+    "abstencao": 3,
+    "erro": 0,
+    "n": 5,
+    "acerto_wilson95": [
+     0.118,
+     0.769
+    ]
+   },
+   "atraso_0.25_ms": {
+    "acerto": 2,
+    "abstencao": 3,
+    "erro": 0,
+    "n": 5,
+    "acerto_wilson95": [
+     0.118,
+     0.769
+    ]
+   },
+   "ganho_+3dB_fora_do_espaco": {
+    "acerto": 5,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 5,
+    "acerto_wilson95": [
+     0.566,
+     1.0
+    ]
+   },
+   "atraso_0.10_ms": {
+    "acerto": 2,
+    "abstencao": 3,
+    "erro": 0,
+    "n": 5,
+    "acerto_wilson95": [
+     0.118,
+     0.769
+    ]
+   },
+   "atraso_1.00_ms": {
+    "acerto": 2,
+    "abstencao": 3,
+    "erro": 0,
+    "n": 5,
+    "acerto_wilson95": [
+     0.118,
+     0.769
+    ]
+   },
+   "controle": {
+    "acerto": 2,
+    "abstencao": 3,
+    "erro": 0,
+    "n": 5,
+    "acerto_wilson95": [
+     0.118,
+     0.769
+    ]
+   },
+   "polaridade": {
+    "acerto": 2,
+    "abstencao": 3,
+    "erro": 0,
+    "n": 5,
+    "acerto_wilson95": [
+     0.118,
+     0.769
+    ]
+   }
+  },
+  "N0-sala": {
+   "atraso_0.10_ms": {
+    "acerto": 9,
+    "abstencao": 0,
+    "erro": 1,
+    "n": 10,
+    "acerto_wilson95": [
+     0.596,
+     0.982
+    ]
+   },
+   "atraso_1.00_ms": {
+    "acerto": 10,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 10,
+    "acerto_wilson95": [
+     0.722,
+     1.0
+    ]
+   },
+   "controle": {
+    "acerto": 9,
+    "abstencao": 0,
+    "erro": 1,
+    "n": 10,
+    "acerto_wilson95": [
+     0.596,
+     0.982
+    ]
+   },
+   "atraso_0.25_ms": {
+    "acerto": 9,
+    "abstencao": 0,
+    "erro": 1,
+    "n": 10,
+    "acerto_wilson95": [
+     0.596,
+     0.982
+    ]
+   },
+   "atraso_0.05_ms": {
+    "acerto": 0,
+    "abstencao": 0,
+    "erro": 10,
+    "n": 10,
+    "acerto_wilson95": [
+     0.0,
+     0.278
+    ]
+   },
+   "polaridade": {
+    "acerto": 10,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 10,
+    "acerto_wilson95": [
+     0.722,
+     1.0
+    ]
+   },
+   "ganho_+3dB_fora_do_espaco": {
+    "acerto": 10,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 10,
+    "acerto_wilson95": [
+     0.722,
+     1.0
+    ]
+   }
+  },
+  "N1-sala": {
+   "atraso_0.25_ms": {
+    "acerto": 9,
+    "abstencao": 0,
+    "erro": 1,
+    "n": 10,
+    "acerto_wilson95": [
+     0.596,
+     0.982
+    ]
+   },
+   "controle": {
+    "acerto": 9,
+    "abstencao": 0,
+    "erro": 1,
+    "n": 10,
+    "acerto_wilson95": [
+     0.596,
+     0.982
+    ]
+   },
+   "atraso_1.00_ms": {
+    "acerto": 10,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 10,
+    "acerto_wilson95": [
+     0.722,
+     1.0
+    ]
+   },
+   "atraso_0.10_ms": {
+    "acerto": 9,
+    "abstencao": 0,
+    "erro": 1,
+    "n": 10,
+    "acerto_wilson95": [
+     0.596,
+     0.982
+    ]
+   },
+   "ganho_+3dB_fora_do_espaco": {
+    "acerto": 10,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 10,
+    "acerto_wilson95": [
+     0.722,
+     1.0
+    ]
+   },
+   "polaridade": {
+    "acerto": 10,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 10,
+    "acerto_wilson95": [
+     0.722,
+     1.0
+    ]
+   },
+   "atraso_0.05_ms": {
+    "acerto": 0,
+    "abstencao": 0,
+    "erro": 10,
+    "n": 10,
+    "acerto_wilson95": [
+     0.0,
+     0.278
+    ]
+   }
+  },
+  "N0-carro": {
+   "atraso_0.25_ms": {
+    "acerto": 2,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 2,
+    "acerto_wilson95": [
+     0.342,
+     1.0
+    ]
+   },
+   "polaridade": {
+    "acerto": 2,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 2,
+    "acerto_wilson95": [
+     0.342,
+     1.0
+    ]
+   },
+   "ganho_+3dB_fora_do_espaco": {
+    "acerto": 2,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 2,
+    "acerto_wilson95": [
+     0.342,
+     1.0
+    ]
+   },
+   "controle": {
+    "acerto": 2,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 2,
+    "acerto_wilson95": [
+     0.342,
+     1.0
+    ]
+   },
+   "atraso_1.00_ms": {
+    "acerto": 2,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 2,
+    "acerto_wilson95": [
+     0.342,
+     1.0
+    ]
+   },
+   "atraso_0.10_ms": {
+    "acerto": 2,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 2,
+    "acerto_wilson95": [
+     0.342,
+     1.0
+    ]
+   },
+   "atraso_0.05_ms": {
+    "acerto": 2,
+    "abstencao": 0,
+    "erro": 0,
+    "n": 2,
+    "acerto_wilson95": [
+     0.342,
+     1.0
+    ]
+   }
+  }
+ },
+ "banda_cheia_falsa_confianca": 2,
+ "banda_cheia_deteccao_atraso_fracao_acerto": {
+  "N1-carro": {
+   "atraso_0.05_ms": 0.4,
+   "atraso_0.25_ms": 0.4,
+   "atraso_0.10_ms": 0.4,
+   "atraso_1.00_ms": 0.4
+  },
+  "N0-sala": {
+   "atraso_0.10_ms": 0.9,
+   "atraso_1.00_ms": 1.0,
+   "atraso_0.25_ms": 0.9,
+   "atraso_0.05_ms": 0.0
+  },
+  "N1-sala": {
+   "atraso_0.25_ms": 0.9,
+   "atraso_1.00_ms": 1.0,
+   "atraso_0.10_ms": 0.9,
+   "atraso_0.05_ms": 0.0
+  },
+  "N0-carro": {
+   "atraso_0.25_ms": 1.0,
+   "atraso_1.00_ms": 1.0,
+   "atraso_0.10_ms": 1.0,
+   "atraso_0.05_ms": 1.0
+  }
+ },
+ "sensibilidade_margem_tipo_da_decisao_banda_operacional": {
+  "0.1": {
+   "acertos_de_tipo": 130,
+   "n": 162
+  },
+  "0.2": {
+   "acertos_de_tipo": 120,
+   "n": 162
+  },
+  "0.5": {
+   "acertos_de_tipo": 104,
+   "n": 162
+  },
+  "1.0": {
+   "acertos_de_tipo": 87,
+   "n": 162
+  }
+ }
+}
