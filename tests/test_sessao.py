@@ -570,3 +570,56 @@ def test_registro_anterior_a_admissibilidade_nao_contorna_restricao():
                   {"seguranca": {"classe": "não sensível"}, "receita": None}):
         with pytest.raises(ErroDoPercurso):
             exigir({"dados": dados})
+
+
+# ---- JV-T227: aplicar exige a aprovação, sem substituir a avaliação de segurança --------------------------
+
+def _preparar(servico, cria_recomendacao, **campos):
+    servico.nova_sessao()
+    servico.registrar_percepcao("antes", "não aplicável")
+    servico.b.nova_configuracao(servico.sessao_id, "base", "declarada",
+                                [{"canal": "medio_esq", "parametro": "EQ 1 kHz", "valor": "0 dB",
+                                  "origem": "declarado"}])
+    return cria_recomendacao(servico, **campos)
+
+
+ESC = {"canal": "medio_esq", "parametro": "EQ 1 kHz", "de": "0 dB", "para": "−2 dB"}
+
+
+def test_sensivel_sem_aprovacao_nao_e_aplicada(servico, cria_recomendacao):
+    _preparar(servico, cria_recomendacao)
+    with pytest.raises(ErroDoPercurso, match="aprovação de nível B"):
+        servico.registrar_aplicacao()
+    assert servico._ultimo("experimento") is None
+    assert servico.b.aprovacoes() == []  # nenhuma aprovação automática
+
+
+def test_sensivel_com_aprovacao_exata_e_aplicada(servico, cria_recomendacao):
+    rid = _preparar(servico, cria_recomendacao)
+    servico.aprovar(rid, ESC)
+    assert servico.registrar_aplicacao().startswith("X-")
+
+
+def test_aprovacao_de_outro_escopo_nao_vale(servico, cria_recomendacao):
+    rid = _preparar(servico, cria_recomendacao)
+    servico.b.nova_aprovacao(servico.sessao_id, rid, {**ESC, "para": "−6 dB"})  # inserida por fora do serviço
+    with pytest.raises(ErroDoPercurso, match="escopo é outro"):
+        servico.registrar_aplicacao()
+    assert servico._ultimo("experimento") is None
+
+
+def test_aprovacao_nao_libera_bloqueada(servico, cria_recomendacao):
+    rid = _preparar(servico, cria_recomendacao, tipo="reforco_eq", ganho_db=1.0, para="+1 dB")
+    with pytest.raises(ErroDoPercurso, match="não a libera"):
+        servico.aprovar(rid, {**ESC, "para": "+1 dB"})
+    servico.b.nova_aprovacao(servico.sessao_id, rid, {**ESC, "para": "+1 dB"})  # aprovação forçada por fora
+    with pytest.raises(ErroDoPercurso, match="bloqueada"):
+        servico.registrar_aplicacao()
+    assert servico._ultimo("experimento") is None
+
+
+def test_polaridade_nao_sensivel_segue_sem_aprovacao(servico, pasta_caso):
+    _ate_analise(servico, pasta_caso)
+    servico.propor_teste()
+    assert servico.registrar_aplicacao().startswith("X-")  # histórico e polaridade não exigem aprovação
+    assert servico.b.aprovacoes() == []

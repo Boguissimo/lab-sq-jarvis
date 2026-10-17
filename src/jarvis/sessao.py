@@ -501,6 +501,57 @@ class Servico:
             raise ErroDoPercurso("Alteração bloqueada — não recomendada: não há receita nem registro de "
                                  "aplicação para ela.")
 
+    ESCOPO_APROVACAO = ("canal", "parametro", "de", "para")
+
+    def _exigir_aprovacao(self, rec: dict) -> None:
+        """Recomendação sensível só é aplicada com aprovação B registrada, de escopo igual à alteração (FR-216).
+
+        Registro sem ``admissibilidade`` (histórico) não é reavaliado (INV-211): a exigência vale só onde o
+        próprio registro declara ``exige_aprovacao_b``.
+        """
+        adm = (rec["dados"].get("seguranca") or {}).get("admissibilidade") or {}
+        if not adm.get("exige_aprovacao_b"):
+            return
+        ap = self.b.aprovacao_de(rec["id"])
+        if ap is None:
+            raise ErroDoPercurso("Esta alteração é sensível e exige a sua aprovação de nível B antes de ser "
+                                 "aplicada. A aprovação autoriza o ato; não verifica nada.")
+        if ap["escopo"] != rec["dados"].get("variavel"):
+            raise ErroDoPercurso("A aprovação registrada não corresponde à alteração: o escopo é outro.")
+
+    def aprovar(self, recomendacao: str, escopo: dict) -> dict:
+        """Registra a aprovação de nível B pedida expressamente pelo usuário (FR-216, SEG-10).
+
+        Nunca é automática. Não altera nem substitui a avaliação de segurança: não libera alteração
+        bloqueada e não transforma ``não verificável`` em verificado (JV-D032).
+        """
+        sid = self._exigir_sessao()
+        rec = next((r for r in self.b.registros(sid, "recomendacao") if r["id"] == recomendacao), None)
+        if rec is None:
+            raise ErroDoPercurso("Recomendação não encontrada nesta sessão.")
+        adm = (rec["dados"].get("seguranca") or {}).get("admissibilidade")
+        if adm is None:
+            raise ErroDoPercurso("Esta recomendação não passou pela verificação de admissibilidade; "
+                                 "não aceita aprovação.")
+        if adm.get("admissivel") is not True:
+            raise ErroDoPercurso("Alteração bloqueada — não recomendada: a aprovação não a libera.")
+        if adm.get("exige_aprovacao_b") is not True:
+            raise ErroDoPercurso("Esta alteração não é sensível e não precisa de aprovação de nível B.")
+        if not isinstance(escopo, dict) or set(escopo) != set(self.ESCOPO_APROVACAO) \
+                or any(not isinstance(v, str) or not v.strip() for v in escopo.values()):
+            raise ErroDoPercurso("Informe o escopo da aprovação: canal, parâmetro, valor de e valor para.")
+        if escopo != rec["dados"].get("variavel"):
+            raise ErroDoPercurso("O escopo informado é diferente da alteração recomendada.")
+        if self.b.aprovacao_de(recomendacao) is not None:
+            raise ErroDoPercurso("Esta recomendação já foi aprovada; a aprovação não se repete nem se reutiliza.")
+        momento = agora()
+        if momento < rec["criado_em"]:
+            raise ErroDoPercurso("A aprovação não pode ser anterior à recomendação.")
+        aid = self.b.nova_aprovacao(sid, recomendacao, escopo, momento=momento)
+        self.b.diario(sid, "aprovacao", f"Aprovação de nível B registrada para {recomendacao} "
+                                         f"({escopo['canal']}, {escopo['parametro']}: {escopo['de']} → {escopo['para']})")
+        return next(a for a in self.b.aprovacoes(sid) if a["id"] == aid)
+
     def registrar_aplicacao(self) -> str:
         sid = self._exigir_sessao()
         rec = self._ultimo("recomendacao")
@@ -509,6 +560,7 @@ class Servico:
         if self._ultimo("experimento"):
             raise ErroDoPercurso("O teste desta sessão já foi registrado.")
         self._exigir_admissivel(rec)
+        self._exigir_aprovacao(rec)
         percepcao = self._ultimo("percepcao", lambda d: d["momento"] == "antes")
         if percepcao is None:
             raise ErroDoPercurso("Registre a percepção “antes” (ou marque “não aplicável”) "

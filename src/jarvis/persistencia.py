@@ -217,6 +217,51 @@ class Banco:
             "SELECT d.origem, d.papel, r.tipo FROM derivacao d JOIN registro r ON r.id = d.origem "
             "WHERE d.destino = ?", (rid,))]
 
+    # ---------------------------------------------------------------- aprovação de nível B do Jarvis (FR-216)
+    def nova_aprovacao(self, sessao: int, recomendacao: str, escopo: dict, *, momento: str | None = None,
+                       nivel: str = "B", autor: str = "usuário") -> int:
+        """Grava a aprovação (só inserção). As condições são conferidas pelo gatilho, pelo serviço e por
+        ``integridade()``; esta função não decide nada nem presume consentimento."""
+        cur = self.con.execute(
+            "INSERT INTO aprovacao (sessao, recomendacao, nivel, escopo, momento, autor) VALUES (?, ?, ?, ?, ?, ?)",
+            (sessao, recomendacao, nivel, json.dumps(escopo, ensure_ascii=False, sort_keys=True),
+             momento or agora(), autor))
+        self.con.commit()
+        return int(cur.lastrowid)
+
+    def aprovacoes(self, sessao: int | None = None) -> list[dict]:
+        sql = "SELECT * FROM aprovacao" + (" WHERE sessao = ?" if sessao is not None else "") + " ORDER BY id"
+        return [{**dict(r), "escopo": json.loads(r["escopo"])}
+                for r in self.con.execute(sql, (sessao,) if sessao is not None else ())]
+
+    def aprovacao_de(self, recomendacao: str) -> dict | None:
+        return next((a for a in self.aprovacoes() if a["recomendacao"] == recomendacao), None)
+
+    def _problemas_de_aprovacao(self) -> list[str]:
+        """Integridade das aprovações (data-model, “Integridade”, item 1)."""
+        if self.con.execute("SELECT 1 FROM sqlite_master WHERE name = 'aprovacao'").fetchone() is None:
+            return []
+        problemas = []
+        for a in self.aprovacoes():
+            quem = f"aprovação {a['id']} ({a['recomendacao']})"
+            r = self.con.execute("SELECT * FROM registro WHERE id = ?", (a["recomendacao"],)).fetchone()
+            if r is None or r["tipo"] != "recomendacao":
+                problemas.append(f"{quem}: não aponta para uma recomendação existente")
+                continue
+            if r["sessao"] != a["sessao"]:
+                problemas.append(f"{quem}: recomendação de outra sessão")
+            dados = json.loads(r["dados"])
+            adm = (dados.get("seguranca") or {}).get("admissibilidade")
+            if not adm or adm.get("admissivel") is not True:
+                problemas.append(f"{quem}: recomendação bloqueada ou sem admissibilidade registrada")
+            elif adm.get("exige_aprovacao_b") is not True:
+                problemas.append(f"{quem}: recomendação não sensível não recebe aprovação")
+            if a["escopo"] != dados.get("variavel"):
+                problemas.append(f"{quem}: escopo diferente da alteração da recomendação")
+            if a["momento"] < r["criado_em"]:
+                problemas.append(f"{quem}: momento anterior à recomendação")
+        return problemas
+
     def diario(self, sessao: int | None, evento: str, descricao: str) -> None:
         self.con.execute("INSERT INTO diario (momento, sessao, evento, descricao) VALUES (?, ?, ?, ?)",
                          (agora(), sessao, evento, descricao))
@@ -257,5 +302,6 @@ class Banco:
                     problemas.append(f"{rid}: decisão sem intervenção sem registros que a sustentem")
             if tipo == "medicao" and not self.verificar_original(dados.get("sha256", "")):
                 problemas.append(f"{rid}: original da medição ausente ou alterado no cofre")
+        problemas.extend(self._problemas_de_aprovacao())
         problemas.extend(self.integridade_cofre())
         return problemas

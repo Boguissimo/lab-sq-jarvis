@@ -292,3 +292,23 @@ def test_propriedade_sem_violacao():
             assert estados["SEG-12"] == seg.NAO_VERIFICAVEL
         assert all(x["resultado"] in (seg.APROVADA, seg.BLOQUEADA, seg.NAO_VERIFICAVEL, seg.NAO_SE_APLICA) for x in res)
     assert admitidas[seg.DECRESCENTE] > 0 and admitidas[seg.NAO_SENSIVEL] > 0  # o sorteio exercita o lado admissível
+
+
+def test_aprovacao_nao_verifica(servico, cria_recomendacao):
+    """FR-216 / JV-D032: a aprovação não altera o resultado das regras nem libera o que não foi verificado."""
+    servico.nova_sessao()
+    ok = cria_recomendacao(servico)
+    bloq = cria_recomendacao(servico, tipo="reforco_eq", ganho_db=1.0, para="+1 dB")
+
+    def foto():
+        return {r["id"]: r["dados"]["seguranca"] for r in servico.b.registros(servico.sessao_id, "recomendacao")}
+    antes = foto()
+    nv = antes[ok]["admissibilidade"]["nao_verificadas"]
+    assert {"SEG-02", "SEG-07", "SEG-09"} <= set(nv)
+    servico.aprovar(ok, {"canal": "medio_esq", "parametro": "EQ 1 kHz", "de": "0 dB", "para": "−2 dB"})
+    assert foto() == antes  # regras, admissibilidade e lista de não verificadas intactas
+    estados = {r["regra"]: r["resultado"] for r in foto()[ok]["regras"]}
+    assert all(estados[r] == seg.NAO_VERIFICAVEL for r in ("SEG-02", "SEG-07", "SEG-09"))
+    with pytest.raises(Exception):
+        servico.aprovar(bloq, {"canal": "medio_esq", "parametro": "EQ 1 kHz", "de": "0 dB", "para": "+1 dB"})
+    assert foto() == antes

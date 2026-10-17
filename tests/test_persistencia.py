@@ -137,3 +137,134 @@ def test_sessao_v01_legivel(tmp_path, monkeypatch):
         assert analise["sugestao"] == "teste_polaridade"
     finally:
         b.fechar()
+
+
+# ---- JV-T227: aprovação de nível B do Jarvis (FR-216; critério 6 do plano) ----------------------------------
+
+ESCOPO = {"canal": "medio_esq", "parametro": "EQ 1 kHz", "de": "0 dB", "para": "−2 dB"}
+
+
+def _com_recomendacao(servico, cria_recomendacao, **campos):
+    servico.nova_sessao()
+    return cria_recomendacao(servico, **campos)
+
+
+def test_cenario_sensivel_admissivel_existe(servico, cria_recomendacao):
+    rid = _com_recomendacao(servico, cria_recomendacao)
+    adm = servico.b.registros(servico.sessao_id, "recomendacao")[0]["dados"]["seguranca"]["admissibilidade"]
+    assert adm["admissivel"] is True and adm["exige_aprovacao_b"] is True and adm["nao_verificadas"]
+    ap = servico.aprovar(rid, ESCOPO)
+    assert ap["nivel"] == "B" and ap["recomendacao"] == rid and ap["escopo"] == ESCOPO and ap["autor"] == "usuário"
+    assert servico.b.aprovacao_de(rid) == ap
+    assert not [p for p in servico.b.integridade() if "aprovação" in p]
+
+
+def _inexistente(s, c):
+    return "R-9999", ESCOPO
+
+
+def _outra_sessao(s, c):
+    rid = c(s)
+    s.nova_sessao()
+    return rid, ESCOPO
+
+
+def _outro_tipo(s, c):
+    c(s)
+    return s.b.registros(s.sessao_id, "hipotese")[0]["id"], ESCOPO
+
+
+def _bloqueada(s, c):
+    return c(s, tipo="reforco_eq", ganho_db=1.0, para="+1 dB"), {**ESCOPO, "para": "+1 dB"}
+
+
+def _nao_sensivel(s, c):
+    return (c(s, tipo="polaridade", de="0°", para="180°", parametro="polaridade"),
+            {"canal": "medio_esq", "parametro": "polaridade", "de": "0°", "para": "180°"})
+
+
+def _escopo_diferente(s, c):
+    return c(s), {**ESCOPO, "para": "−6 dB"}
+
+
+def _escopo_incompleto(s, c):
+    return c(s), {"canal": "medio_esq", "parametro": "EQ 1 kHz"}
+
+
+def _duplicada(s, c):
+    rid = c(s)
+    s.aprovar(rid, ESCOPO)
+    return rid, ESCOPO
+
+
+@pytest.mark.parametrize("montar", [_inexistente, _outra_sessao, _outro_tipo, _bloqueada, _nao_sensivel,
+                                    _escopo_diferente, _escopo_incompleto, _duplicada],
+                         ids=lambda f: f.__name__.strip("_"))
+def test_aprovacao_integridade_servico_recusa(servico, cria_recomendacao, montar):
+    from jarvis.sessao import ErroDoPercurso
+    servico.nova_sessao()
+    rid, escopo = montar(servico, cria_recomendacao)
+    antes = len(servico.b.aprovacoes())
+    with pytest.raises(ErroDoPercurso):
+        servico.aprovar(rid, escopo)
+    assert len(servico.b.aprovacoes()) == antes  # nada foi gravado pela recusa
+
+
+@pytest.mark.parametrize("montar", [_inexistente, _outra_sessao, _outro_tipo], ids=lambda f: f.__name__.strip("_"))
+def test_aprovacao_integridade_gatilho_recusa(servico, cria_recomendacao, montar):
+    servico.nova_sessao()
+    rid, escopo = montar(servico, cria_recomendacao)
+    with pytest.raises(sqlite3.DatabaseError, match="recomendação existente"):
+        servico.b.nova_aprovacao(servico.sessao_id, rid, escopo)
+
+
+def test_aprovacao_integridade_nivel_e_so_insercao(servico, cria_recomendacao):
+    rid = _com_recomendacao(servico, cria_recomendacao)
+    with pytest.raises(sqlite3.DatabaseError):
+        servico.b.nova_aprovacao(servico.sessao_id, rid, ESCOPO, nivel="A")  # CHECK (nivel = 'B')
+    servico.aprovar(rid, ESCOPO)
+    with pytest.raises(sqlite3.DatabaseError):
+        servico.b.nova_aprovacao(servico.sessao_id, rid, ESCOPO)  # UNIQUE: uma aprovação por recomendação
+    with pytest.raises(sqlite3.DatabaseError, match="Aprovação registrada"):
+        servico.b.con.execute("UPDATE aprovacao SET autor = 'x'")
+    with pytest.raises(sqlite3.DatabaseError, match="Aprovação registrada"):
+        servico.b.con.execute("DELETE FROM aprovacao")
+
+
+@pytest.mark.parametrize("caso,esperado", [
+    ("inexistente", "não aponta para uma recomendação existente"),
+    ("outra_sessao", "recomendação de outra sessão"),
+    ("outro_tipo", "não aponta para uma recomendação existente"),
+    ("bloqueada", "bloqueada ou sem admissibilidade"),
+    ("nao_sensivel", "não sensível não recebe aprovação"),
+    ("escopo", "escopo diferente da alteração"),
+    ("momento", "momento anterior à recomendação"),
+])
+def test_aprovacao_integridade_acusa_insercao_direta(servico, cria_recomendacao, caso, esperado):
+    """Aprovação inserida por SQL direto, com o gatilho de entrada removido, é acusada por ``integridade()``."""
+    servico.nova_sessao()
+    b = servico.b
+    b.con.execute("DROP TRIGGER aprovacao_recomendacao_valida")
+    sessao, ok = servico.sessao_id, cria_recomendacao(servico)
+    rid, escopo, momento = ok, ESCOPO, "9999-12-31T00:00:00+00:00"
+    if caso == "inexistente":
+        rid = "R-9999"
+    elif caso == "outra_sessao":
+        sessao = servico.nova_sessao()
+    elif caso == "outro_tipo":
+        rid = b.registros(sessao, "hipotese")[0]["id"]
+    elif caso == "bloqueada":
+        rid = cria_recomendacao(servico, tipo="reforco_eq", ganho_db=1.0, para="+1 dB")
+        escopo = {**ESCOPO, "para": "+1 dB"}
+    elif caso == "nao_sensivel":
+        rid = cria_recomendacao(servico, tipo="polaridade", de="0°", para="180°", parametro="polaridade")
+        escopo = {"canal": "medio_esq", "parametro": "polaridade", "de": "0°", "para": "180°"}
+    elif caso == "escopo":
+        escopo = {**ESCOPO, "para": "−6 dB"}
+    elif caso == "momento":
+        momento = "2000-01-01T00:00:00+00:00"
+    if caso != "momento":
+        momento = "9999-12-31T00:00:00+00:00"
+    b.con.execute("PRAGMA foreign_keys = OFF")
+    b.nova_aprovacao(sessao, rid, escopo, momento=momento)
+    assert any(esperado in p for p in b.integridade()), b.integridade()
