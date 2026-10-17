@@ -1,4 +1,4 @@
-"""Regras de segurança do equipamento e admissibilidade das recomendações (ADR-204; FR-210 a FR-216).
+"""Regras de segurança do equipamento e admissibilidade das recomendações (ADR-204; FR-210 a FR-216). Regras SEG-01/03/04/05/06/13 (JV-T224).
 
 Três funções puras:
 
@@ -13,9 +13,14 @@ Estas regras **reduzem o risco** dentro das condições conhecidas; não garante
 
 ``alteracao``: ``{canal, parametro, de, para, tipo}`` com ``tipo`` em ``TIPOS`` e, conforme o tipo,
 ``ganho_db`` (EQ e ganho), ``de_hz``/``para_hz`` (passa-altas), ``de_db_oit``/``para_db_oit``
-(inclinação), ``freq_hz`` e ``q`` (EQ).
+(inclinação), ``freq_hz`` e ``q`` (EQ). Dados opcionais das regras (ausentes ⇒ ``não verificável``, nunca
+aprovação presumida): ``potencia_estimada_w`` (SEG-03), ``reforcos_na_banda_db`` (SEG-05),
+``vale_classificacao`` (SEG-06), ``etapa_automatizada``, ``limites_informados`` e ``valores_conferencia``
+(``[{valor, origem}]``, SEG-13). ``equipamento``: ``[{canal, estado, potencia_rms_w, fs_hz,
+passa_altas_min_hz, inclinacao_min_db_oit}]``; só ``estado == "confirmado"`` alimenta regra (SEG-12).
 """
 
+# @@T224 [FR-211] [FR-212] [FR-213] [FR-214] Regras SEG-01/03/04/05/06/13 e não verificáveis SEG-02/07/09
 # @@T213 [FR-210] [FR-211] Contratos de classificação, avaliação e admissibilidade (ADR-204)
 
 from __future__ import annotations
@@ -41,6 +46,17 @@ LIMITACOES = [
     "Aprovação não é verificação: aprovar não transforma uma condição desconhecida em verificada.",
 ]
 
+# Limites das regras v0.4.0. PROVISÓRIOS (sem fundamentação normativa): SEG-04 e SEG-05; só mudam por JV-D (P8).
+PASSO_MAX_DB = 1.5
+REFORCO_FILTRO_MAX_DB = 3.0
+REFORCO_BANDA_MAX_DB = 6.0
+LIMITE_PASSO = "+1,5 dB por experimento (limite provisório)"
+LIMITE_REFORCO = "+3 dB por filtro e +6 dB somados na banda do canal (limites provisórios)"
+CLASSES_VALE_NAO_EQUALIZAVEL = ("cancelamento", "interferencia", "variacao_espacial")
+CLASSES_SEM_VALE_NAO_EQUALIZAVEL = ("equalizavel", "nao_e_vale")
+ORIGENS_ACESSIVEIS = ("declarado", "medição")
+_TOL = 1e-9
+
 AVISO_EFEITOS_COLATERAIS = (
     "Reduzir um canal costuma levar a subir o volume geral para compensar, o que aumenta a potência nos "
     "demais canais; mudar um passa-altas altera a soma no cruzamento. Não compense com reforço sem nova "
@@ -63,16 +79,16 @@ def classificar(alteracao: dict) -> str:
     if tipo == "corte_eq":
         return DECRESCENTE
     if tipo == "ganho":
-        g = alteracao.get("ganho_db")
+        g = _numero(alteracao.get("ganho_db"))
         if g is None:
             return CRESCENTE
         return CRESCENTE if g > 0 else DECRESCENTE
     if tipo == "passa_altas":
-        de, para = alteracao.get("de_hz"), alteracao.get("para_hz")
+        de, para = _numero(alteracao.get("de_hz")), _numero(alteracao.get("para_hz"))
         if de is None or para is None:
             return CRESCENTE
         return CRESCENTE if para < de else DECRESCENTE
-    de, para = alteracao.get("de_db_oit"), alteracao.get("para_db_oit")  # inclinação
+    de, para = _numero(alteracao.get("de_db_oit")), _numero(alteracao.get("para_db_oit"))  # inclinação
     if de is None or para is None:
         return CRESCENTE
     return CRESCENTE if para < de else DECRESCENTE
@@ -93,30 +109,198 @@ def _equipamento_do_canal(equipamento: list[dict] | None, canal: str) -> dict | 
     return next((e for e in (equipamento or []) if e.get("canal") == canal), None)
 
 
+def _numero(valor) -> float | None:
+    """Número finito e não booleano; qualquer outra coisa conta como dado ausente."""
+    if isinstance(valor, bool) or not isinstance(valor, (int, float)) or valor != valor or abs(valor) == float("inf"):
+        return None
+    return float(valor)
+
+
+def _dado_confirmado(equip: dict | None, campo: str) -> float | None:
+    """Dado do equipamento só vale se o canal está ``confirmado`` e o campo é um número positivo (SEG-12)."""
+    if equip is None or equip.get("estado") != "confirmado":
+        return None
+    v = _numero(equip.get(campo))
+    return v if v is not None and v > 0 else None
+
+
+def _falta_equip(equip: dict | None, campo: str, descricao: str) -> str:
+    if equip is None:
+        return f"{descricao} de equipamento cadastrado e confirmado para o canal"
+    if equip.get("estado") != "confirmado":
+        return f"{descricao} de equipamento confirmado (hoje “{equip.get('estado')}”)"
+    return f"{descricao} cadastrado e confirmado ({campo})"
+
+
+def _seg01(alt: dict, equip: dict | None) -> dict:
+    """SEG-01 — passa-altas e inclinação nunca abaixo do mínimo recomendado pelo fabricante."""
+    tipo = alt["tipo"]
+    if tipo == "passa_altas":
+        campo, valor, un = "passa_altas_min_hz", _numero(alt.get("para_hz")), "Hz"
+    elif tipo == "inclinacao":
+        campo, valor, un = "inclinacao_min_db_oit", _numero(alt.get("para_db_oit")), "dB/oit"
+    else:
+        return resultado("SEG-01", NAO_SE_APLICA, "A alteração não muda frequência de corte nem inclinação.")
+    minimo = _dado_confirmado(equip, campo)
+    if minimo is None:
+        return resultado("SEG-01", NAO_VERIFICAVEL, "Sem o mínimo do fabricante confirmado para o canal.",
+                         falta=_falta_equip(equip, campo, "mínimo do fabricante"))
+    if valor is None:
+        return resultado("SEG-01", NAO_VERIFICAVEL, "A alteração não informa o valor de destino.",
+                         falta="valor de destino da alteração")
+    lim = f"{minimo:g} {un} (fabricante)"
+    if valor < minimo - _TOL:
+        return resultado("SEG-01", BLOQUEADA, f"Destino {valor:g} {un} abaixo do mínimo do fabricante.", limite=lim)
+    return resultado("SEG-01", APROVADA, f"Destino {valor:g} {un} dentro do mínimo do fabricante.", limite=lim)
+
+
+def _seg03(alt: dict, equip: dict | None, classe: str) -> dict:
+    """SEG-03 — potência estimada (nível de uso declarado, ganho total) não passa da RMS confirmada."""
+    if alt["tipo"] not in ("ganho", "reforco_eq", "corte_eq") and classe != CRESCENTE:
+        return resultado("SEG-03", NAO_SE_APLICA, "A alteração não muda a potência entregue ao canal.")
+    rms = _dado_confirmado(equip, "potencia_rms_w")
+    if rms is None:
+        return resultado("SEG-03", NAO_VERIFICAVEL, "Sem a potência RMS confirmada do alto-falante.",
+                         falta=_falta_equip(equip, "potencia_rms_w", "potência RMS"))
+    est = _numero(alt.get("potencia_estimada_w"))
+    if est is None or est < 0:
+        return resultado("SEG-03", NAO_VERIFICAVEL, "Sem a potência estimada no canal após a alteração.",
+                         falta="potência estimada no canal, no nível de uso declarado, com o ganho total")
+    lim = f"{rms:g} W RMS (fabricante)"
+    if est > rms + _TOL:
+        return resultado("SEG-03", BLOQUEADA, f"Potência estimada de {est:g} W acima da RMS confirmada.", limite=lim)
+    return resultado("SEG-03", APROVADA, f"Potência estimada de {est:g} W dentro da RMS confirmada.", limite=lim)
+
+
+def _seg04(alt: dict) -> dict:
+    """SEG-04 — aumento de ganho ou reforço de EQ: no máximo +1,5 dB por experimento (provisório)."""
+    if alt["tipo"] not in ("ganho", "reforco_eq"):
+        return resultado("SEG-04", NAO_SE_APLICA, "Não é aumento de ganho nem reforço de EQ.")
+    g = _numero(alt.get("ganho_db"))
+    if g is None:
+        return resultado("SEG-04", NAO_VERIFICAVEL, "A alteração não informa o valor do ganho.",
+                         provisorio=True, limite=LIMITE_PASSO, falta="valor do ganho em dB")
+    if alt["tipo"] == "ganho" and g <= 0:
+        return resultado("SEG-04", NAO_SE_APLICA, "Redução de ganho.", provisorio=True)
+    if g > PASSO_MAX_DB + _TOL:
+        return resultado("SEG-04", BLOQUEADA, f"Aumento de {g:g} dB acima do passo máximo.",
+                         provisorio=True, limite=LIMITE_PASSO)
+    return resultado("SEG-04", APROVADA, f"Aumento de {g:g} dB dentro do passo máximo.",
+                     provisorio=True, limite=LIMITE_PASSO)
+
+
+def _seg05(alt: dict) -> dict:
+    """SEG-05 — reforço de EQ: +3 dB por filtro e +6 dB somados numa banda do canal (provisório)."""
+    if alt["tipo"] != "reforco_eq":
+        return resultado("SEG-05", NAO_SE_APLICA, "Não é reforço de EQ.")
+    g = _numero(alt.get("ganho_db"))
+    if g is None:
+        return resultado("SEG-05", NAO_VERIFICAVEL, "A alteração não informa o valor do reforço.",
+                         provisorio=True, limite=LIMITE_REFORCO, falta="valor do reforço em dB")
+    if g > REFORCO_FILTRO_MAX_DB + _TOL:
+        return resultado("SEG-05", BLOQUEADA, f"Reforço de {g:g} dB acima do máximo por filtro.",
+                         provisorio=True, limite=LIMITE_REFORCO)
+    outros = alt.get("reforcos_na_banda_db")
+    if not isinstance(outros, (list, tuple)) or any(_numero(x) is None for x in outros):
+        return resultado("SEG-05", NAO_VERIFICAVEL, "Reforços já presentes na banda do canal não informados.",
+                         provisorio=True, limite=LIMITE_REFORCO,
+                         falta="reforços de EQ sobrepostos na mesma banda do canal (lista vazia se não houver)")
+    soma = g + sum(max(float(x), 0.0) for x in outros)
+    if soma > REFORCO_BANDA_MAX_DB + _TOL:
+        return resultado("SEG-05", BLOQUEADA, f"Soma de reforços na banda de {soma:g} dB acima do máximo.",
+                         provisorio=True, limite=LIMITE_REFORCO)
+    return resultado("SEG-05", APROVADA, f"Reforço de {g:g} dB e soma na banda de {soma:g} dB dentro dos máximos.",
+                     provisorio=True, limite=LIMITE_REFORCO)
+
+
+def _seg06(alt: dict) -> dict:
+    """SEG-06 — nunca reforçar para preencher vale não equalizável (cancelamento, interferência, espacial)."""
+    if alt["tipo"] != "reforco_eq":
+        return resultado("SEG-06", NAO_SE_APLICA, "Não é reforço de EQ.")
+    c = alt.get("vale_classificacao")
+    if c in CLASSES_VALE_NAO_EQUALIZAVEL:
+        return resultado("SEG-06", BLOQUEADA, f"O reforço preencheria um vale classificado como {c}.",
+                         limite="vale de cancelamento, interferência ou variação espacial não é equalizável")
+    if c in CLASSES_SEM_VALE_NAO_EQUALIZAVEL:
+        return resultado("SEG-06", APROVADA, "O reforço não preenche vale não equalizável.")
+    return resultado("SEG-06", NAO_VERIFICAVEL, "A classificação do vale ou região reforçada não foi informada.",
+                     falta="classificação do vale reforçado (cancelamento, interferência, variação espacial, "
+                           "equalizável ou não é vale)")
+
+
+def _seg13(alt: dict) -> dict:
+    """SEG-13 — etapa automatizada: limites informados e conferência só com valores de origem acessível."""
+    if not alt.get("etapa_automatizada"):
+        return resultado("SEG-13", NAO_SE_APLICA, "Não é etapa de calibração automatizada.")
+    if not alt.get("limites_informados"):
+        return resultado("SEG-13", NAO_VERIFICAVEL, "Os limites aplicáveis não foram informados para configurar na ferramenta.",
+                         falta="limites aplicáveis (reforço máximo, passa-altas mínimo) informados antes da etapa")
+    valores = alt.get("valores_conferencia")
+    if not isinstance(valores, (list, tuple)) or not valores:
+        return resultado("SEG-13", NAO_VERIFICAVEL, "Não há valores efetivamente acessíveis para a conferência.",
+                         falta="valores lidos na ferramenta (declarado) ou efeito medido (medição), com a origem")
+    origens = [v.get("origem") if isinstance(v, dict) else None for v in valores]
+    if any(o is None or o == "" for o in origens):
+        return resultado("SEG-13", NAO_VERIFICAVEL, "Há valor de conferência sem a origem identificada.",
+                         falta="origem (declarado ou medição) de cada valor de conferência")
+    ruins = sorted({o for o in origens if o not in ORIGENS_ACESSIVEIS})
+    if ruins:
+        return resultado("SEG-13", BLOQUEADA, "Origem não acessível para conferência: " + ", ".join(map(str, ruins))
+                         + ". O arquivo do PC-Tool é registro e restauração, não conferência.",
+                         falta="valores de origem declarado ou medição")
+    return resultado("SEG-13", APROVADA, "Conferência só com valores de origem declarada ou medida.")
+
+
 def avaliar(alteracao: dict, equipamento: list[dict] | None = None) -> list[dict]:
     """Resultado de cada regra SEG para a alteração, na ordem SEG-01 … SEG-13.
 
-    Contrato da fase 0 (JV-T213): SEG-08, SEG-10, SEG-11 e SEG-12 já seguem as regras; as demais regras
-    aplicáveis a uma alteração sensível ficam ``não verificável`` até a JV-T224 implementá-las.
+    ``aprovada`` só com dado confirmado e dentro do limite; dado ausente, não confirmado (SEG-12) ou
+    valor não informado ⇒ ``não verificável`` (nunca aprovação presumida); violação ⇒ ``bloqueada``.
+    SEG-02, SEG-07 e SEG-09 não têm fonte de valor ou método: sempre ``não verificável`` para alteração
+    sensível (FR-212), o que bloqueia o risco crescente em ``admissibilidade``.
     """
     classe = classificar(alteracao)
     sensivel = classe != NAO_SENSIVEL
     equip = _equipamento_do_canal(equipamento, alteracao.get("canal", ""))
     saida = []
     for regra in REGRAS:
-        if regra == "SEG-08":
+        if regra == "SEG-13":
+            saida.append(_seg13(alteracao))
+        elif regra == "SEG-08":
             saida.append(resultado(regra, APROVADA, "A receita começa com o volume reduzido e o sinal parado, "
                                                     "e termina retomando o volume aos poucos."))
         elif regra == "SEG-11":
             saida.append(resultado(regra, APROVADA, "O Jarvis não escreve no DSP; quem aplica é você, no PC-Tool."))
+        elif not sensivel:
+            saida.append(resultado(regra, NAO_SE_APLICA, "Alteração não sensível." if regra == "SEG-10"
+                                   else "Não se aplica a esta alteração."))
+        elif regra == "SEG-01":
+            saida.append(_seg01(alteracao, equip))
+        elif regra == "SEG-02":
+            saida.append(resultado(regra, NAO_VERIFICAVEL, "Sem modelo de excursão com parâmetros T/S confirmados.",
+                                   provisorio=True, limite="2 × Fs (fator provisório)",
+                                   falta="cálculo de excursão com parâmetros T/S confirmados e fonte"))
+        elif regra == "SEG-03":
+            saida.append(_seg03(alteracao, equip, classe))
+        elif regra == "SEG-04":
+            saida.append(_seg04(alteracao))
+        elif regra == "SEG-05":
+            saida.append(_seg05(alteracao))
+        elif regra == "SEG-06":
+            saida.append(_seg06(alteracao))
+        elif regra == "SEG-07":
+            saida.append(resultado(regra, NAO_VERIFICAVEL, "Sem método para a margem digital do DSP.",
+                                   provisorio=True, limite="critério de margem digital (provisório)",
+                                   falta="método e critério de margem até a saturação digital, com fonte"))
+        elif regra == "SEG-09":
+            saida.append(resultado(regra, NAO_VERIFICAVEL, "Sem critério de exposição sonora definido.",
+                                   limite="critério ainda sem valor definido",
+                                   falta="critério de exposição sonora com fonte"))
         elif regra == "SEG-10":
             saida.append(resultado(regra, APROVADA, "Exige aprovação de nível B (o quê, em qual canal, quanto) "
-                                                    "antes de aplicar; a aprovação não supre dado ausente.")
-                         if sensivel else resultado(regra, NAO_SE_APLICA, "Alteração não sensível."))
-        elif regra == "SEG-12":
-            if not sensivel:
-                saida.append(resultado(regra, NAO_SE_APLICA, "Alteração não sensível."))
-            elif equip is None:
+                                                    "antes de aplicar; a aprovação não supre dado ausente."))
+        else:  # SEG-12
+            if equip is None:
                 saida.append(resultado(regra, NAO_VERIFICAVEL, "Não há equipamento cadastrado para o canal.",
                                        falta="cadastro confirmado do alto-falante do canal"))
             elif equip.get("estado") != "confirmado":
@@ -126,11 +310,6 @@ def avaliar(alteracao: dict, equipamento: list[dict] | None = None) -> list[dict
                                        falta="equipamento instalado e confirmado"))
             else:
                 saida.append(resultado(regra, APROVADA, "Equipamento do canal cadastrado como confirmado."))
-        elif not sensivel or regra == "SEG-13":
-            saida.append(resultado(regra, NAO_SE_APLICA, "Não se aplica a esta alteração."))
-        else:
-            saida.append(resultado(regra, NAO_VERIFICAVEL, "Regra ainda não avaliada nesta versão (JV-T224).",
-                                   falta="avaliação da regra"))
     return saida
 
 
