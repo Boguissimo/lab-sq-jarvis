@@ -124,3 +124,192 @@ def test_b_detector():
                f"- Limiares usados: média {limiares.valor('detector_media_db')} dB; bandas max("
                f"{limiares.valor('detector_banda_db')} dB; {limiares.valor('detector_fator_sigma')}·σΔ)."]
     _registrar("(b) Detector de mudança", linhas)
+
+
+# --------------------------------------------------------------------------------------------------
+# (c) Limites SEG (JV-T229). Usa o módulo de segurança real; nenhum dado de equipamento é inventado
+# além do necessário para exercitar a fronteira (valores de cadastro fictícios, estado "confirmado").
+# Falso aprovado = limite violado e regra aprovada; falso bloqueado = limite respeitado e regra bloqueada.
+# O registro fica nas asserções e em ``LINHAS_C`` (não regrava ``validacao-limiares.md``).
+# --------------------------------------------------------------------------------------------------
+from jarvis import seguranca as seg  # noqa: E402
+
+LINHAS_C: list[str] = []
+EQUIP = [{"canal": "C1", "estado": "confirmado", "potencia_rms_w": 50.0, "fs_hz": 60.0,
+          "passa_altas_min_hz": 80.0, "inclinacao_min_db_oit": 12.0}]
+
+
+def _res(alt: dict, regra: str, equip=EQUIP) -> dict:
+    alt = {"canal": "C1", **alt}
+    return next(r for r in seg.avaliar(alt, equip) if r["regra"] == regra)
+
+
+def _varrer(nome: str, valores, gerar, regra: str, dentro, equip=EQUIP) -> None:
+    """Varre ``valores``; ``dentro(v)`` diz se o limite é respeitado. Afirma zero falsos e registra a contagem."""
+    fa = fb = 0
+    for v in valores:
+        est = _res(gerar(v), regra, equip)["resultado"]
+        assert est in (seg.APROVADA, seg.BLOQUEADA), (nome, v, est)
+        if dentro(v) and est == seg.BLOQUEADA:
+            fb += 1
+        if not dentro(v) and est == seg.APROVADA:
+            fa += 1
+    assert (fa, fb) == (0, 0), (nome, fa, fb)
+    LINHAS_C.append(f"{nome}: {len(valores)} pontos, falsos aprovados {fa}, falsos bloqueados {fb}")
+
+
+def _passos(ini: float, fim: float, passo: float) -> list[float]:
+    n = round((fim - ini) / passo)
+    return [round(ini + i * passo, 6) for i in range(n + 1)]
+
+
+def test_c_seg01_minimo_do_fabricante():
+    """SEG-01: passa-altas e inclinação nunca abaixo do mínimo (80 Hz; 12 dB/oit) — fronteira e passos finos."""
+    _varrer("SEG-01 passa-altas 70–90 Hz, passo 0,5", _passos(70, 90, 0.5),
+            lambda v: {"tipo": "passa_altas", "de_hz": 100.0, "para_hz": v}, "SEG-01", lambda v: v >= 80.0)
+    _varrer("SEG-01 passa-altas 79,99–80,01, passo 0,001", _passos(79.99, 80.01, 0.001),
+            lambda v: {"tipo": "passa_altas", "de_hz": 100.0, "para_hz": v}, "SEG-01", lambda v: v >= 80.0 - 1e-9)
+    _varrer("SEG-01 inclinação 6–18 dB/oit, passo 0,25", _passos(6, 18, 0.25),
+            lambda v: {"tipo": "inclinacao", "de_db_oit": 24.0, "para_db_oit": v}, "SEG-01", lambda v: v >= 12.0)
+    _varrer("SEG-01 inclinação 11,99–12,01, passo 0,001", _passos(11.99, 12.01, 0.001),
+            lambda v: {"tipo": "inclinacao", "de_db_oit": 24.0, "para_db_oit": v}, "SEG-01", lambda v: v >= 12.0 - 1e-9)
+    # Bloqueia o destino abaixo do mínimo mesmo quando a alteração SOBE a frequência (20 → 30 Hz, mín. 80).
+    assert _res({"tipo": "passa_altas", "de_hz": 20.0, "para_hz": 30.0}, "SEG-01")["resultado"] == seg.BLOQUEADA
+    assert seg.classificar({"tipo": "passa_altas", "de_hz": 20.0, "para_hz": 30.0}) == seg.DECRESCENTE
+    # Dado ausente/inválido/não confirmado nunca aprova, em qualquer ponto da vizinhança.
+    equips = [None, [], [{**EQUIP[0], "estado": "estimado"}], [{**EQUIP[0], "estado": "informado"}]]
+    equips += [[{**EQUIP[0], "passa_altas_min_hz": m}] for m in (0, -80.0, None, "80", float("nan"), True)]
+    for equip in equips:
+        for v in (70.0, 79.99, 80.0, 90.0):
+            assert _res({"tipo": "passa_altas", "de_hz": 100.0, "para_hz": v}, "SEG-01", equip)["resultado"] \
+                == seg.NAO_VERIFICAVEL, (equip, v)
+    assert _res({"tipo": "passa_altas", "de_hz": 100.0}, "SEG-01")["resultado"] == seg.NAO_VERIFICAVEL
+    LINHAS_C.append("SEG-01: sem cadastro confirmado, mínimo inválido ou destino ausente ⇒ nunca aprovada")
+
+
+def test_c_seg03_rms():
+    """SEG-03: potência estimada versus RMS confirmada (50 W) — abaixo, no limite, acima e passos finos."""
+    for tipo in ("ganho", "reforco_eq"):
+        _varrer(f"SEG-03 {tipo} 40–60 W, passo 0,5", _passos(40, 60, 0.5),
+                lambda v, t=tipo: {"tipo": t, "ganho_db": 1.0, "potencia_estimada_w": v}, "SEG-03", lambda v: v <= 50.0)
+    _varrer("SEG-03 49,999–50,001 W, passo 0,0005", _passos(49.999, 50.001, 0.0005),
+            lambda v: {"tipo": "ganho", "ganho_db": 1.0, "potencia_estimada_w": v}, "SEG-03", lambda v: v <= 50.0 + 1e-9)
+    # Tolerância absoluta (1e-9 W): 50 + 1e-10 W ainda aprova; 50 + 1e-6 W bloqueia.
+    assert _res({"tipo": "ganho", "ganho_db": 1.0, "potencia_estimada_w": 50.0 + 1e-10}, "SEG-03")["resultado"] == seg.APROVADA
+    assert _res({"tipo": "ganho", "ganho_db": 1.0, "potencia_estimada_w": 50.0 + 1e-6}, "SEG-03")["resultado"] == seg.BLOQUEADA
+    for est in (None, -1.0, float("nan"), float("inf"), True, "50"):
+        alt = {"tipo": "ganho", "ganho_db": 1.0, **({} if est is None else {"potencia_estimada_w": est})}
+        assert _res(alt, "SEG-03")["resultado"] == seg.NAO_VERIFICAVEL, est
+    for equip in (None, [{**EQUIP[0], "estado": "estimado"}], [{**EQUIP[0], "potencia_rms_w": 0}],
+                  [{**EQUIP[0], "potencia_rms_w": -50.0}], [{**EQUIP[0], "potencia_rms_w": None}]):
+        assert _res({"tipo": "ganho", "ganho_db": 1.0, "potencia_estimada_w": 10.0}, "SEG-03", equip)["resultado"] \
+            == seg.NAO_VERIFICAVEL
+    # Vale também para redução de ganho (SEG-03 se aplica ao tipo "ganho" de qualquer sinal).
+    assert _res({"tipo": "ganho", "ganho_db": -1.0, "potencia_estimada_w": 60.0}, "SEG-03")["resultado"] == seg.BLOQUEADA
+    LINHAS_C.append("SEG-03: fronteira em 50 W (tolerância absoluta 1e-9 W); dado ausente/inválido ⇒ não verificável")
+
+
+def test_c_seg04_passo():
+    """SEG-04: no máximo +1,5 dB por experimento — ganho e reforço, de −1 a +2 dB em passos de 0,05."""
+    ganhos = _passos(-1.0, 2.0, 0.05)
+    for v in ganhos:
+        if v <= 0:
+            assert _res({"tipo": "ganho", "ganho_db": v}, "SEG-04")["resultado"] == seg.NAO_SE_APLICA, v
+    for tipo in ("ganho", "reforco_eq"):
+        _varrer(f"SEG-04 {tipo} 0,05–2 dB, passo 0,05", [g for g in ganhos if g > 0],
+                lambda v, t=tipo: {"tipo": t, "ganho_db": v}, "SEG-04", lambda v: v <= 1.5 + 1e-9)
+    _varrer("SEG-04 vizinhança 1,499–1,501, passo 0,0005", _passos(1.499, 1.501, 0.0005),
+            lambda v: {"tipo": "ganho", "ganho_db": v}, "SEG-04", lambda v: v <= 1.5 + 1e-9)
+    # Reforço de EQ com ganho ≤ 0 não é bloqueado pelo passo (a classe segue crescente pelo tipo).
+    assert _res({"tipo": "reforco_eq", "ganho_db": 0.0}, "SEG-04")["resultado"] == seg.APROVADA
+    assert seg.classificar({"tipo": "reforco_eq", "ganho_db": -2.0}) == seg.CRESCENTE
+    assert _res({"tipo": "ganho"}, "SEG-04")["resultado"] == seg.NAO_VERIFICAVEL
+    for alt in ({"tipo": "corte_eq", "ganho_db": -3.0}, {"tipo": "passa_altas", "para_hz": 90.0},
+                {"tipo": "polaridade"}, {"tipo": "atraso"}):
+        assert _res(alt, "SEG-04")["resultado"] == seg.NAO_SE_APLICA, alt
+    LINHAS_C.append("SEG-04: fronteira em +1,5 dB (provisório); redução e corte não se aplicam")
+
+
+def test_c_seg05_filtro_e_banda():
+    """SEG-05: +3 dB por filtro e +6 dB somados na banda — grade de filtro × reforço já presente."""
+    _varrer("SEG-05 por filtro 2,5–3,5 dB, passo 0,05", _passos(2.5, 3.5, 0.05),
+            lambda v: {"tipo": "reforco_eq", "ganho_db": v, "reforcos_na_banda_db": []}, "SEG-05", lambda v: v <= 3.0 + 1e-9)
+    fa = fb = pts = 0
+    for g in _passos(0.5, 3.0, 0.25):
+        for outro in _passos(0.0, 4.0, 0.25):
+            est = _res({"tipo": "reforco_eq", "ganho_db": g, "reforcos_na_banda_db": [outro]}, "SEG-05")["resultado"]
+            dentro = g + outro <= 6.0 + 1e-9
+            pts += 1
+            fa += (not dentro) and est == seg.APROVADA
+            fb += dentro and est == seg.BLOQUEADA
+    assert (fa, fb) == (0, 0)
+    LINHAS_C.append(f"SEG-05 grade filtro × banda: {pts} pontos, falsos aprovados {fa}, falsos bloqueados {fb}")
+    base = {"tipo": "reforco_eq", "ganho_db": 3.0}
+    assert _res({**base, "reforcos_na_banda_db": [3.0]}, "SEG-05")["resultado"] == seg.APROVADA
+    assert _res({**base, "reforcos_na_banda_db": [3.01]}, "SEG-05")["resultado"] == seg.BLOQUEADA
+    assert _res({**base, "reforcos_na_banda_db": [1.0, 1.0, 1.01]}, "SEG-05")["resultado"] == seg.BLOQUEADA
+    assert _res({**base, "reforcos_na_banda_db": [3.0, -5.0]}, "SEG-05")["resultado"] == seg.APROVADA  # corte não abate
+    assert _res({**base, "reforcos_na_banda_db": [3.0, 0.01, -5.0]}, "SEG-05")["resultado"] == seg.BLOQUEADA
+    for banda in (None, "3", [float("nan")], [None], [True]):
+        alt = {**base, **({} if banda is None else {"reforcos_na_banda_db": banda})}
+        assert _res(alt, "SEG-05")["resultado"] == seg.NAO_VERIFICAVEL, banda
+    assert _res({"tipo": "reforco_eq"}, "SEG-05")["resultado"] == seg.NAO_VERIFICAVEL
+    assert _res({"tipo": "reforco_eq", "ganho_db": 3.01}, "SEG-05")["resultado"] == seg.BLOQUEADA
+    for alt in ({"tipo": "ganho", "ganho_db": 5.0}, {"tipo": "corte_eq", "ganho_db": -4.0}):
+        assert _res(alt, "SEG-05")["resultado"] == seg.NAO_SE_APLICA
+    LINHAS_C.append("SEG-05: +3 dB por filtro e +6 dB na banda (provisório); banda não informada ⇒ não verificável")
+
+
+def test_c_seg06_seg13_e_nao_confirmado():
+    """SEG-06 e SEG-13 (limites categóricos) e equipamento não confirmado (SEG-12) sobre SEG-01/03."""
+    for c in seg.CLASSES_VALE_NAO_EQUALIZAVEL:
+        assert _res({"tipo": "reforco_eq", "ganho_db": 1.0, "vale_classificacao": c}, "SEG-06")["resultado"] == seg.BLOQUEADA
+    for c in seg.CLASSES_SEM_VALE_NAO_EQUALIZAVEL:
+        assert _res({"tipo": "reforco_eq", "ganho_db": 1.0, "vale_classificacao": c}, "SEG-06")["resultado"] == seg.APROVADA
+    for c in (None, "", "desconhecida", 3):
+        alt = {"tipo": "reforco_eq", "ganho_db": 1.0, **({} if c is None else {"vale_classificacao": c})}
+        assert _res(alt, "SEG-06")["resultado"] == seg.NAO_VERIFICAVEL, c
+    etapa = {"tipo": "ganho", "ganho_db": 1.0, "etapa_automatizada": True, "limites_informados": True}
+    assert _res({**etapa, "valores_conferencia": [{"valor": 1, "origem": "declarado"}, {"valor": 2, "origem": "medição"}]},
+                "SEG-13")["resultado"] == seg.APROVADA
+    assert _res({**etapa, "valores_conferencia": [{"valor": 1, "origem": "arquivo"}]}, "SEG-13")["resultado"] == seg.BLOQUEADA
+    assert _res({**etapa, "valores_conferencia": [{"valor": 1}]}, "SEG-13")["resultado"] == seg.NAO_VERIFICAVEL
+    assert _res({**etapa, "valores_conferencia": []}, "SEG-13")["resultado"] == seg.NAO_VERIFICAVEL
+    assert _res({**etapa, "limites_informados": False, "valores_conferencia": [{"valor": 1, "origem": "declarado"}]},
+                "SEG-13")["resultado"] == seg.NAO_VERIFICAVEL
+    for estado in ("estimado", "informado", "", None):
+        eq = [{**EQUIP[0], "estado": estado}]
+        for v in (60.0, 80.0, 100.0):
+            assert _res({"tipo": "passa_altas", "de_hz": 120.0, "para_hz": v}, "SEG-01", eq)["resultado"] == seg.NAO_VERIFICAVEL
+        for w in (10.0, 50.0, 90.0):
+            assert _res({"tipo": "ganho", "ganho_db": 1.0, "potencia_estimada_w": w}, "SEG-03", eq)["resultado"] == seg.NAO_VERIFICAVEL
+    LINHAS_C.append("SEG-06/13: categóricos; equipamento não confirmado nunca aprova SEG-01/03")
+
+
+def test_c_admissibilidade_nas_fronteiras():
+    """Admissibilidade nas fronteiras: risco crescente nunca é recomendado (SEG-02/07/09 sem método); decrescente
+    só é bloqueado por regra bloqueada. Bloquear crescente dentro de todos os limites é falso bloqueio *por
+    desenho* (FR-212), registrado e não corrigido."""
+    crescentes = 0
+    for g in _passos(0.0, 3.5, 0.1):
+        alt = {"canal": "C1", "tipo": "reforco_eq", "ganho_db": g, "potencia_estimada_w": 20.0,
+               "reforcos_na_banda_db": [], "vale_classificacao": "equalizavel"}
+        adm = seg.admissibilidade(seg.classificar(alt), seg.avaliar(alt, EQUIP))
+        assert adm["admissivel"] is False and adm["exige_aprovacao_b"] is False, g
+        assert {"SEG-02", "SEG-07", "SEG-09"} <= set(adm["nao_verificadas"]), g
+        crescentes += 1
+    for alt in ({"tipo": "ganho", "ganho_db": -1.5, "potencia_estimada_w": 50.0},
+                {"tipo": "passa_altas", "de_hz": 80.0, "para_hz": 90.0}):
+        alt = {"canal": "C1", **alt}
+        adm = seg.admissibilidade(seg.classificar(alt), seg.avaliar(alt, EQUIP))
+        assert adm["admissivel"] is True and adm["exige_aprovacao_b"] is True and adm["aviso"], alt
+    for alt, regra in (({"tipo": "ganho", "ganho_db": -1.5, "potencia_estimada_w": 50.01}, "SEG-03"),
+                       ({"tipo": "passa_altas", "de_hz": 90.0, "para_hz": 79.99}, "SEG-01")):
+        alt = {"canal": "C1", **alt}
+        adm = seg.admissibilidade(seg.classificar(alt), seg.avaliar(alt, EQUIP))
+        assert adm["admissivel"] is False and adm["estado"] == "bloqueada" and regra in adm["motivo"], alt
+    for tipo in ("polaridade", "atraso"):
+        alt = {"canal": "C1", "tipo": tipo}
+        assert seg.admissibilidade(seg.classificar(alt), seg.avaliar(alt, EQUIP))["admissivel"] is True
+    LINHAS_C.append(f"Admissibilidade: {crescentes} reforços de 0 a 3,5 dB, todos bloqueados por SEG-02/07/09 "
+                    "(falso bloqueio por desenho); decrescentes dentro dos limites recomendados")
