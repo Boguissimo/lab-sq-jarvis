@@ -683,3 +683,187 @@ def test_catalogo_existente_nao_ganha_declaracao():
         manifesto = json.loads((_casos.PASTA_DADOS / nome / "manifesto.json").read_text(encoding="utf-8")) \
             if (_casos.PASTA_DADOS / nome / "manifesto.json").exists() else {}
         assert "equipamento" not in manifesto and "alteracao_candidata" not in manifesto, nome
+
+
+# ---- JV-T228: avaliar_alteracao_candidata e percursos REF-003-S1/S2/S3 (D1–D5) ------------------------------
+
+def _candidata(servico, tmp_path, variante, manifesto=None):
+    """Abre a sessão, importa REF-003-<variante> (opcionalmente com o manifesto alterado) e avalia a candidata."""
+    import json
+    pasta = _casos.gerar(f"REF-003-{variante}", tmp_path / variante)
+    if manifesto:
+        arq = pasta / "manifesto.json"
+        m = json.loads(arq.read_text(encoding="utf-8"))
+        arq.write_text(json.dumps(manifesto(m), ensure_ascii=False), encoding="utf-8")
+    servico.nova_sessao("investigacao")
+    servico.registrar_percepcao("antes", "não aplicável")
+    servico.importar_caso(pasta)
+    return pasta, servico.avaliar_alteracao_candidata()
+
+
+def _regras(rec):
+    return {r["regra"]: r["resultado"] for r in rec["dados"]["seguranca"]["regras"]}
+
+
+def _escopo(rec):
+    return rec["dados"]["variavel"]
+
+
+def test_s1_s2_s3(servico, banco, tmp_path):
+    """SC-209: S1 bloqueada por SEG-07; S2 por SEG-12 e SEG-07; S3 admitida com aviso, exige aprovação B."""
+    for variante, regras_esperadas in (("S1", ["SEG-07"]), ("S2", ["SEG-12", "SEG-07"])):
+        _, rec = _candidata(servico, tmp_path, variante)
+        adm = rec["dados"]["seguranca"]["admissibilidade"]
+        assert adm["admissivel"] is False and adm["estado"] == "bloqueada"
+        for regra in regras_esperadas:
+            assert _regras(rec)[regra] == "não verificável" and regra in adm["motivo"]
+        assert rec["titulo"] == "Alteração bloqueada — não recomendada" and rec["dados"]["receita"] is None
+        with pytest.raises(ErroDoPercurso, match="não a libera"):
+            servico.aprovar(rec["id"], _escopo(rec))
+        servico.registrar_percepcao("antes", "não aplicável")
+        with pytest.raises(ErroDoPercurso, match="Alteração bloqueada"):
+            servico.registrar_aplicacao()
+        assert servico.estado()["experimento"] is None
+    _, rec = _candidata(servico, tmp_path, "S3")
+    adm = rec["dados"]["seguranca"]["admissibilidade"]
+    assert adm["admissivel"] is True and adm["exige_aprovacao_b"] is True
+    assert "SEG-12" in adm["nao_verificadas"] and rec["dados"]["receita"]
+    assert rec["dados"]["seguranca"]["classe"].endswith("decrescente")
+    assert rec["dados"]["reversao"]["garantida"] is False
+    assert banco.integridade() == []
+
+
+def test_candidata_origem_so_na_declaracao(servico, banco, tmp_path):
+    _, rec = _candidata(servico, tmp_path, "S3")
+    (decl,) = banco.registros(servico.sessao_id, "declaracao")
+    (calc,) = [c for c in banco.registros(servico.sessao_id, "calculo") if c["dados"]["nome"] == "avaliacao_seguranca"]
+    assert [(o["origem"], o["tipo"]) for o in banco.origens_de(calc["id"])] == [(decl["id"], "declaracao")]
+    assert [(o["origem"], o["tipo"]) for o in banco.origens_de(rec["id"])] == [(calc["id"], "calculo")]
+    assert calc["dados"]["versao"] == "0.4.0" and calc["dados"]["entradas"] == [decl["id"]]
+    assert calc["dados"]["parametros"]["tipo_intervencao"] == "alteração candidata"
+    assert "não medido" in calc["dados"]["resultado"]["origem_dos_dados"]
+    assert "nunca “dentro do limite”" in calc["dados"]["resultado"]["potencia"]   # D5
+    assert not any(r["tipo"] == "medicao" for r in (banco.origens_de(calc["id"]) + banco.origens_de(rec["id"])))
+    assert rec["dados"]["tipo_intervencao"] == "alteração candidata" and "previsao" not in rec["dados"]
+
+
+def test_candidata_estado_sem_previsao_e_com_novos_campos(servico, banco, tmp_path):
+    _, rec = _candidata(servico, tmp_path, "S3")
+    e = servico.estado()   # não levanta KeyError (D4)
+    assert "previsao" not in e["curvas"]
+    assert e["avaliacao_seguranca"]["dados"]["nome"] == "avaliacao_seguranca" and e["aprovacao"] is None
+    servico.aprovar(rec["id"], _escopo(rec))
+    assert servico.estado()["aprovacao"]["recomendacao"] == rec["id"]
+
+
+def test_estado_historico_inalterado_no_percurso_de_polaridade(servico, pasta_caso):
+    _ate_analise(servico, pasta_caso)
+    servico.propor_teste()
+    e = servico.estado()
+    assert "previsao" in e["curvas"] and e["avaliacao_seguranca"] is None and e["aprovacao"] is None
+
+
+def test_s3_aplicacao_declarada_termina_o_percurso(servico, banco, tmp_path):
+    _, rec = _candidata(servico, tmp_path, "S3")
+    antes = banco.configuracoes(servico.sessao_id)[-1]
+    assert not any(p["parametro"] == "EQ 1 kHz" for p in antes["parametros"])
+    with pytest.raises(ErroDoPercurso, match="aprovação de nível B"):
+        servico.registrar_aplicacao()
+    with pytest.raises(ErroDoPercurso, match="escopo"):
+        servico.aprovar(rec["id"], {**_escopo(rec), "para": "−3 dB"})
+    servico.aprovar(rec["id"], _escopo(rec))
+    xid = servico.registrar_aplicacao()
+    exp = servico.estado()["experimento"]
+    assert exp["id"] == xid and exp["dados"]["tipo_intervencao"] == "alteração candidata"
+    assert exp["dados"]["simulado"] is True
+    depois = banco.configuracoes(servico.sessao_id)[-1]
+    eq = [p for p in depois["parametros"] if p["parametro"] == "EQ 1 kHz"]
+    assert eq == [{"canal": "medio_esq", "parametro": "EQ 1 kHz", "valor": "−2 dB", "origem": "declarado"}]
+    assert depois["anterior"] == antes["id"] and "alteração candidata" in depois["nome"]
+    assert len(depois["parametros"]) == len(antes["parametros"]) + 1
+    e = servico.estado()
+    assert e["sessao"]["passo_atual"] == 4 and e["sessao"]["estado"] != "encerrada"   # D3
+    assert e["conclusao"] is None and e["comparacao"] is None and e["decisoes"] == []
+    assert any("alteração candidata" in ev["descricao"] for ev in e["eventos"] if ev["evento"] == "experimento")
+    assert not any("teste" in ev["descricao"].lower() for ev in e["eventos"] if ev["evento"] == "experimento")
+    with pytest.raises(ErroDoPercurso, match="já foi registrado"):
+        servico.registrar_aplicacao()
+    with pytest.raises(ErroDoPercurso):
+        servico.importar_depois()
+    assert banco.integridade() == []
+
+
+def test_s3_eq_ausente_sem_premissa_de_0_db_recusa(servico, banco, tmp_path):
+    def sem_premissa(m):
+        m["alteracao_candidata"]["de"] = "+1 dB"
+        return m
+    _, rec = _candidata(servico, tmp_path, "S3", sem_premissa)
+    servico.aprovar(rec["id"], _escopo(rec))
+    n_conf = len(banco.configuracoes(servico.sessao_id))
+    with pytest.raises(ErroDoPercurso, match="não permite assumir que estava em 0 dB"):
+        servico.registrar_aplicacao()
+    assert servico.estado()["experimento"] is None and len(banco.configuracoes(servico.sessao_id)) == n_conf
+
+
+def test_candidata_le_do_cofre_com_a_pasta_externa_removida(servico, banco, tmp_path):
+    import shutil
+    pasta = _casos.gerar("REF-003-S3", tmp_path / "S3")
+    servico.nova_sessao("investigacao")
+    servico.importar_caso(pasta)
+    shutil.rmtree(pasta)
+    rec = servico.avaliar_alteracao_candidata()
+    assert rec["dados"]["seguranca"]["admissibilidade"]["admissivel"] is True and banco.integridade() == []
+
+
+def test_candidata_snapshot_adulterado_e_recusado(servico, banco, tmp_path):
+    import json
+    pasta = _casos.gerar("REF-003-S3", tmp_path / "S3")
+    servico.nova_sessao("investigacao")
+    servico.importar_caso(pasta)
+    (d,) = banco.registros(servico.sessao_id, "declaracao")
+    d["dados"]["alteracao_candidata"]["ganho_db"] = -0.5
+    for t in [r[0] for r in banco.con.execute("SELECT name FROM sqlite_master WHERE type='trigger' AND tbl_name='registro'")]:
+        banco.con.execute(f"DROP TRIGGER {t}")
+    banco.con.execute("UPDATE registro SET dados = ? WHERE id = ?", (json.dumps(d["dados"]), d["id"]))
+    with pytest.raises(ErroDoPercurso, match="não confere com o manifesto preservado"):
+        servico.avaliar_alteracao_candidata()
+    assert banco.registros(servico.sessao_id, "recomendacao") == []
+    assert not [c for c in banco.registros(servico.sessao_id, "calculo") if c["dados"]["nome"] == "avaliacao_seguranca"]
+
+
+def test_candidata_sem_declaracao_recusa_sem_registrar(servico, banco, pasta_caso):
+    servico.nova_sessao("investigacao")
+    servico.importar_caso(pasta_caso)
+    with pytest.raises(ErroDoPercurso, match="não tem alteração candidata declarada"):
+        servico.avaliar_alteracao_candidata()
+    assert banco.registros(servico.sessao_id, "recomendacao") == []
+    assert not [c for c in banco.registros(servico.sessao_id, "calculo") if c["dados"]["nome"] == "avaliacao_seguranca"]
+
+
+def test_candidata_idempotente(servico, banco, tmp_path):
+    _, rec = _candidata(servico, tmp_path, "S3")
+    assert servico.avaliar_alteracao_candidata()["id"] == rec["id"]
+    assert len([c for c in banco.registros(servico.sessao_id, "calculo")
+                if c["dados"]["nome"] == "avaliacao_seguranca"]) == 1
+    assert len(banco.registros(servico.sessao_id, "recomendacao")) == 1
+
+
+def test_candidata_nao_se_mistura_com_o_teste_de_polaridade(servico, pasta_caso):
+    _ate_analise(servico, pasta_caso)
+    servico.propor_teste()
+    with pytest.raises(ErroDoPercurso, match="já tem um teste de diagnóstico"):
+        servico.avaliar_alteracao_candidata()
+
+
+def test_candidata_incompleta_ou_tipo_desconhecido_recusa(servico, tmp_path):
+    def sem_para(m):
+        del m["alteracao_candidata"]["para"]
+        return m
+    pasta = _casos.gerar("REF-003-S3", tmp_path / "A")
+    import json
+    arq = pasta / "manifesto.json"
+    arq.write_text(json.dumps(sem_para(json.loads(arq.read_text(encoding="utf-8")))), encoding="utf-8")
+    servico.nova_sessao("investigacao")
+    servico.importar_caso(pasta)
+    with pytest.raises(ErroDoPercurso, match="incompleta"):
+        servico.avaliar_alteracao_candidata()

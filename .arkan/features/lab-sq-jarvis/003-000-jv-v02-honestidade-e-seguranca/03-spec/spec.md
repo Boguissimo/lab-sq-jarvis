@@ -281,3 +281,10 @@ Alternativa A: a origem declarada do manifesto é um registro primário `declara
 - **FR-223 (nota):** a avaliação de segurança dos casos REF-003-S, quando implementada pela JV-T228, deriva da `declaracao` da sessão e **nunca** de uma medição que não usou.
 - **INV-216 (P1 0.5.0):** a `declaracao` não tem origens, tem a marca `declarado`, referencia o manifesto no cofre com hash conferido, tem snapshot igual ao conteúdo desse manifesto, fonte coerente com o caso da sessão, e só `calculo` aponta para ela. Declaração não é medição nem confirma o estado físico do equipamento. **Teste:** `test_persistencia.py::test_declaracao_*`, `test_sessao.py::test_importar_caso_com_campos_declarados_gera_uma_declaracao`.
 - **Preservados:** INV-211 (sem reavaliação nem declaração retroativa) e INV-213 (casos existentes inalterados).
+
+### Sessão 2026-10-17 — JV-T228: alteração candidata (JV-D047) — *aprovado por Fabrício, Nível B*
+
+- **D1:** SC-209 é lido pela `seguranca.admissibilidade` existente (crescente sem dado confirmado ou `não verificável` ⇒ bloqueada; decrescente `não verificável` ⇒ admitida com aviso e aprovação B; `bloqueada` sempre bloqueia).
+- **D2/D3/D4:** rótulo `alteração candidata`; percurso do S3 termina na aplicação declarada, sessão aberta, sem veredito e sem passo 5; EQ ausente só entra com a premissa declarada `de = 0 dB`, senão recusa; `estado()` com `avaliacao_seguranca` e `aprovacao` aditivos e sem curva de previsão.
+- **D5 (FR-223):** a potência não é verificada pelas regras disponíveis; **nunca** "dentro do limite" por manifesto, simulação ou aprovação.
+- **Teste:** `test_sessao.py::test_s1_s2_s3` e `test_candidata_*`, `test_s3_*`.

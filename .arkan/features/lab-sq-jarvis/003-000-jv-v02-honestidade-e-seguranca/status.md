@@ -22,3 +22,6 @@ JV-V02 — Honestidade e segurança: casos N1 a N5 e REF-001-B, recusa sem refer
 
 ## Patch do P1 — origem declarada (2026-10-17)
 **JV-T228P concluída** (Nível B; JV-D046; constituição 0.5.0): tipo primário `declaracao` (`L`) na cadeia, criado na importação do manifesto, integridade com snapshot conferido contra o manifesto do cofre. Suíte: 355 passando + 1 xfail. **T228 e T230 continuam sem autorização de implementação.** Sem merge na `main`.
+
+## JV-T228 — alteração candidata (2026-10-17)
+**JV-T228 concluída** (Nível B; JV-D047, D1–D5): REF-003-S1/S2 bloqueadas, S3 admitida com aviso e aprovação B; percurso do S3 termina na aplicação declarada, sessão aberta. Suíte: 367 + 1 xfail. **JV-T230 (interface) segue sem autorização.** Sem merge na `main`. Sem validação acústica (caso simulado).

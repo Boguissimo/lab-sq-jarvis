@@ -477,3 +477,17 @@ Aprovada expressamente por Fabrício em 2026-10-17 (alternativa **A**; opção B
 - **Sem migração de esquema** (`registro.tipo` não tem CHECK). Sem reavaliar o histórico (INV-211) e sem declaração retroativa; casos de referência anteriores inalterados (INV-213).
 
 **Fora desta decisão:** `avaliar_alteracao_candidata` e os percursos S1–S3 (JV-T228), a interface (JV-T230), regras e limites SEG, calibração e merge na `main`. Cada um segue exigindo autorização própria.
+
+## JV-T228 — alteração candidata — 2026-10-17
+
+### JV-D047 — Alteração candidata avaliada só pelas regras SEG (JV-T228; D1–D5)
+
+Aprovada expressamente por Fabrício em 2026-10-17 (autorização de Nível B transmitida pela [issue #1](https://github.com/Boguissimo/lab-sq-jarvis/issues/1#issuecomment-6237071095), sobre a proposta revisada `docs/revisoes/PROPOSTA-pacote-nivel-b-t228-avaliar-alteracao-candidata.md`, commit `eee098c`). Não reabre a JV-D046 nem altera regras SEG, limiares ou interface.
+
+- **D1 (SC-209):** vale a `seguranca.admissibilidade` atual. Risco crescente sem dado confirmado ou com regra `não verificável` é bloqueado; risco decrescente com regra `não verificável` é admitido **com aviso** e exige aprovação B; regra `bloqueada` sempre bloqueia.
+- **D2:** `tipo_intervencao = "alteração candidata"` no cálculo, na recomendação, no experimento e no diário, com semântica própria; sem tipo novo na cadeia e sem tratar como teste de diagnóstico.
+- **D3 (REF-003-S3):** o percurso demonstrativo termina no registro da aplicação declarada, com configuração declarada posterior; a **sessão permanece aberta**, sem análise, conclusão nem veredito, e sem avançar ao passo 5. Se `EQ 1 kHz` não consta da configuração anterior, o ajuste só entra quando o manifesto declara `de = "0 dB"` (EQ ausente = 0 dB **declarado, não verificado**), com origem `declarado` e `anterior` preservado; sem essa premissa, a aplicação é recusada.
+- **D4:** `estado()` ganha `avaliacao_seguranca` e `aprovacao` (aditivos); a recomendação de alteração candidata não tem previsão acústica nem curva `previsao`. Percurso histórico V01/V02 preservado.
+- **D5:** a potência não é verificada pelas regras disponíveis e **nunca** é descrita como "dentro do limite" por manifesto, simulação ou aprovação do usuário (Clarification do FR-223).
+
+A aprovação B dentro do Jarvis continua ato explícito do usuário no aplicativo; esta decisão não aprova nenhuma aplicação. **Fora:** JV-T230 e interface, regras SEG e limiares, esquema, histórico, validação acústica, merge na `main`.

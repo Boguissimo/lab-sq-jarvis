@@ -516,3 +516,8 @@ Origem: spec, Clarifications da Sessão 2026-10-16. Não muda arquitetura, ADRs 
 **Linguagem (conferência final):** nenhum texto afirma alteração no DSP. "A medição não identifica a causa" substitui "o parâmetro alterado não é identificado pela medição"; uma alteração adicional só aparece como **declarada** pelo usuário, nunca como comprovada.
 
 **Pontos para a conferência final (nível B):** (1) redação da E4 na spec; (2) este complemento R1.3; (3) as tasks JV-T222A/B, já implementadas aguardando commit; (4) `pytest` completo em Linux com as libs de Qt (2026-10-16): 211 passando e 1 `xfail`; falta a execução no Windows (G3).
+
+### ADR-214 — Alteração candidata (JV-T228; JV-D047)
+- **Decisão:** `Servico.avaliar_alteracao_candidata()` lê o manifesto do cofre (declaração conferida por `_problemas_de_declaracao`), chama `seguranca.classificar/avaliar/admissibilidade` sem alterá-las, registra o `calculo` `avaliacao_seguranca` com origem única na `declaracao` e a `recomendacao` derivada dele (bloqueada ⇒ sem receita). `registrar_aplicacao` e `estado()` ramificam por `tipo_intervencao`; o fluxo de polaridade fica intocado, e `propor_teste` recusa sessão com alteração candidata.
+- **Motivo:** a avaliação usa dado declarado; sem previsão acústica, sem "depois" e sem veredito.
+- **Consequências:** o parâmetro EQ ausente só entra com a premissa declarada `de = 0 dB`. A interface (JV-T230) continua pendente e deve dizer que a aprovação autoriza o ato e não verifica nada.

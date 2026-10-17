@@ -120,3 +120,9 @@ Cada verificação tem um teste com inconsistência deliberada em `test_integrid
 ## Legado do V01 (INV-211)
 
 Sessões sem `avaliacao_regras` são do V01. `estado()` reconstrói a análise com `regras_v1_0.py` (cópia congelada), marca "reconstruída pelas regras 1.0" e não exige `entradas_sha256`, `irregularidade` nem `seguranca.admissibilidade`.
+
+## Alteração candidata (JV-T228; JV-D047)
+
+- `calculo` `avaliacao_seguranca`: `entradas = [id da declaracao]`, `parametros.tipo_intervencao = "alteração candidata"`, `versao` = versão das regras SEG; `resultado`: `{versao_regras_seg, classe, motivo, regras, admissibilidade, limitacoes, alteracao, equipamento, origem_dos_dados, manifesto_sha256, potencia}`. Origem única: a `declaracao`.
+- `recomendacao`: `tipo_intervencao = "alteração candidata"`, `variavel`, `declaracao`, `avaliacao_seguranca`, `seguranca`, `receita` (nula se bloqueada), `reversao` (`garantida: false`); **sem** `previsao` nem `previsao_registrada_em`. Origem: o `calculo`.
+- `experimento`: `tipo_intervencao = "alteração candidata"`, `simulado` vindo da declaração. `estado()`: chaves aditivas `avaliacao_seguranca` e `aprovacao`.

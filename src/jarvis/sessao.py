@@ -28,6 +28,9 @@ PROCEDIMENTO_SEG08 = [
     "Pare o sinal (pausa na música ou no gerador) antes de aplicar a alteração.",
 ]
 RETOMADA_SEG08 = "Retome o volume aos poucos até o nível de medição declarado."
+# JV-T228 (D2): rótulo próprio da alteração avaliada só pelas regras SEG; não é teste de diagnóstico.
+TIPO_ALTERACAO_CANDIDATA = "alteração candidata"
+TIPO_TESTE_DIAGNOSTICO = "teste de diagnóstico"
 
 # @@T217 [FR-205] Recusa de fase sem referência temporal declarada compatível
 AVISO_REFERENCIA = (
@@ -100,10 +103,11 @@ class Servico:
         return hashlib.sha256(canonico.encode("utf-8")).hexdigest()
 
     def _registrar_calculo(self, nome: str, titulo: str, resultado: dict, entradas: list[dict],
-                           parametros: dict | None = None, limiares: dict | None = None) -> str:
+                           parametros: dict | None = None, limiares: dict | None = None,
+                           versao: str | None = None) -> str:
         dados = {
             "nome": nome,
-            "versao": calculos.VERSOES.get(nome, regras.VERSAO),
+            "versao": versao or calculos.VERSOES.get(nome, regras.VERSAO),
             "parametros": parametros or {},
             "limiares": limiares or {},
             "entradas": [e["id"] for e in entradas],
@@ -433,7 +437,11 @@ class Servico:
         if analise["sugestao"] != "teste_polaridade":
             raise ErroDoPercurso("Estas medições não indicam um teste de polaridade. "
                                  "Use “nada a alterar” ou “solicitar dados adicionais”.")
-        if self._ultimo("recomendacao"):
+        existente = self._ultimo("recomendacao")
+        if existente and existente["dados"].get("tipo_intervencao") == TIPO_ALTERACAO_CANDIDATA:
+            raise ErroDoPercurso("Esta sessão já tem uma alteração candidata avaliada; ela não recebe teste "
+                                 "de polaridade.")
+        if existente:
             return self.estado()["recomendacao"]
         ma, mb, ms = self._medicao("via_a"), self._medicao("via_b"), self._medicao("soma")
         a, bb, s = self._resposta(ma), self._resposta(mb), self._resposta(ms)
@@ -502,6 +510,82 @@ class Servico:
         self.b.atualizar_sessao(sid, passo_atual=4)
         self.b.diario(sid, "recomendacao", (f"Teste proposto ({rid}) com previsão {prev_id}" if adm["admissivel"]
                                             else f"Alteração bloqueada pela verificação de segurança ({rid})"))
+        return self.estado()["recomendacao"]
+
+    # @@T228 [FR-223] [US-08] Alteração candidata declarada: avaliada só pelas regras SEG (JV-D046)
+    def avaliar_alteracao_candidata(self) -> dict:
+        """Avalia a alteração candidata declarada no manifesto e registra a recomendação (ou o bloqueio).
+
+        Lê equipamento e alteração do **manifesto preservado no cofre** (hash e snapshot conferidos pela
+        integridade da ``declaracao``), nunca da pasta externa. O cálculo ``avaliacao_seguranca`` deriva
+        **só da declaração**: dado declarado, não medido, e sem previsão acústica. Regras, limiares e
+        admissibilidade são os de ``seguranca``, sem alteração. Idempotente.
+        """
+        sid = self._exigir_sessao()
+        existente = self._ultimo("recomendacao")
+        if existente:
+            if existente["dados"].get("tipo_intervencao") == TIPO_ALTERACAO_CANDIDATA:
+                return self.estado()["recomendacao"]
+            raise ErroDoPercurso("Esta sessão já tem um teste de diagnóstico proposto; a alteração candidata "
+                                 "não se mistura com ele.")
+        decl = self._ultimo("declaracao", lambda d: "alteracao_candidata" in d)
+        if decl is None:
+            raise ErroDoPercurso("Esta sessão não tem alteração candidata declarada: importe um caso cujo "
+                                 "manifesto a traga.")
+        problemas = self.b._problemas_de_declaracao(decl["id"], decl["dados"], self.b.origens_de(decl["id"]))
+        if problemas:
+            raise ErroDoPercurso("A declaração desta sessão não confere com o manifesto preservado: "
+                                 + "; ".join(problemas[:3]) + ".")
+        manifesto = json.loads(self.b.caminho_original(decl["dados"]["sha256"]).read_text(encoding="utf-8"))
+        alteracao, equipamento = manifesto["alteracao_candidata"], manifesto.get("equipamento")
+        campos = ("canal", "parametro", "de", "para")
+        if not isinstance(alteracao, dict) or any(not isinstance(alteracao.get(c), str) or not alteracao[c].strip()
+                                                  for c in campos):
+            raise ErroDoPercurso("A alteração candidata declarada está incompleta: faltam canal, parâmetro, "
+                                 "valor de ou valor para.")
+        try:
+            classe = seguranca.classificar(alteracao)
+            regras_seg = seguranca.avaliar(alteracao, equipamento)
+            adm = seguranca.admissibilidade(classe, regras_seg)
+        except seguranca.AlteracaoInvalida as erro:
+            raise ErroDoPercurso(f"A alteração candidata declarada não pode ser avaliada: {erro}.") from erro
+        bloco = {"versao_regras_seg": seguranca.VERSAO, "classe": classe, "motivo": adm["motivo"],
+                 "regras": regras_seg, "admissibilidade": adm, "limitacoes": list(seguranca.LIMITACOES)}
+        resultado = {**bloco, "alteracao": alteracao, "equipamento": equipamento,
+                     "origem_dos_dados": "declarado no manifesto; não medido nem confirmado fisicamente",
+                     "manifesto_sha256": decl["dados"]["sha256"],
+                     "potencia": "Potência não é verificada pelas regras disponíveis: nunca “dentro do limite” "
+                                 "por declaração, simulação ou aprovação."}
+        calc_id = self._registrar_calculo(
+            "avaliacao_seguranca", f"Avaliação de segurança: {alteracao['parametro']} "
+            f"{alteracao['de']} → {alteracao['para']}", resultado, [decl],
+            {"tipo_intervencao": TIPO_ALTERACAO_CANDIDATA}, versao=seguranca.VERSAO)
+        variavel = {c: alteracao[c] for c in campos}
+        receita = PROCEDIMENTO_SEG08 + [
+            f"No PC-Tool, no canal {alteracao['canal']}, mude {alteracao['parametro']} de {alteracao['de']} "
+            f"para {alteracao['para']}. Não mude mais nada.",
+            "Envie a configuração ao DSP e salve o ajuste com um nome novo.", RETOMADA_SEG08]
+        inversa = PROCEDIMENTO_SEG08 + [
+            f"No PC-Tool, no canal {alteracao['canal']}, volte {alteracao['parametro']} de "
+            f"{alteracao['para']} para {alteracao['de']}.", "Envie ao DSP.", RETOMADA_SEG08]
+        dados = {"tipo_intervencao": TIPO_ALTERACAO_CANDIDATA, "variavel": variavel,
+                 "declaracao": decl["id"], "avaliacao_seguranca": calc_id, "seguranca": bloco,
+                 "receita": receita,
+                 "reversao": {"garantida": False, "receita_inversa": inversa,
+                              "base": "Reversão não garantida: o valor anterior é só o declarado no manifesto, "
+                                      "não verificado."},
+                 "origem_dos_dados": "declarado"}
+        titulo = f"Alteração candidata: {alteracao['parametro']} {alteracao['de']} → {alteracao['para']}"
+        if not adm["admissivel"]:  # bloqueada: registrada, mas sem receita aplicável (ADR-204)
+            titulo = "Alteração bloqueada — não recomendada"
+            dados["receita"] = None
+            dados["reversao"] = {"garantida": False, "receita_inversa": None,
+                                 "base": "Alteração bloqueada: não há o que reverter."}
+        rid = self.b.novo_registro(sid, "recomendacao", titulo, dados, origens=[(calc_id, "avaliação de segurança")])
+        self.b.atualizar_sessao(sid, passo_atual=4)
+        self.b.diario(sid, "recomendacao", (f"Alteração candidata avaliada ({rid}) pelas regras de segurança"
+                                            if adm["admissivel"] else
+                                            f"Alteração candidata bloqueada pela verificação de segurança ({rid})"))
         return self.estado()["recomendacao"]
 
     @staticmethod
@@ -586,21 +670,43 @@ class Servico:
             raise ErroDoPercurso("Registre a percepção “antes” (ou marque “não aplicável”) "
                                  "antes de aplicar o teste.")
         v = rec["dados"]["variavel"]
-        xid = self.b.novo_registro(
-            sid, "experimento", rec["titulo"],
-            {"tipo_intervencao": "teste de diagnóstico", "variavel": v,
-             "aplicado_em": agora(), "aplicacao": "declarada pelo usuário",
-             "simulado": True},
-            autor="usuário", origens=[(rec["id"], "recomendação"), (percepcao["id"], "percepção antes")])
+        candidata = rec["dados"].get("tipo_intervencao") == TIPO_ALTERACAO_CANDIDATA
         anterior = self.b.configuracoes(sid)[-1]
         params = [dict(p) for p in anterior["parametros"]]
+        existe = False
         for p in params:
             if p["canal"] == v["canal"] and p["parametro"] == v["parametro"]:
                 p["valor"], p["origem"] = v["para"], "declarado"
-        self.b.nova_configuracao(sid, f"Após o teste {xid} (declarada)", "declarada", params,
-                                 anterior=anterior["id"])
-        self.b.atualizar_sessao(sid, passo_atual=5)
-        self.b.diario(sid, "experimento", f"Aplicação do teste declarada ({xid})")
+                existe = True
+        if candidata and not existe:
+            # Parâmetro ausente da configuração base: só entra se o manifesto declara a premissa "de = 0 dB"
+            # (EQ ausente = 0 dB declarado, não verificado). Sem ela, recusa em vez de omitir a alteração.
+            if " ".join(str(v["de"]).split()) != "0 dB":
+                raise ErroDoPercurso(
+                    f"“{v['parametro']}” do canal {v['canal']} não consta da configuração anterior e o valor de "
+                    f"partida declarado ({v['de']}) não permite assumir que estava em 0 dB: não registro a "
+                    "aplicação sem base.")
+            params.append({"canal": v["canal"], "parametro": v["parametro"], "valor": v["para"],
+                           "origem": "declarado"})
+        simulado = True
+        if candidata:
+            decl = next((d for d in self.b.registros(sid, "declaracao") if d["id"] == rec["dados"].get("declaracao")),
+                        None)
+            simulado = bool(((decl or {}).get("dados", {}).get("fonte") or {}).get("simulado", False))
+        tipo = TIPO_ALTERACAO_CANDIDATA if candidata else TIPO_TESTE_DIAGNOSTICO
+        xid = self.b.novo_registro(
+            sid, "experimento", rec["titulo"],
+            {"tipo_intervencao": tipo, "variavel": v,
+             "aplicado_em": agora(), "aplicacao": "declarada pelo usuário",
+             "simulado": simulado},
+            autor="usuário", origens=[(rec["id"], "recomendação"), (percepcao["id"], "percepção antes")])
+        self.b.nova_configuracao(
+            sid, f"Após {'a alteração candidata' if candidata else 'o teste'} {xid} (declarada)", "declarada",
+            params, anterior=anterior["id"])
+        if not candidata:  # a alteração candidata não tem "depois": o percurso termina na aplicação (D3)
+            self.b.atualizar_sessao(sid, passo_atual=5)
+        self.b.diario(sid, "experimento",
+                      f"Aplicação {'da alteração candidata' if candidata else 'do teste'} declarada ({xid})")
         return xid
 
     # ------------------------------------------------------------ passo 5
@@ -1031,7 +1137,7 @@ class Servico:
             curvas[chave] = {"freq_hz": r.freq_hz.tolist(), "nivel_db": r.nivel_db.tolist(),
                              "rotulo": m["dados"].get("descricao", m["id"])}
         rec = self._ultimo("recomendacao")
-        if rec:
+        if rec and "previsao" in rec["dados"]:  # alteração candidata não tem previsão acústica (D4)
             prev = next(r for r in self.b.registros(sid, "calculo") if r["id"] == rec["dados"]["previsao"])
             curvas["previsao"] = {"freq_hz": prev["dados"]["resultado"]["freq_hz"],
                                   "nivel_db": prev["dados"]["resultado"]["nivel_db"],
@@ -1047,6 +1153,8 @@ class Servico:
             "indicios": indicios,
             "hipoteses": hipoteses,
             "recomendacao": rec,
+            "avaliacao_seguranca": calcs.get("avaliacao_seguranca"),
+            "aprovacao": self.b.aprovacao_de(rec["id"]) if rec else None,
             "experimento": self._ultimo("experimento"),
             "comparacao": comp,
             "conclusao": self._ultimo("conclusao"),
