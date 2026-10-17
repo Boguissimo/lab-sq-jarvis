@@ -1,6 +1,6 @@
 # Retomada — JV-V02 (atualizada em 2026-10-16)
 
-## ▶ Estado atual — LEIA PRIMEIRO (2026-10-16, após T250 + T251)
+## ▶ Estado atual — LEIA PRIMEIRO (2026-10-17, após T250 + T251, JV-D045 regras 8 e 9 e as evidências do Codex no Windows)
 
 **Prioridade vigente:** candidato interno do Jarvis 1.0 — sólido, funcional e apresentável para Fabrício, **sem prazo artificial**; a liberação depende de **evidências e validação humana**, não de data. Não é versão comercial nem beta. **Sem demonstração, teste ou contato externo** (Fernando e terceiros permanecem possibilidades futuras) nesta etapa. A **investigação acústica está preservada**; sua suspensão é prioridade operacional temporária, não abandono. O escopo mínimo da Fase 5 é **referência de planejamento**, não decisão; **os blocos 2 e 3 do V02 permanecem no planejamento original** (T224–T242).
 
@@ -9,22 +9,22 @@
 **Branches** (nenhuma foi integrada à `main`; merge proibido sem ordem expressa):
 | Branch | Conteúdo | Referência |
 | --- | --- | --- |
-| `claude/busy-bohr-25s6e5` | **branch de trabalho**: V02 até o bloco 1 + E4/R1.3, investigação de desempenho, JV-D045/constituição 0.4.1, T250 + T251, planejamento (Fase 5) | `git log` (último conferido: `c02bbb6`, antes desta atualização) |
+| `claude/busy-bohr-25s6e5` | **branch de trabalho**: V02 até o bloco 1 + E4/R1.3, investigação de desempenho, JV-D045/constituição 0.4.1, T250 + T251, planejamento (Fase 5) | `git log` (último conferido: `7c3104a`, antes desta atualização). Inclui o commit `7c3104a` **do Codex**: identificação de pasta no Windows e marcação "reconstruída pelas regras 1.0" (duas correções que, segundo a mensagem do commit, Fabrício autorizou na conversa com o Codex) |
 | `claude/correcao-pontual-formato-rew` | as três correções REW + Clarification C-1; **já integrada** à de trabalho em `7dfa2b2`; preservada | `bae3c3e` |
 | `lab-sq-jarvis/003-000-jv-v02-honestidade-e-seguranca` | base original do V02 | `d56e0ad` |
 | `main` | JV-V01 completo (QA aprovado, G3 no Windows cumprido); **intacta** | `389e580` |
 
-**Estado técnico:** suíte **242 passando + 1 xfail** (Linux, nuvem). O **G3 do bloco 1 (JV-T223) segue parcial** (execução anterior no Windows: 211 + 1 xfail, em `6bf4ea7`; **sem** teste no Windows depois de T250 + T251; ver `08-qa/g3-bloco1-parcial.md`); os testes na nuvem não o substituem. O V02 **não** está validado acusticamente.
+**Estado técnico:** suíte **243 passando + 1 xfail** (Linux, nuvem, reproduzida em `7c3104a`; o Codex relata o mesmo no Windows). O **G3 do bloco 1 (JV-T223) segue PARCIAL.** Três classes de evidência, que **não se somam como aceite**: **(1) execução do Codex no Windows real** (relatada; commit `7c3104a`): backup V01 e base operacional íntegros, marcação "reconstruída pelas regras 1.0" confirmada na instalação operacional, análises de A, B, N1, N2, N4 e N5 pela interface, B e N3 até o veredito, N3 preservado após fechar e reabrir (cópia isolada), 32 testes de entrada e interface no clone operacional; **(2) evidência automatizada:** 243 + 1 xfail; **(3) validação humana:** só a de 16/10 (Fabrício, `6bf4ea7`: abertura, aviso, histórico, sessão V01 reaberta, N3 até a análise). **Não houve aceite humano inequívoco do G3 completo**; falta Fabrício executar ou presenciar o roteiro e declarar o aceite (detalhe em `08-qa/g3-bloco1-parcial.md`). Os testes na nuvem e a execução do Codex não substituem o G3. O V02 **não** está validado acusticamente.
 
-**Normativo (aprovado):** JV-D045 e constituição 0.4.1; Clarification C-1 do FR-002 (na spec do V01); T250 e T251 (Nível B, 2026-10-16). **Proposto, não aprovado:** emenda E5 à spec do V02 (`03-spec/emenda-E5-PROPOSTA.md`); emenda à JV-D045 (4 pontos: manifestações de Fabrício alimentam *User Stories candidatas*; a gerência preserva continuidade, parcimônia e decisões estabelecidas; redirecionamentos exigem justificativa técnica ou decisão humana; opiniões não se convertem automaticamente em requisitos nem em ordens de execução) — em avaliação.
+**Normativo (aprovado):** JV-D045 (com as regras 8 e 9, emenda aprovada em 2026-10-17, commit `bec5d14`) e constituição 0.4.1; Clarification C-1 do FR-002 (na spec do V01); T250 e T251 (Nível B, 2026-10-16). **Proposto, não aprovado:** emenda E5 à spec do V02 (`03-spec/emenda-E5-PROPOSTA.md`).
 
 **Autorizações vigentes (Nível B):** frente de investigação (scripts em `ferramentas/investigacao/`, relatórios em `docs/revisoes/investigacao-desempenho/`, commits e pushes na branch de trabalho; hoje sem uso, por prioridade); manutenção documental não normativa de 2026-10-16. **Fora delas:** `src/`, spec, limiares, arquitetura, decisões normativas, constituições, código externo não verificado, redistribuição de datasets, declarar o V02 validado acusticamente, merge na `main`. **T253–T259 não estão autorizados.**
 
 **Decisões pendentes de Fabrício:**
-1. **Emenda E5** (itens a–e; o item c depende da F-5) e a emenda à JV-D045.
+1. **Emenda E5** (itens a–e; o item c depende da F-5).
 2. **F-5:** papel do σ̂ e do portão — revisão **metodológica**, não só de interface; em aberto.
 3. **N2 no Focus:** protocolo pronto e **não iniciado**; exige autorização expressa e equipamento confirmado (HELIX PRO MK3 ainda não instalado; interface Behringer com modelo não confirmado; microfone e referência temporal pendentes). Sem compras recomendadas.
-4. **T253–T259** e o escopo do 1.0 (referência, não decisão); **G3** no Windows e o dado real do cenário de importação.
+4. **Aceite humano do G3 do bloco 1** (roteiro curto de `COMO-EXPERIMENTAR.md` no Windows de Fabrício) e a validação operacional do pacote **T250 + T251** — **próximo marco**; depois, **T253–T259** (não autorizados), o escopo do 1.0 (referência, não decisão) e o dado real do cenário de importação.
 5. **JV-D043** (diretriz de fontes de medição e REW) segue pendente de decisão própria.
 
 **Onde está cada coisa:** investigação em `docs/revisoes/investigacao-desempenho/`; planejamento do 1.0 em `.arkan/features/lab-sq-jarvis/003-000-jv-v02-honestidade-e-seguranca/` (`status.md`, `06-planning/tasks.md` Fase 5); normativos em `.arkan/projects/lab-sq-jarvis/`. **Ambiente:** `.venv` na raiz; suíte com `PYTHONPATH=src QT_QPA_PLATFORM=offscreen .venv/bin/python -m pytest` (libs Qt: `apt-get install libegl1 libgl1 libxkbcommon0 libfontconfig1 libdbus-1-3`); demais instruções na seção 5.
