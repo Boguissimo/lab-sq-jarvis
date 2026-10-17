@@ -57,3 +57,26 @@
 - Posição de microfone diferente: `inconclusiva` (nenhuma diferença atribuída ao DSP).
 - **Falsos positivos em “só polaridade”**: σ 0,5 → 0/200; σ 1,0 → 0/200; σ 1,5 → 20/200. O critério original do SC-208(b) (zero até σ = 1,5 dB) **não é atendido**: limitação conhecida, registrada pela E4 (indicativa × confirmada; ensaio ampliado em `validacao-limiares-e4.md`). Limiar não ajustado (P8).
 - Limiares usados: média 1.0 dB; bandas max(1.5 dB; 3.0·σΔ).
+
+## (c) Limites SEG
+
+Valores de cadastro fictícios (80 Hz, 12 dB/oit, 50 W, estado confirmado), só para exercitar as fronteiras; limites da v0.4.0 não ajustados (P8; SEG-04 e SEG-05 provisórios). Falso aprovado = limite violado e regra aprovada; falso bloqueado = limite respeitado e regra bloqueada.
+
+- SEG-01 passa-altas 70–90 Hz, passo 0,5: 41 pontos, falsos aprovados 0, falsos bloqueados 0
+- SEG-01 passa-altas 79,99–80,01, passo 0,001: 21 pontos, falsos aprovados 0, falsos bloqueados 0
+- SEG-01 inclinação 6–18 dB/oit, passo 0,25: 49 pontos, falsos aprovados 0, falsos bloqueados 0
+- SEG-01 inclinação 11,99–12,01, passo 0,001: 21 pontos, falsos aprovados 0, falsos bloqueados 0
+- SEG-01: sem cadastro confirmado, mínimo inválido ou destino ausente ⇒ nunca aprovada
+- SEG-03 ganho 40–60 W, passo 0,5: 41 pontos, falsos aprovados 0, falsos bloqueados 0
+- SEG-03 reforco_eq 40–60 W, passo 0,5: 41 pontos, falsos aprovados 0, falsos bloqueados 0
+- SEG-03 49,999–50,001 W, passo 0,0005: 5 pontos, falsos aprovados 0, falsos bloqueados 0
+- SEG-03: fronteira em 50 W (tolerância absoluta 1e-9 W); dado ausente/inválido ⇒ não verificável
+- SEG-04 ganho 0,05–2 dB, passo 0,05: 40 pontos, falsos aprovados 0, falsos bloqueados 0
+- SEG-04 reforco_eq 0,05–2 dB, passo 0,05: 40 pontos, falsos aprovados 0, falsos bloqueados 0
+- SEG-04 vizinhança 1,499–1,501, passo 0,0005: 5 pontos, falsos aprovados 0, falsos bloqueados 0
+- SEG-04: fronteira em +1,5 dB (provisório); redução e corte não se aplicam
+- SEG-05 por filtro 2,5–3,5 dB, passo 0,05: 21 pontos, falsos aprovados 0, falsos bloqueados 0
+- SEG-05 grade filtro × banda: 187 pontos, falsos aprovados 0, falsos bloqueados 0
+- SEG-05: +3 dB por filtro e +6 dB na banda (provisório); banda não informada ⇒ não verificável
+- SEG-06/13: categóricos; equipamento não confirmado nunca aprova SEG-01/03
+- Admissibilidade: 36 reforços de 0 a 3,5 dB, todos bloqueados por SEG-02/07/09 (falso bloqueio por desenho); decrescentes dentro dos limites recomendados

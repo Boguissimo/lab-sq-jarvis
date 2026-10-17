@@ -130,7 +130,7 @@ def test_b_detector():
 # (c) Limites SEG (JV-T229). Usa o módulo de segurança real; nenhum dado de equipamento é inventado
 # além do necessário para exercitar a fronteira (valores de cadastro fictícios, estado "confirmado").
 # Falso aprovado = limite violado e regra aprovada; falso bloqueado = limite respeitado e regra bloqueada.
-# O registro fica nas asserções e em ``LINHAS_C`` (não regrava ``validacao-limiares.md``).
+# O registro fica nas asserções e em ``LINHAS_C``, gravado em ``validacao-limiares.md`` ao fim do último teste (c).
 # --------------------------------------------------------------------------------------------------
 from jarvis import seguranca as seg  # noqa: E402
 
@@ -313,3 +313,7 @@ def test_c_admissibilidade_nas_fronteiras():
         assert seg.admissibilidade(seg.classificar(alt), seg.avaliar(alt, EQUIP))["admissivel"] is True
     LINHAS_C.append(f"Admissibilidade: {crescentes} reforços de 0 a 3,5 dB, todos bloqueados por SEG-02/07/09 "
                     "(falso bloqueio por desenho); decrescentes dentro dos limites recomendados")
+    _registrar("(c) Limites SEG", [
+        "Valores de cadastro fictícios (80 Hz, 12 dB/oit, 50 W, estado confirmado), só para exercitar as fronteiras; "
+        "limites da v0.4.0 não ajustados (P8; SEG-04 e SEG-05 provisórios). Falso aprovado = limite violado e regra "
+        "aprovada; falso bloqueado = limite respeitado e regra bloqueada.", ""] + [f"- {linha}" for linha in LINHAS_C])
