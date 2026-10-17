@@ -909,6 +909,7 @@ class Servico:
                 "fase": fase["dados"]["resultado"] if fase else None,
                 "ids": ids,
                 "interpretacao": origem_interpretacao,
+                "reconstruida": not registrada,   # só sessões do V01 sem `avaliacao_regras` (INV-211)
                 "portao": avaliacao.get("portao"),
                 "conclui": (avaliacao.get("portao") or {}).get("conclui", True),
                 "falta": avaliacao.get("falta", []),

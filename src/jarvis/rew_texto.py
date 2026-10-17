@@ -88,10 +88,12 @@ def motivo_do_sistema(erro: OSError) -> str:
 
 def ler(caminho: str | Path) -> RespostaFrequencia:
     caminho = Path(caminho)
-    # No Windows, abrir uma pasta pode produzir PermissionError.
-    if caminho.is_dir():
-        raise FormatoInvalido(f"Não consegui abrir “{caminho.name}”: isto é uma pasta, não um arquivo.")
     try:
+        # No Windows, abrir uma pasta gera PermissionError (no Linux, IsADirectoryError); por isso a pasta é
+        # identificada antes da leitura. A conferência fica DENTRO do tratamento de erros: em algumas versões do
+        # Python (3.11) `Path.is_dir()` propaga erros de permissão em vez de devolver False.
+        if caminho.is_dir():
+            raise FormatoInvalido(f"Não consegui abrir “{caminho.name}”: isto é uma pasta, não um arquivo.")
         texto = caminho.read_text(encoding="utf-8", errors="replace")
     except OSError as erro:
         raise FormatoInvalido(f"Não consegui abrir “{caminho.name}”: {motivo_do_sistema(erro)}.") from erro

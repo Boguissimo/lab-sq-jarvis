@@ -215,3 +215,69 @@ def test_sessao_v01_mostra_interpretacao_reconstruida_sem_alterar_registros(qtbo
     assert janela.servico.b.con.execute("SELECT * FROM registro ORDER BY id").fetchall() == antes
     assert erros == []
     janela.servico.b.fechar()
+
+
+# --- Pacote pós-G2: rótulos seguem o caso selecionado; marcação só em sessão V01 reconstruída ---
+
+import pytest  # noqa: E402
+
+
+def _ate_depois(qtbot, tmp_path, nome):
+    janela, erros = _janela(qtbot, tmp_path / nome)
+    janela.botao_comecar.click()
+    _escolher(janela, nome)
+    janela.botao_importar.click()
+    janela.botao_analisar.click()
+    janela.botao_propor.click()
+    janela.botao_aplicar.click()
+    return janela, erros
+
+
+@pytest.mark.parametrize("nome", ["REF-001-A", "REF-001-B", "REF-001-N3"])
+def test_rotulos_seguem_o_caso_selecionado(qtbot, tmp_path, nome):
+    janela, erros = _ate_depois(qtbot, tmp_path, nome)
+    assert janela.servico.estado()["sessao"]["caso"] == nome
+    assert nome in janela.botao_depois.text()
+    assert f"O caso <b>{nome}</b> traz essas três medições" in _textos(janela, 1)   # QLabel.text() devolve o HTML
+    if nome != "REF-001-A":                       # nenhum rótulo fixo de outro caso
+        assert "REF-001-A" not in janela.botao_depois.text()
+        for pagina in (0, 1, 2, 3, 4):
+            assert "REF-001-A" not in _textos(janela, pagina), pagina
+    assert erros == []
+    janela.servico.b.fechar()
+
+
+def test_rotulos_antes_de_escolher_o_caso_nao_citam_nenhum(qtbot, tmp_path):
+    janela, erros = _janela(qtbot, tmp_path / "d")
+    janela.botao_comecar.click()
+    assert "REF-001-A" not in _textos(janela, 0)
+    assert "que você escolher" in _textos(janela, 1) and "REF-001-A" not in _textos(janela, 1)
+    janela.servico.b.fechar()
+
+
+def test_sessao_nova_nao_mostra_metadado_tecnico_de_interpretacao(qtbot, tmp_path):
+    janela, erros = _analisar_pela_interface(qtbot, tmp_path, "REF-001-B")
+    a = janela.servico.estado()["analise"]
+    assert a["reconstruida"] is False and a["interpretacao"] == "registrada (regras 1.1)"   # o dado continua registrado
+    texto = _textos(janela, 2)
+    assert "Como esta explicação foi feita" in texto            # a informação relevante ao usuário continua
+    for tecnico in ("regras 1.1", "Interpretação:", "reconstruída", "Sessão anterior ao JV-V02"):
+        assert tecnico not in texto, tecnico
+    assert erros == []
+    janela.servico.b.fechar()
+
+
+def test_marcacao_aparece_so_na_sessao_v01_reconstruida_em_linguagem_simples(qtbot, tmp_path):
+    import shutil
+    from pathlib import Path
+    pasta = tmp_path / "legado"
+    shutil.copytree(Path(__file__).parent / "dados" / "banco-v01", pasta)
+    janela, erros = _janela(qtbot, pasta)
+    janela.servico.abrir_sessao(1)
+    janela.atualizar(ir_para=2)
+    assert janela.servico.estado()["analise"]["reconstruida"] is True
+    texto = _textos(janela, 2)
+    assert "Sessão anterior ao JV-V02" in texto and "reconstruída pelas regras 1.0" in texto
+    assert "o que ela disse não mudou" in texto and "regras 1.1" not in texto
+    assert erros == []
+    janela.servico.b.fechar()

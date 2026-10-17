@@ -219,8 +219,8 @@ class JanelaPrincipal(QMainWindow):
         L = p.layout_
         L.addWidget(_titulo("1. O que estou percebendo"))
         L.addWidget(_texto(
-            "Escolha o tipo de sessão e registre o que você percebe. Neste incremento só existe o caso "
-            "<b>simulado</b> REF-001-A: não há escuta real, por isso a percepção vem marcada como "
+            "Escolha o tipo de sessão e registre o que você percebe. Neste incremento só existem casos de "
+            "referência <b>simulados</b>: não há escuta real, por isso a percepção vem marcada como "
             "<b>não aplicável</b>. Se quiser exercitar o registro, use “simulada” — ela fica rotulada como tal."))
         if e:
             L.addWidget(_texto(f"<b>Sessão {e['sessao']['id']}</b> em andamento "
@@ -278,11 +278,13 @@ class JanelaPrincipal(QMainWindow):
         p.limpar()
         L = p.layout_
         L.addWidget(_titulo("2. O que preciso medir"))
+        caso = (e or {}).get("sessao", {}).get("caso")
+        quem = f"O caso <b>{html.escape(caso)}</b>" if caso else "O caso de referência que você escolher abaixo"
         L.addWidget(_texto(
             "Para investigar o cruzamento entre médio e tweeter são necessárias três medições, na mesma "
             "posição de microfone e com a <b>mesma referência temporal</b>: o médio sozinho, o tweeter "
             "sozinho e os dois juntos. Sem referência temporal comum, a fase entre as vias não pode ser "
-            "comparada. O caso REF-001-A traz essas três medições, <b>simuladas</b>."))
+            f"comparada. {quem} traz essas três medições, <b>simuladas</b>."))
         if e and not e["medicoes"] and not self._encerrada(e):
             # @@T222 [FR-209] Seletor de caso: lista os casos distribuídos do bloco 1
             self.seletor_caso = QComboBox()
@@ -383,8 +385,10 @@ class JanelaPrincipal(QMainWindow):
                   "regras implementadas no programa, a partir dos cálculos indicados entre colchetes — "
                   "não por IA. Os limiares das regras são <b>provisórios</b> e só foram testados em casos "
                   "simulados.</p>"]
-        if a.get("interpretacao"):
-            partes.append("<p><b>Interpretação:</b> " + html.escape(a["interpretacao"]) + "</p>")
+        if a.get("reconstruida"):   # só sessão do V01, sem interpretação registrada (INV-211)
+            partes.append("<p><b>Sessão anterior ao JV-V02:</b> a análise foi <b>"
+                          + html.escape(a["interpretacao"]) + "</b>, com a versão congelada das regras; "
+                          "o que ela disse não mudou.</p>")
         ref = a["referencia"]
         partes.append("<p><b>Referência temporal:</b> " + (
             "declarada compatível entre as três medições — a fase pode ser comparada (igualdade declarada "
@@ -564,7 +568,8 @@ class JanelaPrincipal(QMainWindow):
         if e["comparacao"] is None:
             L.addWidget(_texto("Meça de novo nas mesmas condições e importe a medição “depois”. "
                                "No caso simulado, ela já vem pronta."))
-            self.botao_depois = QPushButton("Importar a medição “depois” do caso REF-001-A")
+            caso = e["sessao"].get("caso")
+            self.botao_depois = QPushButton("Importar a medição “depois” do caso " + (caso or "de referência"))
             self.botao_depois.setMinimumHeight(36)
             self.botao_depois.clicked.connect(lambda: self._executar(self.servico.importar_depois, ir_para=4))
             L.addWidget(self.botao_depois)

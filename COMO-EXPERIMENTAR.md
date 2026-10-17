@@ -37,16 +37,16 @@
      abre com a justificativa **pré-preenchida**, que você pode editar.
 4. **Feche e abra de novo.** Reabra algumas sessões no **Histórico**: o que cada uma disse não muda.
 
-## G3 do bloco 1 — o que falta (16/10/2026)
-Já conferidos: suíte, abertura do programa, aviso de simulação, três sessões no Histórico, sessão V01 reaberta, N3 até a análise inicial.
-Faltam, nesta ordem (cerca de 10 minutos):
-1. **Backup e marcação da migração:** abra `%LOCALAPPDATA%\LabSQJarvis`, confirme que existe `jarvis.antes-v02-<data>.db`;
-   no Histórico abra uma sessão da V01 e confirme "reconstruída pelas regras 1.0".
-2. **N3 até o fim:** **Ver o teste proposto** → **Registrar** → **Importar a medição "depois"** → percepção → concluir.
-   Esperado: `comprometida`, "mudança detectada e reproduzida", "a medição não identifica a causa", "não comprova alteração no DSP".
-3. **REF-001-A, REF-001-B, N1, N2, N4, N5:** só o que a lista do passo 3 acima descreve.
-4. **Fechar e reabrir** o programa e abrir o N3 no Histórico: o veredito não muda.
-A variante sem repetição não aparece na lista da interface (não é distribuída); ela foi conferida por código, ver `08-qa/g3-bloco1-parcial.md`.
+## G3 do bloco 1 — roteiro humano mínimo (17/10/2026)
+O que já foi conferido por outros (Codex/Work no Windows, relatado; testes automatizados) está em `08-qa/g3-bloco1-parcial.md`. **Só o seu aceite fecha o G3.** Cerca de 15 minutos, na versão atual (`git pull` na branch `claude/busy-bohr-25s6e5`; depois, `INICIAR-JARVIS.bat`).
+1. **Abrir:** a janela "JV-V02 (demonstração com dados simulados)" e o aviso de simulação aparecem.
+2. **Backup:** na pasta `%LOCALAPPDATA%\LabSQJarvis` existe `jarvis.antes-v02-<data>.db`.
+3. **Sessão antiga (V01):** em **Histórico**, abra uma sessão antiga → passo **3**: aparece a frase **"Sessão anterior ao JV-V02: a análise foi reconstruída pelas regras 1.0 … o que ela disse não mudou"**.
+4. **REF-001-A até o veredito (versão atual):** **Começar uma nova sessão** → **REF-001-A** → importar → analisar → **Ver o teste proposto** → aplicar → **Importar a medição "depois" do caso REF-001-A** → percepção → veredito. Esperado: **confirmada**. Nesta sessão **nova**, o passo 3 **não** mostra "reconstruída" nem "regras 1.1".
+5. **Rótulos do N3:** nova sessão → **REF-001-N3** até o veredito. Esperado: o botão diz **"…do caso REF-001-N3"** (não REF-001-A), nenhum texto cita REF-001-A, veredito **comprometida**.
+6. **Fechar e reabrir:** reabra o N3 no Histórico: o veredito não muda; abra uma sessão nova qualquer: nada de linha técnica de interpretação.
+7. **Mensagem de erro:** em "Escolher outra pasta de caso…", escolha uma pasta sem `manifesto.json` (qualquer pasta comum): aparece mensagem em português e a janela continua utilizável.
+8. **Seu aceite:** diga se **aceita o G3 do bloco 1** (sim/não, com observações) e se **aceita como suficientes** as verificações do Work para B, N1, N2, N4 e N5 e a integridade do backup (ou prefere vê-las). Isso também vale como validação operacional do pacote **T250 + T251** no Windows.
 
 ## Blocos 2 e 3
 Roteiros acrescentados quando os blocos estiverem prontos (segurança e casos REF-003-S; etapa de

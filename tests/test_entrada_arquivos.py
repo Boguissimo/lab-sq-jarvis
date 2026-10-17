@@ -132,3 +132,43 @@ def test_manifesto_apagado_depois_de_importar_nao_quebra_o_depois(servico, pasta
     (copia / "manifesto.json").unlink()
     with pytest.raises(ErroDoPercurso, match="falta o arquivo manifesto.json"):
         servico.importar_depois()
+
+
+# --- Pacote pós-G2: a identificação de pasta fica dentro do tratamento de erros (Python 3.11 a 3.14) ---
+
+from pathlib import Path  # noqa: E402
+
+
+def _levanta(erro):
+    def f(self, *a, **k):
+        raise erro
+    return f
+
+
+@pytest.mark.parametrize("erro, trecho", [(PermissionError(13, "Permission denied"), "sem permissão"),
+                                          (OSError(5, "Input/output error"), "não deixou ler")])
+def test_is_dir_que_propaga_erro_do_sistema_nao_escapa(monkeypatch, tmp_path, erro, trecho):
+    """Em Python 3.11 `Path.is_dir()` pode propagar erro de permissão; o usuário recebe mensagem simples."""
+    monkeypatch.setattr(Path, "is_dir", _levanta(erro))
+    with pytest.raises(rew_texto.FormatoInvalido, match=trecho) as e:
+        rew_texto.ler(tmp_path / "medicao.txt")
+    assert "Permission denied" not in str(e.value) and "Input/output" not in str(e.value)
+
+
+def test_pasta_como_no_windows_nao_chega_a_ser_lida(monkeypatch, tmp_path):
+    """No Windows, ler uma pasta gera PermissionError; a pasta é identificada antes e a leitura nem é tentada."""
+    chamadas = []
+
+    def read_text_windows(self, *a, **k):
+        chamadas.append(self)
+        raise PermissionError(13, "Permission denied")
+    monkeypatch.setattr(Path, "read_text", read_text_windows)
+    with pytest.raises(rew_texto.FormatoInvalido, match="isto é uma pasta, não um arquivo"):
+        rew_texto.ler(tmp_path)
+    assert chamadas == []
+
+
+def test_arquivo_comum_continua_sendo_lido(tmp_path):
+    arq = tmp_path / "m.txt"
+    arq.write_text("\n".join(f"{100 * (i + 1)} {80 + i} {-i}" for i in range(15)), encoding="utf-8")
+    assert rew_texto.ler(arq).freq_hz.size == 15

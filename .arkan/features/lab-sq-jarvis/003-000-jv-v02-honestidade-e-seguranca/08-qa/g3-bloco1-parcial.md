@@ -38,6 +38,13 @@
 | 3. A, B, N1, N2, N4, N5 | análises conferidas pela interface (cópia isolada); B até o veredito; justificativa de N5 conferida | conferência por código (Linux) | **pendente** |
 | 4. Fechar e reabrir | N3 preservado (cópia isolada); V01 reaberta (instalação operacional) | testes de persistência | V01 reaberta em 16/10; o resto **pendente** |
 
+## Atualização de 17/10/2026 (2) — ratificação, revisão G2 e pacote T251A
+
+- **Revisão G2 (Claude, independente):** o `7c3104a` é aprovável — duas correções justificadas (pasta no Windows; marcação V01 visível), três ressalvas menores (`is_dir()` fora do `try`; linha "Interpretação" em todas as sessões com texto técnico; rótulos fixos "REF-001-A" pré-existentes). Cadeia de commits linear; a branch contém `main` (`389e580`) e todo o trabalho anterior.
+- **Ratificação (Fabrício, Nível B, 2026-10-17):** mantidas as duas correções do `7c3104a` conforme o diff revisado. Este registro documenta a ratificação **atual**; a autorização histórica do Work (afirmada só na mensagem do commit) **não** é presumida nem reescrita.
+- **Pacote corretivo T251A (Nível B, autorizado por Fabrício):** rótulos conforme o caso selecionado; marcação "reconstruída pelas regras 1.0" só em sessões V01 reconstruídas (em linguagem simples; sem metadado técnico em sessões novas); `is_dir()` dentro do tratamento de erros. **Evidência automatizada:** 253 passando + 1 `xfail` (Linux, 3.13); 91 testes sensíveis a versão passando em 3.11, 3.12 e 3.14. **Não é evidência do Windows nem validação humana.**
+- **Roteiro humano mínimo** (o que ainda falta, aproveitando as evidências acima): em `COMO-EXPERIMENTAR.md`, seção "G3 do bloco 1 — roteiro humano mínimo". **JV-T223 continua parcial.**
+
 ### O que resta para o aceite humano do G3 do bloco 1
 Fabrício, no Windows dele, executar ou presenciar o roteiro curto (itens 1 a 4 acima) **e declarar o aceite**; em particular: ver o backup `jarvis.antes-v02-<data>.db` na pasta de dados; ver a marcação "reconstruída pelas regras 1.0" numa sessão V01; levar o N3 ao veredito; abrir A, B, N1, N2, N4 e N5; fechar e reabrir. Enquanto isso, **JV-T223 permanece parcial**. Fica também como marco da validação operacional o pacote **T250 + T251** (testes de entrada de arquivos), ainda sem aceite humano no Windows.
 
