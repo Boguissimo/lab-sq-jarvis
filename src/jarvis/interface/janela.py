@@ -383,6 +383,8 @@ class JanelaPrincipal(QMainWindow):
                   "regras implementadas no programa, a partir dos cálculos indicados entre colchetes — "
                   "não por IA. Os limiares das regras são <b>provisórios</b> e só foram testados em casos "
                   "simulados.</p>"]
+        if a.get("interpretacao"):
+            partes.append("<p><b>Interpretação:</b> " + html.escape(a["interpretacao"]) + "</p>")
         ref = a["referencia"]
         partes.append("<p><b>Referência temporal:</b> " + (
             "declarada compatível entre as três medições — a fase pode ser comparada (igualdade declarada "

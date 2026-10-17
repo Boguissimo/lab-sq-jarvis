@@ -200,3 +200,18 @@ def test_manifesto_incompleto_mostra_mensagem_e_a_janela_continua(qtbot, tmp_pat
     janela.botao_importar.click()                       # a mesma sessão ainda aceita o caso certo
     assert janela.servico.b.registros(janela.servico.sessao_id, "medicao")
     janela.servico.b.fechar()
+
+
+def test_sessao_v01_mostra_interpretacao_reconstruida_sem_alterar_registros(qtbot, tmp_path):
+    import shutil
+    from pathlib import Path
+    pasta = tmp_path / "legado"
+    shutil.copytree(Path(__file__).parent / "dados" / "banco-v01", pasta)
+    janela, erros = _janela(qtbot, pasta)
+    antes = janela.servico.b.con.execute("SELECT * FROM registro ORDER BY id").fetchall()
+    janela.servico.abrir_sessao(1)
+    janela.atualizar(ir_para=2)
+    assert "reconstruída pelas regras 1.0" in _textos(janela, 2)
+    assert janela.servico.b.con.execute("SELECT * FROM registro ORDER BY id").fetchall() == antes
+    assert erros == []
+    janela.servico.b.fechar()

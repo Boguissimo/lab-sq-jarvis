@@ -88,6 +88,9 @@ def motivo_do_sistema(erro: OSError) -> str:
 
 def ler(caminho: str | Path) -> RespostaFrequencia:
     caminho = Path(caminho)
+    # No Windows, abrir uma pasta pode produzir PermissionError.
+    if caminho.is_dir():
+        raise FormatoInvalido(f"Não consegui abrir “{caminho.name}”: isto é uma pasta, não um arquivo.")
     try:
         texto = caminho.read_text(encoding="utf-8", errors="replace")
     except OSError as erro:
