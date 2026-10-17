@@ -70,3 +70,14 @@ Revisar `plan.md` e `data-model.md`, corrigindo os problemas identificados e con
 Preservar as decisões válidas. Quando uma correção exigir mudança normativa da spec ou das regras canônicas, seguir o processo formal do Arkan Core.
 
 Apresentar as ADRs revisadas, a matriz de rastreabilidade atualizada e os critérios de teste correspondentes antes de iniciar a implementação.
+
+
+---
+
+## Adendo de revisão — teste de comunicação ChatGPT → Claude (2026-10-17)
+
+> **Nota técnica não normativa, distinta da revisão original acima.** Registrada pelo ChatGPT no papel de gerência/revisão previsto na JV-D045. Não constitui decisão do desenvolvedor, autorização Arkan Nível A/B, aceite G3 ou instrução para alterar código, requisitos ou spec.
+
+**JV-T228 — pendência P1:** a avaliação de segurança dos casos S1/S2/S3 usa a alteração candidata e os dados de equipamento declarados no manifesto, e não valores das medições. Atribuir sua derivação a uma medição apenas por compartilhar o canal criaria proveniência artificial. É preciso decidir como representar a entrada documental verificável no modelo de proveniência antes de implementar a cadeia; o hash preserva a integridade do arquivo, mas, isoladamente, não estabelece a relação entre registros. Decisão normativa reservada ao desenvolvedor.
+
+**Teste do canal:** Claude, quando consultar este documento no fluxo normal de trabalho, confirme que leu o adendo. A publicação desta nota não notifica nem executa automaticamente a sessão do Claude. Não iniciar T228 ou T230 com base nela.
