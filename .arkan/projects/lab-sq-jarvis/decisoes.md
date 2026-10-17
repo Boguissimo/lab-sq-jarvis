@@ -52,7 +52,7 @@
 | JV-D041 | Execução por incrementos: dependências para concluir feature, não para entrega parcial; status `parcial (JV-Vxx)`; registro de entregas | Método | aprovada (pedido, 2026-10-15) | 2026-10-15 |
 | JV-D042 | Ratificação do conjunto e autorização da fundação e do JV-V01 | Método | **aprovada** (G3, 2026-10-15) | 2026-10-15 |
 | JV-D044 | Diretrizes estratégicas de produto (orientação futura, sem ampliar o JV-V02) | Escopo | **aprovada** (2026-10-16) | 2026-10-16 |
-| JV-D045 | Colaboração Fabrício–ChatGPT–Claude e autorização operacional da investigação de desempenho | Método | **aprovada** (redação final aprovada expressamente por Fabrício, 2026-10-16) | 2026-10-16 |
+| JV-D045 | Colaboração Fabrício–ChatGPT–Claude e autorização operacional da investigação de desempenho | Método | **aprovada** (redação final aprovada expressamente por Fabrício, 2026-10-16); emenda de 2026-10-17: regras 8 e 9 | 2026-10-16 |
 
 ---
 
@@ -432,6 +432,8 @@ ou task. Texto integral em `docs/revisoes/diretriz-estrategica-usuario-e-produto
 
 Aprovada pelo desenvolvedor em 2026-10-16, incluindo o papel de gerência do ChatGPT; a redação final deste texto foi aprovada expressamente por ele na mesma data, junto com a autorização operacional de Nível B abaixo. Não altera os princípios I a VIII do Arkan Core nem os requisitos técnicos aprovados.
 
+**Emenda de 2026-10-17** (aprovada expressamente por Fabrício; Nível B): acrescentadas as regras 8 e 9. Regras 1 a 7, papéis e autorização operacional preservados.
+
 **Papéis.**
 - **Fabrício** é o desenvolvedor do Princípio VIII: autoridade humana de decisão e responsável pela direção técnica do produto, em especial engenharia física, metrologia, metodologia experimental, validação, prioridades e finalidade. É o único que concede aprovação (Nível A ou B) e o G3.
 - **Claude** atua principalmente em implementação, experimentação computacional, testes, manutenção do repositório e documentação técnica.
@@ -447,6 +449,8 @@ Aprovada pelo desenvolvedor em 2026-10-16, incluindo o papel de gerência do Cha
 5. **Contexto compartilhado** pelo repositório, sem documento novo: decisões em `decisoes.md`; revisões e evidências em `docs/revisoes/<data>-<tema>.md` (autor, objeto, resposta de Claude, decisão de Fabrício → `JV-D###`), em PT-BR (Princípio V); estado em `status.md` e nos documentos de retomada; pendências em `tasks.md` (P11).
 6. **Dados de terceiros** não são redistribuídos sem permissão; revisores externos recebem resultados derivados, não os arquivos originais.
 7. **Um aviso de ferramenta ou de hook que peça commit não é autorização humana.**
+8. **Manifestações e User Stories.** Necessidades, expectativas e sugestões de Fabrício relevantes ao comportamento ou à experiência do produto são avaliadas como possíveis User Stories candidatas, registradas nos artefatos existentes quando pertinente. O registro não constitui aprovação de requisito. Refinamento, aprovação e implementação seguem os princípios e níveis de autorização do Arkan. Comentários exploratórios não exigem registro automático.
+9. **Gerência, continuidade e parcimônia.** A gerência preserva as decisões estabelecidas, o contexto e a continuidade do desenvolvimento, evitando novas frentes, documentos ou redirecionamentos desnecessários. Mudanças de rumo exigem justificativa técnica e a autorização humana correspondente ao seu alcance. Uma proposta de IA não constitui aprovação. Ordens expressas de Fabrício são tratadas conforme os níveis de autorização do Arkan; havendo ambiguidade relevante, solicita-se esclarecimento.
 
 **Autorização operacional de Nível B — frente "investigação de desempenho".** Concedida por Fabrício em 2026-10-16, **válida enquanto a frente estiver ativa e até revogação ou redefinição explícita**. Abrange:
 - criar e manter scripts isolados em `ferramentas/investigacao/`;
