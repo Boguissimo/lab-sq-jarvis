@@ -460,3 +460,20 @@ Aprovada pelo desenvolvedor em 2026-10-16, incluindo o papel de gerência do Cha
 
 **Limites (não abrange):** alterações no núcleo do Jarvis (`src/`), spec, limiares, arquitetura, decisões normativas, constituições e regras de segurança; instalação ou execução de código externo não verificado; redistribuição de datasets sem permissão; **merge na `main`**; declarar o V02 validado acusticamente. O G3 do bloco 1 (JV-T223) permanece parcial.
 
+## Patch do P1 — 2026-10-17
+
+### JV-D046 — Origem declarada como registro primário `declaracao` (patch do P1, constituição 0.5.0)
+
+Aprovada expressamente por Fabrício em 2026-10-17 (alternativa **A**; opção B, exceção para cálculo sem origem em registro, **não** escolhida) e transmitida pela [issue #1](https://github.com/Boguissimo/lab-sq-jarvis/issues/1) (decisão e autorização Nível B). A issue é só canal de transmissão. Não reabre a JV-D045 nem altera o Arkan Core.
+
+**Problema.** O cálculo `avaliacao_seguranca` usa dados declarados no manifesto (equipamento e alteração candidata), não dados de medição. Derivá-lo de uma medição não utilizada falsearia a proveniência, e o P1 só admitia `calculo ← medicao | calculo`.
+
+**Decisão.**
+- **Tipo primário `declaracao`, prefixo `L`** (D1). Sem origens, como a `medicao`; marca `declarado`; não é medição nem confirmação física do equipamento.
+- **Uma declaração por manifesto** (D3), com o snapshot dos campos `equipamento` e `alteracao_candidata` e o SHA-256 do manifesto guardado no cofre. É a granularidade deste fluxo, não uma regra para declarações futuras.
+- **Só `calculo` deriva de `declaracao`**; `DERIVACOES_PERMITIDAS["calculo"]` passa a `{medicao, calculo, declaracao}`; cálculo sem origem continua acusado.
+- **Integridade:** além do hash no cofre, o snapshot é conferido **contra o conteúdo do manifesto preservado** (adulterar só o banco é acusado); ausência de origens; marca; fonte coerente com o manifesto e com o caso da sessão.
+- **Constituição 0.5.0 (Minor)** sobre a 0.4.1 vigente (D2).
+- **Sem migração de esquema** (`registro.tipo` não tem CHECK). Sem reavaliar o histórico (INV-211) e sem declaração retroativa; casos de referência anteriores inalterados (INV-213).
+
+**Fora desta decisão:** `avaliar_alteracao_candidata` e os percursos S1–S3 (JV-T228), a interface (JV-T230), regras e limites SEG, calibração e merge na `main`. Cada um segue exigindo autorização própria.

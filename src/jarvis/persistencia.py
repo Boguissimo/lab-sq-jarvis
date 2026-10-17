@@ -24,11 +24,13 @@ from jarvis import migracao
 PREFIXOS = {
     "medicao": "M", "calculo": "C", "indicio": "I", "hipotese": "H", "recomendacao": "R",
     "experimento": "X", "conclusao": "A", "decisao": "D", "percepcao": "P", "estimativa": "E",
+    "declaracao": "L",
 }
 
-# destino ← origens permitidas (P1; decisão sem intervenção em JV-D038)
+# destino ← origens permitidas (P1; decisão sem intervenção em JV-D038). ``declaracao`` é tipo primário, como
+# ``medicao``: não tem origens e só ``calculo`` deriva dela (P1 0.5.0).
 DERIVACOES_PERMITIDAS = {
-    "calculo": {"medicao", "calculo"},
+    "calculo": {"medicao", "calculo", "declaracao"},
     "indicio": {"calculo"},
     "hipotese": {"indicio"},
     "recomendacao": {"hipotese", "calculo"},
@@ -272,6 +274,41 @@ class Banco:
             "SELECT * FROM diario WHERE sessao = ? ORDER BY id", (sessao,))]
 
     # ---------------------------------------------------------------- integridade
+    CAMPOS_DECLARADOS = ("equipamento", "alteracao_candidata")
+
+    def _problemas_de_declaracao(self, rid: str, dados: dict, origens: list[dict]) -> list[str]:
+        """Declaração (P1 0.5.0): raiz sem origens, marcada ``declarado``, fiel ao manifesto preservado no cofre."""
+        quem, problemas = f"{rid}: declaração", []
+        if origens:
+            problemas.append(f"{quem} não pode ter origem na cadeia")
+        if dados.get("marca") != "declarado":
+            problemas.append(f"{quem} sem a marca “declarado”")
+        sha = dados.get("sha256", "")
+        if not isinstance(sha, str) or not self.verificar_original(sha):
+            problemas.append(f"{quem}: manifesto ausente ou alterado no cofre")
+            return problemas
+        try:
+            manifesto = json.loads(self.caminho_original(sha).read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            problemas.append(f"{quem}: manifesto do cofre ilegível")
+            return problemas
+        if not isinstance(manifesto, dict):
+            problemas.append(f"{quem}: manifesto do cofre ilegível")
+            return problemas
+        for campo in self.CAMPOS_DECLARADOS:
+            if (campo in dados) != (campo in manifesto) or dados.get(campo) != manifesto.get(campo):
+                problemas.append(f"{quem}: “{campo}” diverge do manifesto preservado")
+        if not any(c in dados for c in self.CAMPOS_DECLARADOS):
+            problemas.append(f"{quem} sem equipamento nem alteração candidata")
+        fonte = dados.get("fonte")
+        sessao = self.con.execute("SELECT s.caso FROM registro r JOIN sessao s ON s.id = r.sessao WHERE r.id = ?",
+                                  (rid,)).fetchone()
+        if not isinstance(fonte, dict) or fonte.get("caso") != manifesto.get("caso"):
+            problemas.append(f"{quem}: fonte não identifica o caso do manifesto")
+        elif sessao is not None and sessao[0] is not None and sessao[0] != fonte.get("caso"):
+            problemas.append(f"{quem}: caso da fonte diferente do caso da sessão")
+        return problemas
+
     def integridade(self) -> list[str]:
         """Lista de problemas encontrados; vazia quando tudo confere."""
         problemas = []
@@ -302,6 +339,8 @@ class Banco:
                     problemas.append(f"{rid}: decisão sem intervenção sem registros que a sustentem")
             if tipo == "medicao" and not self.verificar_original(dados.get("sha256", "")):
                 problemas.append(f"{rid}: original da medição ausente ou alterado no cofre")
+            if tipo == "declaracao":
+                problemas.extend(self._problemas_de_declaracao(rid, dados, origens))
         problemas.extend(self._problemas_de_aprovacao())
         problemas.extend(self.integridade_cofre())
         return problemas

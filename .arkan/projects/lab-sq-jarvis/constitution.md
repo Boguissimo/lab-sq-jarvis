@@ -1,6 +1,6 @@
 # Constituição do Projeto — lab-sq-jarvis (Lab SQ Jarvis)
 
-> **Versão**: 0.4.1 | **Projeto**: lab-sq-jarvis | **Namespace**: `JV` | **Data**: 2026-10-16
+> **Versão**: 0.5.0 | **Projeto**: lab-sq-jarvis | **Namespace**: `JV` | **Data**: 2026-10-17
 > **Estado**: **ratificada pelo desenvolvedor (G3) em 2026-10-15** — “a revisão 3 está alinhada com o
 > que quero. Podemos sair do planejamento geral e começar a construir”, com os ajustes JV-D038 a
 > JV-D041 incorporados nesta versão (JV-D042).
@@ -46,7 +46,11 @@ Todo registro produzido ou guardado pelo sistema pertence a exatamente um tipo d
 **medição → cálculo → indício → hipótese → recomendação → experimento → conclusão → decisão**
 e aponta para os registros de que deriva. Dois tipos laterais completam a cadeia: a **percepção**
 do desenvolvedor, registrada antes e depois de cada teste (JV-D021), que motiva a sessão e
-integra o experimento; e as **estimativas exploratórias** da IA (P3), fora da cadeia de validação. Nenhum tipo é promovido a outro sem passar pelos elos intermediários:
+integra o experimento; e as **estimativas exploratórias** da IA (P3), fora da cadeia de validação.
+
+Um terceiro tipo primário, a **declaração** (JV-D046), guarda uma afirmação do manifesto de um caso sobre o equipamento ou a alteração candidata (`equipamento` e `alteracao_candidata`). Como a medição, ela **não deriva de outro registro**; ao contrário dela, **não é dado medido**: carrega a marca `declarado` e o hash do manifesto preservado no cofre. **Só um cálculo pode derivar de uma declaração**, e todo cálculo continua exigindo origem real. Nenhuma declaração é promovida a medição ou a equipamento confirmado, e nenhum cálculo deriva de uma medição que não usou.
+
+Nenhum tipo é promovido a outro sem passar pelos elos intermediários:
 indício não vira conclusão, hipótese não vira recomendação sem indício, **conclusão experimental**
 não existe sem experimento.
 
@@ -270,3 +274,4 @@ identificadores próprios, definidos no modelo de dados — não se confundem co
 | 0.3.0 | 2026-10-15 | Minor | Revisão 3: P3 com origens legítimas de números além de cálculo (JV-D033); P4 — aprovação não verifica (JV-D032); P6 distingue teste de diagnóstico e etapa de calibração (JV-D031). Aguardando ratificação |
 | 0.4.0 | 2026-10-15 | Minor | Ratificação (JV-D042) com ajustes: P1 admite decisão sem intervenção, distinta de conclusão experimental (JV-D038); P2 deixa de prometer que configurações nunca se perdem e declara reversão não garantida quando faltam dados (JV-D040) |
 | 0.4.1 | 2026-10-16 | Patch | Linha "Papéis e revisão" na tabela de decisões de contexto (Fabrício decide; Claude implementa; ChatGPT gerencia e revisa, sem aprovação), apontando para a JV-D045. Nenhum princípio alterado; Arkan Core intacto |
+| 0.5.0 | 2026-10-17 | Minor | P1 acrescenta o tipo primário **declaração** (origem declarada do manifesto: sem origens, marca `declarado`, hash e snapshot conferidos; só `calculo` deriva dela). Alternativa A aprovada por Fabrício, patch de Nível B autorizado em 2026-10-17 (JV-D046). Arkan Core intacto |

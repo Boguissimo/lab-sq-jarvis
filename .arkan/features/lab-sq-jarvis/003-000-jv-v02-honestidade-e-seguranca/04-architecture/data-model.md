@@ -69,9 +69,15 @@ Regra de ausência:
 - **Proveniência:** ao importar, o serviço grava em `dados` da medição `proveniencia: {catalogo: bool, caso, sha256_esperado}`; `catalogo: true` só quando o caso está em `casos.listar()` e o SHA-256 confere com o gerado.
 - `ganho_entrada_db` ou `referencia_nivel` ausentes ⇒ condições não comparáveis para o detector.
 
+## Declaração (P1 0.5.0; JV-D046)
+
+Tipo primário `declaracao` (prefixo `L`) em `registro`, sem origens. `dados`: `{marca: "declarado", sha256, arquivo: "manifesto.json", fonte: {caso, simulado, catalogo}, equipamento?, alteracao_candidata?}` (ao menos um dos dois campos; cópia fiel do manifesto). Criada por `importar_caso` quando o manifesto traz esses campos; o manifesto vai ao cofre. Só `calculo` pode ter `declaracao` como origem. Sem alteração de esquema.
+
 ## Integridade (FR-222; revisão, item 9)
 
 Além das verificações do V01, `integridade()` confere:
+
+0. **Declaração** (JV-D046): sem origens; marca `declarado`; manifesto no cofre com hash conferido; `equipamento` e `alteracao_candidata` do snapshot iguais aos do manifesto preservado (presença e valor); `fonte.caso` igual ao do manifesto e ao da sessão.
 
 1. **Aprovação**:
    - aponta para um `registro` existente do tipo `recomendacao`, da mesma sessão, sensível e admissível;

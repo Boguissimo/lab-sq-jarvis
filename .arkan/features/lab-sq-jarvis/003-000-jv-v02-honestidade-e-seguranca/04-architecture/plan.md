@@ -270,6 +270,11 @@ ferramentas/gerar_banco_v01.py   [novo]  roda o percurso do V01 num checkout de 
   - `test_calculos.py::test_sobreposicao_insuficiente`, `::test_referencia_campos_ausentes`;
   - `test_persistencia.py::test_falha_entre_copia_e_insert_reconcilia`, `::test_orfao_no_cofre_detectado`, `::test_tmp_residual_detectado`.
 
+### ADR-213 — Origem declarada como registro primário `declaracao` *(patch do P1; JV-D046)*
+- **Decisão:** `persistencia.PREFIXOS["declaracao"] = "L"`; `DERIVACOES_PERMITIDAS["calculo"]` aceita `declaracao`; `declaracao` não é destino de derivação. `Servico._registrar_declaracao`, chamada por `importar_caso`, guarda o manifesto no cofre e registra uma declaração por manifesto quando ele traz `equipamento` ou `alteracao_candidata`. `Banco._problemas_de_declaracao` confere, na `integridade()`, ausência de origens, marca, hash no cofre, snapshot contra o manifesto preservado e coerência de caso.
+- **Motivo:** `avaliacao_seguranca` usa dado declarado; derivá-la de medição falsearia a proveniência (P1, P3). Alternativa B (cálculo sem origem) rejeitada por abrir exceção por nome.
+- **Consequências:** segundo tipo-raiz, contido por: só `calculo` deriva, hash e snapshot conferidos, marca `declarado`. Sem migração; histórico intacto (INV-211). A JV-T228 consome a declaração; a interface (JV-T230) deve dizer que é afirmação, não prova do estado físico.
+
 ### ADR-209 — Interface *(ajustada)*
 - **Decisão:** `janela.py` orquestra; os blocos novos ficam em `seguranca_view.py` e `configuracao_view.py`. O seletor de caso lê o catálogo, e a etapa aparece no passo 4 quando a sessão é `etapa-simulada`.
   - **R1:** a interface mostra:

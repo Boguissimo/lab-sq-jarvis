@@ -244,6 +244,8 @@ class Servico:
             importadas.append(self._importar_medicao(pasta / meta["arquivo"], {**meta, "proveniencia": prov},
                                                      str(pasta)))
 
+        declaracao = self._registrar_declaracao(pasta, manifesto, prov)
+
         conf = manifesto["configuracao_declarada"]
         origem = "caso simulado" if manifesto.get("simulado") else "declarado"
         self.b.nova_configuracao(sid, conf["nome"], "declarada",
@@ -251,7 +253,25 @@ class Servico:
         self.b.atualizar_sessao(sid, caso=manifesto["caso"], passo_atual=3)
         self.b.diario(sid, "importacao", f"Caso {manifesto['caso']} importado ({len(importadas)} medições)")
         return {"caso": manifesto["caso"], "simulado": manifesto.get("simulado", False),
-                "descricao": manifesto.get("descricao", ""), "medicoes": importadas}
+                "descricao": manifesto.get("descricao", ""), "medicoes": importadas,
+                **({"declaracao": declaracao} if declaracao else {})}
+
+    # @@P1-0.5.0 Origem declarada: snapshot do manifesto, com o documento no cofre por hash
+    def _registrar_declaracao(self, pasta: Path, manifesto: dict, prov: dict) -> str | None:
+        """Registra uma ``declaracao`` por manifesto, só quando ele traz equipamento ou alteração candidata.
+
+        É afirmação do manifesto, não medição nem confirmação física; nenhum cálculo é criado aqui.
+        """
+        campos = {c: manifesto[c] for c in self.b.CAMPOS_DECLARADOS if c in manifesto}
+        if not campos:
+            return None
+        sha = self.b.guardar_original(pasta / "manifesto.json", "manifesto do caso (declarado)")
+        dados = {"marca": "declarado", "sha256": sha, "arquivo": "manifesto.json",
+                 "fonte": {"caso": manifesto["caso"], "simulado": bool(manifesto.get("simulado", False)),
+                           "catalogo": bool(prov.get("catalogo"))},
+                 **campos}
+        return self.b.novo_registro(self.sessao_id, "declaracao", f"Declaração do manifesto de {manifesto['caso']}",
+                                    dados, autor="usuário")
 
     # @@T216 [INV-214] Proveniência de catálogo conferida por hash (antecipada da JV-T218)
     @staticmethod

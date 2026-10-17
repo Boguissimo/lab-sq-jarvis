@@ -268,3 +268,132 @@ def test_aprovacao_integridade_acusa_insercao_direta(servico, cria_recomendacao,
     b.con.execute("PRAGMA foreign_keys = OFF")
     b.nova_aprovacao(sessao, rid, escopo, momento=momento)
     assert any(esperado in p for p in b.integridade()), b.integridade()
+
+
+# ---- P1 0.5.0: declaração, origem declarada do manifesto (tipo primário; sem T228) -------------------------
+
+import json  # noqa: E402
+
+MANIFESTO = {"caso": "REF-X", "simulado": True,
+             "equipamento": [{"canal": "medio_esq", "estado": "informado"}],
+             "alteracao_candidata": {"canal": "medio_esq", "tipo": "corte_eq", "ganho_db": -2.0}}
+
+
+def _declaracao(banco, tmp_path, manifesto=None, **mudar):
+    """Declaração montada à mão: manifesto no cofre, snapshot fiel e registro primário (sem usar a T228)."""
+    manifesto = MANIFESTO if manifesto is None else manifesto
+    arq = tmp_path / "manifesto.json"
+    arq.write_text(json.dumps(manifesto), encoding="utf-8")
+    sha = banco.guardar_original(arq, "manifesto do caso (declarado)")
+    sid = banco.nova_sessao("investigacao", manifesto.get("caso"))
+    dados = {"marca": "declarado", "sha256": sha, "arquivo": "manifesto.json",
+             "fonte": {"caso": manifesto.get("caso"), "simulado": True, "catalogo": False},
+             **{k: manifesto[k] for k in banco.CAMPOS_DECLARADOS if k in manifesto}}
+    dados.update(mudar)
+    return sid, banco.novo_registro(sid, "declaracao", "declaração", dados, autor="usuário"), sha
+
+
+def test_declaracao_integra_e_prefixo(banco, tmp_path):
+    _, rid, _ = _declaracao(banco, tmp_path)
+    assert rid == "L-0001"
+    assert banco.integridade() == []
+
+
+def test_declaracao_deriva_so_para_calculo(banco, tmp_path):
+    sid, rid, _ = _declaracao(banco, tmp_path)
+    banco.novo_registro(sid, "calculo", "avaliação", {}, origens=[(rid, "declaração")])
+    assert banco.integridade() == []
+    for tipo in ("indicio", "hipotese", "recomendacao", "experimento", "conclusao", "decisao"):
+        banco.novo_registro(sid, tipo, "x", {"sem_intervencao": True, "fundamentacao": "x"}, origens=[(rid, "x")])
+    problemas = banco.integridade()
+    for tipo in ("indicio", "hipotese", "recomendacao", "experimento", "conclusao", "decisao"):
+        assert any(f"{tipo} não pode derivar de declaracao" in p for p in problemas), tipo
+
+
+def test_declaracao_nao_tem_origem(banco, tmp_path):
+    sid, rid, _ = _declaracao(banco, tmp_path)
+    m = banco.novo_registro(sid, "calculo", "c", {}, origens=[(rid, "declaração")])
+    banco.con.execute("INSERT INTO derivacao VALUES (?, ?, ?)", (m, rid, "origem indevida"))
+    assert any("declaração não pode ter origem" in p for p in banco.integridade())
+
+
+def test_calculo_continua_exigindo_origem(banco, tmp_path):
+    sid, _, _ = _declaracao(banco, tmp_path)
+    banco.novo_registro(sid, "calculo", "sem origem", {})
+    assert any("calculo sem origem na cadeia" in p for p in banco.integridade())
+
+
+def test_declaracao_nao_e_medicao(banco, tmp_path):
+    sid, rid, _ = _declaracao(banco, tmp_path)
+    c = banco.novo_registro(sid, "calculo", "c", {}, origens=[(rid, "declaração")])
+    assert [o["tipo"] for o in banco.origens_de(c)] == ["declaracao"]
+
+
+def test_declaracao_sem_marca_ou_com_marca_errada(banco, tmp_path):
+    _declaracao(banco, tmp_path, marca="medido")
+    assert any("sem a marca “declarado”" in p for p in banco.integridade())
+
+
+def test_declaracao_manifesto_adulterado_no_cofre(banco, tmp_path):
+    _, _, sha = _declaracao(banco, tmp_path)
+    caminho = banco.caminho_original(sha)
+    caminho.chmod(0o644)
+    caminho.write_text("{}")
+    assert any("manifesto ausente ou alterado no cofre" in p for p in banco.integridade())
+
+
+def test_declaracao_manifesto_ausente_do_cofre(banco, tmp_path):
+    _, _, sha = _declaracao(banco, tmp_path)
+    caminho = banco.caminho_original(sha)
+    caminho.chmod(0o644)
+    caminho.unlink()
+    assert any("manifesto ausente ou alterado no cofre" in p for p in banco.integridade())
+
+
+@pytest.mark.parametrize("campo,novo", [
+    ("alteracao_candidata", {"canal": "tweeter_esq", "tipo": "corte_eq", "ganho_db": -2.0}),
+    ("equipamento", [{"canal": "medio_esq", "estado": "confirmado"}]),
+])
+def test_declaracao_snapshot_adulterado_com_hash_intacto(banco, tmp_path, campo, novo):
+    _declaracao(banco, tmp_path, **{campo: novo})
+    assert banco.integridade() == [f"L-0001: declaração: “{campo}” diverge do manifesto preservado"]
+
+
+def test_declaracao_campo_a_mais_ou_a_menos_no_snapshot(banco, tmp_path):
+    _declaracao(banco, tmp_path, manifesto={"caso": "REF-X", "equipamento": MANIFESTO["equipamento"]},
+                alteracao_candidata={"tipo": "corte_eq"})
+    assert any("“alteracao_candidata” diverge" in p for p in banco.integridade())
+
+
+def test_declaracao_fonte_e_sessao_coerentes(banco, tmp_path):
+    _declaracao(banco, tmp_path, fonte={"caso": "OUTRO", "simulado": True, "catalogo": False})
+    assert any("fonte não identifica o caso do manifesto" in p for p in banco.integridade())
+
+
+def test_declaracao_caso_da_sessao_diferente_da_fonte(banco, tmp_path):
+    sid, _, _ = _declaracao(banco, tmp_path)
+    banco.con.execute("UPDATE sessao SET caso = 'REF-Y' WHERE id = ?", (sid,))
+    assert any("caso da fonte diferente do caso da sessão" in p for p in banco.integridade())
+
+
+def test_declaracao_sem_campos_declarados(banco, tmp_path):
+    _declaracao(banco, tmp_path, manifesto={"caso": "REF-X"})
+    assert any("sem equipamento nem alteração candidata" in p for p in banco.integridade())
+
+
+def test_sessao_v01_integridade_inalterada_com_declaracao_nova(tmp_path):
+    """Histórico (fixture do V01): a integridade não muda e nenhuma declaração é criada retroativamente (INV-211)."""
+    import shutil
+    from pathlib import Path
+    from jarvis.persistencia import Banco
+    pasta = tmp_path / "dados"
+    shutil.copytree(Path(__file__).parent / "dados" / "banco-v01", pasta)
+    for p in pasta.rglob("*"):
+        if p.is_file():
+            p.chmod(0o644)
+    b = Banco(pasta)
+    try:
+        assert b.integridade() == []
+        assert b.con.execute("SELECT COUNT(*) FROM registro WHERE tipo = 'declaracao'").fetchone()[0] == 0
+    finally:
+        b.fechar()

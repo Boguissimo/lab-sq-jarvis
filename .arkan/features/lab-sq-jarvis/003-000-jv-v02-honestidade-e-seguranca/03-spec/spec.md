@@ -273,3 +273,11 @@ Origem: `08-qa/validacao-limiares.md` (JV-T221) e `08-qa/validacao-limiares-e4.m
 - **SC-208(b) — aprovado parcialmente, com correção.** Aprovadas a separação indicativa × confirmada, as aquisições independentes e a faixa de frequência compatível. **Não aprovada** a troca da meta "zero até σ = 1,5 dB" por "zero até σ = 1,0 dB" como solução: os resultados em σ = 1,5 dB (87/1 000, 12/1 000, 10/1 000) ficam como **limitação conhecida**, sem declarar validado o que mantém falsos positivos confirmados. O SC distingue desempenho observado, critério de aceitação e limitação não resolvida. Um futuro limite de falsos positivos será justificado e testado de forma independente.
 - **JV-T222A e JV-T222B — implementação aprovada.** Verificação da faixa compatível e apresentação da indicativa, mantendo a distinção entre alteração acústica observada, alteração declarada pelo usuário e alteração comprovada no DSP (que o programa nunca estabelece). O V02 **não** é ampliado para redesenhar o detector.
 - **Não alterado:** σ̂, fator 3, limiares 1,0/1,5/0,5, precedência do veredito (exceto o texto da indicativa), N3 ⇒ `comprometida`.
+
+### Sessão 2026-10-17 — Patch do P1 (origem declarada; JV-D046) — *aprovado por Fabrício, Nível B*
+
+Alternativa A: a origem declarada do manifesto é um registro primário `declaracao` (prefixo `L`), um por manifesto, com snapshot de `equipamento` e `alteracao_candidata` e hash do manifesto no cofre. **Só `calculo` deriva dele.** Reflexo estritamente necessário em FR-223 e INV-216; nada mais da spec muda.
+
+- **FR-223 (nota):** a avaliação de segurança dos casos REF-003-S, quando implementada pela JV-T228, deriva da `declaracao` da sessão e **nunca** de uma medição que não usou.
+- **INV-216 (P1 0.5.0):** a `declaracao` não tem origens, tem a marca `declarado`, referencia o manifesto no cofre com hash conferido, tem snapshot igual ao conteúdo desse manifesto, fonte coerente com o caso da sessão, e só `calculo` aponta para ela. Declaração não é medição nem confirma o estado físico do equipamento. **Teste:** `test_persistencia.py::test_declaracao_*`, `test_sessao.py::test_importar_caso_com_campos_declarados_gera_uma_declaracao`.
+- **Preservados:** INV-211 (sem reavaliação nem declaração retroativa) e INV-213 (casos existentes inalterados).

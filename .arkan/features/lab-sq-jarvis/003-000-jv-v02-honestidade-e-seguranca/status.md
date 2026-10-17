@@ -19,3 +19,6 @@ JV-V02 — Honestidade e segurança: casos N1 a N5 e REF-001-B, recusa sem refer
 
 ## Bloco 2 (segurança) — andamento (2026-10-17)
 **T224 e T225 concluídas** (Nível B autorizado por Fabrício; só `seguranca.py` e `test_seguranca.py`): regras SEG-01/03/04/05/06/13 e SEG-02/07/09 `não verificável`, limites da v0.4.0 preservados e provisórios identificados; propriedade de 1 000 casos. Suíte: 292 passando + 1 xfail (Linux). **T226 e T227 concluídas** (Nível B; aprovação B do Jarvis em `persistencia.py` e `sessao.py`; suíte 322 + 1 xfail). **T229 concluída** (Nível B; varredura SC-208(c) dos limites SEG em `test_validacao_limiares.py`, só testes; suíte 328 + 1 xfail; `validacao-limiares.md` não regravado — registro de (c) no relatório fica pendente de decisão). **Não iniciadas:** T228 e T230 em diante; Bloco 3. Sem merge na `main`. Sem validação acústica.
+
+## Patch do P1 — origem declarada (2026-10-17)
+**JV-T228P concluída** (Nível B; JV-D046; constituição 0.5.0): tipo primário `declaracao` (`L`) na cadeia, criado na importação do manifesto, integridade com snapshot conferido contra o manifesto do cofre. Suíte: 347 passando + 1 xfail. **T228 e T230 continuam sem autorização de implementação.** Sem merge na `main`.

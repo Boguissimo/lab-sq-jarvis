@@ -623,3 +623,63 @@ def test_polaridade_nao_sensivel_segue_sem_aprovacao(servico, pasta_caso):
     servico.propor_teste()
     assert servico.registrar_aplicacao().startswith("X-")  # histórico e polaridade não exigem aprovação
     assert servico.b.aprovacoes() == []
+
+
+# ---- P1 0.5.0: declaração criada na importação (sem T228) ---------------------------------------------------
+
+def _declaracoes(banco):
+    return banco.registros(banco.con.execute("SELECT MAX(id) FROM sessao").fetchone()[0], "declaracao")
+
+
+def test_importar_caso_com_campos_declarados_gera_uma_declaracao(servico, banco, tmp_path):
+    import json
+    pasta = _casos.gerar("REF-003-S3", tmp_path / "S3")
+    servico.nova_sessao("investigacao")
+    servico.registrar_percepcao("antes", "não aplicável")
+    r = servico.importar_caso(pasta)
+    (d,) = _declaracoes(banco)
+    manifesto = json.loads((pasta / "manifesto.json").read_text(encoding="utf-8"))
+    assert r["declaracao"] == d["id"] == "L-0001"
+    assert d["dados"]["marca"] == "declarado"
+    assert d["dados"]["equipamento"] == manifesto["equipamento"]
+    assert d["dados"]["alteracao_candidata"] == manifesto["alteracao_candidata"]
+    assert d["dados"]["fonte"] == {"caso": "REF-003-S3", "simulado": True, "catalogo": True}
+    assert banco.origens_de(d["id"]) == []
+    assert banco.verificar_original(d["dados"]["sha256"])
+    assert banco.integridade() == []
+    # nada deriva da declaração: nenhum cálculo é criado na importação, e as medições seguem sendo as de sempre
+    assert not any(o["origem"] == d["id"] for rid in [r_["id"] for r_ in banco.registros(servico.sessao_id)]
+                   for o in banco.origens_de(rid))
+    assert all(m["tipo"] == "medicao" for m in banco.registros(servico.sessao_id, "medicao"))
+
+
+def test_importar_caso_sem_campos_declarados_nao_gera_declaracao(servico, banco, pasta_caso):
+    servico.nova_sessao("investigacao")
+    servico.registrar_percepcao("antes", "não aplicável")
+    r = servico.importar_caso(pasta_caso)
+    assert "declaracao" not in r and _declaracoes(banco) == []
+    assert banco.integridade() == []
+
+
+def test_declaracao_do_manifesto_adulterado_no_snapshot_do_banco_e_acusada(servico, banco, tmp_path):
+    import json
+    pasta = _casos.gerar("REF-003-S2", tmp_path / "S2")
+    servico.nova_sessao("investigacao")
+    servico.registrar_percepcao("antes", "não aplicável")
+    servico.importar_caso(pasta)
+    (d,) = _declaracoes(banco)
+    novo = json.dumps({**d["dados"], "alteracao_candidata": {**d["dados"]["alteracao_candidata"], "ganho_db": 0.1}})
+    triggers = [r[0] for r in banco.con.execute("SELECT name FROM sqlite_master WHERE type='trigger' AND tbl_name='registro'")]
+    for t in triggers:
+        banco.con.execute(f"DROP TRIGGER {t}")
+    banco.con.execute("UPDATE registro SET dados = ? WHERE id = ?", (novo, d["id"]))
+    assert banco.integridade() == [f"{d['id']}: declaração: “alteracao_candidata” diverge do manifesto preservado"]
+
+
+def test_catalogo_existente_nao_ganha_declaracao():
+    """INV-213: os casos de referência anteriores não trazem campos declarados; a importação não muda para eles."""
+    import json
+    for nome in ("REF-001-N1", "REF-001-N3", "REF-001-B"):
+        manifesto = json.loads((_casos.PASTA_DADOS / nome / "manifesto.json").read_text(encoding="utf-8")) \
+            if (_casos.PASTA_DADOS / nome / "manifesto.json").exists() else {}
+        assert "equipamento" not in manifesto and "alteracao_candidata" not in manifesto, nome
