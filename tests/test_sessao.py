@@ -493,3 +493,80 @@ def test_depois_outra_posicao_nao_confirma(servico, tmp_path):
     c2 = _percurso_ate_veredito(servico2, _copia_ref001a(tmp_path / "b", lambda m: [
         med.update(ganho_entrada_db=0.0, referencia_nivel="94 dB") for med in m["medicoes"]]))
     assert c2["veredito"] == "confirmada"
+
+
+# ---- JV-T226: a recomendação passa pelo módulo de segurança (FR-211, ADR-204) ---------------------------
+
+def test_polaridade_passa_por_seguranca(servico, pasta_caso):
+    from jarvis import seguranca as seg
+    _ate_analise(servico, pasta_caso)
+    d = servico.propor_teste()["dados"]
+    s = d["seguranca"]
+    alt = {"canal": "tweeter_esq", "parametro": "polaridade", "tipo": "polaridade",
+           "de": d["variavel"]["de"], "para": d["variavel"]["para"]}
+    esperado = seg.avaliar(alt, None)
+    assert s["regras"] == esperado  # resultados e motivos do módulo, sem reescrever
+    assert [r["regra"] for r in s["regras"]] == list(seg.REGRAS)
+    assert s["admissibilidade"] == seg.admissibilidade(seg.classificar(alt), esperado)
+    assert s["classe"] == seg.NAO_SENSIVEL and s["versao_regras_seg"] == seg.VERSAO == "0.4.0"
+    assert s["motivo"] == s["admissibilidade"]["motivo"] and s["limitacoes"] == seg.LIMITACOES
+    por = {r["regra"]: r["resultado"] for r in s["regras"]}
+    assert por["SEG-08"] == por["SEG-11"] == seg.APROVADA
+    assert d["receita"] and s["admissibilidade"]["admissivel"] is True
+
+
+def test_bloqueada_sem_receita_e_sem_aplicacao(servico, pasta_caso, monkeypatch):
+    from jarvis import seguranca as seg
+    _ate_analise(servico, pasta_caso)
+    original = seg.avaliar
+
+    def com_bloqueio(alteracao, equipamento=None):
+        res = original(alteracao, equipamento)
+        res[0] = seg.resultado("SEG-01", seg.BLOQUEADA, "bloqueio de teste", falta="dado de teste")
+        res[1] = seg.resultado("SEG-02", seg.NAO_VERIFICAVEL, "sem fonte", falta="fonte de teste")
+        return res
+    monkeypatch.setattr(seg, "avaliar", com_bloqueio)
+    rec = servico.propor_teste()
+    d = rec["dados"]
+    assert rec["titulo"] == "Alteração bloqueada — não recomendada"
+    assert d["receita"] is None and d["seguranca"]["admissibilidade"]["admissivel"] is False
+    assert d["seguranca"]["admissibilidade"]["estado"] == "bloqueada"
+    por = {r["regra"]: r for r in d["seguranca"]["regras"]}  # os três estados permanecem distintos
+    assert por["SEG-01"]["resultado"] == seg.BLOQUEADA and por["SEG-02"]["resultado"] == seg.NAO_VERIFICAVEL
+    assert por["SEG-08"]["resultado"] == seg.APROVADA
+    assert "SEG-02" in d["seguranca"]["admissibilidade"]["nao_verificadas"]
+    with pytest.raises(ErroDoPercurso, match="bloqueada"):
+        servico.registrar_aplicacao()
+    assert servico._ultimo("experimento") is None
+    with pytest.raises(ErroDoPercurso):
+        servico.importar_depois()
+
+
+def test_nao_verificavel_nao_vira_aprovado(servico, pasta_caso, monkeypatch):
+    from jarvis import seguranca as seg
+    _ate_analise(servico, pasta_caso)
+    original = seg.avaliar
+
+    def com_nao_verificavel(alteracao, equipamento=None):
+        res = original(alteracao, equipamento)
+        res[2] = seg.resultado("SEG-03", seg.NAO_VERIFICAVEL, "sem dado", falta="potência")
+        return res
+    monkeypatch.setattr(seg, "avaliar", com_nao_verificavel)
+    d = servico.propor_teste()["dados"]
+    assert {r["regra"]: r["resultado"] for r in d["seguranca"]["regras"]}["SEG-03"] == seg.NAO_VERIFICAVEL
+    assert d["seguranca"]["admissibilidade"]["nao_verificadas"] == ["SEG-03"]
+    assert d["seguranca"]["admissibilidade"]["admissivel"] is True  # não sensível: admitida, com a lista
+
+
+def test_registro_anterior_a_admissibilidade_nao_contorna_restricao():
+    exigir = Servico._exigir_admissivel
+    v01 = {"seguranca": {"classe": "não sensível", "regras": []}, "receita": ["passo"]}
+    exigir({"dados": v01})  # registro histórico não sensível segue aplicável, sem reavaliação (INV-211)
+    for dados in ({"seguranca": {"classe": "sensível — risco crescente"}, "receita": ["passo"]},
+                  {"seguranca": {"classe": "sensível — risco decrescente"}, "receita": ["passo"]},
+                  {"receita": ["passo"]},
+                  {"seguranca": {"classe": "não sensível", "admissibilidade": {"admissivel": False}},
+                   "receita": ["passo"]},
+                  {"seguranca": {"classe": "não sensível"}, "receita": None}):
+        with pytest.raises(ErroDoPercurso):
+            exigir({"dados": dados})

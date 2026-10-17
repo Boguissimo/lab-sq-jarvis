@@ -10,7 +10,7 @@ import hashlib
 import json
 from pathlib import Path
 
-from jarvis import calculos, limiares, regras, regras_v1_0, rew_texto
+from jarvis import calculos, limiares, regras, regras_v1_0, rew_texto, seguranca
 from jarvis.referencia import casos
 from jarvis.persistencia import Banco, agora
 
@@ -428,6 +428,15 @@ class Servico:
         anterior = next((p for p in configs[-1]["parametros"]
                          if p["canal"] == "tweeter_esq" and p["parametro"] == "polaridade"), None)
         para = "180°" if (anterior and anterior["valor"] == "0°") else "0°"
+        # FR-211 / ADR-204: toda recomendação passa pelo módulo de segurança antes do registro. Nenhum dado de
+        # equipamento é inventado: a polaridade é não sensível e as regras que o exigem não se aplicam.
+        alteracao = {"canal": "tweeter_esq", "parametro": "polaridade", "tipo": "polaridade",
+                     "de": anterior["valor"] if anterior else "desconhecido", "para": para}
+        classe = seguranca.classificar(alteracao)
+        regras_seg = seguranca.avaliar(alteracao, None)
+        adm = seguranca.admissibilidade(classe, regras_seg)
+        bloco_seguranca = {"versao_regras_seg": seguranca.VERSAO, "classe": classe, "motivo": adm["motivo"],
+                           "regras": regras_seg, "admissibilidade": adm, "limitacoes": list(seguranca.LIMITACOES)}
         receita = PROCEDIMENTO_SEG08 + [
             f"No PC-Tool, no canal do tweeter esquerdo, mude a polaridade de "
             f"{anterior['valor'] if anterior else 'atual'} para {para}. Não mude mais nada.",
@@ -457,25 +466,40 @@ class Servico:
                 f"{_fmt(analise['vale']['soma_no_vale_db'])} dB para {_fmt(prev['nivel_no_vale_db'])} dB "
                 f"[{prev_id}]."),
             "criterio": CRITERIO_ACEITE,
-            "seguranca": {
-                "classe": "não sensível",
-                "motivo": "Polaridade não muda a potência elétrica, a excursão, a frequência de corte "
-                          "nem o ganho de nenhum alto-falante (regras de segurança, seção 1).",
-                "regras": [
-                    {"regra": "SEG-08", "resultado": "aplicada: a receita começa com volume baixo e sinal parado"},
-                    {"regra": "SEG-11", "resultado": "você aplica a alteração no PC-Tool; o Jarvis não escreve no DSP"},
-                ],
-            },
+            "seguranca": bloco_seguranca,
             "receita": receita,
             "reversao": reversao,
             "previsao_registrada_em": agora(),
         }
-        rid = self.b.novo_registro(sid, "recomendacao",
-                                   f"Teste: polaridade do tweeter esquerdo {dados['variavel']['de']} → {para}",
+        titulo = f"Teste: polaridade do tweeter esquerdo {dados['variavel']['de']} → {para}"
+        if not adm["admissivel"]:  # bloqueada: registrada, mas sem receita aplicável (ADR-204)
+            titulo = "Alteração bloqueada — não recomendada"
+            dados["receita"] = None
+            dados["reversao"] = {"garantida": False, "receita_inversa": None,
+                                 "base": "Alteração bloqueada: não há o que reverter."}
+        rid = self.b.novo_registro(sid, "recomendacao", titulo,
                                    dados, origens=[(h1["id"], "hipótese testada"), (prev_id, "previsão")])
         self.b.atualizar_sessao(sid, passo_atual=4)
-        self.b.diario(sid, "recomendacao", f"Teste proposto ({rid}) com previsão {prev_id}")
+        self.b.diario(sid, "recomendacao", (f"Teste proposto ({rid}) com previsão {prev_id}" if adm["admissivel"]
+                                            else f"Alteração bloqueada pela verificação de segurança ({rid})"))
         return self.estado()["recomendacao"]
+
+    @staticmethod
+    def _exigir_admissivel(rec: dict) -> None:
+        """Recusa aplicar recomendação bloqueada ou sem receita (FR-211, ADR-204).
+
+        Registro anterior à admissibilidade (V01 e V02 até a T225) não é reavaliado (INV-211): vale a classe
+        que ele mesmo guardou, e só a ``não sensível`` (a única que o V01 gerava) segue sem ela.
+        """
+        seg = rec["dados"].get("seguranca") or {}
+        adm = seg.get("admissibilidade")
+        if adm is not None:
+            admissivel = adm.get("admissivel") is True
+        else:
+            admissivel = seg.get("classe") == seguranca.NAO_SENSIVEL
+        if not admissivel or not rec["dados"].get("receita"):
+            raise ErroDoPercurso("Alteração bloqueada — não recomendada: não há receita nem registro de "
+                                 "aplicação para ela.")
 
     def registrar_aplicacao(self) -> str:
         sid = self._exigir_sessao()
@@ -484,6 +508,7 @@ class Servico:
             raise ErroDoPercurso("Não há teste proposto para registrar.")
         if self._ultimo("experimento"):
             raise ErroDoPercurso("O teste desta sessão já foi registrado.")
+        self._exigir_admissivel(rec)
         percepcao = self._ultimo("percepcao", lambda d: d["momento"] == "antes")
         if percepcao is None:
             raise ErroDoPercurso("Registre a percepção “antes” (ou marque “não aplicável”) "
