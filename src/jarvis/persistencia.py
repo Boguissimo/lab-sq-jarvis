@@ -300,7 +300,13 @@ class Banco:
                 problemas.append(f"{quem}: “{campo}” diverge do manifesto preservado")
         if not any(c in dados for c in self.CAMPOS_DECLARADOS):
             problemas.append(f"{quem} sem equipamento nem alteração candidata")
+        if dados.get("arquivo") != "manifesto.json":
+            problemas.append(f"{quem}: arquivo declarado diferente de “manifesto.json”")
         fonte = dados.get("fonte")
+        if isinstance(fonte, dict):
+            if fonte.get("simulado") is not bool(manifesto.get("simulado", False)):
+                problemas.append(f"{quem}: fonte.simulado diverge do manifesto preservado")
+            problemas.extend(self._problemas_de_catalogo(quem, fonte, sha))
         sessao = self.con.execute("SELECT s.caso FROM registro r JOIN sessao s ON s.id = r.sessao WHERE r.id = ?",
                                   (rid,)).fetchone()
         if not isinstance(fonte, dict) or fonte.get("caso") != manifesto.get("caso"):
@@ -308,6 +314,27 @@ class Banco:
         elif sessao is not None and sessao[0] is not None and sessao[0] != fonte.get("caso"):
             problemas.append(f"{quem}: caso da fonte diferente do caso da sessão")
         return problemas
+
+    @staticmethod
+    def _problemas_de_catalogo(quem: str, fonte: dict, sha: str) -> list[str]:
+        """``fonte.catalogo`` só vale com evidência independente: o hash do manifesto é o que o catálogo gera.
+
+        ``simulado`` não prova procedência (INV-214). Aqui só se confere o que a declaração e o cofre permitem
+        (o manifesto); a conferência dos demais arquivos da pasta é feita na importação (``_proveniencia``).
+        """
+        catalogo = fonte.get("catalogo")
+        if not isinstance(catalogo, bool):
+            return [f"{quem}: fonte.catalogo deve ser verdadeiro ou falso"]
+        if not catalogo:
+            return []
+        from jarvis.referencia import casos
+        try:
+            esperado = casos.sha_esperados(fonte.get("caso")).get("manifesto.json")
+        except (KeyError, TypeError, ValueError):
+            esperado = None
+        if esperado != sha:
+            return [f"{quem}: fonte.catalogo sem evidência (manifesto diferente do gerado pelo catálogo)"]
+        return []
 
     def integridade(self) -> list[str]:
         """Lista de problemas encontrados; vazia quando tudo confere."""

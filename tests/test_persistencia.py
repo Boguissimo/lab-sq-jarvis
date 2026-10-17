@@ -397,3 +397,49 @@ def test_sessao_v01_integridade_inalterada_com_declaracao_nova(tmp_path):
         assert b.con.execute("SELECT COUNT(*) FROM registro WHERE tipo = 'declaracao'").fetchone()[0] == 0
     finally:
         b.fechar()
+
+
+def test_declaracao_arquivo_adulterado(banco, tmp_path):
+    _declaracao(banco, tmp_path, arquivo="outro.json")
+    assert banco.integridade() == ["L-0001: declaração: arquivo declarado diferente de “manifesto.json”"]
+
+
+@pytest.mark.parametrize("manifesto,simulado", [(MANIFESTO, False), ({**MANIFESTO, "simulado": False}, True),
+                                                ({k: v for k, v in MANIFESTO.items() if k != "simulado"}, True)])
+def test_declaracao_simulado_adulterado_com_hash_intacto(banco, tmp_path, manifesto, simulado):
+    _declaracao(banco, tmp_path, manifesto=manifesto,
+                fonte={"caso": "REF-X", "simulado": simulado, "catalogo": False})
+    assert banco.integridade() == ["L-0001: declaração: fonte.simulado diverge do manifesto preservado"]
+
+
+def test_declaracao_catalogo_fabricado_nao_passa_por_simulado(banco, tmp_path):
+    """INV-214: ``simulado: true`` não comprova catálogo; sem o hash do catálogo, ``catalogo: true`` é acusado."""
+    _declaracao(banco, tmp_path, fonte={"caso": "REF-X", "simulado": True, "catalogo": True})
+    assert banco.integridade() == [
+        "L-0001: declaração: fonte.catalogo sem evidência (manifesto diferente do gerado pelo catálogo)"]
+
+
+def test_declaracao_catalogo_com_caso_do_catalogo_mas_manifesto_diferente(banco, tmp_path):
+    _declaracao(banco, tmp_path, manifesto={**MANIFESTO, "caso": "REF-003-S3"},
+                fonte={"caso": "REF-003-S3", "simulado": True, "catalogo": True})
+    assert any("fonte.catalogo sem evidência" in p for p in banco.integridade())
+
+
+def test_declaracao_catalogo_nao_booleano(banco, tmp_path):
+    _declaracao(banco, tmp_path, fonte={"caso": "REF-X", "simulado": True, "catalogo": "sim"})
+    assert any("fonte.catalogo deve ser verdadeiro ou falso" in p for p in banco.integridade())
+
+
+def test_declaracao_catalogo_legitimo_e_aceito(banco, tmp_path):
+    """O manifesto que o catálogo gera de fato comprova ``catalogo: true`` (nenhuma exceção por nome)."""
+    import json
+    from jarvis.referencia import casos
+    arq = casos.gerar("REF-003-S3", tmp_path / "S3") / "manifesto.json"
+    manifesto = json.loads(arq.read_text(encoding="utf-8"))
+    sha = banco.guardar_original(arq, "manifesto do caso (declarado)")
+    sid = banco.nova_sessao("investigacao", "REF-003-S3")
+    banco.novo_registro(sid, "declaracao", "declaração", {
+        "marca": "declarado", "sha256": sha, "arquivo": "manifesto.json",
+        "fonte": {"caso": "REF-003-S3", "simulado": True, "catalogo": True},
+        **{k: manifesto[k] for k in banco.CAMPOS_DECLARADOS}}, autor="usuário")
+    assert banco.integridade() == []
