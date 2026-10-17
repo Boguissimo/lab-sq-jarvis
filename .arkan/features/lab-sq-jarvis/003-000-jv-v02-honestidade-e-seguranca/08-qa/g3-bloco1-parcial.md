@@ -1,4 +1,24 @@
-# G3 do bloco 1 (JV-T223) — registro parcial
+# G3 do bloco 1 (JV-T223) — registro (parcial até 2026-10-17; ACEITO em 2026-10-17)
+
+## ✅ Aceite G3 do bloco 1 (JV-T223) — aprovação expressa de Fabrício, 2026-10-17
+
+**Fabrício aprovou expressamente o G3 do bloco 1 (JV-T223)**, após a conferência operacional no Windows dele, com as ressalvas abaixo. Este bloco **não altera retrospectivamente** nenhuma seção anterior; os registros "parcial" abaixo ficam como histórico verdadeiro à época, **superados neste ponto** pelo aceite.
+
+**Evidência da validação humana (executada por Fabrício):**
+1. Jarvis iniciado normalmente no Windows.
+2. Sessão histórica V01 reaberta, com gráficos, veredito e decisão preservados.
+3. Indicação "Interpretação: reconstruída pelas regras 1.0" visualizada.
+4. REF-001-A conduzido ao veredito "hipótese confirmada", com a decisão D-0002 de manter a alteração.
+5. Sessão encerrada, Jarvis reiniciado e a decisão D-0002 recuperada corretamente.
+6. Backup `jarvis.antes-v02-20261016-151105.db` confirmado **visualmente** na pasta operacional.
+7. Demais cenários (A, B, N1, N2, N4, N5, N3 até o veredito etc.) foram examinados antes pelo Work/Codex, conforme as evidências documentadas acima (classes 1 e 2); **não se alega que Fabrício os executou pessoalmente**.
+
+**Ressalvas registradas (questões de apresentação a acompanhar; não impediram o aceite e não abrem tarefas automaticamente):**
+- indicação "sessão em andamento" em tela de sessão já encerrada;
+- rótulos fixos "REF-001-A" em contextos de outros casos;
+- a existência do backup foi conferida visualmente; **não se alega verificação independente de sua integridade** neste aceite.
+
+**Alcance exato:** aprova o **funcionamento operacional do Bloco 1**, incluindo o percurso demonstrativo, o histórico, a persistência e a compatibilidade observada com o V01. **Não constitui** validação acústica com medições reais, aprovação dos algoritmos experimentais nem conclusão dos Blocos 2 e 3. O V02 **não** está validado acusticamente. O G3 do candidato (JV-T259) segue como tarefa própria, não autorizada.
 
 > **Parcial: o G3 do bloco 1 NÃO está concluído.** Execução do desenvolvedor no Windows em 16/10/2026, mais conferência por código no Linux.
 > **Atualizado em 17/10/2026:** novas evidências **do Codex** no Windows e suíte automatizada (seção abaixo). **Continua parcial: não houve aceite humano inequívoco do G3 completo.**

@@ -2,7 +2,7 @@
 status: em-desenvolvimento
 fase-atual: 07-implementation
 projeto: lab-sq-jarvis
-atualizado-em: 2026-10-15
+atualizado-em: 2026-10-17
 peso: Code
 superficie-critica: sim
 ---
@@ -15,4 +15,4 @@ JV-V02 — Honestidade e segurança: casos N1 a N5 e REF-001-B, recusa sem refer
 
 **Diretriz de Fabrício:** amadurecer um produto sólido, **sem prazo artificial; a liberação do Jarvis 1.0 depende de evidências e validação humana**; investigação preservada (suspensão operacional temporária); escopo mínimo é só referência; blocos 2 e 3 do V02 permanecem no plano original; F-5 em aberto; sem contato externo, sem beta, sem merge na `main`.
 **Feito (Nível B, T250 + T251):** correção pontual do REW e Clarification C-1 integradas à branch de trabalho (`7dfa2b2`) e entrada de arquivos sem exceção solta e com mensagens em português. Suíte: **242 passando + 1 xfail**. Nenhuma mudança em diagnóstico, σ̂, portão ou limiares.
-**Proposto, não aprovado:** emenda E5 (`03-spec/emenda-E5-PROPOSTA.md`). **Não iniciado:** T253–T259 (aguardam avaliação conjunta). G3 do bloco 1 (T223) segue parcial.
+**Proposto, não aprovado:** emenda E5 (`03-spec/emenda-E5-PROPOSTA.md`). **Não iniciado:** T253–T259 (aguardam avaliação conjunta). **G3 do bloco 1 (T223): ACEITO por Fabrício em 2026-10-17** (operacional no Windows; ressalvas de apresentação em `08-qa/g3-bloco1-parcial.md`; não é validação acústica). Blocos 2 e 3 (T224–T242) permanecem no planejamento original, não iniciados.
