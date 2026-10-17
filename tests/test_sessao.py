@@ -805,6 +805,39 @@ def test_s3_eq_ausente_sem_premissa_de_0_db_recusa(servico, banco, tmp_path):
     assert servico.estado()["experimento"] is None and len(banco.configuracoes(servico.sessao_id)) == n_conf
 
 
+def _com_eq_anterior(servico, banco, rec, valor):
+    """Insere uma configuração anterior que já traz EQ 1 kHz com o valor dado."""
+    servico.aprovar(rec["id"], _escopo(rec))
+    banco.nova_configuracao(servico.sessao_id, "base com EQ", "declarada",
+                            [{"canal": "medio_esq", "parametro": "EQ 1 kHz", "valor": valor, "origem": "declarado"}],
+                            anterior=banco.configuracoes(servico.sessao_id)[-1]["id"])
+
+
+def test_s3_parametro_existente_com_valor_divergente_do_de_recusa(servico, banco, tmp_path):
+    _, rec = _candidata(servico, tmp_path, "S3")
+    _com_eq_anterior(servico, banco, rec, "+3 dB")        # configuração diz +3 dB; o manifesto declara de = 0 dB
+    n_conf = len(banco.configuracoes(servico.sessao_id))
+    n_eventos = len(banco.eventos(servico.sessao_id))
+    with pytest.raises(ErroDoPercurso, match=r"tem EQ 1 kHz do canal medio_esq em \+3 dB.*partir de 0 dB"):
+        servico.registrar_aplicacao()
+    assert servico.estado()["experimento"] is None and len(banco.configuracoes(servico.sessao_id)) == n_conf
+    assert servico.estado()["sessao"]["passo_atual"] == 4
+    assert len(banco.eventos(servico.sessao_id)) == n_eventos   # nenhum diário de aplicação
+    assert banco.integridade() == []
+
+
+def test_s3_parametro_existente_com_valor_coincidente_segue_o_percurso(servico, banco, tmp_path):
+    _, rec = _candidata(servico, tmp_path, "S3")
+    _com_eq_anterior(servico, banco, rec, "0  dB")        # espaços normalizados: equivale a "0 dB"
+    anterior = banco.configuracoes(servico.sessao_id)[-1]
+    xid = servico.registrar_aplicacao()
+    depois = banco.configuracoes(servico.sessao_id)[-1]
+    eq = [p for p in depois["parametros"] if p["parametro"] == "EQ 1 kHz"]
+    assert eq == [{"canal": "medio_esq", "parametro": "EQ 1 kHz", "valor": "−2 dB", "origem": "declarado"}]
+    assert depois["anterior"] == anterior["id"] and servico.estado()["experimento"]["id"] == xid
+    assert banco.integridade() == []
+
+
 def test_candidata_le_do_cofre_com_a_pasta_externa_removida(servico, banco, tmp_path):
     import shutil
     pasta = _casos.gerar("REF-003-S3", tmp_path / "S3")

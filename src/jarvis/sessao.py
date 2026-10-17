@@ -676,6 +676,12 @@ class Servico:
         existe = False
         for p in params:
             if p["canal"] == v["canal"] and p["parametro"] == v["parametro"]:
+                # Alteração candidata: o "de" aprovado tem de coincidir com o valor registrado (só espaços
+                # normalizados; sem conversão de unidade). Recusa antes de gravar qualquer coisa.
+                if candidata and " ".join(str(p["valor"]).split()) != " ".join(str(v["de"]).split()):
+                    raise ErroDoPercurso(
+                        f"A configuração anterior tem {p['parametro']} do canal {p['canal']} em {p['valor']}, "
+                        f"mas a alteração declara partir de {v['de']}: não registro a aplicação.")
                 p["valor"], p["origem"] = v["para"], "declarado"
                 existe = True
         if candidata and not existe:
